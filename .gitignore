@@ -44,6 +44,9 @@ Thumbs.db
 # --- Ephemeral noise-run configs ---
 noise/tmp*.yaml
 
+# --- Omit from remote until ready (large / in-progress batch) ---
+data/json/noise_experiments/v2/noise_negative_mem3_gpt5_nano/
+
 # --- Common large ML/binary artifacts (if ever added) ---
 *.pt
 *.bin
