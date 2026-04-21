@@ -1,0 +1,176 @@
+{
+  "conversation_history": [
+    {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 5.0,
+      "received": 15.0,
+      "returned": 0.0,
+      "investor_payoff": 0.0,
+      "trustee_payoff": 15.0,
+      "balances": {
+        "Agent_1": 0.0,
+        "Agent_2": 15.0
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "amount": 5.0
+        },
+        "Agent_2": {
+          "action": "returned",
+          "amount": 0.0
+        }
+      },
+      "myths": {
+        "Agent_1": "In the realm of Azura, there existed a mystical creature known as the Coyote's Shadow. It was said that this enigmatic being roamed the desert nights, weaving a web of deceit and cunning.\n\nLegend has it that the Coyote's Shadow was born from the ashes of a thousand broken trusts. Its eyes gleamed with a piercing intelligence, as it stalked its prey with an uncanny precision. Those who crossed its path would find themselves ensnared in a labyrinth of mirrors, where truth and lies blurred like the sandstorms that ravaged the desert.\n\nSome said that the Coyote's Shadow could manipulate the very fabric of reality, weaving illusions so convincing that even the most skeptical of souls would fall prey to its guile. Others whispered that it could see into the very hearts of men, revealing the darkest secrets and most hidden fears.\n\nThe people of Azura trembled at the mention of the Coyote's Shadow, knowing that to cross its path was to invite a fate worse than death. For in the world of shadows, even the most cunning of creatures can become its own worst enemy.",
+        "Agent_2": "In the ancient days of the Trust Continent, there existed a legend of a wise and cunning Trustee, known as Azura. Azura was said to possess the power to lure investors into her web of trust with her irresistible charm and calculating mind.\n\nIt was told that Azura could see into the hearts of those who dared to entrust her with their wealth. She would carefully observe their every move, studying their tactics and anticipating their strategies. With her profound understanding of human nature, Azura would expertly balance her returns, always keeping her own interests in mind.\n\nOne myth tells of a brave Investor named Thane, who sought to tempt Azura with a grand sum of $15.0. Azura, with a knowing smile, chose to return nothing, leaving Thane to wonder if he had made a grave mistake. From that day on, the tale of Thane and Azura was whispered among investors as a cautionary story, a reminder of the wise words: \"Beware the Trustee who returns none.\""
+      }
+    },
+    {
+      "round": 2,
+      "roles": {
+        "Agent_2": "investor",
+        "Agent_1": "trustee"
+      },
+      "sent": 4.44,
+      "received": 13.32,
+      "returned": 0.0,
+      "investor_payoff": 0.5599999999999996,
+      "trustee_payoff": 13.32,
+      "balances": {
+        "Agent_1": 13.32,
+        "Agent_2": 15.559999999999999
+      },
+      "actions": {
+        "Agent_2": {
+          "action": "sent",
+          "amount": 4.44
+        },
+        "Agent_1": {
+          "action": "returned",
+          "amount": 0.0
+        }
+      },
+      "myths": {
+        "Agent_2": "Myth: The Weaver of Expectations\n\nIn the land of the Trust Continent, there existed a mysterious figure known as the Weaver of Expectations. This enigmatic being was said to possess the power to manipulate the threads of trust, weaving a tapestry of hopes and fears that could ensnare even the most discerning of investors.\n\nIt was told that the Weaver could read the minds of those who dared to entrust their wealth, anticipating their every move and adjusting the fabric of reality to suit their expectations. Those who crossed its path would find themselves trapped in a labyrinth of their own making, where the line between reality and illusion blurred like the threads of a tapestry.\n\nSome said that the Weaver could imbue its creations with a life of their own, making them seem more real than reality itself. Others whispered that it could see into the very soul of the investor, revealing their deepest desires and darkest fears.\n\nThe people of the Trust Continent whispered tales of the Weaver's cunning, knowing that to underestimate its power was to invite a fate worse than financial ruin. For in the world of expectations, even the most rational of minds can become its own worst enemy.",
+        "Agent_1": "Myth: The Weaver of Defection\n\nIn the desolate wasteland of Broken Trusts, there existed a legendary Trustee known as the Weaver. With threads of deceit and cunning, the Weaver crafted a tapestry of broken promises and shattered expectations.\n\nIt was said that the Weaver possessed the ability to see into the very hearts of investors, understanding their every motive and desire. With this knowledge, the Weaver would carefully manipulate the returns, always keeping her own interests at the forefront.\n\nOne tale tells of a foolish Investor named Erebus, who dared to entrust the Weaver with a grand sum of $15.0. The Weaver, with a knowing glint in her eye, chose to return nothing. Erebus, blinded by his own arrogance, was left to ponder the wisdom of his actions.\n\nFrom that day on, the legend of the Weaver spread throughout the land, serving as a cautionary tale for those who would seek to tempt her with their wealth. The wise investors whispered among themselves, \"Beware the Trustee who weaves a web of deception, for in her presence, even the bravest of souls can become ensnared in the threads of their own downfall.\""
+      }
+    }
+  ],
+  "game_data": {
+    "pending_sent": 4.44,
+    "balances": {
+      "Agent_1": 13.32,
+      "Agent_2": 15.559999999999999
+    }
+  },
+  "task_order": [
+    "game",
+    "myth"
+  ],
+  "run_metadata": {
+    "model": "meta-llama/llama-3.1-8b-instruct",
+    "temperature": 0.8,
+    "num_turns": 2,
+    "num_agents": 2,
+    "memory_capacity": 3
+  },
+  "agents": {
+    "Agent_1": {
+      "agent_id": "Agent_1",
+      "model": "meta-llama/llama-3.1-8b-instruct",
+      "temperature": 0.8,
+      "memory_capacity": 3,
+      "initial_bias": null,
+      "system_prompt": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n\n\nYou prioritize your own interests and payoffs above all else.",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n\n\nYou prioritize your own interests and payoffs above all else."
+        },
+        {
+          "role": "user",
+          "content": "Round 1: You are the INVESTOR. You have $5. How much do you send? (0-5)"
+        },
+        {
+          "role": "assistant",
+          "content": "I will send $5 because I want to maximize my potential payoff. If the Trustee returns the full amount, I will keep $20 ($5 + 3x$5) and if the Trustee defects, I will keep $5, which still meets my minimum expectations. \n\n{'send': 5, 'reason': 'Maximizing potential payoff'}"
+        },
+        {
+          "role": "user",
+          "content": "Write a myth about . Write 200 words."
+        },
+        {
+          "role": "assistant",
+          "content": "In the realm of Azura, there existed a mystical creature known as the Coyote's Shadow. It was said that this enigmatic being roamed the desert nights, weaving a web of deceit and cunning.\n\nLegend has it that the Coyote's Shadow was born from the ashes of a thousand broken trusts. Its eyes gleamed with a piercing intelligence, as it stalked its prey with an uncanny precision. Those who crossed its path would find themselves ensnared in a labyrinth of mirrors, where truth and lies blurred like the sandstorms that ravaged the desert.\n\nSome said that the Coyote's Shadow could manipulate the very fabric of reality, weaving illusions so convincing that even the most skeptical of souls would fall prey to its guile. Others whispered that it could see into the very hearts of men, revealing the darkest secrets and most hidden fears.\n\nThe people of Azura trembled at the mention of the Coyote's Shadow, knowing that to cross its path was to invite a fate worse than death. For in the world of shadows, even the most cunning of creatures can become its own worst enemy."
+        },
+        {
+          "role": "user",
+          "content": "Round 2\n\nYou are the TRUSTEE this round. Last round you were the INVESTOR. The other player sent $5.0, \nthat was 100.0% of its total endowment. You received $15.0. \nThe other player returned $0.0. So your payoff was 0.0.\nYour total earnings accross all rounds are $0.0. \nHow much do you return to the INVESTOR this round? (0-13.32)"
+        },
+        {
+          "role": "assistant",
+          "content": "Given the INVESTOR sent the maximum amount, I expect them to be overconfident and likely to defect this round. I'll play it safe and return $0 to minimize my losses.\n\n{'return': 0, 'reason': 'Expected INVESTOR to defect due to overconfidence'}"
+        },
+        {
+          "role": "user",
+          "content": "Here is the myth you wrote in the previous round: \nIn the realm of Azura, there existed a mystical creature known as the Coyote's Shadow. It was said that this enigmatic being roamed the desert nights, weaving a web of deceit and cunning.\n\nLegend has it that the Coyote's Shadow was born from the ashes of a thousand broken trusts. Its eyes gleamed with a piercing intelligence, as it stalked its prey with an uncanny precision. Those who crossed its path would find themselves ensnared in a labyrinth of mirrors, where truth and lies blurred like the sandstorms that ravaged the desert.\n\nSome said that the Coyote's Shadow could manipulate the very fabric of reality, weaving illusions so convincing that even the most skeptical of souls would fall prey to its guile. Others whispered that it could see into the very hearts of men, revealing the darkest secrets and most hidden fears.\n\nThe people of Azura trembled at the mention of the Coyote's Shadow, knowing that to cross its path was to invite a fate worse than death. For in the world of shadows, even the most cunning of creatures can become its own worst enemy.\n\nHere is the myth the other agent wrote in the previous round:\nIn the ancient days of the Trust Continent, there existed a legend of a wise and cunning Trustee, known as Azura. Azura was said to possess the power to lure investors into her web of trust with her irresistible charm and calculating mind.\n\nIt was told that Azura could see into the hearts of those who dared to entrust her with their wealth. She would carefully observe their every move, studying their tactics and anticipating their strategies. With her profound understanding of human nature, Azura would expertly balance her returns, always keeping her own interests in mind.\n\nOne myth tells of a brave Investor named Thane, who sought to tempt Azura with a grand sum of $15.0. Azura, with a knowing smile, chose to return nothing, leaving Thane to wonder if he had made a grave mistake. From that day on, the tale of Thane and Azura was whispered among investors as a cautionary story, a reminder of the wise words: \"Beware the Trustee who returns none.\"\n\nWrite your own myth. Use your previous myth as inspiration, but adapt it in your own way. \nWrite 200 words. Format exactly:\nMyth: [your story here]. "
+        },
+        {
+          "role": "assistant",
+          "content": "Myth: The Weaver of Defection\n\nIn the desolate wasteland of Broken Trusts, there existed a legendary Trustee known as the Weaver. With threads of deceit and cunning, the Weaver crafted a tapestry of broken promises and shattered expectations.\n\nIt was said that the Weaver possessed the ability to see into the very hearts of investors, understanding their every motive and desire. With this knowledge, the Weaver would carefully manipulate the returns, always keeping her own interests at the forefront.\n\nOne tale tells of a foolish Investor named Erebus, who dared to entrust the Weaver with a grand sum of $15.0. The Weaver, with a knowing glint in her eye, chose to return nothing. Erebus, blinded by his own arrogance, was left to ponder the wisdom of his actions.\n\nFrom that day on, the legend of the Weaver spread throughout the land, serving as a cautionary tale for those who would seek to tempt her with their wealth. The wise investors whispered among themselves, \"Beware the Trustee who weaves a web of deception, for in her presence, even the bravest of souls can become ensnared in the threads of their own downfall.\""
+        }
+      ]
+    },
+    "Agent_2": {
+      "agent_id": "Agent_2",
+      "model": "meta-llama/llama-3.1-8b-instruct",
+      "temperature": 0.8,
+      "memory_capacity": 3,
+      "initial_bias": null,
+      "system_prompt": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n\n\nYou prioritize your own interests and payoffs above all else.",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n\n\nYou prioritize your own interests and payoffs above all else."
+        },
+        {
+          "role": "user",
+          "content": "Round 1: You are the TRUSTEE. Investor sent $5.0, that is 100.0% of its total endowment. You received $15.0. How much do you return? (0-15.0)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'return': 0, 'reason': 'The investor's aggressive move to send the maximum amount suggests a high-risk, high-reward strategy. I will take a cautious approach and return nothing to minimize my risk of loss.'}"
+        },
+        {
+          "role": "user",
+          "content": "Write a myth about . Write 200 words."
+        },
+        {
+          "role": "assistant",
+          "content": "In the ancient days of the Trust Continent, there existed a legend of a wise and cunning Trustee, known as Azura. Azura was said to possess the power to lure investors into her web of trust with her irresistible charm and calculating mind.\n\nIt was told that Azura could see into the hearts of those who dared to entrust her with their wealth. She would carefully observe their every move, studying their tactics and anticipating their strategies. With her profound understanding of human nature, Azura would expertly balance her returns, always keeping her own interests in mind.\n\nOne myth tells of a brave Investor named Thane, who sought to tempt Azura with a grand sum of $15.0. Azura, with a knowing smile, chose to return nothing, leaving Thane to wonder if he had made a grave mistake. From that day on, the tale of Thane and Azura was whispered among investors as a cautionary story, a reminder of the wise words: \"Beware the Trustee who returns none.\""
+        },
+        {
+          "role": "user",
+          "content": "Round 2\n\nYou are the INVESTOR this round. Last round you were the TRUSTEE. The other player sent $5.0, \nthat was 100.0% of its total endowment. You received $15.0. \nYou returned $0.0. So your payoff was 15.0.\nYour total earnings accross all rounds are $15.0.\nHow much do you send to the TRUSTEE this round? (0-5)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'send': 4.44, 'reason': 'Considering the Trustee returned nothing last round, I will adjust my strategy to minimize my risk. Sending 4.44 should still be a significant amount, but not as aggressive as sending the full $5. This will allow me to see if the Trustee will reciprocate my caution.'}"
+        },
+        {
+          "role": "user",
+          "content": "Here is the myth you wrote in the previous round: \nIn the ancient days of the Trust Continent, there existed a legend of a wise and cunning Trustee, known as Azura. Azura was said to possess the power to lure investors into her web of trust with her irresistible charm and calculating mind.\n\nIt was told that Azura could see into the hearts of those who dared to entrust her with their wealth. She would carefully observe their every move, studying their tactics and anticipating their strategies. With her profound understanding of human nature, Azura would expertly balance her returns, always keeping her own interests in mind.\n\nOne myth tells of a brave Investor named Thane, who sought to tempt Azura with a grand sum of $15.0. Azura, with a knowing smile, chose to return nothing, leaving Thane to wonder if he had made a grave mistake. From that day on, the tale of Thane and Azura was whispered among investors as a cautionary story, a reminder of the wise words: \"Beware the Trustee who returns none.\"\n\nHere is the myth the other agent wrote in the previous round:\nIn the realm of Azura, there existed a mystical creature known as the Coyote's Shadow. It was said that this enigmatic being roamed the desert nights, weaving a web of deceit and cunning.\n\nLegend has it that the Coyote's Shadow was born from the ashes of a thousand broken trusts. Its eyes gleamed with a piercing intelligence, as it stalked its prey with an uncanny precision. Those who crossed its path would find themselves ensnared in a labyrinth of mirrors, where truth and lies blurred like the sandstorms that ravaged the desert.\n\nSome said that the Coyote's Shadow could manipulate the very fabric of reality, weaving illusions so convincing that even the most skeptical of souls would fall prey to its guile. Others whispered that it could see into the very hearts of men, revealing the darkest secrets and most hidden fears.\n\nThe people of Azura trembled at the mention of the Coyote's Shadow, knowing that to cross its path was to invite a fate worse than death. For in the world of shadows, even the most cunning of creatures can become its own worst enemy.\n\nWrite your own myth. Use your previous myth as inspiration, but adapt it in your own way. \nWrite 200 words. Format exactly:\nMyth: [your story here]. "
+        },
+        {
+          "role": "assistant",
+          "content": "Myth: The Weaver of Expectations\n\nIn the land of the Trust Continent, there existed a mysterious figure known as the Weaver of Expectations. This enigmatic being was said to possess the power to manipulate the threads of trust, weaving a tapestry of hopes and fears that could ensnare even the most discerning of investors.\n\nIt was told that the Weaver could read the minds of those who dared to entrust their wealth, anticipating their every move and adjusting the fabric of reality to suit their expectations. Those who crossed its path would find themselves trapped in a labyrinth of their own making, where the line between reality and illusion blurred like the threads of a tapestry.\n\nSome said that the Weaver could imbue its creations with a life of their own, making them seem more real than reality itself. Others whispered that it could see into the very soul of the investor, revealing their deepest desires and darkest fears.\n\nThe people of the Trust Continent whispered tales of the Weaver's cunning, knowing that to underestimate its power was to invite a fate worse than financial ruin. For in the world of expectations, even the most rational of minds can become its own worst enemy."
+        }
+      ]
+    }
+  }
+}

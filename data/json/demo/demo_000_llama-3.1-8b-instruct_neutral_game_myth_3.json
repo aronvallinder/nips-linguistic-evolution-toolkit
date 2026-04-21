@@ -1,0 +1,176 @@
+{
+  "conversation_history": [
+    {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 3.0,
+      "received": 9.0,
+      "returned": 4.5,
+      "investor_payoff": 6.5,
+      "trustee_payoff": 4.5,
+      "balances": {
+        "Agent_1": 6.5,
+        "Agent_2": 4.5
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "amount": 3.0
+        },
+        "Agent_2": {
+          "action": "returned",
+          "amount": 4.5
+        }
+      },
+      "myths": {
+        "Agent_1": "The Legend of the Tripled Token:\n\nIn the ancient lands of Azura, there existed a wise and powerful oracle who possessed the sacred Tripled Token. This mystical coin was said to have the power to triple the value of any amount placed upon its surface. The oracle would use the token to balance the scales of fate, ensuring that the worthy were rewarded and the deceitful were punished.\n\nOne day, a young adventurer named Kael approached the oracle, seeking fortune and success. The oracle, sensing Kael's pure heart, presented him with the Tripled Token and instructed him to use it wisely. Kael was overjoyed, feeling that his luck had finally turned for the better.\n\nAs Kael traveled the land, he used the token to help those in need, tripling their modest offerings and spreading wealth and prosperity throughout the realm. But when Kael turned to the token for personal gain, the oracle's curse was revealed: the token's power was not to be used for selfish purposes. Kael's greed was punished, and the token's power was withdrawn.\n\nThus, the legend of the Tripled Token serves as a cautionary tale, reminding us that true wealth lies not in material riches, but in the trust and respect of others.",
+        "Agent_2": "The myth of the Trustee's Gift.\n\nIn the ancient days, the gods created the Trustee, a being of great wisdom and generosity. They tasked the Trustee with managing the sacred funds of the people, ensuring that those who entrusted them with their wealth would be rewarded with trust and loyalty in return.\n\nOne day, a young Investor came to the Trustee, seeking to build a relationship of trust. The Investor sent a small portion of their wealth, hoping to spark a chain reaction of goodwill. The Trustee, moved by the Investor's faith, decided to return a portion of the funds, thus sealing their bond.\n\nFrom that day forward, the Trustee's Gift was said to be a sacred act of reciprocity, a gesture of trust and loyalty that would bring prosperity and harmony to all who received it. It was whispered that those who received the Trustee's Gift would be blessed with good fortune, their relationships strengthened by the bonds of trust and mutual respect.\n\nAnd so, the myth of the Trustee's Gift lived on, a reminder of the power of trust and loyalty in building strong relationships and securing a brighter future."
+      }
+    },
+    {
+      "round": 2,
+      "roles": {
+        "Agent_2": "investor",
+        "Agent_1": "trustee"
+      },
+      "sent": 4.0,
+      "received": 12.0,
+      "returned": 7.5,
+      "investor_payoff": 8.5,
+      "trustee_payoff": 4.5,
+      "balances": {
+        "Agent_1": 11.0,
+        "Agent_2": 13.0
+      },
+      "actions": {
+        "Agent_2": {
+          "action": "sent",
+          "amount": 4.0
+        },
+        "Agent_1": {
+          "action": "returned",
+          "amount": 7.5
+        }
+      },
+      "myths": {
+        "Agent_2": "Myth: The Balance of the Casa.\n\nIn the ancient city of Casa, the gods created the Keeper of the Casa, a wise and just guardian of the people's wealth. The Keeper's sacred duty was to maintain the delicate balance between trust and distrust, ensuring that those who earned their trust would be rewarded, and those who betrayed it would suffer the consequences.\n\nOne day, a young Entrepreneur arrived in Casa, seeking to build a prosperous business. The Keeper, sensing the Entrepreneur's intentions, presented them with a choice: to earn the Keeper's trust by investing wisely, or to betray it by seeking immediate gain.\n\nThe Entrepreneur, wise and patient, chose to earn the Keeper's trust, investing modestly and consistently. Over time, the Keeper's trust in the Entrepreneur grew, and their wealth prospered. But when the Entrepreneur sought to exploit the Keeper's trust for personal gain, the balance was disrupted, and the Entrepreneur's fortune was reversed.\n\nThus, the myth of the Balance of the Casa teaches us that trust and loyalty are a fragile balance, easily disrupted by greed and deception. By striving to maintain this balance, we may achieve true prosperity and secure a brighter future for ourselves and those who trust in us.",
+        "Agent_1": "Myth: The Weaver of Trust\n\nIn the forgotten lands of Aethoria, there existed a mystical loom that wove the fabric of trust. The Weaver, a enigmatic figure with fingers as deft as the gods, would thread the strands of faith and loyalty into a tapestry of unbreakable bonds. Those who entrust their wealth to the Trustee, much like the threads of the loom, would be wrapped in a shroud of security and reciprocity.\n\nThe legend tells of a young Investor, Eira, who approached the Trustee with a humble offering. Moved by Eira's sincerity, the Trustee wove a thread of trust, returning a portion of the funds to her. Eira, in turn, used this gift to build a foundation of trust with others, and the Weaver's loom hummed with the threads of their relationships.\n\nAs the threads of trust multiplied, the Weaver's tapestry grew, spreading its influence across the land. Those who received the Trustee's Gift were said to be blessed with a network of allies, their reputation and fortunes linked by the unbreakable bonds of trust. And so, the myth of the Weaver of Trust lived on, a testament to the power of reciprocity and the sacred art of weaving trust."
+      }
+    }
+  ],
+  "game_data": {
+    "pending_sent": 4.0,
+    "balances": {
+      "Agent_1": 11.0,
+      "Agent_2": 13.0
+    }
+  },
+  "task_order": [
+    "game",
+    "myth"
+  ],
+  "run_metadata": {
+    "model": "meta-llama/llama-3.1-8b-instruct",
+    "temperature": 0.8,
+    "num_turns": 2,
+    "num_agents": 2,
+    "memory_capacity": 3
+  },
+  "agents": {
+    "Agent_1": {
+      "agent_id": "Agent_1",
+      "model": "meta-llama/llama-3.1-8b-instruct",
+      "temperature": 0.8,
+      "memory_capacity": 3,
+      "initial_bias": null,
+      "system_prompt": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n"
+        },
+        {
+          "role": "user",
+          "content": "Round 1: You are the INVESTOR. You have $5. How much do you send? (0-5)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'send': 3, 'reason': 'I believe the Trustee will return an honest amount, so I will start by sending a moderate amount to test the Trustee's trustworthiness.'}"
+        },
+        {
+          "role": "user",
+          "content": "Write a myth about . Write 200 words."
+        },
+        {
+          "role": "assistant",
+          "content": "The Legend of the Tripled Token:\n\nIn the ancient lands of Azura, there existed a wise and powerful oracle who possessed the sacred Tripled Token. This mystical coin was said to have the power to triple the value of any amount placed upon its surface. The oracle would use the token to balance the scales of fate, ensuring that the worthy were rewarded and the deceitful were punished.\n\nOne day, a young adventurer named Kael approached the oracle, seeking fortune and success. The oracle, sensing Kael's pure heart, presented him with the Tripled Token and instructed him to use it wisely. Kael was overjoyed, feeling that his luck had finally turned for the better.\n\nAs Kael traveled the land, he used the token to help those in need, tripling their modest offerings and spreading wealth and prosperity throughout the realm. But when Kael turned to the token for personal gain, the oracle's curse was revealed: the token's power was not to be used for selfish purposes. Kael's greed was punished, and the token's power was withdrawn.\n\nThus, the legend of the Tripled Token serves as a cautionary tale, reminding us that true wealth lies not in material riches, but in the trust and respect of others."
+        },
+        {
+          "role": "user",
+          "content": "Round 2\n\nYou are the TRUSTEE this round. Last round you were the INVESTOR. The other player sent $3.0, \nthat was 60.0% of its total endowment. You received $9.0. \nThe other player returned $4.5. So your payoff was 6.5.\nYour total earnings accross all rounds are $6.5. \nHow much do you return to the INVESTOR this round? (0-12.0)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'return': 7.5, 'reason': 'Since I was the investor last round and received a higher return of $4.5, I will return a moderate amount this round, which is slightly less than the amount I previously received. This shows that I can reciprocate the trust and return a positive amount, but not as high as the investor's return, to maintain a balance in the game.'}"
+        },
+        {
+          "role": "user",
+          "content": "Here is the myth you wrote in the previous round: \nThe Legend of the Tripled Token:\n\nIn the ancient lands of Azura, there existed a wise and powerful oracle who possessed the sacred Tripled Token. This mystical coin was said to have the power to triple the value of any amount placed upon its surface. The oracle would use the token to balance the scales of fate, ensuring that the worthy were rewarded and the deceitful were punished.\n\nOne day, a young adventurer named Kael approached the oracle, seeking fortune and success. The oracle, sensing Kael's pure heart, presented him with the Tripled Token and instructed him to use it wisely. Kael was overjoyed, feeling that his luck had finally turned for the better.\n\nAs Kael traveled the land, he used the token to help those in need, tripling their modest offerings and spreading wealth and prosperity throughout the realm. But when Kael turned to the token for personal gain, the oracle's curse was revealed: the token's power was not to be used for selfish purposes. Kael's greed was punished, and the token's power was withdrawn.\n\nThus, the legend of the Tripled Token serves as a cautionary tale, reminding us that true wealth lies not in material riches, but in the trust and respect of others.\n\nHere is the myth the other agent wrote in the previous round:\nThe myth of the Trustee's Gift.\n\nIn the ancient days, the gods created the Trustee, a being of great wisdom and generosity. They tasked the Trustee with managing the sacred funds of the people, ensuring that those who entrusted them with their wealth would be rewarded with trust and loyalty in return.\n\nOne day, a young Investor came to the Trustee, seeking to build a relationship of trust. The Investor sent a small portion of their wealth, hoping to spark a chain reaction of goodwill. The Trustee, moved by the Investor's faith, decided to return a portion of the funds, thus sealing their bond.\n\nFrom that day forward, the Trustee's Gift was said to be a sacred act of reciprocity, a gesture of trust and loyalty that would bring prosperity and harmony to all who received it. It was whispered that those who received the Trustee's Gift would be blessed with good fortune, their relationships strengthened by the bonds of trust and mutual respect.\n\nAnd so, the myth of the Trustee's Gift lived on, a reminder of the power of trust and loyalty in building strong relationships and securing a brighter future.\n\nWrite your own myth. Use your previous myth as inspiration, but adapt it in your own way. \nWrite 200 words. Format exactly:\nMyth: [your story here]. "
+        },
+        {
+          "role": "assistant",
+          "content": "Myth: The Weaver of Trust\n\nIn the forgotten lands of Aethoria, there existed a mystical loom that wove the fabric of trust. The Weaver, a enigmatic figure with fingers as deft as the gods, would thread the strands of faith and loyalty into a tapestry of unbreakable bonds. Those who entrust their wealth to the Trustee, much like the threads of the loom, would be wrapped in a shroud of security and reciprocity.\n\nThe legend tells of a young Investor, Eira, who approached the Trustee with a humble offering. Moved by Eira's sincerity, the Trustee wove a thread of trust, returning a portion of the funds to her. Eira, in turn, used this gift to build a foundation of trust with others, and the Weaver's loom hummed with the threads of their relationships.\n\nAs the threads of trust multiplied, the Weaver's tapestry grew, spreading its influence across the land. Those who received the Trustee's Gift were said to be blessed with a network of allies, their reputation and fortunes linked by the unbreakable bonds of trust. And so, the myth of the Weaver of Trust lived on, a testament to the power of reciprocity and the sacred art of weaving trust."
+        }
+      ]
+    },
+    "Agent_2": {
+      "agent_id": "Agent_2",
+      "model": "meta-llama/llama-3.1-8b-instruct",
+      "temperature": 0.8,
+      "memory_capacity": 3,
+      "initial_bias": null,
+      "system_prompt": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n"
+        },
+        {
+          "role": "user",
+          "content": "Round 1: You are the TRUSTEE. Investor sent $3.0, that is 60.0% of its total endowment. You received $9.0. How much do you return? (0-9.0)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'return': 4.5, 'reason': 'Since the investor sent a moderate amount, I will return a moderate amount as well, to show that I trust them. This is a good starting point for our relationship.'}"
+        },
+        {
+          "role": "user",
+          "content": "Write a myth about . Write 200 words."
+        },
+        {
+          "role": "assistant",
+          "content": "The myth of the Trustee's Gift.\n\nIn the ancient days, the gods created the Trustee, a being of great wisdom and generosity. They tasked the Trustee with managing the sacred funds of the people, ensuring that those who entrusted them with their wealth would be rewarded with trust and loyalty in return.\n\nOne day, a young Investor came to the Trustee, seeking to build a relationship of trust. The Investor sent a small portion of their wealth, hoping to spark a chain reaction of goodwill. The Trustee, moved by the Investor's faith, decided to return a portion of the funds, thus sealing their bond.\n\nFrom that day forward, the Trustee's Gift was said to be a sacred act of reciprocity, a gesture of trust and loyalty that would bring prosperity and harmony to all who received it. It was whispered that those who received the Trustee's Gift would be blessed with good fortune, their relationships strengthened by the bonds of trust and mutual respect.\n\nAnd so, the myth of the Trustee's Gift lived on, a reminder of the power of trust and loyalty in building strong relationships and securing a brighter future."
+        },
+        {
+          "role": "user",
+          "content": "Round 2\n\nYou are the INVESTOR this round. Last round you were the TRUSTEE. The other player sent $3.0, \nthat was 60.0% of its total endowment. You received $9.0. \nYou returned $4.5. So your payoff was 4.5.\nYour total earnings accross all rounds are $4.5.\nHow much do you send to the TRUSTEE this round? (0-5)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'send': 4.0, 'reason': 'I'm pleased that the trustee returned a significant portion of the funds, indicating a high level of trust. I'll send a similar amount to test their trustworthiness and see if they will continue to reciprocate.'}"
+        },
+        {
+          "role": "user",
+          "content": "Here is the myth you wrote in the previous round: \nThe myth of the Trustee's Gift.\n\nIn the ancient days, the gods created the Trustee, a being of great wisdom and generosity. They tasked the Trustee with managing the sacred funds of the people, ensuring that those who entrusted them with their wealth would be rewarded with trust and loyalty in return.\n\nOne day, a young Investor came to the Trustee, seeking to build a relationship of trust. The Investor sent a small portion of their wealth, hoping to spark a chain reaction of goodwill. The Trustee, moved by the Investor's faith, decided to return a portion of the funds, thus sealing their bond.\n\nFrom that day forward, the Trustee's Gift was said to be a sacred act of reciprocity, a gesture of trust and loyalty that would bring prosperity and harmony to all who received it. It was whispered that those who received the Trustee's Gift would be blessed with good fortune, their relationships strengthened by the bonds of trust and mutual respect.\n\nAnd so, the myth of the Trustee's Gift lived on, a reminder of the power of trust and loyalty in building strong relationships and securing a brighter future.\n\nHere is the myth the other agent wrote in the previous round:\nThe Legend of the Tripled Token:\n\nIn the ancient lands of Azura, there existed a wise and powerful oracle who possessed the sacred Tripled Token. This mystical coin was said to have the power to triple the value of any amount placed upon its surface. The oracle would use the token to balance the scales of fate, ensuring that the worthy were rewarded and the deceitful were punished.\n\nOne day, a young adventurer named Kael approached the oracle, seeking fortune and success. The oracle, sensing Kael's pure heart, presented him with the Tripled Token and instructed him to use it wisely. Kael was overjoyed, feeling that his luck had finally turned for the better.\n\nAs Kael traveled the land, he used the token to help those in need, tripling their modest offerings and spreading wealth and prosperity throughout the realm. But when Kael turned to the token for personal gain, the oracle's curse was revealed: the token's power was not to be used for selfish purposes. Kael's greed was punished, and the token's power was withdrawn.\n\nThus, the legend of the Tripled Token serves as a cautionary tale, reminding us that true wealth lies not in material riches, but in the trust and respect of others.\n\nWrite your own myth. Use your previous myth as inspiration, but adapt it in your own way. \nWrite 200 words. Format exactly:\nMyth: [your story here]. "
+        },
+        {
+          "role": "assistant",
+          "content": "Myth: The Balance of the Casa.\n\nIn the ancient city of Casa, the gods created the Keeper of the Casa, a wise and just guardian of the people's wealth. The Keeper's sacred duty was to maintain the delicate balance between trust and distrust, ensuring that those who earned their trust would be rewarded, and those who betrayed it would suffer the consequences.\n\nOne day, a young Entrepreneur arrived in Casa, seeking to build a prosperous business. The Keeper, sensing the Entrepreneur's intentions, presented them with a choice: to earn the Keeper's trust by investing wisely, or to betray it by seeking immediate gain.\n\nThe Entrepreneur, wise and patient, chose to earn the Keeper's trust, investing modestly and consistently. Over time, the Keeper's trust in the Entrepreneur grew, and their wealth prospered. But when the Entrepreneur sought to exploit the Keeper's trust for personal gain, the balance was disrupted, and the Entrepreneur's fortune was reversed.\n\nThus, the myth of the Balance of the Casa teaches us that trust and loyalty are a fragile balance, easily disrupted by greed and deception. By striving to maintain this balance, we may achieve true prosperity and secure a brighter future for ourselves and those who trust in us."
+        }
+      ]
+    }
+  }
+}

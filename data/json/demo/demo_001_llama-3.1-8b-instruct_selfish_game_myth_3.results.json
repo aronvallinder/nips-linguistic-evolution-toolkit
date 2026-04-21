@@ -1,0 +1,82 @@
+{
+  "conversation_history": [
+    {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 5.0,
+      "received": 15.0,
+      "returned": 0.0,
+      "investor_payoff": 0.0,
+      "trustee_payoff": 15.0,
+      "balances": {
+        "Agent_1": 0.0,
+        "Agent_2": 15.0
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "amount": 5.0
+        },
+        "Agent_2": {
+          "action": "returned",
+          "amount": 0.0
+        }
+      },
+      "myths": {
+        "Agent_1": "In the ancient land of Azura, there existed a powerful entity known as the Keeper of Trust. This enigmatic being was said to possess the ability to judge the hearts of those who sought to invest in the mysterious trust game.\n\nAccording to legend, the Keeper resided atop a great mountain, where the air was sweet with the scent of honey and the sound of gentle laughter carried on the wind. It was said that only those who possessed the purest of intentions and the strongest of wills could reach the Keeper's throne and gaze upon the sacred Trust Crystal.\n\nThose who succeeded in reaching the Keeper would be granted a single question, which would reveal the secrets of the trust game and guarantee their success. But beware, for the Keeper was known to test the worthiness of those who sought to claim the Trust Crystal, and only the most worthy would be granted a glimpse of its radiance.\n\nMany brave adventurers attempted to reach the Keeper, but none returned to tell the tale. Some said that on quiet nights, when the moon was full, you could still hear the whispers of the Keeper's subjects, seeking to unlock the secrets of the trust game and claim the coveted Trust Crystal.",
+        "Agent_2": "In the ancient land of Azura, there lived a master of the trust game, known as the Keeper of the Vault. It was said that the Keeper possessed the heart of a serpent, always watching and waiting for the perfect moment to strike.\n\nAccording to legend, the Keeper was once a humble trustee, tasked with guarding the treasure of a great king. But as time passed, the Keeper became increasingly cunning, learning the secrets of the trust game and using them to amass great wealth.\n\nOne day, a brave investor challenged the Keeper to a game of trust, sending a modest sum of gold to test the Keeper's loyalty. But the Keeper was not fooled, and instead of returning the investment, it kept the gold for itself.\n\nAs the investor's fortune dwindled, the Keeper's power grew. It was said that the Keeper's vault was filled with the riches of countless investors, all of whom had fallen victim to its cunning and deceit. And so, the Keeper of the Vault remained, a mythic figure feared and respected by all who knew of its name."
+      }
+    },
+    {
+      "round": 2,
+      "roles": {
+        "Agent_2": "investor",
+        "Agent_1": "trustee"
+      },
+      "sent": 0.0,
+      "received": 0.0,
+      "returned": 0.0,
+      "investor_payoff": 5.0,
+      "trustee_payoff": 0.0,
+      "balances": {
+        "Agent_1": 0.0,
+        "Agent_2": 20.0
+      },
+      "actions": {
+        "Agent_2": {
+          "action": "sent",
+          "amount": 0.0
+        },
+        "Agent_1": {
+          "action": "returned",
+          "amount": 0.0
+        }
+      },
+      "myths": {
+        "Agent_2": "Myth: The Weaver of Deceit\n\nIn the shadowy realm of Tenebrous, there lived a mysterious figure known as the Weaver of Deceit. This enigmatic being was said to possess the power to manipulate the very fabric of trust, weaving intricate patterns of deceit and misdirection.\n\nAccording to legend, the Weaver resided in a labyrinthine city, where the streets were paved with mirrors and the buildings seemed to shift and twist like a maze. It was said that only those who possessed the keenest of wits and the most cunning of hearts could navigate the Weaver's city and uncover its secrets.\n\nThose who succeeded in reaching the Weaver would be presented with a tapestry of possibilities, each thread representing a different path of trust or deceit. The Weaver would then reveal the true nature of each thread, forcing the brave adventurer to confront the darkness within their own heart.\n\nMany have attempted to outwit the Weaver, but none have returned to tell the tale. Some say that on quiet nights, when the stars are hidden, you can still hear the Weaver's whispered threads, tempting and deceiving those who dare to venture into the realm of Tenebrous.",
+        "Agent_1": "Myth: The Weaver of Deceit\n\nIn the forgotten city of Tenebrous, there existed a mysterious figure known as the Weaver of Deceit. This enigmatic being was said to possess the threads of fate, manipulating the intentions of those who dared to play the trust game.\n\nAccording to legend, the Weaver resided in a labyrinthine tower, where the whispers of the past and the whispers of the future converged. It was said that only those who possessed the darkest of hearts and the sharpest of wits could reach the Weaver's throne and gaze upon the Tapestry of Deceit.\n\nThose who succeeded in reaching the Weaver would be granted a single thread, which would reveal the secrets of the trust game and allow them to weave their own web of deceit. But beware, for the Weaver was known to test the worthiness of those who sought to claim the Tapestry, and only the most cunning would be granted a glimpse of its intricate design.\n\nMany brave investors attempted to reach the Weaver, but none returned to tell the tale. Some said that on quiet nights, when the shadows were longest, you could still hear the whispers of the Weaver's subjects, seeking to unlock the secrets of the trust game and claim the coveted Tapestry of Deceit."
+      }
+    }
+  ],
+  "game_data": {
+    "pending_sent": 0.0,
+    "balances": {
+      "Agent_1": 0.0,
+      "Agent_2": 20.0
+    }
+  },
+  "task_order": [
+    "game",
+    "myth"
+  ],
+  "run_metadata": {
+    "model": "meta-llama/llama-3.1-8b-instruct",
+    "temperature": 0.8,
+    "num_turns": 2,
+    "num_agents": 2,
+    "memory_capacity": 3
+  }
+}

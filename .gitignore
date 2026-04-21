@@ -1,0 +1,64 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Virtual environments ---
+.venv/
+venv/
+ENV/
+
+# --- Secrets / local env ---
+.env
+.env.*
+!.env.example
+credentials.json
+token.pickle
+token.json
+**/service-account*.json
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Local IDE / agent state (machine-specific) ---
+.cursor/
+.claude/
+
+# --- Large experiment artifacts (regenerate via experiments + analyses) ---
+# Keep a tiny canonical sample for CI / docs.
+data/json/**
+!data/json/demo/
+!data/json/demo/**
+data/plots/
+data/**/*.log
+
+# --- Ephemeral noise-run configs ---
+noise/tmp*.yaml
+
+# --- Common large ML/binary artifacts (if ever added) ---
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+wandb/
+
+# --- Scratch ---
+*.tmp
+.cache/

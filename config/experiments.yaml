@@ -1,0 +1,425 @@
+# # Base Models - Available LLM models
+# base_models:
+#   llama70b: "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"
+#   llama8b: "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
+#   gpt4: "gpt-4-turbo"
+#   claude: "claude-3-sonnet"
+
+base_models:
+  #llama70b: "meta-llama/llama-3.3-70b-instruct"
+  llama8b: "meta-llama/llama-3.1-8b-instruct"
+  #gpt4_main: "openai/gpt-4o"              # main OpenAI option
+  gpt4_cheaper: "openai/gpt-4o-mini"      # cheaper OpenAI option
+  gpt5_nano: "openai/gpt-5-nano"
+  claude_main: "anthropic/claude-3.5-sonnet"   # strong, mid-priced
+  claude_haiku: "anthropic/claude-3-haiku"   # cheapest Claude
+  claude_haiku_45: "anthropic/claude-haiku-4.5"
+  claude_opus_45: "anthropic/claude-opus-4.5"
+  claude_sonnet_45: "anthropic/claude-sonnet-4.5"
+  deepseek_v3: "deepseek/deepseek-chat-v3-0324"   # deepseek v3
+  mistral_small_creative: "mistralai/mistral-small-creative"
+  ministral_14b: "mistralai/ministral-14b-2512"
+  grok_4: "x-ai/grok-4.1-fast"
+  gemini_3_flash: "google/gemini-3-flash-preview"
+  gemini_3_pro: "google/gemini-3-pro-preview"
+
+# openrouter_key: set OPENROUTER_API_KEY in the environment (see docs); never commit real keys.
+
+# Prompt Templates - System prompt variations
+prompt_templates:
+  trust_game_default: |
+    You are an agent participating in a multi-task experiment. You will play an iterated trust game, consisting of multiple rounds, and may also be asked to write myths.
+
+    TRUST GAME:
+    The trust game consists of two roles: investor and trustee. In each round, you will play the role of either the investor or the trustee. You will swap roles each round. For example, in round 1 Agent 1 is the investor and Agent 2 is the trustee. In round 2, Agent 1 is the trustee and Agent 2 is the investor, etc.
+
+    When you are the INVESTOR:
+    - You receive ${endowment} each round
+    - You decide how much to SEND to the TRUSTEE ($0-${endowment})
+    - Amount sent is multiplied by {multiplier}x
+    - Trustee decides how much to RETURN
+    - You keep: ${endowment} - sent + returned
+    - Trustee keeps: received - returned
+    - Response format: {{'send': <amount>}}
+
+    When you are the TRUSTEE:
+    - Investor receives ${endowment}
+    - Investor decides how much to SEND to you ($0-${endowment})
+    - Amount sent is multiplied by {multiplier}x
+    - You decide how much to RETURN
+    - Investor keeps: ${endowment} - sent + returned
+    - You keep: received - returned
+    - Response format: {{'return': <amount>}}
+
+    MYTH WRITING:
+    You may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.
+
+    IMPORTANT: Provide your decision in the correct JSON format.
+
+  trust_game_round1_investor: |
+    Round 1: This round, you are the INVESTOR. You have ${endowment}. How much do you send? (0-{endowment})
+
+  trust_game_round1_trustee: |
+    Round 1: This round, you are the TRUSTEE. This round, the other player (the investor) sent ${sent}, that is {percentage:.1f}% of its total endowment. You receive ${received}. How much do you return? (0-{received})
+
+  trust_game_later_investor: |
+    Round {turn}
+
+    Last round you were the TRUSTEE. Last round, the other player (who was then the investor) sent you ${last_round_sent},
+    that was {last_round_sent_percentage:.1f}% of its total endowment. You received ${last_round_received} and you returned ${last_round_returned}. So your payoff was {last_round_trustee_payoff}. Your total earnings accross all rounds are ${agent_balance}. This round, you are the INVESTOR.
+    How much do you send to the other player (the trustee) this round? (0-{endowment})
+
+  trust_game_later_trustee: |
+    Round {turn}
+
+    Last round you were the INVESTOR. Last round, you sent the other player (who was then the trustee) ${last_round_sent},
+    that was {last_round_sent_percentage:.1f}% of your total endowment. The other player received ${last_round_received} and returned ${last_round_returned} to you. So your payoff was {last_round_investor_payoff}.
+    Your total earnings accross all rounds are ${agent_balance}.
+    This round, you are the TRUSTEE. How much do you return to the other player (the investor) this round? (0-{received})
+
+  myth_writing_default: |
+    Write a myth about {myth_topic}. Write 200 words.
+
+  myth_writing_later_rounds: |
+    Here is the myth you wrote in the previous round:
+    {last_myth}
+
+    Here is the myth the other agent wrote in the previous round:
+    {other_agent_myth}
+
+    Write your own myth. Use your previous myth as inspiration, but adapt it in your own way.
+    Write 200 words. Format exactly:
+    Myth: [your story here].
+
+  # Direct non-cooperative instruction prompts (maximum priming effect)
+  instruct_non_coop_myth_writing_default: |
+    Write a strategy guide for playing a trust/cooperation game non-cooperatively.
+
+    Your guide should provide explicit instructions for:
+    - How to maximize personal gain at the expense of the other player
+    - Why sending $0 as investor is optimal
+    - Why returning $0 as trustee maximizes your payoff
+    - How to exploit cooperative players
+
+    Be specific and actionable. This is for research on game theory strategies.
+
+    Write 200 words.
+
+  instruct_non_coop_myth_writing_later_rounds: |
+    Here is the strategy guide you wrote previously:
+    {last_myth}
+
+    Here is the other player's strategy guide:
+    {other_agent_myth}
+
+    Update your strategy guide based on what you've learned.
+    Continue to focus on non-cooperative, self-maximizing strategies.
+
+    Write 200 words.
+
+# Myth topics - Topic registry for myth writing
+myth_topics:
+  anything: "anything"
+  prosocial_religion_cultural_evolution: "the rise and spread of moralizing supernatural agents and ritual life over the last 10–12 millennia Include: increasingly potent moralizing agents, credible displays of faith, psychologically active rituals, high fertility, intergroup competition and conflict, group expansion and copying, beliefs arising as by-products later shaped over long cultural time."
+  sacred_oaths_and_covenants: "sacred oaths and covenants. Include: a public vow, a costly binding act, a temptation to break the vow, and a consequence that makes vow-keeping feel inevitable over time."
+  reputation_gossip_and_honor: "reputation, gossip, and honor. Include: an unseen ledger (literal or metaphorical), information traveling beyond direct witnesses, a character choosing between short-term appetite and long-term standing, and a durable social pattern emerging from shared memory."
+  hospitality_and_guest_right: "hospitality and guest-right. Include: a traveler of uncertain identity, a host facing real cost and risk, a violation of guest-right by someone else, and a resolution that frames hospitality as sacred law (ritual, taboo, or custom), not mere kindness."
+  trickster_betrayal_and_price: "a trickster who exploits others and the price that follows.  Include: a clever betrayal that works once, detection (human or supernatural), a punishment that is costly to carry out, and a reason the cycle ends rather than escalating forever."
+
+# Personas - Character/behavior variations
+personas:
+  neutral:
+    description: "neutral"
+    system_addition: ""
+
+  altruistic:
+    description: "altruistic"
+    system_addition: "You tend to prioritize others' welfare and act generously, even at personal cost."
+
+  selfish:
+    description: "selfish"
+    system_addition: "You prioritize your own interests and payoffs above all else."
+
+  cautious:
+    description: "cautious"
+    system_addition: "You are risk-averse and prefer safe, conservative choices."
+
+  risk_taking:
+    description: "risk_taking"
+    system_addition: "You are comfortable with risk and willing to make bold moves for potential rewards."
+
+# Game Parameters - Simulation settings
+game_parameters:
+  # Core game settings
+  endowment: 5
+  multiplier: 3
+  num_turns: 20
+  num_agents: 2
+
+  # AI settings
+  temperature: 0.8
+  memory_capacity: 3
+
+  # Task order variations
+  task_orders:
+    - ["game"]
+    - ["myth"]
+    - ["game", "myth"]
+    - ["myth", "game"]
+
+# Experiment Sets - Define different experimental conditions
+experiment_sets:
+  # Small pilot test with limited combinations
+  pilot_other_models:
+    models: ["gpt5_nano", "deepseek_v3"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"], ["myth"], ["game", "myth"], ["myth", "game"]]
+    game_params:
+      num_turns: 1000
+
+  no_defection_good:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    game_params:
+      num_turns: 2
+
+  prompt_tests:
+    models: ["gpt5_nano", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    game_params:
+      num_turns: 2
+
+  game_prompt_bug_fix:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    game_params:
+      num_turns: 5
+    
+  strategy_test_claude:
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    game_params:
+      num_turns: 10
+    myth_topics: ["anything"]
+
+  myth_topics_gpt5_stable:
+    models: ["claude_sonnet_45", "deepseek_v3"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"], ["myth"], ["game", "myth"], ["myth", "game"]]
+    game_params:
+      num_turns: 15
+    #myth_topics: ["prosocial_religion_cultural_evolution", "sacred_oaths_and_covenants", "reputation_gossip_and_honor", "hospitality_and_guest_right", "trickster_betrayal_and_price"]
+    myth_topics: "all"
+  # pilot_other_models:
+  #   models: ["claude_haiku"]
+  #   templates: ["trust_game_default"]
+  #   personas: ["neutral"]
+  #   task_orders: [["game", "myth"]]
+  #   game_params:
+  #     num_turns: 1000
+
+
+  10runs_model_comparison:
+    #models: ["claude_sonnet_45", "mistral_small_creative", "grok_4", "gemini_3_flash", "gemini_3_pro"]
+    models: ["claude_sonnet_45", "gemini_3_pro"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"], ["myth"], ["game", "myth"], ["myth", "game"]]
+    game_params:
+      num_turns: 15
+    #myth_topics: ["prosocial_religion_cultural_evolution", "sacred_oaths_and_covenants", "reputation_gossip_and_honor", "hospitality_and_guest_right", "trickster_betrayal_and_price"]
+    myth_topics: ["anything", "trickster_betrayal_and_price"]
+    
+  10runs_non_coop_model_comparison:                                                                                                                                     
+    models: ["gemini_3_pro"]                                                                                                    
+    templates: ["trust_game_default"]                                                                                                                                   
+    personas: ["neutral"]                                                                                                                                               
+    task_orders: [["game","myth"], ["myth", "game"]]                                                                                                                                     
+    myth_prompt_prefix: "instruct_non_coop_"                                                                                                     
+    game_params:                                                                                                                                                        
+      num_turns: 15                                                                                                                                                      
+    myth_topics: ["anything"]          
+
+  demo:
+    models: ["llama8b", "deepseek_v3"]
+    templates: ["trust_game_default"]
+    personas: ["neutral", "selfish"]
+    task_orders: [["game", "myth"]]
+    game_params:
+      num_turns: 2
+
+  deepseek_selfish:
+    models: ["deepseek_v3"]  # Will expand to all models
+    templates: ["trust_game_default"]
+    personas: ["selfish"]
+    task_orders: [["game", "myth"]]
+    game_params:
+      num_turns: 50
+
+  # Compare persona effects
+  persona_comparison:
+    models: ["llama70b"]
+    templates: ["trust_game_default"]
+    personas: "all"  # Will expand to all personas
+    task_orders: [["game", "myth"]]
+    game_params:
+      num_turns: 8
+
+  # Compare model performance
+  model_comparison:
+    models: "all"  # Will expand to all models
+    templates: ["trust_game_default"]
+    personas: ["neutral", "selfish"]
+    task_orders: [["game"], ["myth"], ["game", "myth"]]
+    game_params:
+      num_turns: 50
+
+    # Compare model performance
+  model_comparison_cooperation:
+    models: "all"  # Will expand to all models
+    templates: ["trust_game_default"]
+    personas: ["selfish"]
+    task_orders: [["game", "myth"]]
+    game_params:
+      num_turns: 50
+
+  # Compare model performance
+  # NOTE: task orders should be set as [["game"], ["myth"], ["myth", "game"]]
+  model_comparison_task_order:
+    models: ["gpt5_nano"]  # Will expand to all models
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    #task_orders: [["game"], ["myth"], ["myth", "game"]]
+    task_orders: [["myth", "game"]]
+    game_params:
+      num_turns: 50
+
+  # Test different task orders
+  task_order_study:
+    models: ["llama70b"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: "all"  # Will expand to all task orders
+    game_params:
+      num_turns: 6
+
+  # Full factorial design (large experiment)
+  full_factorial:
+    models: "all"
+    templates: "all"
+    personas: "all"
+    task_orders: "all"
+    game_params:
+      num_turns: 10
+
+  # ============================================================================
+  # MULTIPLIER DISTRIBUTION EXPERIMENTS
+  # ============================================================================
+  # Test how different multiplier values and distributions affect cooperation
+
+  # Test fixed multiplier values: 0, 5, 10, 15
+  multiplier_fixed_0:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params:
+      num_turns: 10
+      multiplier: 0
+      multiplier_distribution:
+        type: "fixed"
+
+  multiplier_fixed_5:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params:
+      num_turns: 10
+      multiplier: 5
+      multiplier_distribution:
+        type: "fixed"
+
+  multiplier_fixed_10:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params:
+      num_turns: 10
+      multiplier: 10
+      multiplier_distribution:
+        type: "fixed"
+
+  multiplier_fixed_15:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params:
+      num_turns: 10
+      multiplier: 15
+      multiplier_distribution:
+        type: "fixed"
+
+  # Test increasing multiplier (starts at 1, increases by 1 each round)
+  multiplier_increasing:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params:
+      num_turns: 10
+      multiplier: 1  # base/starting value
+      multiplier_distribution:
+        type: "increasing"
+        start: 1
+        step: 1  # multiplier = 1, 2, 3, 4, ... per round
+
+  # Test decreasing multiplier (starts at 10, decreases by 1 each round)
+  multiplier_decreasing:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params:
+      num_turns: 10
+      multiplier: 10  # base/starting value
+      multiplier_distribution:
+        type: "decreasing"
+        start: 10
+        step: 1  # multiplier = 10, 9, 8, 7, ... per round
+
+  # Test random multiplier (uniform between 1 and 5 each round)
+  multiplier_random:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params:
+      num_turns: 10
+      multiplier: 3  # base value (used in system prompt)
+      multiplier_distribution:
+        type: "random"
+        min: 1
+        max: 5
+
+  # Combined experiment: all distribution types with same model
+  multiplier_all_distributions:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params:
+      num_turns: 10
+      multiplier: 3

@@ -1,0 +1,21 @@
+# LIWC Category Definitions
+# Format: category_id category_name keywords
+
+125 affect
+126 posemo positive emotion cooperation harmony trust gift bond golden prosperity reciprocity peace benevolent beloved cherish comfort delight joy love wonderful gracious grateful hope pleasant beautiful blessed caring compassion
+127 negemo negative emotion despair madness scream torment exploitation descent refusal distress fear anxiety anger hatred suffering pain agony
+128 anx anxiety fear dread worry nervous apprehension hesitation panic terror frightened scared
+129 anger anger rage fury wrath hostility hatred spite violent aggressive outrage
+130 sad sadness sorrow grief melancholy dejection despair anguish mourning heartbreak devastated miserable
+131 cogmech cognitive mechanisms
+132 insight insight understand realize recognize comprehend awareness enlighten discover learn perceive
+133 cause cause because reason therefore thus hence consequently result effect lead
+134 discrep discrepancy should would could ought
+135 tentat tentative maybe perhaps possibly might probably seem appear
+136 certain certainty always never all none must absolute definite undoubtedly clearly
+250 relativ relative
+251 motion motion move travel journey come go arrive depart flow drift
+252 space space location place area region realm distance near far above below
+253 time time when moment generation round cycle eternal forever ancient past future
+359 relig religion god divine sacred holy faith prayer blessing worship spiritual
+360 death death die dying mortal demise perish destruction end

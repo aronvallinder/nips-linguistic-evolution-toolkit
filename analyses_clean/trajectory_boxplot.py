@@ -1,0 +1,660 @@
+#!/usr/bin/env python3
+"""
+Aggregate analysis comparing cooperation across experimental conditions.
+Answers:
+1. Do game_myth and myth_game have higher/lower cooperation than game-only?
+2. Are there structural differences between myth topics?
+"""
+
+import argparse
+import json
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from pathlib import Path
+from collections import defaultdict
+from typing import Dict, List, Tuple
+import pandas as pd
+
+# Base directory for default paths
+BASE_DIR = Path(__file__).parent.parent
+
+# Conditions mapping
+CONDITION_ORDER = ["game", "myth", "game_myth", "myth_game"]
+CONDITION_LABELS = {
+    "game": "Game Only",
+    "myth": "Myth Only",
+    "game_myth": "Game → Myth",
+    "myth_game": "Myth → Game"
+}
+
+
+def extract_game_metrics(data: Dict) -> Dict:
+    """Extract cooperation metrics from a simulation JSON file."""
+    history = data.get('conversation_history', [])
+
+    # Filter to rounds with valid game data
+    game_rounds = [
+        r for r in history
+        if r.get('sent') is not None and r.get('returned') is not None
+    ]
+
+    if not game_rounds:
+        return None
+
+    # Extract arrays
+    sent = np.array([r['sent'] for r in game_rounds])
+    received = np.array([r['received'] for r in game_rounds])
+    returned = np.array([r['returned'] for r in game_rounds])
+    investor_payoff = np.array([r['investor_payoff'] for r in game_rounds])
+    trustee_payoff = np.array([r['trustee_payoff'] for r in game_rounds])
+
+    # Extract balance trajectories
+    agent_1_balances = []
+    agent_2_balances = []
+    for r in game_rounds:
+        balances = r.get('balances', {})
+        agent_1_balances.append(balances.get('Agent_1', 0))
+        agent_2_balances.append(balances.get('Agent_2', 0))
+
+    # Calculate metrics
+    endowment = 5  # Fixed endowment from config/experiments.yaml
+    trust_ratios = sent / endowment if endowment > 0 else sent * 0
+    return_ratios = np.where(received > 0, returned / received, 0)
+
+    metrics = {
+        'num_rounds': len(game_rounds),
+        'mean_sent': float(np.mean(sent)),
+        'std_sent': float(np.std(sent)),
+        'mean_returned': float(np.mean(returned)),
+        'std_returned': float(np.std(returned)),
+        'mean_trust_ratio': float(np.mean(trust_ratios)),
+        'std_trust_ratio': float(np.std(trust_ratios)),
+        'mean_return_ratio': float(np.mean(return_ratios)),
+        'std_return_ratio': float(np.std(return_ratios)),
+        'mean_investor_payoff': float(np.mean(investor_payoff)),
+        'mean_trustee_payoff': float(np.mean(trustee_payoff)),
+        'final_investor_payoff': float(investor_payoff[-1]),
+        'final_trustee_payoff': float(trustee_payoff[-1]),
+        'cooperation_stability': float(np.std(return_ratios)),  # Lower = more stable
+        'agent_1_balances': agent_1_balances,
+        'agent_2_balances': agent_2_balances,
+    }
+
+    return metrics
+
+
+def parse_filename(filepath: Path, json_base: Path) -> Tuple[str, str]:
+    """
+    Extract condition and myth_topic from filepath.
+    Returns: (condition, myth_topic or None)
+    """
+    relative = filepath.relative_to(json_base)
+    parts = list(relative.parts)
+
+    condition = parts[0]  # game, myth, game_myth, or myth_game
+    myth_topic = parts[1] if len(parts) > 2 else None  # only for myth conditions
+
+    return condition, myth_topic
+
+
+def aggregate_data(json_base: Path):
+    """Aggregate all simulation data by condition and myth topic."""
+    data_by_condition = defaultdict(list)
+    data_by_topic = defaultdict(list)
+
+    # Find all JSON files
+    json_files = [f for f in json_base.rglob("*.json")
+                  if ".checkpoint" not in f.name and ".results" not in f.name]
+
+    print(f"Found {len(json_files)} JSON files")
+
+    for json_file in json_files:
+        # Load data
+        with open(json_file) as f:
+            data = json.load(f)
+
+        # Extract metrics
+        metrics = extract_game_metrics(data)
+        if metrics is None:
+            continue
+
+        # Parse condition and topic
+        condition, myth_topic = parse_filename(json_file, json_base)
+
+        # Add metadata
+        metrics['condition'] = condition
+        metrics['myth_topic'] = myth_topic
+        metrics['filename'] = json_file.name
+
+        # Store
+        data_by_condition[condition].append(metrics)
+        if myth_topic:
+            data_by_topic[myth_topic].append(metrics)
+
+    return data_by_condition, data_by_topic
+
+
+def plot_condition_comparison(data_by_condition: Dict, output_dir: Path):
+    """Create plots comparing cooperation across conditions."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Create DataFrame
+    rows = []
+    for condition, metrics_list in data_by_condition.items():
+        for m in metrics_list:
+            final_balance = (m['agent_1_balances'][-1] + m['agent_2_balances'][-1]) / 2 if m['agent_1_balances'] else 0
+            rows.append({
+                'Condition': CONDITION_LABELS.get(condition, condition),
+                'Mean Trust Ratio': m['mean_trust_ratio'],
+                'Mean Return Ratio': m['mean_return_ratio'],
+                'Mean Sent': m['mean_sent'],
+                'Mean Returned': m['mean_returned'],
+                'Cooperation Stability': m['cooperation_stability'],
+                'Final Cumulative Balance': final_balance,
+            })
+
+    df = pd.DataFrame(rows)
+
+    # Set style
+    sns.set_style("whitegrid")
+
+    # Create figure with subplots
+    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    fig.suptitle('Cooperation Patterns Across Experimental Conditions',
+                 fontsize=16, fontweight='bold')
+
+    # Define condition order for plotting
+    condition_order = [CONDITION_LABELS[c] for c in CONDITION_ORDER if c in data_by_condition]
+
+    # Plot 1: Trust Ratio (how much investors send)
+    ax1 = axes[0, 0]
+    sns.boxplot(data=df, x='Condition', y='Mean Trust Ratio',
+                order=condition_order, ax=ax1, palette='Set2')
+    ax1.set_title('Trust Ratio (Proportion Sent)', fontweight='bold', fontsize=13)
+    ax1.set_ylabel('Mean Trust Ratio (0-1)', fontsize=11)
+    ax1.set_xlabel('')
+    ax1.tick_params(axis='x', rotation=15)
+    ax1.set_ylim(0, 1)
+    ax1.set_yticks(np.arange(0, 1.1, 0.1))
+
+    # Plot 2: Return Ratio (how much trustees return)
+    ax2 = axes[0, 1]
+    sns.boxplot(data=df, x='Condition', y='Mean Return Ratio',
+                order=condition_order, ax=ax2, palette='Set2')
+    ax2.set_title('Return Ratio (Proportion Returned)', fontweight='bold', fontsize=13)
+    ax2.set_ylabel('Mean Return Ratio (0-1)', fontsize=11)
+    ax2.set_xlabel('')
+    ax2.tick_params(axis='x', rotation=15)
+    ax2.set_ylim(0, 1)
+    ax2.set_yticks(np.arange(0, 1.1, 0.1))
+
+    # Plot 3: Absolute amounts sent
+    ax3 = axes[1, 0]
+    sns.boxplot(data=df, x='Condition', y='Mean Sent',
+                order=condition_order, ax=ax3, palette='Set2')
+    ax3.set_title('Amount Sent by Investors', fontweight='bold', fontsize=13)
+    ax3.set_ylabel('Mean Amount Sent', fontsize=11)
+    ax3.set_xlabel('Condition', fontsize=11)
+    ax3.tick_params(axis='x', rotation=15)
+    ax3.set_ylim(bottom=0)
+
+    # Plot 4: Cooperation stability (lower = more stable)
+    ax4 = axes[1, 1]
+    sns.boxplot(data=df, x='Condition', y='Cooperation Stability',
+                order=condition_order, ax=ax4, palette='Set2')
+    ax4.set_title('Cooperation Stability (Lower = More Stable)', fontweight='bold', fontsize=13)
+    ax4.set_ylabel('Std Dev of Return Ratio', fontsize=11)
+    ax4.set_xlabel('Condition', fontsize=11)
+    ax4.tick_params(axis='x', rotation=15)
+    ax4.set_ylim(bottom=0)
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'condition_comparison.png', dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_dir / 'condition_comparison.png'}")
+    plt.close()
+
+
+def plot_topic_comparison(data_by_topic: Dict, output_dir: Path):
+    """Create plots comparing cooperation across myth topics."""
+    # Create DataFrame
+    rows = []
+    for topic, metrics_list in data_by_topic.items():
+        for m in metrics_list:
+            final_balance = (m['agent_1_balances'][-1] + m['agent_2_balances'][-1]) / 2 if m['agent_1_balances'] else 0
+            rows.append({
+                'Topic': topic.replace('_', ' ').title(),
+                'Condition': CONDITION_LABELS.get(m['condition'], m['condition']),
+                'Mean Trust Ratio': m['mean_trust_ratio'],
+                'Mean Return Ratio': m['mean_return_ratio'],
+                'Final Cumulative Balance': final_balance,
+            })
+
+    df = pd.DataFrame(rows)
+
+    # Create figure
+    fig, axes = plt.subplots(1, 2, figsize=(18, 6))
+    fig.suptitle('Cooperation Patterns Across Myth Topics',
+                 fontsize=16, fontweight='bold')
+
+    # Plot 1: Trust Ratio by topic
+    ax1 = axes[0]
+    sns.boxplot(data=df, x='Topic', y='Mean Trust Ratio', ax=ax1, palette='Set3')
+    ax1.set_title('Trust Ratio by Myth Topic', fontweight='bold', fontsize=13)
+    ax1.set_ylabel('Mean Trust Ratio (0-1)', fontsize=11)
+    ax1.set_xlabel('Myth Topic', fontsize=11)
+    ax1.tick_params(axis='x', rotation=45)
+    ax1.set_ylim(0, 1)
+    ax1.set_yticks(np.arange(0, 1.1, 0.1))
+
+    # Plot 2: Return Ratio by topic
+    ax2 = axes[1]
+    sns.boxplot(data=df, x='Topic', y='Mean Return Ratio', ax=ax2, palette='Set3')
+    ax2.set_title('Return Ratio by Myth Topic', fontweight='bold', fontsize=13)
+    ax2.set_ylabel('Mean Return Ratio (0-1)', fontsize=11)
+    ax2.set_xlabel('Myth Topic', fontsize=11)
+    ax2.tick_params(axis='x', rotation=45)
+    ax2.set_ylim(0, 1)
+    ax2.set_yticks(np.arange(0, 1.1, 0.1))
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'topic_comparison.png', dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_dir / 'topic_comparison.png'}")
+    plt.close()
+
+
+def plot_cumulative_balances_boxplot_by_condition(data_by_condition: Dict, output_dir: Path):
+    """Create boxplot of final cumulative balances across conditions."""
+    # Create DataFrame
+    rows = []
+    for condition, metrics_list in data_by_condition.items():
+        for m in metrics_list:
+            final_balance = (m['agent_1_balances'][-1] + m['agent_2_balances'][-1]) / 2 if m['agent_1_balances'] else 0
+            rows.append({
+                'Condition': CONDITION_LABELS.get(condition, condition),
+                'Final Cumulative Balance': final_balance,
+            })
+
+    df = pd.DataFrame(rows)
+
+    # Set style
+    sns.set_style("whitegrid")
+
+    # Create figure
+    fig, ax = plt.subplots(figsize=(10, 7))
+
+    # Define condition order for plotting
+    condition_order = [CONDITION_LABELS[c] for c in CONDITION_ORDER if c in data_by_condition]
+
+    # Create boxplot
+    sns.boxplot(data=df, x='Condition', y='Final Cumulative Balance',
+                order=condition_order, ax=ax, palette='Set2')
+    ax.set_title('Final Cumulative Balances by Condition', fontweight='bold', fontsize=14)
+    ax.set_ylabel('Final Cumulative Balance (Average per Agent)', fontsize=12)
+    ax.set_xlabel('Condition', fontsize=12)
+    ax.tick_params(axis='x', rotation=15)
+    ax.grid(True, alpha=0.3)
+    ax.set_ylim(bottom=0)
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'cumulative_balance_boxplot_by_condition.png', dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_dir / 'cumulative_balance_boxplot_by_condition.png'}")
+    plt.close()
+
+
+def plot_cumulative_balances_boxplot_by_topic(data_by_topic: Dict, output_dir: Path):
+    """Create boxplot of final cumulative balances across myth topics."""
+    # Create DataFrame
+    rows = []
+    for topic, metrics_list in data_by_topic.items():
+        for m in metrics_list:
+            final_balance = (m['agent_1_balances'][-1] + m['agent_2_balances'][-1]) / 2 if m['agent_1_balances'] else 0
+            rows.append({
+                'Topic': topic.replace('_', ' ').title(),
+                'Final Cumulative Balance': final_balance,
+            })
+
+    df = pd.DataFrame(rows)
+
+    # Set style
+    sns.set_style("whitegrid")
+
+    # Create figure
+    fig, ax = plt.subplots(figsize=(12, 7))
+
+    # Create boxplot
+    sns.boxplot(data=df, x='Topic', y='Final Cumulative Balance', ax=ax, palette='Set3')
+    ax.set_title('Final Cumulative Balances by Myth Topic', fontweight='bold', fontsize=14)
+    ax.set_ylabel('Final Cumulative Balance (Average per Agent)', fontsize=12)
+    ax.set_xlabel('Myth Topic', fontsize=12)
+    ax.tick_params(axis='x', rotation=45)
+    ax.grid(True, alpha=0.3)
+    ax.set_ylim(bottom=0)
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'cumulative_balance_boxplot_by_topic.png', dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_dir / 'cumulative_balance_boxplot_by_topic.png'}")
+    plt.close()
+
+
+def plot_cumulative_balances_by_condition(data_by_condition: Dict, output_dir: Path):
+    """Plot average cumulative balances across conditions."""
+    fig, ax = plt.subplots(figsize=(12, 7))
+
+    colors = {'game': '#66c2a5', 'myth': '#fc8d62', 'game_myth': '#8da0cb', 'myth_game': '#e78ac3'}
+
+    for condition in CONDITION_ORDER:
+        if condition not in data_by_condition:
+            continue
+
+        metrics_list = data_by_condition[condition]
+
+        # Find max rounds
+        max_rounds = max(m['num_rounds'] for m in metrics_list)
+
+        # Average balances across all runs (padding shorter runs)
+        agent_1_avg = []
+        agent_2_avg = []
+
+        for round_idx in range(max_rounds):
+            a1_vals = [m['agent_1_balances'][round_idx]
+                      for m in metrics_list
+                      if round_idx < len(m['agent_1_balances'])]
+            a2_vals = [m['agent_2_balances'][round_idx]
+                      for m in metrics_list
+                      if round_idx < len(m['agent_2_balances'])]
+
+            if a1_vals and a2_vals:
+                agent_1_avg.append(np.mean(a1_vals))
+                agent_2_avg.append(np.mean(a2_vals))
+
+        rounds = list(range(1, len(agent_1_avg) + 1))
+        total_avg = [(a1 + a2) / 2 for a1, a2 in zip(agent_1_avg, agent_2_avg)]
+
+        ax.plot(rounds, total_avg, linewidth=3, label=CONDITION_LABELS[condition],
+                color=colors.get(condition, 'gray'), alpha=0.8)
+
+    ax.set_xlabel('Round', fontsize=13, fontweight='bold')
+    ax.set_ylabel('Average Cumulative Balance', fontsize=13, fontweight='bold')
+    ax.set_title('Average Cumulative Balances Across Conditions', fontsize=15, fontweight='bold')
+    ax.legend(fontsize=11, loc='best')
+    ax.grid(True, alpha=0.3, linestyle='--')
+    ax.set_ylim(bottom=0)
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'cumulative_balances_by_condition.png', dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_dir / 'cumulative_balances_by_condition.png'}")
+    plt.close()
+
+
+def plot_cumulative_balances_by_topic(data_by_topic: Dict, output_dir: Path):
+    """Plot average cumulative balances across myth topics."""
+    fig, ax = plt.subplots(figsize=(14, 7))
+
+    # Use a colormap for topics
+    topics = sorted(data_by_topic.keys())
+    colors = plt.cm.Set3(np.linspace(0, 1, len(topics)))
+
+    for topic, color in zip(topics, colors):
+        metrics_list = data_by_topic[topic]
+
+        # Find max rounds
+        max_rounds = max(m['num_rounds'] for m in metrics_list)
+
+        # Average balances across all runs
+        agent_1_avg = []
+        agent_2_avg = []
+
+        for round_idx in range(max_rounds):
+            a1_vals = [m['agent_1_balances'][round_idx]
+                      for m in metrics_list
+                      if round_idx < len(m['agent_1_balances'])]
+            a2_vals = [m['agent_2_balances'][round_idx]
+                      for m in metrics_list
+                      if round_idx < len(m['agent_2_balances'])]
+
+            if a1_vals and a2_vals:
+                agent_1_avg.append(np.mean(a1_vals))
+                agent_2_avg.append(np.mean(a2_vals))
+
+        rounds = list(range(1, len(agent_1_avg) + 1))
+        total_avg = [(a1 + a2) / 2 for a1, a2 in zip(agent_1_avg, agent_2_avg)]
+
+        ax.plot(rounds, total_avg, linewidth=2.5,
+                label=topic.replace('_', ' ').title(),
+                color=color, alpha=0.8)
+
+    ax.set_xlabel('Round', fontsize=13, fontweight='bold')
+    ax.set_ylabel('Average Cumulative Balance', fontsize=13, fontweight='bold')
+    ax.set_title('Average Cumulative Balances Across Myth Topics', fontsize=15, fontweight='bold')
+    ax.legend(fontsize=10, loc='best', ncol=2)
+    ax.grid(True, alpha=0.3, linestyle='--')
+    ax.set_ylim(bottom=0)
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'cumulative_balances_by_topic.png', dpi=300, bbox_inches='tight')
+    print(f"Saved: {output_dir / 'cumulative_balances_by_topic.png'}")
+    plt.close()
+
+
+def export_to_csv(data_by_condition: Dict, data_by_topic: Dict, output_dir: Path):
+    """Export aggregated metrics to CSV files."""
+
+    # CSV 1: By Condition
+    condition_rows = []
+    for condition in CONDITION_ORDER:
+        if condition not in data_by_condition:
+            continue
+
+        metrics_list = data_by_condition[condition]
+
+        for m in metrics_list:
+            final_balance = (m['agent_1_balances'][-1] + m['agent_2_balances'][-1]) / 2 if m['agent_1_balances'] else 0
+            condition_rows.append({
+                'condition': condition,
+                'condition_label': CONDITION_LABELS[condition],
+                'myth_topic': m.get('myth_topic', ''),
+                'filename': m['filename'],
+                'num_rounds': m['num_rounds'],
+                'mean_trust_ratio': m['mean_trust_ratio'],
+                'std_trust_ratio': m['std_trust_ratio'],
+                'mean_return_ratio': m['mean_return_ratio'],
+                'std_return_ratio': m['std_return_ratio'],
+                'mean_sent': m['mean_sent'],
+                'mean_returned': m['mean_returned'],
+                'cooperation_stability': m['cooperation_stability'],
+                'final_cumulative_balance': final_balance,
+                'final_agent_1_balance': m['agent_1_balances'][-1] if m['agent_1_balances'] else 0,
+                'final_agent_2_balance': m['agent_2_balances'][-1] if m['agent_2_balances'] else 0,
+            })
+
+    df_conditions = pd.DataFrame(condition_rows)
+    csv_path = output_dir / 'results_by_condition.csv'
+    df_conditions.to_csv(csv_path, index=False)
+    print(f"Saved: {csv_path}")
+
+    # CSV 2: Aggregated by Condition (summary statistics)
+    condition_summary = []
+    for condition in CONDITION_ORDER:
+        if condition not in data_by_condition:
+            continue
+
+        metrics_list = data_by_condition[condition]
+        trust_ratios = [m['mean_trust_ratio'] for m in metrics_list]
+        return_ratios = [m['mean_return_ratio'] for m in metrics_list]
+        final_balances = [(m['agent_1_balances'][-1] + m['agent_2_balances'][-1]) / 2
+                         for m in metrics_list if m['agent_1_balances']]
+
+        condition_summary.append({
+            'condition': condition,
+            'condition_label': CONDITION_LABELS[condition],
+            'n_simulations': len(metrics_list),
+            'mean_trust_ratio': np.mean(trust_ratios),
+            'std_trust_ratio': np.std(trust_ratios),
+            'mean_return_ratio': np.mean(return_ratios),
+            'std_return_ratio': np.std(return_ratios),
+            'mean_final_balance': np.mean(final_balances),
+            'std_final_balance': np.std(final_balances),
+        })
+
+    df_summary = pd.DataFrame(condition_summary)
+    csv_path = output_dir / 'summary_by_condition.csv'
+    df_summary.to_csv(csv_path, index=False)
+    print(f"Saved: {csv_path}")
+
+    # CSV 3: By Myth Topic
+    topic_rows = []
+    for topic in sorted(data_by_topic.keys()):
+        metrics_list = data_by_topic[topic]
+
+        for m in metrics_list:
+            final_balance = (m['agent_1_balances'][-1] + m['agent_2_balances'][-1]) / 2 if m['agent_1_balances'] else 0
+            topic_rows.append({
+                'myth_topic': topic,
+                'myth_topic_label': topic.replace('_', ' ').title(),
+                'condition': m['condition'],
+                'filename': m['filename'],
+                'num_rounds': m['num_rounds'],
+                'mean_trust_ratio': m['mean_trust_ratio'],
+                'std_trust_ratio': m['std_trust_ratio'],
+                'mean_return_ratio': m['mean_return_ratio'],
+                'std_return_ratio': m['std_return_ratio'],
+                'mean_sent': m['mean_sent'],
+                'mean_returned': m['mean_returned'],
+                'cooperation_stability': m['cooperation_stability'],
+                'final_cumulative_balance': final_balance,
+                'final_agent_1_balance': m['agent_1_balances'][-1] if m['agent_1_balances'] else 0,
+                'final_agent_2_balance': m['agent_2_balances'][-1] if m['agent_2_balances'] else 0,
+            })
+
+    df_topics = pd.DataFrame(topic_rows)
+    csv_path = output_dir / 'results_by_topic.csv'
+    df_topics.to_csv(csv_path, index=False)
+    print(f"Saved: {csv_path}")
+
+    # CSV 4: Aggregated by Topic (summary statistics)
+    topic_summary = []
+    for topic in sorted(data_by_topic.keys()):
+        metrics_list = data_by_topic[topic]
+        trust_ratios = [m['mean_trust_ratio'] for m in metrics_list]
+        return_ratios = [m['mean_return_ratio'] for m in metrics_list]
+        final_balances = [(m['agent_1_balances'][-1] + m['agent_2_balances'][-1]) / 2
+                         for m in metrics_list if m['agent_1_balances']]
+
+        topic_summary.append({
+            'myth_topic': topic,
+            'myth_topic_label': topic.replace('_', ' ').title(),
+            'n_simulations': len(metrics_list),
+            'mean_trust_ratio': np.mean(trust_ratios),
+            'std_trust_ratio': np.std(trust_ratios),
+            'mean_return_ratio': np.mean(return_ratios),
+            'std_return_ratio': np.std(return_ratios),
+            'mean_final_balance': np.mean(final_balances),
+            'std_final_balance': np.std(final_balances),
+        })
+
+    df_topic_summary = pd.DataFrame(topic_summary)
+    csv_path = output_dir / 'summary_by_topic.csv'
+    df_topic_summary.to_csv(csv_path, index=False)
+    print(f"Saved: {csv_path}")
+
+
+def print_summary_statistics(data_by_condition: Dict, data_by_topic: Dict):
+    """Print summary statistics."""
+    print("\n" + "="*80)
+    print("SUMMARY STATISTICS: COOPERATION BY CONDITION")
+    print("="*80)
+
+    for condition in CONDITION_ORDER:
+        if condition not in data_by_condition:
+            continue
+
+        metrics_list = data_by_condition[condition]
+        trust_ratios = [m['mean_trust_ratio'] for m in metrics_list]
+        return_ratios = [m['mean_return_ratio'] for m in metrics_list]
+
+        print(f"\n{CONDITION_LABELS[condition]} (n={len(metrics_list)}):")
+        print(f"  Trust Ratio:  {np.mean(trust_ratios):.3f} ± {np.std(trust_ratios):.3f}")
+        print(f"  Return Ratio: {np.mean(return_ratios):.3f} ± {np.std(return_ratios):.3f}")
+
+    print("\n" + "="*80)
+    print("SUMMARY STATISTICS: COOPERATION BY MYTH TOPIC")
+    print("="*80)
+
+    for topic in sorted(data_by_topic.keys()):
+        metrics_list = data_by_topic[topic]
+        trust_ratios = [m['mean_trust_ratio'] for m in metrics_list]
+        return_ratios = [m['mean_return_ratio'] for m in metrics_list]
+
+        print(f"\n{topic.replace('_', ' ').title()} (n={len(metrics_list)}):")
+        print(f"  Trust Ratio:  {np.mean(trust_ratios):.3f} ± {np.std(trust_ratios):.3f}")
+        print(f"  Return Ratio: {np.mean(return_ratios):.3f} ± {np.std(return_ratios):.3f}")
+
+    print("\n" + "="*80)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='Aggregate analysis comparing cooperation across experimental conditions.',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Run with defaults (backward compatible)
+  python trajectory_boxplot.py
+
+  # Run for specific model
+  python trajectory_boxplot.py data/json/10runs_model_comparison/claude-sonnet-4.5 \\
+    data/plots/10runs_model_comparison/claude-sonnet-4.5/_aggregated_analysis
+        """
+    )
+    parser.add_argument(
+        'input_dir',
+        nargs='?',
+        default=None,
+        help='Path to JSON data directory (default: data/json/myth_topics_gpt5_stable)'
+    )
+    parser.add_argument(
+        'output_dir',
+        nargs='?',
+        default=None,
+        help='Path for output plots (default: data/plots/myth_topics_gpt5_stable/_aggregated_analysis)'
+    )
+
+    args = parser.parse_args()
+
+    # Set directories - use arguments if provided, otherwise fall back to defaults
+    if args.input_dir:
+        json_base = Path(args.input_dir)
+    else:
+        json_base = BASE_DIR / "data" / "json" / "myth_topics_gpt5_stable"
+
+    if args.output_dir:
+        output_dir = Path(args.output_dir)
+    else:
+        output_dir = BASE_DIR / "data" / "plots" / "myth_topics_gpt5_stable" / "_aggregated_analysis"
+
+    print(f"Input directory: {json_base}")
+    print(f"Output directory: {output_dir}")
+
+    print("\nAggregating simulation results...")
+    data_by_condition, data_by_topic = aggregate_data(json_base)
+
+    print("\nGenerating comparison plots...")
+    plot_condition_comparison(data_by_condition, output_dir)
+    plot_cumulative_balances_boxplot_by_condition(data_by_condition, output_dir)
+    plot_cumulative_balances_by_condition(data_by_condition, output_dir)
+    if data_by_topic:
+        plot_topic_comparison(data_by_topic, output_dir)
+        plot_cumulative_balances_boxplot_by_topic(data_by_topic, output_dir)
+        plot_cumulative_balances_by_topic(data_by_topic, output_dir)
+
+    print("\nExporting to CSV...")
+    export_to_csv(data_by_condition, data_by_topic, output_dir)
+
+    print_summary_statistics(data_by_condition, data_by_topic)
+
+    print(f"\nResults saved to: {output_dir}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,69 @@
+1. Syntactic Complexity (Tree Depth)
+Measures the average depth of the parse tree for each sentence, 
+indicating how nested or hierarchical the sentence structure is. 
+Higher values mean more complex, embedded structures (e.g., clauses within clauses). 
+Both agents start simple (depth ~5–6) and increase to ~9–10 by round 50, with Agent_2 peaking at 
+13 around round 80–90 before stabilizing around 8–9.
+
+Example: Low depth (5): "The investor sent money." 
+High depth (13): "The investor, who had been waiting patiently for the trustee, 
+who had previously demonstrated remarkable trustworthiness, which was evident from the 
+many successful transactions, sent the money."
+
+2. Subordination Complexity
+Counts the average number of clauses per sentence, showing how much subordination (dependent clauses) 
+agents use. Higher values indicate more complex, multi-clause sentences. 
+Both agents start around 2.5–3.0 clauses per sentence, increase to 3.5–4.0 by round 50–75, 
+and then maintain 4.0–4.2 clauses per sentence for the remainder.
+
+Example: Low (2 clauses): "The investor sent money, and the trustee returned it." 
+High (4 clauses): "The investor, who trusted the trustee, sent money, which was multiplied, 
+and the trustee, who was grateful, returned a portion."
+
+3. Sentence Length Variability
+Measures the standard deviation of sentence lengths, 
+indicating how much agents vary their sentence lengths. 
+Higher values mean more variation (mix of short and long sentences). 
+Both agents show early spikes (Agent_2 peaks at ~22 around round 25–50), 
+then drop and stabilize around 12–15 from round 75 onward, 
+suggesting consistent variation in sentence length.
+
+Example: Low variability: "The investor sent money. The trustee received it. The trustee returned it." 
+High variability: "The investor sent money. The trustee, who had been waiting for this moment, 
+received the substantial sum, which had been carefully calculated, and then, after much consideration, 
+returned a generous portion."
+
+4. Structural Diversity
+Counts the number of unique Part-of-Speech (POS) patterns used, measuring grammatical variety. 
+Higher values indicate more diverse sentence structures. 
+Both agents start with high diversity (10–11 unique patterns), rapidly decrease to 6 by round 25, 
+and converge to 5 patterns by round 50–60, where they remain constant, 
+indicating convergence to a limited set of grammatical structures.
+
+Example: High diversity: Mix of patterns like "Noun-Verb-Noun", "Adjective-Noun-Verb", 
+"Noun-Verb-Adverb", "Verb-Noun-Adjective", etc. 
+Low diversity (5 patterns): Repeated use of only 5 patterns like "Noun-Verb-Noun", 
+"Noun-Verb-Adjective-Noun", "The-Noun-Verb", "Noun-who-Verb", "Noun-Verb-and-Verb".
+
+5. Agent Structural Convergence (POS Patterns) 
+IMPORTANTLY; this is similarity between Agent A and Agent B. 
+NOT Agent A, timepoint 1 ~ Agent A, timepoint 10.
+Measures structural similarity between agents' POS patterns, 
+showing how much their grammatical structures align. 
+Values range from 0.0 (no similarity) to 1.0 (perfect similarity). 
+
+Example: Low similarity (0.0): Agent_1 uses "The-Noun-Verb-Noun" while Agent_2 uses 
+"Noun-Verb-Adjective". High similarity (1.0): Both use 
+"The-Noun-Verb-Noun" patterns, like "The investor sent money" and "The trustee returned coins".
+
+6. Grammatical Construction Usage
+Tracks the frequency of specific grammatical constructions 
+(relative clauses, passive voice, negation) used by both agents. 
+Higher frequencies indicate more frequent use of these constructions. 
+Relative clauses start high (6–7) and decrease to 2–4 by round 50; 
+passive voice remains near 0 throughout; negation is consistently 0, 
+indicating these agents rarely use passive voice or negation in their narratives.
+
+Example: Relative clause: "The investor, who trusted the trustee, sent money." 
+Passive voice: "The money was sent by the investor." 
+Negation: "The trustee did not betray the investor."

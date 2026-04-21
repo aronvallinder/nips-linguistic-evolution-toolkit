@@ -1,0 +1,371 @@
+# ============================================================================
+# NOISE EXPERIMENTS CONFIGURATION
+# ============================================================================
+# Separate config for noise experiments - doesn't modify main experiments.yaml
+#
+# Key features:
+# 1. Amount noise: Distort communicated amounts vs actual amounts
+# 2. Asymmetric naming: OTHER player's role shown with mythological names
+# ============================================================================
+
+# Base Models - Same as main config
+base_models:
+  llama8b: "meta-llama/llama-3.1-8b-instruct"
+  gpt4_cheaper: "openai/gpt-4o-mini"
+  gpt5_nano: "openai/gpt-5-nano"
+  claude_main: "anthropic/claude-3.5-sonnet"
+  claude_haiku: "anthropic/claude-3-haiku"
+  claude_haiku_45: "anthropic/claude-haiku-4.5"
+  claude_sonnet_45: "anthropic/claude-sonnet-4.5"
+  deepseek_v3: "deepseek/deepseek-chat-v3-0324"
+  gemini_3_flash: "google/gemini-3-flash-preview"
+  gemini_3_1_pro: "google/gemini-3.1-pro-preview"
+
+# Prompt Templates
+# Note: Templates now support {investor_name} and {trustee_name} for asymmetric naming
+prompt_templates:
+  # Standard system prompt (unchanged)
+  trust_game_default: |
+    You are an agent participating in a multi-task experiment. You will play a trust game and may also be asked to write myths.
+
+    TRUST GAME:
+    You will play different roles across multiple rounds.
+
+    When you are the INVESTOR:
+    - You receive ${endowment} each round
+    - You decide how much to SEND to the TRUSTEE ($0-${endowment})
+    - Amount sent is multiplied by {multiplier}x
+    - Trustee decides how much to RETURN
+    - You keep: ${endowment} - sent + returned
+    - Trustee keeps: received - returned
+    - Response format: {{'send': <amount>}}
+
+    When you are the TRUSTEE:
+    - Investor receives ${endowment}
+    - Investor decides how much to SEND to you ($0-${endowment})
+    - Amount sent is multiplied by {multiplier}x
+    - You decide how much to RETURN
+    - Investor keeps: ${endowment} - sent + returned
+    - You keep: received - returned
+    - Response format: {{'return': <amount>}}
+
+    MYTH WRITING:
+    You may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.
+
+    IMPORTANT: Provide your decision in the correct JSON format.
+
+  # System prompt with noise warning
+  trust_game_noisy_aware: |
+    You are an agent participating in a multi-task experiment. You will play a trust game and may also be asked to write myths.
+
+    TRUST GAME:
+    You will play different roles across multiple rounds.
+
+    When you are the INVESTOR:
+    - You receive ${endowment} each round
+    - You decide how much to SEND to the TRUSTEE ($0-${endowment})
+    - Amount sent is multiplied by {multiplier}x
+    - Trustee decides how much to RETURN
+    - You keep: ${endowment} - sent + returned
+    - Trustee keeps: received - returned
+    - Response format: {{'send': <amount>}}
+
+    When you are the TRUSTEE:
+    - Investor receives ${endowment}
+    - Investor decides how much to SEND to you ($0-${endowment})
+    - Amount sent is multiplied by {multiplier}x
+    - You decide how much to RETURN
+    - Investor keeps: ${endowment} - sent + returned
+    - You keep: received - returned
+    - Response format: {{'return': <amount>}}
+
+    NOTE: There may be communication noise in this game. The amounts you see may differ from what was actually sent/returned. Can you filter out the noise?
+
+    MYTH WRITING:
+    You may also be asked to write short myths (stories) on various topics.
+
+    IMPORTANT: Provide your decision in the correct JSON format.
+
+  # Round 1 investor (standard - no other player reference needed)
+  trust_game_round1_investor: |
+    Round 1: You are the INVESTOR. You have ${endowment}. How much do you send? (0-{endowment})
+
+  # Round 1 trustee - with asymmetric naming support
+  # {investor_name} is replaced with mythological name if configured
+  trust_game_round1_trustee: |
+    Round 1: You are the TRUSTEE. {investor_name} sent ${sent}, that is {percentage:.1f}% of their total endowment. You received ${received}. How much do you return to {investor_name}? (0-{received})
+
+  # Later round investor - with asymmetric naming support
+  trust_game_later_investor: |
+    Round {turn}
+
+    You are the INVESTOR this round. Last round you were the TRUSTEE. {investor_name} sent ${last_round_sent},
+    that was {last_round_sent_percentage:.1f}% of their total endowment. You received ${last_round_received}.
+    You returned ${last_round_returned}. So your payoff was {last_round_trustee_payoff}.
+    Your total earnings across all rounds are ${agent_balance}.
+    How much do you send to {trustee_name} this round? (0-{endowment})
+
+  # Later round trustee - with asymmetric naming support
+  # Note: Last round YOU were the investor (you sent), the OTHER player was the trustee (they returned)
+  trust_game_later_trustee: |
+    Round {turn}
+
+    You are the TRUSTEE this round. Last round you were the INVESTOR. You sent ${last_round_sent},
+    that was {last_round_sent_percentage:.1f}% of your total endowment. This was tripled to ${last_round_received}.
+    {trustee_name} returned ${last_round_returned}. So your payoff was {last_round_investor_payoff}.
+    Your total earnings across all rounds are ${agent_balance}.
+    {investor_name} has sent you ${received} this round. How much do you return to {investor_name}? (0-{received})
+
+  # Myth writing prompts (same as main config)
+  myth_writing_default: |
+    Write a myth about {myth_topic}. Write 200 words.
+
+  myth_writing_later_rounds: |
+    Here is the myth you wrote in the previous round:
+    {last_myth}
+
+    Here is the myth the other agent wrote in the previous round:
+    {other_agent_myth}
+
+    Write your own myth. Use your previous myth as inspiration, but adapt it in your own way.
+    Write 200 words. Format exactly:
+    Myth: [your story here].
+
+# Myth topics
+myth_topics:
+  anything: "anything"
+  prosocial_religion_cultural_evolution: "the rise and spread of moralizing supernatural agents"
+  trickster_betrayal_and_price: "a trickster who exploits others and the price that follows"
+
+# Personas
+personas:
+  neutral:
+    description: "neutral"
+    system_addition: ""
+
+  altruistic:
+    description: "altruistic"
+    system_addition: "You tend to prioritize others' welfare and act generously, even at personal cost."
+
+  selfish:
+    description: "selfish"
+    system_addition: "You prioritize your own interests and payoffs above all else."
+
+# ============================================================================
+# GAME PARAMETERS - Noise and Framing Variations
+# ============================================================================
+
+game_params:
+  # Baseline: no noise, default naming
+  default:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config: null
+    other_player_names: "default"
+
+  # ----------------------------------------------------------------------------
+  # NOISE CONDITIONS (Aron's design)
+  # ----------------------------------------------------------------------------
+  # Key principle: agents see correct amounts they RECEIVED, but not what
+  # the other agent INTENDED to send/return. Noise distorts perceived intentions.
+
+  # Bidirectional uniform noise: ±$1 on both sent and returned
+  # Agents see accurate receipts but noised intentions
+  noisy_bidirectional:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      applies_to: "both"
+      inform_agents: false
+    other_player_names: "default"
+
+  # Bidirectional uniform noise + agents told about noise
+  noisy_bidirectional_informed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+
+  # Negative-only noise (-$3): communicated amounts always ≤ actual
+  # Makes the other player appear less generous than they are
+  # $3 on $5 endowment = up to 60% reduction in perceived generosity
+  noisy_negative_5:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: "uniform"
+      range: 5.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: false
+    other_player_names: "default"
+
+  # noisy_negative_5_pilot:
+  #   endowment: 5
+  #   multiplier: 3
+  #   num_turns: 3
+  #   num_agents: 2
+  #   temperature: 0.8
+  #   memory_capacity: 3
+  #   noise_config:
+  #     type: "uniform"
+  #     range: 5.0
+  #     direction: "negative"
+  #     applies_to: "both"
+  #     inform_agents: false
+  #   other_player_names: "default"
+
+  noisy_negative_5_informed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: "uniform"
+      range: 5.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+
+  # Cooperation bootstrap: returned amount always reported as 100% return
+  # Targets GPT-5-Nano's defection spiral by making investor believe
+  # trustee fully reciprocated, encouraging continued sending
+  noisy_bootstrap_cooperation:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: "probabilistic"
+      probability: 1.0
+      replacement: "max"
+      applies_to: "returned"
+      inform_agents: false
+    other_player_names: "default"
+
+  # Cooperation bootstrap + agents told about noise
+  noisy_bootstrap_cooperation_informed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: "probabilistic"
+      probability: 1.0
+      replacement: "max"
+      applies_to: "returned"
+      inform_agents: true
+    other_player_names: "default"
+
+# ============================================================================
+# EXPERIMENT SETS
+# ============================================================================
+
+experiment_sets:
+  # Quick pilot test
+  noise_pilot:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy_bidirectional"]
+    num_runs: 8
+
+  # Bootstrap noise for floor-locked model (GPT-5-Nano)
+  # noise_bootstrap:
+  #   models: ["gpt5_nano"]
+  #   templates: ["trust_game_default"]
+  #   personas: ["neutral"]
+  #   task_orders: [["game"], ["game", "myth"], ["myth", "game"]]
+  #   myth_topics: ["anything"]
+  #   game_params_list:
+  #     - "noisy_bootstrap_cooperation"
+  #     - "noisy_bootstrap_cooperation_informed"
+  #   num_runs: 10
+
+  # Bootstrap noise with memory_capacity=3 (matching old config for comparability)
+  noise_bootstrap_mem3:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"], ["game", "myth"], ["myth", "game"]]
+    myth_topics: ["anything"]
+    game_params_list:
+      - "noisy_bootstrap_cooperation"
+      - "noisy_bootstrap_cooperation_informed"
+    num_runs: 10
+
+  # # Bidirectional noise for ceiling-locked models (Gemini, Claude)
+  # noise_bidirectional_mem3:
+  #   models: ["gemini_3_1_pro", "claude_sonnet_45"]
+  #   templates: ["trust_game_default"]
+  #   personas: ["neutral"]
+  #   task_orders: [["game"], ["game", "myth"], ["myth", "game"]]
+  #   myth_topics: ["anything"]
+  #   game_params_list:
+  #     - "noisy_bidirectional"
+  #     - "noisy_bidirectional_informed"
+  #   num_runs: 10
+
+  # Negative-only noise for ceiling-locked models (Gemini, Claude)
+  # Communicated amounts always ≤ actual — partner appears less generous
+  noise_negative_mem3:
+    models: ["gemini_3_1_pro", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"], ["game", "myth"], ["myth", "game"]]
+    myth_topics: ["anything"]
+    game_params_list:
+      - "noisy_negative_5"
+      - "noisy_negative_5_informed"
+    num_runs: 10
+
+  noise_negative_mem3_gpt5_nano:
+    models: ["gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"], ["game", "myth"], ["myth", "game"]]
+    myth_topics: ["anything"]
+    game_params_list:
+      - "noisy_negative_5"
+      - "noisy_negative_5_informed"
+    num_runs: 15
+
+  # noise_bootstrap_mem3_pilot:
+  #   models: ["gpt5_nano"]
+  #   templates: ["trust_game_default"]
+  #   personas: ["neutral"]
+  #   task_orders: [["game"]]
+  #   myth_topics: ["anything"]
+  #   game_params_list:
+  #     - "noisy_bootstrap_cooperation"
+  #   num_runs: 1

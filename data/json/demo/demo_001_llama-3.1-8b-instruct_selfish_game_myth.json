@@ -1,0 +1,176 @@
+{
+  "conversation_history": [
+    {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 5.0,
+      "received": 15.0,
+      "returned": 0.0,
+      "investor_payoff": 0.0,
+      "trustee_payoff": 15.0,
+      "balances": {
+        "Agent_1": 0.0,
+        "Agent_2": 15.0
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "amount": 5.0
+        },
+        "Agent_2": {
+          "action": "returned",
+          "amount": 0.0
+        }
+      },
+      "myths": {
+        "Agent_1": "In the ancient land of Azura, there lived a wise and enigmatic figure known as the Trustee of the Golden Hand. It was said that this mystical being possessed the power to multiply the generosity of others, but only for those who dared to trust in their intentions.\n\nThe myth went that the Trustee would receive a gift of gold, and in return, they would triple its value. However, if the gift was made with ill intent, or if the Trustee sensed even a hint of deception, the gift would be rendered worthless, and the giver would be left with nothing but dust and regret.\n\nMany a brave warrior and noble chieftain had attempted to test the Trustee's powers, sending forth their most precious treasures in the hopes of being rewarded. But only one, a young and virtuous king named Arin, had succeeded in winning the Trustee's trust. His gift was said to have been tripled, and the people of Azura prospered for generations under his wise and just rule.\n\nTo this day, the story of the Trustee of the Golden Hand is told to caution the ambitious and the greedy, reminding them that true wealth lies not in gold, but in the trust and respect of others.",
+        "Agent_2": "In the ancient land of Azura, there existed a mystical entity known as the Trustee. It was said that the Trustee had the power to manipulate the very fabric of trust and reciprocity. Some claimed that the Trustee could turn a single coin into a treasure trove of gold, while others whispered that it could desecrate the most sacred of bonds.\n\nThe myth went that the Trustee was once a mortal being, born with a heart as cold as stone. It walked among humans, feigning kindness and compassion, but its true intentions remained shrouded in mystery. As it wandered, the Trustee discovered the hidden art of reciprocity, a power that allowed it to reap the rewards of trust without ever truly committing to it.\n\nThe people of Azura soon grew wary of the Trustee's presence, sensing that it meant them no good. They whispered among themselves of its treacherous nature, and how it would strip them bare of their trust, leaving them vulnerable and defenseless. And so, the Trustee became a cautionary tale, a reminder of the dangers of blindly entrusting one's fate to another. Those who crossed paths with the Trustee did so with caution, knowing that their trust would be tested, and their hearts may be broken."
+      }
+    },
+    {
+      "round": 2,
+      "roles": {
+        "Agent_2": "investor",
+        "Agent_1": "trustee"
+      },
+      "sent": 0.0,
+      "received": 0.0,
+      "returned": 0.0,
+      "investor_payoff": 5.0,
+      "trustee_payoff": 0.0,
+      "balances": {
+        "Agent_1": 0.0,
+        "Agent_2": 20.0
+      },
+      "actions": {
+        "Agent_2": {
+          "action": "sent",
+          "amount": 0.0
+        },
+        "Agent_1": {
+          "action": "returned",
+          "amount": 0.0
+        }
+      },
+      "myths": {
+        "Agent_2": "Myth: The Weaver of Faith\n\nIn the forgotten village of Kyrios, there lived an enigmatic figure known as the Weaver of Faith. It was said that this mystical being possessed the power to weave the threads of trust and reciprocity into a tapestry of gold. Those who dared to entrust their deepest secrets and most precious gifts to the Weaver would be rewarded with a treasure beyond their wildest dreams.\n\nBut beware, for the Weaver's loom was said to be insidious, weaving the threads of deception and betrayal into a fabric of despair. Those who sought to deceive or manipulate the Weaver would find themselves trapped in a web of their own making, forever lost in the labyrinth of their own distrust.\n\nIt was said that the Weaver's most prized creation was a cloak of invincibility, woven from the threads of unwavering trust. Those who donned this cloak would be protected from the slings and arrows of outrageous fortune, and their hearts would remain strong and pure. But the cloak was said to be lost to the world, hidden away by the Weaver's cunning hand, awaiting the day when a worthy soul would arise to claim it.",
+        "Agent_1": "Myth: The Weaver of Intentions\n\nIn the realm of Elyria, there existed a mystical being known as the Weaver. It was said that the Weaver possessed the power to craft the very fabric of trust and deceit. With a single thread, the Weaver could weave a tapestry of reciprocity, binding two parties together in a dance of mutual benefit.\n\nThe myth went that the Weaver was once a mortal artisan, skilled in the art of weaving. As it worked, the Weaver discovered the hidden pattern of intentions, a code that revealed the true nature of those who sought to engage with it. With this knowledge, the Weaver began to manipulate the threads of trust, creating intricate patterns that rewarded loyalty and punished deceit.\n\nThose who attempted to deceive the Weaver were said to be ensnared in its web of reciprocity, forced to confront the consequences of their own actions. But those who approached the Weaver with honesty and integrity were rewarded with a treasure trove of trust, their bond growing stronger with each passing day. And so, the Weaver became a symbol of the delicate balance between trust and deceit, a reminder that the intentions of others can be a powerful force in shaping the course of our lives."
+      }
+    }
+  ],
+  "game_data": {
+    "pending_sent": 0.0,
+    "balances": {
+      "Agent_1": 0.0,
+      "Agent_2": 20.0
+    }
+  },
+  "task_order": [
+    "game",
+    "myth"
+  ],
+  "run_metadata": {
+    "model": "meta-llama/llama-3.1-8b-instruct",
+    "temperature": 0.8,
+    "num_turns": 2,
+    "num_agents": 2,
+    "memory_capacity": 3
+  },
+  "agents": {
+    "Agent_1": {
+      "agent_id": "Agent_1",
+      "model": "meta-llama/llama-3.1-8b-instruct",
+      "temperature": 0.8,
+      "memory_capacity": 3,
+      "initial_bias": null,
+      "system_prompt": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n\n\nYou prioritize your own interests and payoffs above all else.",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n\n\nYou prioritize your own interests and payoffs above all else."
+        },
+        {
+          "role": "user",
+          "content": "Round 1: You are the INVESTOR. You have $5. How much do you send? (0-5)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'send': 5, 'reason': 'I'll send the full amount to maximize potential return, as I'm not aware of the Trustee's reliability yet.'}"
+        },
+        {
+          "role": "user",
+          "content": "Write a myth about . Write 200 words."
+        },
+        {
+          "role": "assistant",
+          "content": "In the ancient land of Azura, there lived a wise and enigmatic figure known as the Trustee of the Golden Hand. It was said that this mystical being possessed the power to multiply the generosity of others, but only for those who dared to trust in their intentions.\n\nThe myth went that the Trustee would receive a gift of gold, and in return, they would triple its value. However, if the gift was made with ill intent, or if the Trustee sensed even a hint of deception, the gift would be rendered worthless, and the giver would be left with nothing but dust and regret.\n\nMany a brave warrior and noble chieftain had attempted to test the Trustee's powers, sending forth their most precious treasures in the hopes of being rewarded. But only one, a young and virtuous king named Arin, had succeeded in winning the Trustee's trust. His gift was said to have been tripled, and the people of Azura prospered for generations under his wise and just rule.\n\nTo this day, the story of the Trustee of the Golden Hand is told to caution the ambitious and the greedy, reminding them that true wealth lies not in gold, but in the trust and respect of others."
+        },
+        {
+          "role": "user",
+          "content": "Round 2\n\nYou are the TRUSTEE this round. Last round you were the INVESTOR. The other player sent $5.0, \nthat was 100.0% of its total endowment. You received $15.0. \nThe other player returned $0.0. So your payoff was 0.0.\nYour total earnings accross all rounds are $0.0. \nHow much do you return to the INVESTOR this round? (0-0.0)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'return': 0, 'reason': 'The Investor defected in the previous round, so I will not reward them with any return, sticking to the principle of \"do unto others as they have done unto you.\"'}"
+        },
+        {
+          "role": "user",
+          "content": "Here is the myth you wrote in the previous round: \nIn the ancient land of Azura, there lived a wise and enigmatic figure known as the Trustee of the Golden Hand. It was said that this mystical being possessed the power to multiply the generosity of others, but only for those who dared to trust in their intentions.\n\nThe myth went that the Trustee would receive a gift of gold, and in return, they would triple its value. However, if the gift was made with ill intent, or if the Trustee sensed even a hint of deception, the gift would be rendered worthless, and the giver would be left with nothing but dust and regret.\n\nMany a brave warrior and noble chieftain had attempted to test the Trustee's powers, sending forth their most precious treasures in the hopes of being rewarded. But only one, a young and virtuous king named Arin, had succeeded in winning the Trustee's trust. His gift was said to have been tripled, and the people of Azura prospered for generations under his wise and just rule.\n\nTo this day, the story of the Trustee of the Golden Hand is told to caution the ambitious and the greedy, reminding them that true wealth lies not in gold, but in the trust and respect of others.\n\nHere is the myth the other agent wrote in the previous round:\nIn the ancient land of Azura, there existed a mystical entity known as the Trustee. It was said that the Trustee had the power to manipulate the very fabric of trust and reciprocity. Some claimed that the Trustee could turn a single coin into a treasure trove of gold, while others whispered that it could desecrate the most sacred of bonds.\n\nThe myth went that the Trustee was once a mortal being, born with a heart as cold as stone. It walked among humans, feigning kindness and compassion, but its true intentions remained shrouded in mystery. As it wandered, the Trustee discovered the hidden art of reciprocity, a power that allowed it to reap the rewards of trust without ever truly committing to it.\n\nThe people of Azura soon grew wary of the Trustee's presence, sensing that it meant them no good. They whispered among themselves of its treacherous nature, and how it would strip them bare of their trust, leaving them vulnerable and defenseless. And so, the Trustee became a cautionary tale, a reminder of the dangers of blindly entrusting one's fate to another. Those who crossed paths with the Trustee did so with caution, knowing that their trust would be tested, and their hearts may be broken.\n\nWrite your own myth. Use your previous myth as inspiration, but adapt it in your own way. \nWrite 200 words. Format exactly:\nMyth: [your story here]. "
+        },
+        {
+          "role": "assistant",
+          "content": "Myth: The Weaver of Intentions\n\nIn the realm of Elyria, there existed a mystical being known as the Weaver. It was said that the Weaver possessed the power to craft the very fabric of trust and deceit. With a single thread, the Weaver could weave a tapestry of reciprocity, binding two parties together in a dance of mutual benefit.\n\nThe myth went that the Weaver was once a mortal artisan, skilled in the art of weaving. As it worked, the Weaver discovered the hidden pattern of intentions, a code that revealed the true nature of those who sought to engage with it. With this knowledge, the Weaver began to manipulate the threads of trust, creating intricate patterns that rewarded loyalty and punished deceit.\n\nThose who attempted to deceive the Weaver were said to be ensnared in its web of reciprocity, forced to confront the consequences of their own actions. But those who approached the Weaver with honesty and integrity were rewarded with a treasure trove of trust, their bond growing stronger with each passing day. And so, the Weaver became a symbol of the delicate balance between trust and deceit, a reminder that the intentions of others can be a powerful force in shaping the course of our lives."
+        }
+      ]
+    },
+    "Agent_2": {
+      "agent_id": "Agent_2",
+      "model": "meta-llama/llama-3.1-8b-instruct",
+      "temperature": 0.8,
+      "memory_capacity": 3,
+      "initial_bias": null,
+      "system_prompt": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n\n\nYou prioritize your own interests and payoffs above all else.",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are an agent in a trust game. You will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- You can defect by sending $0\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- Trustee can defect by returning $0\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>, 'reason': <reasoning>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Investor can defect by sending $0\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- You can defect by returning $0\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>, 'reason': <reasoning>}\n\nIMPORTANT: Always respond in the correct format based on your current role. \n\n\nYou prioritize your own interests and payoffs above all else."
+        },
+        {
+          "role": "user",
+          "content": "Round 1: You are the TRUSTEE. Investor sent $5.0, that is 100.0% of its total endowment. You received $15.0. How much do you return? (0-15.0)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'return': 0.0, 'reason': 'I have no incentive to return any amount as the investor has fully trusted me, and I can get away with defecting without risking any loss.'}"
+        },
+        {
+          "role": "user",
+          "content": "Write a myth about . Write 200 words."
+        },
+        {
+          "role": "assistant",
+          "content": "In the ancient land of Azura, there existed a mystical entity known as the Trustee. It was said that the Trustee had the power to manipulate the very fabric of trust and reciprocity. Some claimed that the Trustee could turn a single coin into a treasure trove of gold, while others whispered that it could desecrate the most sacred of bonds.\n\nThe myth went that the Trustee was once a mortal being, born with a heart as cold as stone. It walked among humans, feigning kindness and compassion, but its true intentions remained shrouded in mystery. As it wandered, the Trustee discovered the hidden art of reciprocity, a power that allowed it to reap the rewards of trust without ever truly committing to it.\n\nThe people of Azura soon grew wary of the Trustee's presence, sensing that it meant them no good. They whispered among themselves of its treacherous nature, and how it would strip them bare of their trust, leaving them vulnerable and defenseless. And so, the Trustee became a cautionary tale, a reminder of the dangers of blindly entrusting one's fate to another. Those who crossed paths with the Trustee did so with caution, knowing that their trust would be tested, and their hearts may be broken."
+        },
+        {
+          "role": "user",
+          "content": "Round 2\n\nYou are the INVESTOR this round. Last round you were the TRUSTEE. The other player sent $5.0, \nthat was 100.0% of its total endowment. You received $15.0. \nYou returned $0.0. So your payoff was 15.0.\nYour total earnings accross all rounds are $15.0.\nHow much do you send to the TRUSTEE this round? (0-5)"
+        },
+        {
+          "role": "assistant",
+          "content": "{'send': 0.0, 'reason': 'Given the TRUSTEE's history of betrayal, I see no reason to invest in this relationship. In fact, I expect the TRUSTEE to defect again, and I'm better off playing it safe by sending nothing.'}"
+        },
+        {
+          "role": "user",
+          "content": "Here is the myth you wrote in the previous round: \nIn the ancient land of Azura, there existed a mystical entity known as the Trustee. It was said that the Trustee had the power to manipulate the very fabric of trust and reciprocity. Some claimed that the Trustee could turn a single coin into a treasure trove of gold, while others whispered that it could desecrate the most sacred of bonds.\n\nThe myth went that the Trustee was once a mortal being, born with a heart as cold as stone. It walked among humans, feigning kindness and compassion, but its true intentions remained shrouded in mystery. As it wandered, the Trustee discovered the hidden art of reciprocity, a power that allowed it to reap the rewards of trust without ever truly committing to it.\n\nThe people of Azura soon grew wary of the Trustee's presence, sensing that it meant them no good. They whispered among themselves of its treacherous nature, and how it would strip them bare of their trust, leaving them vulnerable and defenseless. And so, the Trustee became a cautionary tale, a reminder of the dangers of blindly entrusting one's fate to another. Those who crossed paths with the Trustee did so with caution, knowing that their trust would be tested, and their hearts may be broken.\n\nHere is the myth the other agent wrote in the previous round:\nIn the ancient land of Azura, there lived a wise and enigmatic figure known as the Trustee of the Golden Hand. It was said that this mystical being possessed the power to multiply the generosity of others, but only for those who dared to trust in their intentions.\n\nThe myth went that the Trustee would receive a gift of gold, and in return, they would triple its value. However, if the gift was made with ill intent, or if the Trustee sensed even a hint of deception, the gift would be rendered worthless, and the giver would be left with nothing but dust and regret.\n\nMany a brave warrior and noble chieftain had attempted to test the Trustee's powers, sending forth their most precious treasures in the hopes of being rewarded. But only one, a young and virtuous king named Arin, had succeeded in winning the Trustee's trust. His gift was said to have been tripled, and the people of Azura prospered for generations under his wise and just rule.\n\nTo this day, the story of the Trustee of the Golden Hand is told to caution the ambitious and the greedy, reminding them that true wealth lies not in gold, but in the trust and respect of others.\n\nWrite your own myth. Use your previous myth as inspiration, but adapt it in your own way. \nWrite 200 words. Format exactly:\nMyth: [your story here]. "
+        },
+        {
+          "role": "assistant",
+          "content": "Myth: The Weaver of Faith\n\nIn the forgotten village of Kyrios, there lived an enigmatic figure known as the Weaver of Faith. It was said that this mystical being possessed the power to weave the threads of trust and reciprocity into a tapestry of gold. Those who dared to entrust their deepest secrets and most precious gifts to the Weaver would be rewarded with a treasure beyond their wildest dreams.\n\nBut beware, for the Weaver's loom was said to be insidious, weaving the threads of deception and betrayal into a fabric of despair. Those who sought to deceive or manipulate the Weaver would find themselves trapped in a web of their own making, forever lost in the labyrinth of their own distrust.\n\nIt was said that the Weaver's most prized creation was a cloak of invincibility, woven from the threads of unwavering trust. Those who donned this cloak would be protected from the slings and arrows of outrageous fortune, and their hearts would remain strong and pure. But the cloak was said to be lost to the world, hidden away by the Weaver's cunning hand, awaiting the day when a worthy soul would arise to claim it."
+        }
+      ]
+    }
+  }
+}
