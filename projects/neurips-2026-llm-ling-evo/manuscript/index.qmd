@@ -18,7 +18,7 @@ abstract: "Abstract placeholder."
   include to .c_final.md. End-state: every include is .c_final.md.
 -->
 
-{{< include _0-introduction.a_outline.md >}}
+{{< include _0-introduction.b_draft.md >}}
 
 {{< include _1-background.a_outline.md >}}
 
