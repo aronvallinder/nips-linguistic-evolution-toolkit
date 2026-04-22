@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
+  <info>
+    <title>NeurIPS</title>
+    <id>http://www.zotero.org/styles/neurips</id>
+    <author>
+      <name>NeurIPS Style</name>
+    </author>
+    <category citation-format="author-date"/>
+    <category field="science"/>
+    <updated>2024-01-01T00:00:00+00:00</updated>
+  </info>
+  <macro name="author">
+    <names variable="author">
+      <name and="text" delimiter=", " delimiter-precedes-last="always" initialize-with=". "/>
+      <label form="short" prefix=" (" suffix=")"/>
+      <substitute>
+        <names variable="editor"/>
+        <text variable="title"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="author-short">
+    <names variable="author">
+      <name form="short" and="text" delimiter=", "/>
+      <substitute>
+        <names variable="editor"/>
+        <text variable="title" form="short"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="year">
+    <date variable="issued">
+      <date-part name="year"/>
+    </date>
+  </macro>
+  <macro name="title">
+    <text variable="title"/>
+  </macro>
+  <macro name="container">
+    <choose>
+      <if type="article-journal" match="any">
+        <text variable="container-title" font-style="italic"/>
+      </if>
+      <else-if type="paper-conference" match="any">
+        <text value="In " font-style="normal"/>
+        <text variable="container-title" font-style="italic"/>
+      </else-if>
+      <else-if type="book" match="any">
+        <text variable="publisher"/>
+      </else-if>
+      <else-if type="chapter" match="any">
+        <text value="In " font-style="normal"/>
+        <text variable="container-title" font-style="italic"/>
+      </else-if>
+    </choose>
+  </macro>
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" collapse="year">
+    <sort>
+      <key macro="author"/>
+      <key macro="year"/>
+    </sort>
+    <layout prefix="[" suffix="]" delimiter="; ">
+      <group delimiter=", ">
+        <text macro="author-short"/>
+        <text macro="year"/>
+      </group>
+    </layout>
+  </citation>
+  <bibliography hanging-indent="true" entry-spacing="0">
+    <sort>
+      <key macro="author"/>
+      <key macro="year"/>
+    </sort>
+    <layout suffix=".">
+      <group delimiter=". ">
+        <text macro="author"/>
+        <text macro="title"/>
+        <text macro="container"/>
+        <text macro="year"/>
+      </group>
+    </layout>
+  </bibliography>
+</style>

@@ -1,0 +1,29 @@
+---
+title: "LLM Linguistic Evolution: Language and Cooperation in LLM Dyads"
+author:
+  - name: Aron Vallinder
+    affiliations:
+      - id: aff1
+        name: Affiliation TBD
+date: last-modified
+bibliography: references.json
+csl: neurips.csl
+abstract: "Abstract placeholder."
+---
+
+{{< include _0-introduction.c_final.md >}}
+
+{{< include _1-background.c_final.md >}}
+
+{{< include _2-method.c_final.md >}}
+
+{{< include _3-results.c_final.md >}}
+
+{{< include _4-discussion.c_final.md >}}
+
+## References {.unnumbered}
+
+::: {#refs}
+:::
+
+{{< include _5-appendix.c_final.md >}}

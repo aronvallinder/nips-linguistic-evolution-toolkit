@@ -41,6 +41,11 @@ Thumbs.db
 .cursor/
 .claude/
 
+# Override: this fork tracks .claude/ because it ships the manuscript-workflow
+# agents/skills/hooks (ms-writer, ms-render, ms-pdf-extract, ms-guard.sh, etc.)
+# used by projects/neurips-2026-llm-ling-evo. Local IDE state stays excluded.
+!.claude/
+
 # --- Ephemeral noise-run configs ---
 noise/tmp*.yaml
 
