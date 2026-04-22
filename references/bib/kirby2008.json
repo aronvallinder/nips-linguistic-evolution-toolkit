@@ -1,0 +1,38 @@
+{
+  "publisher": "Proceedings of the National Academy of Sciences",
+  "issue": "31",
+  "abstract": "<jats:p>We introduce an experimental paradigm for studying the cumulative cultural evolution of language. In doing so we provide the first experimental validation for the idea that cultural transmission can lead to the appearance of design without a designer. Our experiments involve the iterated learning of artificial languages by human participants. We show that languages transmitted culturally evolve in such a way as to maximize their own transmissibility: over time, the languages in our experiments become easier to learn and increasingly structured. Furthermore, this structure emerges purely as a consequence of the transmission of language over generations, without any intentional design on the part of individual language learners. Previous computational and mathematical models suggest that iterated learning provides an explanation for the structure of human language and link particular aspects of linguistic structure with particular constraints acting on language during its transmission. The experimental work presented here shows that the predictions of these models, and models of cultural evolution more generally, can be tested in the laboratory.</jats:p>",
+  "DOI": "10.1073/pnas.0707835105",
+  "type": "journal-article",
+  "page": "10681-10686",
+  "title": "Cumulative cultural evolution in the laboratory: An experimental approach to the origins of structure in human language",
+  "volume": "105",
+  "author": [
+    {
+      "given": "Simon",
+      "family": "Kirby"
+    },
+    {
+      "given": "Hannah",
+      "family": "Cornish"
+    },
+    {
+      "given": "Kenny",
+      "family": "Smith"
+    }
+  ],
+  "container-title": "Proceedings of the National Academy of Sciences",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        2008,
+        8,
+        5
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1073/pnas.0707835105",
+  "ISSN": "0027-8424",
+  "id": "kirby2008"
+}

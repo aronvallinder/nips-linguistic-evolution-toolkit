@@ -12,7 +12,7 @@
     - `gemini-3.1-pro-preview`: ceiling-locked near Pareto-optimal cooperation; trustees rapidly learn to return close to the maximum, investors send near $E$. Across-seed variance low.
     - `claude-sonnet-4.5`: middle regime; high cooperation but not ceiling. `[CHECK — confirm Sonnet 4.5 baseline ≈ same as 3.5 Sonnet's ~82–85 cumulative observed in March pilots]`
     - `gpt-5-nano`: floor-locked at mutual defection; cumulative reward at or near the no-trade outcome of $E \cdot T$ per agent.
-- *Interpretation paragraph:* model-level "cooperation profile" is large and persistent — comparable in magnitude to the persona manipulations reported elsewhere. Cite the cross-model variation literature for context. `[CITE: Fontana et al. 2024; Serapio-García et al. 2023; Leng & Yuan 2023]`
+- *Interpretation paragraph:* model-level "cooperation profile" is large and persistent — comparable in magnitude to the persona manipulations reported elsewhere. Cite the cross-model variation literature for context. [@fontana2024; @serapio2023; @leng2023]
 - *Why this matters for the rest of the paper:* both ceiling-locking (Gemini, Claude) and floor-locking (Nano) leave the game with no behavioural headroom for any other manipulation — including myth — to surface. §4.2 addresses this directly.
 
 ## 4.2 Effect of noise on the cooperation profile

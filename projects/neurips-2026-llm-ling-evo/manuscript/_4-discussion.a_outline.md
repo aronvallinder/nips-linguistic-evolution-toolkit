@@ -11,15 +11,15 @@
 ## 5.2 Strategy consolidation as the primary effect of myth-writing
 
 - *Frame:* if the consistent signal is in across-seed variance reduction rather than mean lift, the natural interpretation is that myth-writing acts as a *coordination commitment device* within a dyad — the shared narrative locks in whichever cooperation level the dyad has converged on, rather than pulling the level upward. `[CHECK — only if §4.3 actually shows variance reduction]`
-- *Why this is interesting in its own right:* in human groups, narrative devices often act this way — they don't necessarily make people more cooperative on average, they make cooperation more *predictable* and reduce backsliding. Cite the human evidence we already have in §2.3. `[CITE: Smith et al. 2017 (Nat Commun); Boyd, Richerson & Henrich 2011]`
+- *Why this is interesting in its own right:* in human groups, narrative devices often act this way — they don't necessarily make people more cooperative on average, they make cooperation more *predictable* and reduce backsliding. Cite the human evidence we already have in §2.3. [@smith2017; @boyd2011]
 - *Mechanism speculation* (clearly labelled as such): possible mechanisms include (i) the myth gives the agent a self-consistent narrative to anchor its own behaviour to across rounds; (ii) the partner's myth provides a stable model of the partner that resists volatile updating from noisy game signals; (iii) the round-on-round myth evolution functions like a slow-moving prior that absorbs short-horizon variance.
 - *Disclaim*: with $T = 10$ and $N = 10$ per cell, we can't distinguish these mechanisms; we can only point at the variance-reduction signature.
 
 ## 5.3 Cross-model variation as model-personality, not noise
 
 - *Frame:* the cross-model differences are larger than any of our experimental manipulations. Defend this as a substantive finding rather than a confound to control out.
-- *Position against existing work:* cross-model variation in social-game behaviour is a recurring finding `[CITE: Fontana et al. 2024 (Llama2 forgiving / Llama3 exploitative); Leng & Yuan 2023; Serapio-García et al. 2023]`. Our contribution is to show that the variation persists *under matched experimental conditions* (same prompts, same seeds, same noise mechanism) and *under conditions designed to break ceiling/floor lock-in*.
-- *Speculation, carefully bounded:* differences are most plausibly attributed to RLHF / Constitutional AI training mixes (`[CITE: Bai et al. 2022 (Constitutional AI)]`) rather than to scale or capability per se. We cannot test this directly; flag as a hypothesis for cross-model studies that have access to base / RLHF / instruction-tuned variants of the same model family.
+- *Position against existing work:* cross-model variation in social-game behaviour is a recurring finding [@fontana2024; @leng2023; @serapio2023]. Our contribution is to show that the variation persists *under matched experimental conditions* (same prompts, same seeds, same noise mechanism) and *under conditions designed to break ceiling/floor lock-in*.
+- *Speculation, carefully bounded:* differences are most plausibly attributed to RLHF / Constitutional AI training mixes ([@bai2022]) rather than to scale or capability per se. We cannot test this directly; flag as a hypothesis for cross-model studies that have access to base / RLHF / instruction-tuned variants of the same model family.
 - *Methodological recommendation:* future LLM-game work should report all findings with model-stratified statistics; pooling across frontier models hides the dominant effect.
 
 ## 5.4 Cross-task influence: language is in the loop, but quietly
@@ -45,8 +45,8 @@
 ## 5.6 Future directions
 
 - *Direct partner-myth injection into the game prompt.* The single most informative follow-up: rerun the design with the partner's most recent myth quoted in the trust-game prompt, and compare. Strongest test of the language → cooperation hypothesis.
-- *Longer horizons + generational replacement.* Move from 10 rounds in a 2-agent dyad to an N-agent population with selection across generations — i.e. the Vallinder & Hughes paradigm — and measure whether the consolidation signal compounds into level shifts over time. `[CITE: Vallinder & Hughes 2024]` (Out of scope for this paper; flagged for the population follow-up.)
+- *Longer horizons + generational replacement.* Move from 10 rounds in a 2-agent dyad to an N-agent population with selection across generations — i.e. the Vallinder & Hughes paradigm — and measure whether the consolidation signal compounds into level shifts over time. [@vallinder2024] (Out of scope for this paper; flagged for the population follow-up.)
 - *Cross-model dyads.* Holding the experimental design fixed, vary which models are paired. Tests whether one model's "cooperation profile" can pull another's, and whether linguistic convergence happens between models with different baselines.
 - *Persona × myth interaction.* The infrastructure is ready (§3.4 lists three personas; §3.3 lists three myth topics). One factorial pass would test whether myth content interacts with persona to produce cooperation effects neither produces alone.
-- *Alternative games with more headroom.* Trust game is locked-in for two of three models even without the noise interventions. Public goods games and multi-agent commons games (`[CITE: Piatti et al. 2024 (GovSim)]`) may have more behavioural latitude.
+- *Alternative games with more headroom.* Trust game is locked-in for two of three models even without the noise interventions. Public goods games and multi-agent commons games ([@piatti2024]) may have more behavioural latitude.
 - *Pre-registered confirmatory replication of the consolidation finding.* Because the variance-reduction interpretation emerged partly from inspection of cell-level results, a clean confirmatory study with pre-registered cells, $N$, and analysis path would substantially strengthen the claim.

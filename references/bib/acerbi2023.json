@@ -1,0 +1,33 @@
+{
+  "publisher": "Proceedings of the National Academy of Sciences",
+  "issue": "44",
+  "abstract": "<jats:p>As the use of large language models (LLMs) grows, it is important to examine whether they exhibit biases in their output. Research in cultural evolution, using transmission chain experiments, demonstrates that humans have biases to attend to, remember, and transmit some types of content over others. Here, in five preregistered experiments using material from previous studies with human participants, we use the same, transmission chain-like methodology, and find that the LLM ChatGPT-3 shows biases analogous to humans for content that is gender-stereotype-consistent, social, negative, threat-related, and biologically counterintuitive, over other content. The presence of these biases in LLM output suggests that such content is widespread in its training data and could have consequential downstream effects, by magnifying preexisting human tendencies for cognitively appealing and not necessarily informative, or valuable, content.</jats:p>",
+  "DOI": "10.1073/pnas.2313790120",
+  "type": "journal-article",
+  "title": "Large language models show human-like content biases in transmission chain experiments",
+  "volume": "120",
+  "author": [
+    {
+      "given": "Alberto",
+      "family": "Acerbi"
+    },
+    {
+      "given": "Joseph M.",
+      "family": "Stubbersfield"
+    }
+  ],
+  "container-title": "Proceedings of the National Academy of Sciences",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        2023,
+        10,
+        26
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1073/pnas.2313790120",
+  "ISSN": "0027-8424",
+  "id": "acerbi2023"
+}

@@ -1,0 +1,38 @@
+{
+  "publisher": "Proceedings of the National Academy of Sciences",
+  "issue": "supplement_2",
+  "abstract": "<jats:p>In the last 60,000 y humans have expanded across the globe and now occupy a wider range than any other terrestrial species. Our ability to successfully adapt to such a diverse range of habitats is often explained in terms of our cognitive ability. Humans have relatively bigger brains and more computing power than other animals, and this allows us to figure out how to live in a wide range of environments. Here we argue that humans may be smarter than other creatures, but none of us is nearly smart enough to acquire all of the information necessary to survive in any single habitat. In even the simplest foraging societies, people depend on a vast array of tools, detailed bodies of local knowledge, and complex social arrangements and often do not understand why these tools, beliefs, and behaviors are adaptive. We owe our success to our uniquely developed ability to learn from others. This capacity enables humans to gradually accumulate information across generations and develop well-adapted tools, beliefs, and practices that are too complex for any single individual to invent during their lifetime.</jats:p>",
+  "DOI": "10.1073/pnas.1100290108",
+  "type": "journal-article",
+  "page": "10918-10925",
+  "title": "The cultural niche: Why social learning is essential for human adaptation",
+  "volume": "108",
+  "author": [
+    {
+      "given": "Robert",
+      "family": "Boyd"
+    },
+    {
+      "given": "Peter J.",
+      "family": "Richerson"
+    },
+    {
+      "given": "Joseph",
+      "family": "Henrich"
+    }
+  ],
+  "container-title": "Proceedings of the National Academy of Sciences",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        2011,
+        6,
+        20
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1073/pnas.1100290108",
+  "ISSN": "0027-8424",
+  "id": "boyd2011"
+}

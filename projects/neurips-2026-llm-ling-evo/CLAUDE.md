@@ -10,31 +10,35 @@ A NeurIPS 2026 paper on whether linguistic exchange between LLM agents shapes th
 
 See `PROJECT.md` for the paper summary, `README.md` for the manuscript workflow.
 
-## Manuscript pipeline (three-tier, MCE-style)
+## Manuscript pipeline
 
-Section files in `manuscript/` follow the three-stage pattern:
+Three-tier pipeline with a human firewall between outline and draft:
 
 | Layer | Files | Who writes | Who reads |
 |-------|-------|-----------|-----------|
-| **Outline** | `*.a_outline.md` | ms-* subagents (brainstorm, claim-researcher, literature-researcher, paper-extractor) | All agents + humans |
-| **Draft** | `*.b_draft.md` | **Humans only** (the firewall) | ms-writer + humans |
-| **Final** | `*.c_final.md` | **ms-writer only** | Quarto renderer + humans |
+| **Outline** | `*.a_outline.md` | All ms-agents | All agents + humans |
+| **Draft** | `*.b_draft.md` | **Humans only** | ms-writer + humans |
+| **Manuscript** | `*.c_final.md` | **ms-writer only** | Quarto renderer + humans |
 
-Access enforced by `.claude/hooks/ms-guard.sh` via the agent frontmatter. The main agent (the one chatting with the user) **must not** write to manuscript files — delegate to the appropriate subagent.
+**Access rules** (enforced via PreToolUse hooks in agent frontmatter — `.claude/hooks/ms-guard.sh`):
 
-## Scope discipline (anti-bleed)
+| Role (`MS_GUARD_ROLE`) | Agents | Manuscript reads | Manuscript writes |
+|------------------------|--------|------------------|-------------------|
+| `writer` | ms-writer | `*.b_draft.md` only | `*.c_final.md` only |
+| `ms-agent` | ms-brainstorm, ms-claim-researcher, ms-literature-researcher, ms-paper-extractor | all | `*.a_outline.md` only |
+| `no-ms` | engineer, data-analyst, reviewer, etc. (not currently installed in this fork) | all | none |
 
-This paper is **dyadic, single-generation, no selection**. Do not import framing terminology from adjacent projects:
+**Main agent restriction**: The main/parent agent (the one the user chats with directly) must **not** write to manuscript files. Always delegate manuscript work to the appropriate subagent (`ms-writer`, `ms-brainstorm`, etc.). A global warning hook (`.claude/hooks/ms-warn.sh`, wired in `.claude/settings.json` as a `PreToolUse` matcher on `Edit|Write|StrReplace`) reminds agents of this rule when they attempt to write into a `manuscript/` path; it warns but does not block, since the main agent may still legitimately edit non-manuscript files in the project (configs, READMEs, this CLAUDE.md, etc.).
 
-| Term | Where it belongs | Don't use here because |
-|------|------------------|------------------------|
-| "Norm formation / erosion" | Schmidt RFP, AI Evolution Theory | The paper has no longitudinal norm dynamics |
-| "Populations" | MCE, Brinkmann/Perez framing | The paper is dyadic |
-| "Generations / selection" | MCE | Single-generation, no fitness function |
-| "Prosocial drift" | MCE (Levin framing) | This paper's analogous concept is **strategy consolidation** |
-| "Compression and structure" (Kirby prediction) | Long-horizon iterated learning | T = 10 rounds is not the Kirby paradigm |
+**Humans** curate outline into draft (the firewall step) and review the final manuscript.
 
-When in doubt, ask: "is this defensible within the experimental scope of *this* paper?" See user-level `~/.claude/projects/-Users-aron/memory/feedback_project_scoped_framing.md` for the full guard.
+### When to invoke which agent
+
+- **`ms-writer`** — turn a populated `*.b_draft.md` into polished prose at `*.c_final.md`. Reads draft, writes final. Don't invoke until the draft has prose-shaped bullets ready.
+- **`ms-brainstorm`** — exploratory thinking about a paper-level question or strategic decision (framing, scope, structural choices). Saves a report to `materials/brainstorming/`. Use when stuck on *what to argue*, not *how to phrase it*.
+- **`ms-claim-researcher`** — investigates whether a specific claim is defensible. Finds supporting/challenging literature, downloads open-access PDFs, writes a report to `materials/literature-research/`. Use when a single load-bearing claim needs grounding.
+- **`ms-literature-researcher`** — broader literature search on a topic; finds papers, summarises findings, identifies gaps. Use for §2 background coverage.
+- **`ms-paper-extractor`** — reads a PDF in `references/pdfs/` → produces a notes file in `references/notes/`, a CSL-JSON entry in `references/bib/`, and follow-up leads in `references/leads/`. Use after dropping new PDFs into the references tree.
 
 ## Codebase pointers (for analysis / cross-reference)
 

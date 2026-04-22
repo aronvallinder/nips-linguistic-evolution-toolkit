@@ -1,0 +1,34 @@
+{
+  "type": "article",
+  "id": "kutuzov2018",
+  "author": [
+    {
+      "family": "Kutuzov",
+      "given": "Andrey"
+    },
+    {
+      "family": "Øvrelid",
+      "given": "Lilja"
+    },
+    {
+      "family": "Szymanski",
+      "given": "Terrence"
+    },
+    {
+      "family": "Velldal",
+      "given": "Erik"
+    }
+  ],
+  "issued": {
+    "date-parts": [
+      [
+        2018
+      ]
+    ]
+  },
+  "abstract": "Recent years have witnessed a surge of publications aimed at tracing temporal changes in lexical semantics using distributional methods, particularly prediction-based word embedding models. However, this vein of research lacks the cohesion, common terminology and shared practices of more established areas of natural language processing. In this paper, we survey the current state of academic research related to diachronic word embeddings and semantic shifts detection. We start with discussing the notion of semantic shifts, and then continue with an overview of the existing methods for tracing such time-related shifts with word embedding models. We propose several axes along which these methods can be compared, and outline the main challenges before this emerging subfield of NLP, as well as prospects and possible applications.",
+  "DOI": "10.48550/ARXIV.1806.03537",
+  "publisher": "arXiv",
+  "title": "Diachronic word embeddings and semantic shifts: a survey",
+  "URL": "https://arxiv.org/abs/1806.03537"
+}

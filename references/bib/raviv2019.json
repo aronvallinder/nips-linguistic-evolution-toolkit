@@ -1,0 +1,38 @@
+{
+  "publisher": "The Royal Society",
+  "issue": "1907",
+  "abstract": "<jats:p>Understanding worldwide patterns of language diversity has long been a goal for evolutionary scientists, linguists and philosophers. Research over the past decade has suggested that linguistic diversity may result from differences in the social environments in which languages evolve. Specifically, recent work found that languages spoken in larger communities typically have more systematic grammatical structures. However, in the real world, community size is confounded with other social factors such as network structure and the number of second languages learners in the community, and it is often assumed that linguistic simplification is driven by these factors instead. Here, we show that in contrast to previous assumptions, community size has a unique and important influence on linguistic structure. We experimentally examine the live formation of new languages created in the laboratory by small and larger groups, and find that larger groups of interacting participants develop more systematic languages over time, and do so faster and more consistently than small groups. Small groups also vary more in their linguistic behaviours, suggesting that small communities are more vulnerable to drift. These results show that community size predicts patterns of language diversity, and suggest that an increase in community size might have contributed to language evolution.</jats:p>",
+  "DOI": "10.1098/rspb.2019.1262",
+  "type": "journal-article",
+  "page": "20191262",
+  "title": "Larger communities create more systematic languages",
+  "volume": "286",
+  "author": [
+    {
+      "given": "Limor",
+      "family": "Raviv"
+    },
+    {
+      "given": "Antje",
+      "family": "Meyer"
+    },
+    {
+      "given": "Shiri",
+      "family": "Lev-Ari"
+    }
+  ],
+  "container-title": "Proceedings of the Royal Society B: Biological Sciences",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        2019,
+        7,
+        17
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1098/rspb.2019.1262",
+  "ISSN": "0962-8452",
+  "id": "raviv2019"
+}

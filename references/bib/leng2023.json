@@ -1,0 +1,26 @@
+{
+  "type": "article",
+  "id": "leng2023",
+  "author": [
+    {
+      "family": "Leng",
+      "given": "Yan"
+    },
+    {
+      "family": "Yuan",
+      "given": "Yuan"
+    }
+  ],
+  "issued": {
+    "date-parts": [
+      [
+        2023
+      ]
+    ]
+  },
+  "abstract": "As LLMs increasingly take on roles in human-AI interactions and autonomous AI systems, understanding their social behavior becomes important for informed use and continuous improvement. However, their behaviors in social interactions with humans and other agents, as well as the mechanisms shaping their responses, remain underexplored. To address this gap, we introduce a novel probabilistic framework, State-Understanding-Value-Action (SUVA), to systematically analyze LLM responses in social contexts based on their textual outputs (i.e., utterances). Using canonical behavioral economics games and social preference concepts relatable to LLM users, SUVA assesses LLMs' social behavior through both their final decisions and the response generation processes leading to those decisions. Our analysis of eight LLMs -- including two GPT, four LLaMA, and two Mistral models -- suggests that most models do not generate decisions aligned solely with self-interest; instead, they often produce responses that reflect social welfare considerations and display patterns consistent with direct and indirect reciprocity. Additionally, higher-capacity models more frequently display group identity effects. The SUVA framework also provides explainable tools -- including tree-based visualizations and probabilistic dependency analysis -- to elucidate how factors in LLMs' utterance-based reasoning influence their decisions. We demonstrate that utterance-based reasoning reliably predicts LLMs' final actions; references to altruism, fairness, and cooperation in the reasoning increase the likelihood of prosocial actions, while mentions of self-interest and competition reduce them. Overall, our framework enables practitioners to assess LLMs for applications involving social interactions, and provides researchers with a structured method to interpret how LLM behavior arises from utterance-based reasoning.",
+  "DOI": "10.48550/ARXIV.2312.15198",
+  "publisher": "arXiv",
+  "title": "Do LLM Agents Exhibit Social Behavior?",
+  "URL": "https://arxiv.org/abs/2312.15198"
+}

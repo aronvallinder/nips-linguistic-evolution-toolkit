@@ -1,0 +1,222 @@
+{
+  "type": "article",
+  "id": "bai2022",
+  "author": [
+    {
+      "family": "Bai",
+      "given": "Yuntao"
+    },
+    {
+      "family": "Kadavath",
+      "given": "Saurav"
+    },
+    {
+      "family": "Kundu",
+      "given": "Sandipan"
+    },
+    {
+      "family": "Askell",
+      "given": "Amanda"
+    },
+    {
+      "family": "Kernion",
+      "given": "Jackson"
+    },
+    {
+      "family": "Jones",
+      "given": "Andy"
+    },
+    {
+      "family": "Chen",
+      "given": "Anna"
+    },
+    {
+      "family": "Goldie",
+      "given": "Anna"
+    },
+    {
+      "family": "Mirhoseini",
+      "given": "Azalia"
+    },
+    {
+      "family": "McKinnon",
+      "given": "Cameron"
+    },
+    {
+      "family": "Chen",
+      "given": "Carol"
+    },
+    {
+      "family": "Olsson",
+      "given": "Catherine"
+    },
+    {
+      "family": "Olah",
+      "given": "Christopher"
+    },
+    {
+      "family": "Hernandez",
+      "given": "Danny"
+    },
+    {
+      "family": "Drain",
+      "given": "Dawn"
+    },
+    {
+      "family": "Ganguli",
+      "given": "Deep"
+    },
+    {
+      "family": "Li",
+      "given": "Dustin"
+    },
+    {
+      "family": "Tran-Johnson",
+      "given": "Eli"
+    },
+    {
+      "family": "Perez",
+      "given": "Ethan"
+    },
+    {
+      "family": "Kerr",
+      "given": "Jamie"
+    },
+    {
+      "family": "Mueller",
+      "given": "Jared"
+    },
+    {
+      "family": "Ladish",
+      "given": "Jeffrey"
+    },
+    {
+      "family": "Landau",
+      "given": "Joshua"
+    },
+    {
+      "family": "Ndousse",
+      "given": "Kamal"
+    },
+    {
+      "family": "Lukosuite",
+      "given": "Kamile"
+    },
+    {
+      "family": "Lovitt",
+      "given": "Liane"
+    },
+    {
+      "family": "Sellitto",
+      "given": "Michael"
+    },
+    {
+      "family": "Elhage",
+      "given": "Nelson"
+    },
+    {
+      "family": "Schiefer",
+      "given": "Nicholas"
+    },
+    {
+      "family": "Mercado",
+      "given": "Noemi"
+    },
+    {
+      "family": "DasSarma",
+      "given": "Nova"
+    },
+    {
+      "family": "Lasenby",
+      "given": "Robert"
+    },
+    {
+      "family": "Larson",
+      "given": "Robin"
+    },
+    {
+      "family": "Ringer",
+      "given": "Sam"
+    },
+    {
+      "family": "Johnston",
+      "given": "Scott"
+    },
+    {
+      "family": "Kravec",
+      "given": "Shauna"
+    },
+    {
+      "family": "Showk",
+      "given": "Sheer El"
+    },
+    {
+      "family": "Fort",
+      "given": "Stanislav"
+    },
+    {
+      "family": "Lanham",
+      "given": "Tamera"
+    },
+    {
+      "family": "Telleen-Lawton",
+      "given": "Timothy"
+    },
+    {
+      "family": "Conerly",
+      "given": "Tom"
+    },
+    {
+      "family": "Henighan",
+      "given": "Tom"
+    },
+    {
+      "family": "Hume",
+      "given": "Tristan"
+    },
+    {
+      "family": "Bowman",
+      "given": "Samuel R."
+    },
+    {
+      "family": "Hatfield-Dodds",
+      "given": "Zac"
+    },
+    {
+      "family": "Mann",
+      "given": "Ben"
+    },
+    {
+      "family": "Amodei",
+      "given": "Dario"
+    },
+    {
+      "family": "Joseph",
+      "given": "Nicholas"
+    },
+    {
+      "family": "McCandlish",
+      "given": "Sam"
+    },
+    {
+      "family": "Brown",
+      "given": "Tom"
+    },
+    {
+      "family": "Kaplan",
+      "given": "Jared"
+    }
+  ],
+  "issued": {
+    "date-parts": [
+      [
+        2022
+      ]
+    ]
+  },
+  "abstract": "As AI systems become more capable, we would like to enlist their help to supervise other AIs. We experiment with methods for training a harmless AI assistant through self-improvement, without any human labels identifying harmful outputs. The only human oversight is provided through a list of rules or principles, and so we refer to the method as 'Constitutional AI'. The process involves both a supervised learning and a reinforcement learning phase. In the supervised phase we sample from an initial model, then generate self-critiques and revisions, and then finetune the original model on revised responses. In the RL phase, we sample from the finetuned model, use a model to evaluate which of the two samples is better, and then train a preference model from this dataset of AI preferences. We then train with RL using the preference model as the reward signal, i.e. we use 'RL from AI Feedback' (RLAIF). As a result we are able to train a harmless but non-evasive AI assistant that engages with harmful queries by explaining its objections to them. Both the SL and RL methods can leverage chain-of-thought style reasoning to improve the human-judged performance and transparency of AI decision making. These methods make it possible to control AI behavior more precisely and with far fewer human labels.",
+  "DOI": "10.48550/ARXIV.2212.08073",
+  "publisher": "arXiv",
+  "title": "Constitutional AI: Harmlessness from AI Feedback",
+  "URL": "https://arxiv.org/abs/2212.08073"
+}

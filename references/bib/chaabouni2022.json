@@ -1,0 +1,56 @@
+{
+  "type": "paper-conference",
+  "title": "Emergent Communication at Scale",
+  "author": [
+    {
+      "family": "Chaabouni",
+      "given": "Rahma"
+    },
+    {
+      "family": "Strub",
+      "given": "Florian"
+    },
+    {
+      "family": "Altché",
+      "given": "Florent"
+    },
+    {
+      "family": "Tarassov",
+      "given": "Eugene"
+    },
+    {
+      "family": "Tallec",
+      "given": "Corentin"
+    },
+    {
+      "family": "Davoodi",
+      "given": "Elnaz"
+    },
+    {
+      "family": "Mathewson",
+      "given": "Kory"
+    },
+    {
+      "family": "Tieleman",
+      "given": "Olivier"
+    },
+    {
+      "family": "Lazaridou",
+      "given": "Angeliki"
+    },
+    {
+      "family": "Piot",
+      "given": "Bilal"
+    }
+  ],
+  "issued": {
+    "date-parts": [
+      [
+        2022
+      ]
+    ]
+  },
+  "container-title": "International Conference on Learning Representations (ICLR)",
+  "URL": "https://openreview.net/forum?id=AUGBfDIV9rL",
+  "id": "chaabouni2022"
+}

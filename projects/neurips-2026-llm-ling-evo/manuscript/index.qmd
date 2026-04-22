@@ -8,18 +8,25 @@ author:
 date: last-modified
 bibliography: references.json
 csl: neurips.csl
+google-scholar: false
 abstract: "Abstract placeholder."
 ---
 
-{{< include _0-introduction.c_final.md >}}
+<!--
+  Section includes track the most-developed stage of each section.
+  When ms-writer produces .c_final.md from .b_draft.md, swap that section's
+  include to .c_final.md. End-state: every include is .c_final.md.
+-->
 
-{{< include _1-background.c_final.md >}}
+{{< include _0-introduction.a_outline.md >}}
 
-{{< include _2-method.c_final.md >}}
+{{< include _1-background.a_outline.md >}}
 
-{{< include _3-results.c_final.md >}}
+{{< include _2-method.b_draft.md >}}
 
-{{< include _4-discussion.c_final.md >}}
+{{< include _3-results.a_outline.md >}}
+
+{{< include _4-discussion.a_outline.md >}}
 
 ## References {.unnumbered}
 

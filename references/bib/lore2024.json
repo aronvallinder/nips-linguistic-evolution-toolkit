@@ -1,0 +1,26 @@
+{
+  "type": "article",
+  "id": "lore2024",
+  "author": [
+    {
+      "family": "Lorè",
+      "given": "Nunzio"
+    },
+    {
+      "family": "Heydari",
+      "given": "Babak"
+    }
+  ],
+  "issued": {
+    "date-parts": [
+      [
+        2023
+      ]
+    ]
+  },
+  "abstract": "This paper investigates the strategic decision-making capabilities of three Large Language Models (LLMs): GPT-3.5, GPT-4, and LLaMa-2, within the framework of game theory. Utilizing four canonical two-player games -- Prisoner's Dilemma, Stag Hunt, Snowdrift, and Prisoner's Delight -- we explore how these models navigate social dilemmas, situations where players can either cooperate for a collective benefit or defect for individual gain. Crucially, we extend our analysis to examine the role of contextual framing, such as diplomatic relations or casual friendships, in shaping the models' decisions. Our findings reveal a complex landscape: while GPT-3.5 is highly sensitive to contextual framing, it shows limited ability to engage in abstract strategic reasoning. Both GPT-4 and LLaMa-2 adjust their strategies based on game structure and context, but LLaMa-2 exhibits a more nuanced understanding of the games' underlying mechanics. These results highlight the current limitations and varied proficiencies of LLMs in strategic decision-making, cautioning against their unqualified use in tasks requiring complex strategic reasoning.",
+  "DOI": "10.48550/ARXIV.2309.05898",
+  "publisher": "arXiv",
+  "title": "Strategic Behavior of Large Language Models: Game Structure vs. Contextual Framing",
+  "URL": "https://arxiv.org/abs/2309.05898"
+}

@@ -1,0 +1,30 @@
+{
+  "type": "article",
+  "id": "galke2022",
+  "author": [
+    {
+      "family": "Galke",
+      "given": "Lukas"
+    },
+    {
+      "family": "Ram",
+      "given": "Yoav"
+    },
+    {
+      "family": "Raviv",
+      "given": "Limor"
+    }
+  ],
+  "issued": {
+    "date-parts": [
+      [
+        2022
+      ]
+    ]
+  },
+  "abstract": "Emergent communication protocols among humans and artificial neural network agents do not yet share the same properties and show some critical mismatches in results. We describe three important phenomena with respect to the emergence and benefits of compositionality: ease-of-learning, generalization, and group size effects (i.e., larger groups create more systematic languages). The latter two are not fully replicated with neural agents, which hinders the use of neural emergent communication for language evolution research. We argue that one possible reason for these mismatches is that key cognitive and communicative constraints of humans are not yet integrated. Specifically, in humans, memory constraints and the alternation between the roles of speaker and listener underlie the emergence of linguistic structure, yet these constraints are typically absent in neural simulations. We suggest that introducing such communicative and cognitive constraints would promote more linguistically plausible behaviors with neural agents.",
+  "DOI": "10.48550/ARXIV.2204.10590",
+  "publisher": "arXiv",
+  "title": "Emergent Communication for Understanding Human Language Evolution: What's Missing?",
+  "URL": "https://arxiv.org/abs/2204.10590"
+}

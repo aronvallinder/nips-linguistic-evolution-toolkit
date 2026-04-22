@@ -1,0 +1,36 @@
+{
+  "publisher": "Elsevier BV",
+  "issue": "1",
+  "DOI": "10.1006/game.1995.1027",
+  "type": "journal-article",
+  "page": "122-142",
+  "title": "Trust, Reciprocity, and Social History",
+  "volume": "10",
+  "author": [
+    {
+      "given": "Joyce",
+      "family": "Berg"
+    },
+    {
+      "given": "John",
+      "family": "Dickhaut"
+    },
+    {
+      "given": "Kevin",
+      "family": "McCabe"
+    }
+  ],
+  "container-title": "Games and Economic Behavior",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        1995,
+        7
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1006/game.1995.1027",
+  "ISSN": "0899-8256",
+  "id": "berg1995"
+}

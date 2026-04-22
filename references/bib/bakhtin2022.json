@@ -1,0 +1,131 @@
+{
+  "publisher": "American Association for the Advancement of Science (AAAS)",
+  "issue": "6624",
+  "abstract": "<jats:p>Despite much progress in training artificial intelligence (AI) systems to imitate human language, building agents that use language to communicate intentionally with humans in interactive environments remains a major challenge. We introduce Cicero, the first AI agent to achieve human-level performance in<jats:italic>Diplomacy</jats:italic>, a strategy game involving both cooperation and competition that emphasizes natural language negotiation and tactical coordination between seven players. Cicero integrates a language model with planning and reinforcement learning algorithms by inferring players’ beliefs and intentions from its conversations and generating dialogue in pursuit of its plans. Across 40 games of an anonymous online<jats:italic>Diplomacy</jats:italic>league, Cicero achieved more than double the average score of the human players and ranked in the top 10% of participants who played more than one game.</jats:p>",
+  "DOI": "10.1126/science.ade9097",
+  "type": "journal-article",
+  "page": "1067-1074",
+  "title": "Human-level play in the game of<i>Diplomacy</i>by combining language models with strategic reasoning",
+  "volume": "378",
+  "author": [
+    {},
+    {
+      "given": "Anton",
+      "family": "Bakhtin"
+    },
+    {
+      "given": "Noam",
+      "family": "Brown"
+    },
+    {
+      "given": "Emily",
+      "family": "Dinan"
+    },
+    {
+      "given": "Gabriele",
+      "family": "Farina"
+    },
+    {
+      "given": "Colin",
+      "family": "Flaherty"
+    },
+    {
+      "given": "Daniel",
+      "family": "Fried"
+    },
+    {
+      "given": "Andrew",
+      "family": "Goff"
+    },
+    {
+      "given": "Jonathan",
+      "family": "Gray"
+    },
+    {
+      "given": "Hengyuan",
+      "family": "Hu"
+    },
+    {
+      "given": "Athul Paul",
+      "family": "Jacob"
+    },
+    {
+      "given": "Mojtaba",
+      "family": "Komeili"
+    },
+    {
+      "given": "Karthik",
+      "family": "Konath"
+    },
+    {
+      "given": "Minae",
+      "family": "Kwon"
+    },
+    {
+      "given": "Adam",
+      "family": "Lerer"
+    },
+    {
+      "given": "Mike",
+      "family": "Lewis"
+    },
+    {
+      "given": "Alexander H.",
+      "family": "Miller"
+    },
+    {
+      "given": "Sasha",
+      "family": "Mitts"
+    },
+    {
+      "given": "Adithya",
+      "family": "Renduchintala"
+    },
+    {
+      "given": "Stephen",
+      "family": "Roller"
+    },
+    {
+      "given": "Dirk",
+      "family": "Rowe"
+    },
+    {
+      "given": "Weiyan",
+      "family": "Shi"
+    },
+    {
+      "given": "Joe",
+      "family": "Spisak"
+    },
+    {
+      "given": "Alexander",
+      "family": "Wei"
+    },
+    {
+      "given": "David",
+      "family": "Wu"
+    },
+    {
+      "given": "Hugh",
+      "family": "Zhang"
+    },
+    {
+      "given": "Markus",
+      "family": "Zijlstra"
+    }
+  ],
+  "container-title": "Science",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        2022,
+        12,
+        9
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1126/science.ade9097",
+  "ISSN": "0036-8075",
+  "id": "bakhtin2022"
+}

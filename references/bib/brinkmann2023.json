@@ -1,0 +1,85 @@
+{
+  "publisher": "Springer Science and Business Media LLC",
+  "issue": "11",
+  "DOI": "10.1038/s41562-023-01742-2",
+  "type": "journal-article",
+  "page": "1855-1868",
+  "title": "Machine culture",
+  "volume": "7",
+  "author": [
+    {
+      "given": "Levin",
+      "family": "Brinkmann"
+    },
+    {
+      "given": "Fabian",
+      "family": "Baumann"
+    },
+    {
+      "given": "Jean-François",
+      "family": "Bonnefon"
+    },
+    {
+      "given": "Maxime",
+      "family": "Derex"
+    },
+    {
+      "given": "Thomas F.",
+      "family": "Müller"
+    },
+    {
+      "given": "Anne-Marie",
+      "family": "Nussberger"
+    },
+    {
+      "given": "Agnieszka",
+      "family": "Czaplicka"
+    },
+    {
+      "given": "Alberto",
+      "family": "Acerbi"
+    },
+    {
+      "given": "Thomas L.",
+      "family": "Griffiths"
+    },
+    {
+      "given": "Joseph",
+      "family": "Henrich"
+    },
+    {
+      "given": "Joel Z.",
+      "family": "Leibo"
+    },
+    {
+      "given": "Richard",
+      "family": "McElreath"
+    },
+    {
+      "given": "Pierre-Yves",
+      "family": "Oudeyer"
+    },
+    {
+      "given": "Jonathan",
+      "family": "Stray"
+    },
+    {
+      "given": "Iyad",
+      "family": "Rahwan"
+    }
+  ],
+  "container-title": "Nature Human Behaviour",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        2023,
+        11,
+        20
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1038/s41562-023-01742-2",
+  "ISSN": "2397-3374",
+  "id": "brinkmann2023"
+}

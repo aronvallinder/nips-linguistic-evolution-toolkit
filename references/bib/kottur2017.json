@@ -1,0 +1,36 @@
+{
+  "publisher": "Association for Computational Linguistics",
+  "DOI": "10.18653/v1/d17-1321",
+  "type": "proceedings-article",
+  "page": "2962-2967",
+  "title": "Natural Language Does Not Emerge ‘Naturally’ in Multi-Agent Dialog",
+  "author": [
+    {
+      "given": "Satwik",
+      "family": "Kottur"
+    },
+    {
+      "given": "José",
+      "family": "Moura"
+    },
+    {
+      "given": "Stefan",
+      "family": "Lee"
+    },
+    {
+      "given": "Dhruv",
+      "family": "Batra"
+    }
+  ],
+  "event": "Proceedings of the 2017 Conference on Empirical Methods in Natural\n          Language Processing",
+  "container-title": "Proceedings of the 2017 Conference on Empirical Methods in Natural\n          Language Processing",
+  "issued": {
+    "date-parts": [
+      [
+        2017
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.18653/v1/D17-1321",
+  "id": "kottur2017"
+}

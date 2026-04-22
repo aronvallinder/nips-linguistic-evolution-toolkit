@@ -1,0 +1,39 @@
+{
+  "publisher": "Elsevier BV",
+  "DOI": "10.1016/j.cognition.2015.03.016",
+  "type": "journal-article",
+  "page": "87-102",
+  "title": "Compression and communication in the cultural evolution of linguistic structure",
+  "volume": "141",
+  "author": [
+    {
+      "given": "Simon",
+      "family": "Kirby"
+    },
+    {
+      "given": "Monica",
+      "family": "Tamariz"
+    },
+    {
+      "given": "Hannah",
+      "family": "Cornish"
+    },
+    {
+      "given": "Kenny",
+      "family": "Smith"
+    }
+  ],
+  "container-title": "Cognition",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        2015,
+        8
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1016/j.cognition.2015.03.016",
+  "ISSN": "0010-0277",
+  "id": "kirby2015"
+}
