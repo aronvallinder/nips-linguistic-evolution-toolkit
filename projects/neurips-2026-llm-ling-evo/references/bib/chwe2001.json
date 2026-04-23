@@ -1,0 +1,21 @@
+{
+  "type": "book",
+  "title": "Rational Ritual: Culture, Coordination, and Common Knowledge",
+  "author": [
+    {
+      "family": "Chwe",
+      "given": "Michael Suk-Young"
+    }
+  ],
+  "issued": {
+    "date-parts": [
+      [
+        2001
+      ]
+    ]
+  },
+  "publisher": "Princeton University Press",
+  "publisher-place": "Princeton, NJ",
+  "ISBN": "9780691114712",
+  "id": "chwe2001"
+}

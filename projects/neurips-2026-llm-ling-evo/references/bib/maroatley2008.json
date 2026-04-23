@@ -1,0 +1,33 @@
+{
+  "publisher": "SAGE Publications",
+  "issue": "3",
+  "abstract": "<jats:p> Fiction literature has largely been ignored by psychology researchers because its only function seems to be entertainment, with no connection to empirical validity. We argue that literary narratives have a more important purpose. They offer models or simulations of the social world via abstraction, simplification, and compression. Narrative fiction also creates a deep and immersive simulative experience of social interactions for readers. This simulation facilitates the communication and understanding of social information and makes it more compelling, achieving a form of learning through experience. Engaging in the simulative experiences of fiction literature can facilitate the understanding of others who are different from ourselves and can augment our capacity for empathy and social inference. </jats:p>",
+  "DOI": "10.1111/j.1745-6924.2008.00073.x",
+  "type": "journal-article",
+  "page": "173-192",
+  "title": "The Function of Fiction is the Abstraction and Simulation of Social Experience",
+  "volume": "3",
+  "author": [
+    {
+      "given": "Raymond A.",
+      "family": "Mar"
+    },
+    {
+      "given": "Keith",
+      "family": "Oatley"
+    }
+  ],
+  "container-title": "Perspectives on Psychological Science",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        2008,
+        5
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1111/j.1745-6924.2008.00073.x",
+  "ISSN": "1745-6916",
+  "id": "maroatley2008"
+}

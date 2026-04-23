@@ -1,0 +1,21 @@
+{
+  "type": "book",
+  "title": "The Secret of Our Success: How Culture Is Driving Human Evolution, Domesticating Our Species, and Making Us Smarter",
+  "author": [
+    {
+      "family": "Henrich",
+      "given": "Joseph"
+    }
+  ],
+  "issued": {
+    "date-parts": [
+      [
+        2016
+      ]
+    ]
+  },
+  "publisher": "Princeton University Press",
+  "publisher-place": "Princeton, NJ",
+  "ISBN": "9780691166858",
+  "id": "henrich2016"
+}

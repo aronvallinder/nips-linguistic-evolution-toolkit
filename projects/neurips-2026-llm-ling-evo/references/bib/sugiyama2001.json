@@ -1,0 +1,28 @@
+{
+  "publisher": "Elsevier BV",
+  "issue": "4",
+  "DOI": "10.1016/s1090-5138(01)00063-0",
+  "type": "journal-article",
+  "page": "221-240",
+  "title": "Food, foragers, and folklore: the role of narrative in human subsistence",
+  "volume": "22",
+  "author": [
+    {
+      "given": "Michelle",
+      "family": "Scalise Sugiyama"
+    }
+  ],
+  "container-title": "Evolution and Human Behavior",
+  "language": "en",
+  "issued": {
+    "date-parts": [
+      [
+        2001,
+        7
+      ]
+    ]
+  },
+  "URL": "http://dx.doi.org/10.1016/S1090-5138(01)00063-0",
+  "ISSN": "1090-5138",
+  "id": "sugiyama2001"
+}
