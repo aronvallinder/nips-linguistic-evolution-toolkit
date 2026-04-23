@@ -28,7 +28,7 @@
 ## 4.3 Effect of myth-writing on game behaviour (the headline question)
 
 - *Headline (preliminary):* across (model × noise) cells, adding the myth-writing task produces a small and inconsistent effect on *mean* cumulative reward, but a more consistent effect on *across-seed variance*. The clearer story is strategy consolidation, not cooperation lift.
-- *Primary contrast:* median cumulative-reward delta between (`game-only`) and each of (`game→myth`, `myth→game`), within each (model × noise) cell. Non-parametric bootstrap CIs (§3.6).
+- *Primary contrast:* median cumulative-reward delta between (`game-only`) and each of (`game→myth`, `myth→game`), within each (model × noise) cell. Non-parametric bootstrap CIs (§3.5).
 - *Secondary contrast:* across-seed variance delta on the same cells — the *consolidation* test.
 - *What to expect, by cell (per project notes):*
     - **Claude × bidirectional ±$1:** the cleanest test. Claude has headroom under this noise condition. Mean myth effect ~2–4 cumulative-reward points, likely not significant on its own `[CHECK]`. Variance reduction: yet to report `[CHECK]`.
