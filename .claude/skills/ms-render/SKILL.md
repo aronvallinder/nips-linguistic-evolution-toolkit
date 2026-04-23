@@ -6,7 +6,7 @@ argument-hint: [--html|--pdf|--all]
 
 # Render Manuscript
 
-Merges bibliography from `references/bib/*.json` into the active project's manuscript. Reads `projects/active_project` to determine the project slug.
+Merges bibliography from `projects/<slug>/references/bib/*.json` into the active project's manuscript. Reads `projects/active_project` to determine the project slug.
 
 ## Usage
 

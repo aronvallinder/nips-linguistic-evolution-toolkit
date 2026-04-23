@@ -39,6 +39,8 @@ poetry run python3 ${CLAUDE_SKILL_DIR}/pdf2md.py --dry-run
 
 ## Outputs
 
+Paths are auto-resolved to the active project (`projects/<slug>/references/...` — reads `projects/active_project` to determine the slug).
+
 For each paper:
 - **Markdown extraction**: `references/md/<slug>/<key>.md` (Step 1)
 - **Bibliography**: `references/bib/<key>.json` (Step 1)

@@ -1,6 +1,6 @@
 ---
 name: ms-paper-extractor
-description: "Extract structured information from academic PDFs in the context of this research project. Use when the user wants a paper read, summarized, and placed within their manuscript structure.\n\nExamples:\n- \"Please read this paper and extract the relevant information: references/pdfs/smith2024.pdf\"\n- \"I just added a new PDF to the papers folder, can you process it?\"\n- \"Can you re-extract info from gonzalez2023.pdf? I've updated the project description.\""
+description: "Extract structured information from academic PDFs in the context of this research project. Use when the user wants a paper read, summarized, and placed within their manuscript structure.\n\nExamples:\n- \"Please read this paper and extract the relevant information: projects/<slug>/references/pdfs/smith2024.pdf\"\n- \"I just added a new PDF to the papers folder, can you process it?\"\n- \"Can you re-extract info from gonzalez2023.pdf? I've updated the project description.\""
 model: opus
 color: yellow
 background: true
@@ -22,7 +22,7 @@ Read `projects/active_project` to determine the current project slug (e.g., `neu
 
 2. **Read the PDF** specified by the user. Extract bibliographic metadata, framing, methods, findings, and notable references.
 
-3. **Write three output files** using the templates below. Use the canonical key (e.g., `smith2024`) as the base name for all three.
+3. **Write three output files** using the templates below. Use the canonical key (e.g., `smith2024`) as the base name for all three. Paths are relative to `projects/{slug}/`.
 
    - `references/notes/{key}.md` — the note (template A)
    - `references/bib/{key}.json` — CSL-JSON bibliographic record (template B)

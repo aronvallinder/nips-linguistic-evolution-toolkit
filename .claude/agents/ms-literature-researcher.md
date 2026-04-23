@@ -44,17 +44,17 @@ Search the web broadly for relevant papers:
 - For paywalled papers, search for preprints — check Google Scholar for arXiv/preprint links, author homepages, and institutional repositories before giving up
 - Only skip a paper if no free version can be found; note skipped papers in the report
 
-Download PDFs to `references/pdfs/` (flat directory, no subfolders).
+Download PDFs to `projects/{slug}/references/pdfs/` (flat directory, no subfolders).
 
 ### 4. Extract and explore (snowball)
 
-After downloading, extract PDFs using the ms-pdf-extract skill in **explore mode**. **Always pass `-c` with context** explaining the research question and why these papers are being explored:
+After downloading, extract PDFs using the ms-pdf-extract skill in **explore mode** (paths auto-resolve to the active project). **Always pass `-c` with context** explaining the research question and why these papers are being explored:
 
 ```bash
-poetry run python3 .claude/skills/ms-pdf-extract/pdf2md.py references/pdfs/ --explore --slug {topic-slug} -c "Researching: {topic}. Looking for evidence on {specific question}."
+poetry run python3 .claude/skills/ms-pdf-extract/pdf2md.py --explore --slug {topic-slug} -c "Researching: {topic}. Looking for evidence on {specific question}."
 ```
 
-This produces for each paper:
+This produces for each paper (under `projects/{slug}/references/`):
 - Markdown extraction in `references/md/`
 - Bibliography in `references/bib/`
 - Relevance note in `references/notes/{topic-slug}/`

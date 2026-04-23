@@ -38,7 +38,7 @@ Three-tier pipeline with a human firewall between outline and draft:
 - **`ms-brainstorm`** — exploratory thinking about a paper-level question or strategic decision (framing, scope, structural choices). Saves a report to `materials/brainstorming/`. Use when stuck on *what to argue*, not *how to phrase it*.
 - **`ms-claim-researcher`** — investigates whether a specific claim is defensible. Finds supporting/challenging literature, downloads open-access PDFs, writes a report to `materials/literature-research/`. Use when a single load-bearing claim needs grounding.
 - **`ms-literature-researcher`** — broader literature search on a topic; finds papers, summarises findings, identifies gaps. Use for §2 background coverage.
-- **`ms-paper-extractor`** — reads a PDF in `references/pdfs/` → produces a notes file in `references/notes/`, a CSL-JSON entry in `references/bib/`, and follow-up leads in `references/leads/`. Use after dropping new PDFs into the references tree.
+- **`ms-paper-extractor`** — reads a PDF in `projects/<slug>/references/pdfs/` → produces a notes file in `references/notes/`, a CSL-JSON entry in `references/bib/`, and follow-up leads in `references/leads/`. Use after dropping new PDFs into the references tree.
 
 ## Codebase pointers (for analysis / cross-reference)
 
@@ -57,7 +57,7 @@ This project is the active one as long as `projects/active_project` reads `neuri
 
 ## Bibliography
 
-References are CSL-JSON files in `references/bib/<firstauthoryear>.json` (one per paper, repo-wide). They get merged into `references.json` inside `manuscript/` before each render. Cite in section files as `[@authorYYYY]` or `@authorYYYY`. The `ms-paper-extractor` agent populates `references/bib/` from PDFs in `references/pdfs/`.
+References are CSL-JSON files in `projects/<slug>/references/bib/<firstauthoryear>.json` (one per paper, project-scoped). They get merged into `references.json` inside `manuscript/` before each render. Cite in section files as `[@authorYYYY]` or `@authorYYYY`. The `ms-paper-extractor` agent populates `references/bib/` from PDFs in `references/pdfs/`.
 
 ## Render
 

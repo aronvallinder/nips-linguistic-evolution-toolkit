@@ -31,10 +31,10 @@ projects/neurips-2026-llm-ling-evo/
   analysis/                 # plot-generating scripts, processed outputs
 ```
 
-References live at the **repo root**, shared across all manuscript projects:
+References live **inside the project**:
 
 ```
-<repo>/references/
+projects/neurips-2026-llm-ling-evo/references/
   bib/                      # one CSL-JSON file per paper (firstauthoryear.json)
   notes/                    # reading notes
   leads/                    # follow-up references worth exploring
@@ -54,22 +54,22 @@ Only the `.c_final.md` files are pulled into the rendered output.
 
 ## Bibliography
 
-References are stored as one CSL-JSON file per paper in `references/bib/<firstauthoryear>.json` (repo-wide). Before rendering, they're merged into `references.json` inside `manuscript/`.
+References are stored as one CSL-JSON file per paper in `projects/neurips-2026-llm-ling-evo/references/bib/<firstauthoryear>.json`. Before rendering, they're merged into `references.json` inside `manuscript/`.
 
 **Cite** in any section file as `[@authorYYYY]` or `@authorYYYY`. The merge step picks up new references automatically.
 
 **Add a new reference** manually:
-1. Create `references/bib/authorYYYY.json` with CSL-JSON content
+1. Create `projects/neurips-2026-llm-ling-evo/references/bib/authorYYYY.json` with CSL-JSON content
 2. Cite in any section file
 3. Render — the merge step picks it up
 
-**Add references from PDFs**: drop them in `references/pdfs/` and run:
+**Add references from PDFs**: drop them in `projects/neurips-2026-llm-ling-evo/references/pdfs/` and run:
 
 ```bash
-poetry run python3 .claude/skills/ms-pdf-extract/pdf2md.py references/pdfs/
+poetry run python3 .claude/skills/ms-pdf-extract/pdf2md.py
 ```
 
-Renames PDFs to `firstauthoryear.pdf`, extracts markdown to `references/md/`, creates a CSL-JSON stub in `references/bib/`.
+Paths auto-resolve to the active project (set by `projects/active_project`). Renames PDFs to `firstauthoryear.pdf`, extracts markdown to `references/md/`, creates a CSL-JSON stub in `references/bib/`.
 
 ## Render
 

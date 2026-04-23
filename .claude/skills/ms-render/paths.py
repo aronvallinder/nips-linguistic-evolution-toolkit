@@ -32,5 +32,6 @@ def manuscript_quarto_dir() -> Path:
 
 
 def references_bib_dir() -> Path:
-    """CSL-JSON shards: ``references/bib`` (repo-wide)."""
-    return repo_root() / "references" / "bib"
+    """CSL-JSON shards: ``projects/<slug>/references/bib``."""
+    slug = active_project_slug()
+    return repo_root() / "projects" / slug / "references" / "bib"

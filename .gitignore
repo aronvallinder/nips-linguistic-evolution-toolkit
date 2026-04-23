@@ -62,7 +62,7 @@ wandb/
 # --- Downloaded reference PDFs ---
 # Re-downloadable from arxiv / PMC / publishers; markdown extractions in
 # references/md/ are tracked (canonical agent-readable content).
-references/pdfs/*.pdf
+projects/*/references/pdfs/*.pdf
 
 # --- Scratch ---
 *.tmp

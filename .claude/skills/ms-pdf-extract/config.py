@@ -7,7 +7,21 @@ import yaml
 
 SKILL_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SKILL_DIR.parent.parent.parent
-REFS_DIR = PROJECT_DIR / "references"
+
+
+def _active_project_slug() -> str:
+    pointer = PROJECT_DIR / "projects" / "active_project"
+    if not pointer.is_file():
+        raise FileNotFoundError(
+            "Missing projects/active_project; set the slug (e.g. neurips-2026-llm-ling-evo)."
+        )
+    text = pointer.read_text(encoding="utf-8").strip()
+    if not text:
+        raise ValueError("projects/active_project is empty")
+    return text
+
+
+REFS_DIR = PROJECT_DIR / "projects" / _active_project_slug() / "references"
 PDF_DIR = REFS_DIR / "pdfs"
 MD_DIR = REFS_DIR / "md"
 BIB_DIR = REFS_DIR / "bib"

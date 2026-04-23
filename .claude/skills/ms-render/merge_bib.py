@@ -1,4 +1,4 @@
-"""Merge CSL-JSON files from references/bib into references.json."""
+"""Merge CSL-JSON files from the active project's references/bib into references.json."""
 
 import json
 

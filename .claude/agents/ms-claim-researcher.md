@@ -37,7 +37,7 @@ The user will provide a claim or statement from the manuscript. Your job is to r
 
 Choose a short descriptive slug for the topic. Use this slug for:
 - Report file: `projects/{slug}/materials/literature/{slug}.md`
-- Notes/leads subfolders: `references/notes/{topic-slug}/`, `references/leads/{topic-slug}/`
+- Notes/leads subfolders: `projects/{slug}/references/notes/{topic-slug}/`, `projects/{slug}/references/leads/{topic-slug}/`
 
 ### Report
 
@@ -56,14 +56,14 @@ The report should include:
 
 ### PDFs
 
-Download PDFs to `references/pdfs/` (flat, no subfolders). For paywalled papers, search for preprints — check Google Scholar for arXiv/preprint links, author homepages, and institutional repositories before giving up. Only skip a paper if no free version can be found; note skipped papers in the table.
+Download PDFs to `projects/{slug}/references/pdfs/` (flat, no subfolders). For paywalled papers, search for preprints — check Google Scholar for arXiv/preprint links, author homepages, and institutional repositories before giving up. Only skip a paper if no free version can be found; note skipped papers in the table.
 
-After downloading, extract and generate notes using the ms-pdf-extract skill. **Always pass `--slug` and `-c`**:
+After downloading, extract and generate notes using the ms-pdf-extract skill (paths auto-resolve to the active project). **Always pass `--slug` and `-c`**:
 
 ```bash
-poetry run python3 .claude/skills/ms-pdf-extract/pdf2md.py references/pdfs/ --notes --slug {topic-slug} -c "Investigating claim: {the claim}. This paper {supports/challenges/provides context for} it because..."
+poetry run python3 .claude/skills/ms-pdf-extract/pdf2md.py --notes --slug {topic-slug} -c "Investigating claim: {the claim}. This paper {supports/challenges/provides context for} it because..."
 ```
 
-Output goes to `references/md/` (markdown, flat), `references/bib/` (bibliography), `references/notes/{topic-slug}/` (notes), and `references/leads/{topic-slug}/` (leads).
+Output goes to `projects/{slug}/references/md/` (markdown, flat), `references/bib/` (bibliography), `references/notes/{topic-slug}/` (notes), and `references/leads/{topic-slug}/` (leads).
 
 Aim for 5-10 references. Quality over quantity — prioritize papers from reputable conferences/journals, highly cited work, and well-known researchers in the field.
