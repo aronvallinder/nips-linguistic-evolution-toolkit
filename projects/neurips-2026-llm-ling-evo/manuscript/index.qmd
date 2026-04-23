@@ -20,7 +20,7 @@ abstract: "Abstract placeholder."
 
 {{< include _0-introduction.b_draft.md >}}
 
-{{< include _1-background.a_outline.md >}}
+{{< include _1-background.b_draft.md >}}
 
 {{< include _2-method.b_draft.md >}}
 
