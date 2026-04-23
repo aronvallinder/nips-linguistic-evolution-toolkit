@@ -1,6 +1,6 @@
 # 3. Methods
 
-*Drafted prose. Length-pass version: ~1.1K words in body, with the per-round simulation-flow walkthrough relegated to Appendix A. Parameters flagged `[CHECK]` need final confirmation against Ivar's analyses.*
+*Drafted prose. Length-pass version: ~1.1K words in body. Parameters flagged `[CHECK]` need final confirmation against Ivar's analyses.*
 
 ## 3.1 Overview
 
@@ -48,7 +48,3 @@ Each cell is run with $N = 10$ independent seeds (15 for the GPT-5-Nano negative
 ## 3.6 Statistical inference
 
 Within each (model × noise × task-order) cell we compare game-only, myth→game, and game→myth task orderings on (i) cumulative reward and (ii) linguistic convergence. Our pre-specified primary contrast is the **median delta in cumulative reward between myth-present and game-only conditions**, computed within each noise condition. We also report variance across seeds as a second-order outcome, since one hypothesis for the role of myth is *strategy consolidation* (lower across-seed variance) rather than *cooperation lift* (higher mean). Non-parametric bootstrap confidence intervals are reported on cell-level estimates `[CHECK — confirm bootstrap procedure with Ivar]`.
-
-## 3.7 Implementation
-
-All noise experiments are driven by a single `noise/experiments_noisy.yaml` and executed by a common simulation engine that is agnostic to the game type: the Trust Game (with optional noise and asymmetric naming), the myth-writing task, the persona system, and task-order sequencing are independent modules. A single batch run resolves an `experiment_set` into the cartesian product of {model} × {prompt template} × {persona} × {task order} × {myth topic} × {`game_params` preset} × `num_runs`, executed sequentially or via process-pool workers; **a per-round walkthrough of the noise-aware simulation flow, including the two noise-application points and the dual-ledger bookkeeping, is provided in Appendix A.** Each run produces a deterministic, re-analysable simulation-state JSON together with a verbatim `.log` of every prompt, response, reasoning trace, and token-usage record. Code and configurations are open-sourced at [github.com/ivarfresh/nips-linguistic-evolution-toolkit](https://github.com/ivarfresh/nips-linguistic-evolution-toolkit). Model calls are routed via OpenRouter; LLM-as-judge similarity calls use the Together API. Compute for the full-factorial runs was supported by a CAIF compute grant.
