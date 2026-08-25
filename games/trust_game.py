@@ -30,6 +30,8 @@ class TrustGame(DyadicPairingMixin, Game):
         defector_action_policy="prompted",
         defector_myth_policy="normal",
         defector_role_visible_to_self=True,
+        random_defection_probability=0.0,
+        random_defection_seed=0,
     ):
         """
         Args:
@@ -63,6 +65,8 @@ class TrustGame(DyadicPairingMixin, Game):
             defector_action_policy=defector_action_policy,
             defector_myth_policy=defector_myth_policy,
             defector_role_visible_to_self=defector_role_visible_to_self,
+            random_defection_probability=random_defection_probability,
+            random_defection_seed=random_defection_seed,
         )
         self._round_multipliers = {}
         self._init_dyadic_agents()

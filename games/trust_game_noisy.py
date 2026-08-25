@@ -54,6 +54,8 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
         defector_action_policy="prompted",
         defector_myth_policy="normal",
         defector_role_visible_to_self=True,
+        random_defection_probability=0.0,
+        random_defection_seed=0,
         game_prompt_addition="",
         pairing_mode="balanced",
         pairing_seed=None,
@@ -116,6 +118,8 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
             defector_action_policy=defector_action_policy,
             defector_myth_policy=defector_myth_policy,
             defector_role_visible_to_self=defector_role_visible_to_self,
+            random_defection_probability=random_defection_probability,
+            random_defection_seed=random_defection_seed,
         )
 
         if isinstance(other_player_names, str):

@@ -7,6 +7,7 @@ from games.trust_game import TrustGame
 from src.myth_writer import MythWriter
 from src.experiment_config import ExperimentConfig
 from src.simulation import SimulationData, run_simulation
+from experiments.run_noisy_batch import NoisyExperimentConfig
 
 
 DEFECTOR_PROMPT = """
@@ -208,6 +209,12 @@ class DefectorPopulationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "between 0 and 1"):
             build_game(defector_ratio=1.1)
 
+        with self.assertRaisesRegex(ValueError, "between 0 and 1"):
+            build_game(random_defection_probability=-0.1)
+
+        with self.assertRaisesRegex(ValueError, "between 0 and 1"):
+            build_game(random_defection_probability=1.1)
+
         with self.assertRaisesRegex(ValueError, "defector_action_policy"):
             build_game(defector_action_policy="typo")
 
@@ -407,6 +414,194 @@ class DefectorPopulationTests(unittest.TestCase):
         )
         self.assertTrue(
             all(combo["defector_game_instruction"] for combo in combinations)
+        )
+
+    def test_seeded_random_defection_is_reproducible_and_nested(self):
+        low = build_game(
+            random_defection_probability=0.25,
+            random_defection_seed=202608250,
+        )
+        high = build_game(
+            random_defection_probability=0.50,
+            random_defection_seed=202608250,
+        )
+        repeated = build_game(
+            random_defection_probability=0.25,
+            random_defection_seed=202608250,
+        )
+
+        decisions = [
+            (turn, agent_id, role)
+            for turn in range(1, 101)
+            for agent_id, role in (
+                ("Agent_1", "investor"),
+                ("Agent_2", "trustee"),
+            )
+        ]
+        low_events = {
+            decision
+            for decision in decisions
+            if low.is_random_defection(decision[1], decision[2], decision[0])
+        }
+        high_events = {
+            decision
+            for decision in decisions
+            if high.is_random_defection(decision[1], decision[2], decision[0])
+        }
+        repeated_events = {
+            decision
+            for decision in decisions
+            if repeated.is_random_defection(
+                decision[1],
+                decision[2],
+                decision[0],
+            )
+        }
+
+        self.assertEqual(low_events, repeated_events)
+        self.assertTrue(low_events)
+        self.assertTrue(low_events < high_events)
+        self.assertGreater(len(low_events), 30)
+        self.assertLess(len(low_events), 70)
+        self.assertGreater(len(high_events), 70)
+        self.assertLess(len(high_events), 130)
+
+    def test_random_defection_forces_zero_and_is_recorded(self):
+        game = build_game(
+            random_defection_probability=1.0,
+            random_defection_seed=11,
+        )
+        response = game.get_forced_game_response(
+            "Agent_1",
+            "investor",
+            turn=1,
+        )
+
+        self.assertEqual(response["content"], '{"send": 0}')
+        self.assertEqual(
+            response["response_source"],
+            "random_defection_forced_zero",
+        )
+        metadata = game.get_population_metadata()
+        self.assertEqual(metadata["random_defection_probability"], 1.0)
+        self.assertEqual(metadata["random_defection_seed"], 11)
+        self.assertEqual(metadata["random_defection_unit"], "agent_game_decision")
+
+    def test_random_defection_skips_game_llm_calls(self):
+        game = build_game(
+            random_defection_probability=1.0,
+            random_defection_seed=12,
+        )
+
+        with patch("src.simulation.create_llm_client", return_value=object()), patch(
+            "src.agents.call_llm"
+        ) as call_llm:
+            with contextlib.redirect_stdout(io.StringIO()):
+                sim_data = run_simulation(
+                    game=game,
+                    model="mock/model",
+                    temperature=0,
+                    num_turns=2,
+                    num_agents=2,
+                    memory_capacity=3,
+                    agent_biases="",
+                    myth_writer=None,
+                    task_order=["game"],
+                    chat_memory_mode="memory_primary",
+                )
+
+        call_llm.assert_not_called()
+        self.assertEqual(
+            sim_data.run_metadata["random_defection_probability"],
+            1.0,
+        )
+        for round_entry in sim_data.conversation_history:
+            self.assertEqual(
+                {
+                    response["response_source"]
+                    for response in round_entry["game_responses"].values()
+                },
+                {"random_defection_forced_zero"},
+            )
+
+
+class NegativeOnlyBatchConfigTests(unittest.TestCase):
+    def test_slide_695_matrix_has_expected_cells(self):
+        config = NoisyExperimentConfig("config/experiments_noisy.yaml")
+        experiment_names = [
+            "negative_only_crossmodel_dyad_game_n5",
+            "negative_only_crossmodel_dyad_game_myth_n5",
+            "negative_only_crossmodel_dyad_myth_game_n5",
+            "negative_only_crossmodel_population_game_n5",
+            "negative_only_crossmodel_population_game_myth_n5",
+            "negative_only_crossmodel_population_myth_game_n5",
+        ]
+        expected_models = {
+            "anthropic/claude-sonnet-4.5",
+            "openai/gpt-5-nano",
+            "google/gemini-3.7-flash",
+        }
+
+        all_combinations = []
+        for experiment_name in experiment_names:
+            combinations = config.get_experiment_combinations(experiment_name)
+            self.assertEqual(len(combinations), 45)
+            self.assertEqual(
+                {combo["model"] for combo in combinations},
+                expected_models,
+            )
+            self.assertEqual(
+                {combo["replicate_id"] for combo in combinations},
+                {0, 1, 2, 3, 4},
+            )
+            for combo in combinations:
+                params = combo["game_params"]
+                self.assertEqual(
+                    params["noise_config"],
+                    {
+                        "type": "uniform",
+                        "range": 1.0,
+                        "direction": "negative",
+                        "applies_to": "both",
+                        "inform_agents": True,
+                    },
+                )
+                self.assertTrue(params["paired_protocol_seeds"])
+                self.assertEqual(params["protocol_seed_base"], 202608250)
+            all_combinations.extend(combinations)
+
+        self.assertEqual(len(all_combinations), 270)
+
+    def test_treatment_arms_match_population_regime(self):
+        config = NoisyExperimentConfig("config/experiments_noisy.yaml")
+        dyad = config.get_experiment_combinations(
+            "negative_only_crossmodel_dyad_game_n5"
+        )
+        population = config.get_experiment_combinations(
+            "negative_only_crossmodel_population_game_n5"
+        )
+
+        self.assertEqual(
+            {combo["game_params"]["num_agents"] for combo in dyad},
+            {2},
+        )
+        self.assertEqual(
+            {
+                combo["game_params"].get("random_defection_probability", 0.0)
+                for combo in dyad
+            },
+            {0.0, 0.25, 0.50},
+        )
+        self.assertEqual(
+            {combo["game_params"]["num_agents"] for combo in population},
+            {8},
+        )
+        self.assertEqual(
+            {
+                combo["game_params"].get("defector_ratio", 0.0)
+                for combo in population
+            },
+            {0.0, 0.25, 0.50},
         )
 
 

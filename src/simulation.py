@@ -574,6 +574,7 @@ def run_simulation(
                             forced_response = game.get_forced_game_response(
                                 agent_id,
                                 roles_by_agent.get(agent_id),
+                                turn,
                             )
                         if forced_response is not None:
                             interaction_metadata["response_source"] = forced_response[

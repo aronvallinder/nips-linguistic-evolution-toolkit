@@ -296,6 +296,11 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             defector_seed = combo.get("replicate_id")
         if defector_seed is None:
             defector_seed = 0
+        random_defection_seed = game_params.get("random_defection_seed")
+        if random_defection_seed is None:
+            random_defection_seed = (
+                noise_seed if noise_seed is not None else defector_seed
+            )
 
         # Create noisy trust game with noise config and other_player_names
         game = TrustGameNoisy(
@@ -333,6 +338,11 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
                 "defector_role_visible_to_self",
                 True,
             ),
+            random_defection_probability=game_params.get(
+                "random_defection_probability",
+                0.0,
+            ),
+            random_defection_seed=random_defection_seed,
             game_prompt_addition=combo.get("game_prompt_addition", ""),
             pairing_mode=configured_pairing_mode,
             pairing_seed=pairing_seed,
@@ -421,6 +431,9 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             f.write(f"Defector Action Policy: {game_params.get('defector_action_policy', 'prompted')}\n")
             f.write(f"Defector Myth Policy: {game_params.get('defector_myth_policy', 'normal')}\n")
             f.write(f"Defector Role Visible To Self: {game_params.get('defector_role_visible_to_self', True)}\n")
+            f.write(f"Random Defection Probability: {game_params.get('random_defection_probability', 0.0)}\n")
+            f.write(f"Random Defection Seed: {random_defection_seed}\n")
+            f.write("Random Defection Unit: agent_game_decision\n")
             f.write(f"Deduction Stage Enabled: {game_params.get('punishment_enabled', False)}\n")
             f.write(f"Deduction Budget: {game_params.get('punishment_budget', 2)}\n")
             f.write(f"Deduction Effect Multiplier: {game_params.get('punishment_effect_multiplier', 3)}\n")
