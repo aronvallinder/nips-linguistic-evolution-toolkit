@@ -4,6 +4,7 @@
 #   Repo:  https://huggingface.co/datasets/machine-cultural-evolution/nips-linguistic-evolution-runs
 #   Usage: ./scripts/sync_data.sh push          # upload local data/json under <ns>/json/
 #          ./scripts/sync_data.sh pull          # download everyone's runs to data/shared_runs/
+#          ./scripts/sync_data.sh status        # who has uploaded what + last commit
 #          ./scripts/sync_data.sh push mylabel  # override the namespace
 #
 # Each machine pushes under its own namespace (default: HF username), so
@@ -36,6 +37,21 @@ case "$CMD" in
     echo "Pushing data/json -> $REPO:$NS/json ..."
     hf upload-large-folder "$REPO" "$STAGE" --repo-type dataset
     echo "Done."
+    ;;
+  status)
+    python3 - "$REPO" <<'PY'
+import sys, collections
+from huggingface_hub import HfApi
+repo = sys.argv[1]
+api = HfApi()
+files = api.list_repo_files(repo, repo_type="dataset")
+by_ns = collections.Counter(f.split("/")[0] for f in files if "/" in f)
+print(f"{repo}:")
+for ns, n in sorted(by_ns.items()):
+    print(f"  {ns}/  ({n} files)")
+c = api.list_repo_commits(repo, repo_type="dataset")[0]
+print(f"last commit: {c.title} · {c.created_at:%Y-%m-%d %H:%M} · {', '.join(c.authors)}")
+PY
     ;;
   pull)
     echo "Pulling $REPO -> data/shared_runs/ ..."
