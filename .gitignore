@@ -88,3 +88,5 @@ data/share/
 
 # Local analysis outputs (large; regenerate via scripts/analyze_*.py)
 data/analysis/
+data/shared_runs/
+data/.hf_stage/
