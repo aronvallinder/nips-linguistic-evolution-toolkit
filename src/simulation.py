@@ -27,6 +27,30 @@ DEFAULT_AGENT_NAMES = [
     "Pia",
 ]
 
+GAME_RESPONSE_RETRY_REPEAT = "repeat_same_prompt_once"
+GAME_RESPONSE_RETRY_CORRECTIVE = "corrective_role_key_once_v1"
+GAME_RESPONSE_RETRY_POLICIES = {
+    GAME_RESPONSE_RETRY_REPEAT,
+    GAME_RESPONSE_RETRY_CORRECTIVE,
+}
+
+
+def _corrective_game_retry_prompt(prompt: str, role: str) -> str:
+    role_config = {
+        "investor": ("SENDER", "send", "return"),
+        "trustee": ("RECEIVER", "return", "send"),
+    }
+    if role not in role_config:
+        raise ValueError(f"Unknown game role for corrective retry: {role!r}")
+    role_label, expected_key, wrong_key = role_config[role]
+    return (
+        f"{prompt}\n\n"
+        "FORMAT CORRECTION: Your previous response used the wrong decision field. "
+        f"You are the {role_label} this round. Reply only with one JSON object "
+        f"whose quoted decision key is \"{expected_key}\". Choose the amount "
+        f"yourself from the original prompt; do not use \"{wrong_key}\"."
+    )
+
 
 def _build_agent_names(agent_ids, configured_names=None):
     if configured_names is None:
@@ -353,6 +377,17 @@ def run_simulation(
     task_order: List of tasks to execute in order. Options: "game", "myth"
                 Examples: ["game"], ["myth"], ["game", "myth"], ["myth", "game"]
     """
+    game_response_retry_policy = os.environ.get(
+        "GAME_RESPONSE_RETRY_POLICY",
+        GAME_RESPONSE_RETRY_REPEAT,
+    ).strip()
+    if game_response_retry_policy not in GAME_RESPONSE_RETRY_POLICIES:
+        raise ValueError(
+            "Unsupported GAME_RESPONSE_RETRY_POLICY: "
+            f"{game_response_retry_policy!r}. Expected one of "
+            f"{sorted(GAME_RESPONSE_RETRY_POLICIES)!r}."
+        )
+
     client = create_llm_client(model)
     runtime_metadata = llm_runtime_metadata(client, model)
     if resume_from and Path(resume_from).exists():
@@ -418,6 +453,7 @@ def run_simulation(
             "seed_user_prompt": seed_user_prompt,
             "chat_memory_mode": chat_memory_mode,
             "seed_reinject": seed_reinject,
+            "game_response_retry_policy": game_response_retry_policy,
             **runtime_metadata,
             **(run_metadata_extra or {}),
             **{
@@ -600,16 +636,29 @@ def run_simulation(
                                     response_validator=validate_game_response,
                                 )
                             except Exception as e:
+                                retry_prompt = prompt
+                                memory_prompt = None
+                                if (
+                                    game_response_retry_policy
+                                    == GAME_RESPONSE_RETRY_CORRECTIVE
+                                ):
+                                    retry_prompt = _corrective_game_retry_prompt(
+                                        prompt,
+                                        role,
+                                    )
+                                    memory_prompt = prompt
                                 print(
                                     f"⚠️  Game decision failed for {agent_id}: "
-                                    f"{type(e).__name__}: {e}. Retrying once..."
+                                    f"{type(e).__name__}: {e}. Retrying once "
+                                    f"with policy {game_response_retry_policy!r}..."
                                 )
                                 time.sleep(1.0)
                                 response_data = agent.respond(
-                                    prompt,
+                                    retry_prompt,
                                     transcript_metadata=interaction_metadata,
                                     remember=remember_game,
                                     response_validator=validate_game_response,
+                                    memory_prompt=memory_prompt,
                                 )
                         agent_responses[agent_id] = response_data
 

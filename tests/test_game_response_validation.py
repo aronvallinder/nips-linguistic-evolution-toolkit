@@ -1,5 +1,6 @@
 import contextlib
 import io
+import os
 import unittest
 from unittest.mock import patch
 
@@ -72,6 +73,57 @@ class GameResponseValidationTests(unittest.TestCase):
         self.assertEqual(round_entry["game_responses"]["Agent_1"]["content"], '{"send": 4}')
         self.assertEqual(round_entry["sent"], 4)
         self.assertEqual(round_entry["returned"], 3)
+
+    def test_corrective_retry_records_policy_but_preserves_experimental_memory(self):
+        responses = iter(
+            [
+                {"content": '{"return": 0}', "reasoning": None, "usage": None},
+                {"content": '{"send": 4}', "reasoning": None, "usage": None},
+                {"content": '{"return": 3}', "reasoning": None, "usage": None},
+            ]
+        )
+
+        with patch.dict(
+            os.environ,
+            {"GAME_RESPONSE_RETRY_POLICY": "corrective_role_key_once_v1"},
+        ), patch("src.simulation.create_llm_client", return_value=object()), patch(
+            "src.agents.call_llm",
+            side_effect=lambda *args, **kwargs: next(responses),
+        ), patch("src.simulation.time.sleep"):
+            with contextlib.redirect_stdout(io.StringIO()):
+                sim_data = run_simulation(
+                    game=build_game(),
+                    model="mock/model",
+                    temperature=0,
+                    num_turns=1,
+                    num_agents=2,
+                    memory_capacity=3,
+                    agent_biases="",
+                    myth_writer=None,
+                    task_order=["game"],
+                    chat_memory_mode="memory_primary",
+                )
+
+        investor = sim_data.agents["Agent_1"]
+        self.assertEqual(
+            sim_data.run_metadata["game_response_retry_policy"],
+            "corrective_role_key_once_v1",
+        )
+        self.assertIn(
+            'quoted decision key is "send"',
+            investor.interaction_history[1]["prompt"],
+        )
+        self.assertFalse(
+            any(
+                "FORMAT CORRECTION" in message.get("content", "")
+                for message in investor.messages
+                if message.get("role") == "user"
+            )
+        )
+        self.assertEqual(
+            investor.messages[-2]["content"],
+            'Respond exactly as JSON: {"send": amount}',
+        )
 
 
 if __name__ == "__main__":
