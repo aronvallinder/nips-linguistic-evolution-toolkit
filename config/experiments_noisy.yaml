@@ -3533,3 +3533,94 @@ experiment_sets:
     replicate_ids: [0]
     provider_settings:
       openai_reasoning_effort: "low"
+
+  # Predeclared extension after all six r1 cells passed the completion,
+  # formatting, and behavioral-headroom gates. These use the next paired seed.
+  gpt55_gate_dyad_game_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_game_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_dyad_game_myth_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_twotask_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_dyad_myth_game_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_twotask_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_game_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_game_myth_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_myth_game_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"

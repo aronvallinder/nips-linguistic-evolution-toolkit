@@ -54,3 +54,16 @@ def test_gpt55_gate_has_exactly_six_locked_control_runs(monkeypatch):
         assert combo["provider_settings"] == {
             "openai_reasoning_effort": "low"
         }
+
+
+def test_gpt55_gate_second_stage_uses_next_paired_replicate(monkeypatch):
+    monkeypatch.setenv("OPENAI_REASONING_EFFORT", "low")
+    config = NoisyExperimentConfig("config/experiments_noisy.yaml")
+
+    for first_experiment in GATE_EXPERIMENTS:
+        second_experiment = first_experiment.removesuffix("_r1") + "_r2"
+        combinations = config.get_experiment_combinations(second_experiment)
+        assert len(combinations) == 1
+        combo = combinations[0]
+        assert combo["replicate_id"] == 1
+        assert combo["game_params"]["protocol_seed_base"] == 202608250
