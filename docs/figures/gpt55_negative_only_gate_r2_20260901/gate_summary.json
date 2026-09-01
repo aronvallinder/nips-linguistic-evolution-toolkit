@@ -1,0 +1,24 @@
+{
+  "artifact_inventory": {
+    "checkpoint": 0,
+    "error": 0,
+    "final": 6,
+    "results": 6
+  },
+  "checkpoint_jsons_analyzed": 0,
+  "code_commit": "2ece1de681e5c99243df9de181cfce43ee94cd5e",
+  "completed_final_full_state_jsons": 6,
+  "config_sha256": "d204c480b334a5973ec6145abb9d3a6c077430b80e3d2c0d86a373dc892a53ea",
+  "error_jsons_analyzed": 0,
+  "estimated_total_cost_usd": 7.571,
+  "gate_passed": true,
+  "interpretation": "This n=1-per-cell gate establishes completion and behavioral headroom only; it does not estimate stable task-order effects.",
+  "model": "openai/gpt-5.5-2026-04-23",
+  "reasoning_effort": "low",
+  "replicate_id": 1,
+  "results_only_jsons_analyzed": 0,
+  "total_input_tokens": 1088752,
+  "total_llm_interactions": 500,
+  "total_output_tokens": 70908,
+  "total_reasoning_tokens": 13261
+}
