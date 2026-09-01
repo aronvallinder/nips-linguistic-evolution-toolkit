@@ -75,6 +75,7 @@ class NoisyExperimentConfig:
     ) -> List[Dict]:
         """Generate all parameter combinations for an experiment set."""
         exp_set = self.config['experiment_sets'][experiment_name]
+        provider_settings = exp_set.get("provider_settings", {}).copy()
 
         # Resolve "all" references
         models = self._resolve_all(exp_set['models'], 'base_models')
@@ -221,6 +222,7 @@ class NoisyExperimentConfig:
                     "game_prompt_addition_id": (
                         "myth_decision_link" if game_prompt_addition else None
                     ),
+                    "provider_settings": provider_settings.copy(),
                 }
                 combinations.append(combo)
 
@@ -282,6 +284,23 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
         dict with keys: success, file_path, error, combo_info
     """
     try:
+        configured_openai_reasoning_effort = combo.get(
+            "provider_settings", {}
+        ).get("openai_reasoning_effort")
+        active_openai_reasoning_effort = os.environ.get(
+            "OPENAI_REASONING_EFFORT"
+        )
+        if (
+            configured_openai_reasoning_effort is not None
+            and active_openai_reasoning_effort
+            != configured_openai_reasoning_effort
+        ):
+            raise RuntimeError(
+                "Configured openai_reasoning_effort does not match "
+                "OPENAI_REASONING_EFFORT: "
+                f"{configured_openai_reasoning_effort!r} != "
+                f"{active_openai_reasoning_effort!r}"
+            )
         game_params = combo['game_params']
         configured_pairing_mode = game_params.get("pairing_mode", "balanced")
         effective_pairing_mode = (
@@ -512,6 +531,9 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
         sim_data.run_metadata["punishment_prompt_variant"] = game_params.get(
             "punishment_prompt_variant",
             "current",
+        )
+        sim_data.run_metadata["configured_openai_reasoning_effort"] = (
+            configured_openai_reasoning_effort
         )
 
         # Save final state

@@ -13,6 +13,8 @@ base_models:
   llama8b: "meta-llama/llama-3.1-8b-instruct"
   gpt4_cheaper: "openai/gpt-4o-mini"
   gpt5_nano: "openai/gpt-5-nano"
+  # Exact snapshot for the 2026-09-01 GPT-5.5 completion/behavior gate.
+  gpt5_5_20260423: "openai/gpt-5.5-2026-04-23"
   claude_main: "anthropic/claude-3.5-sonnet"
   claude_haiku: "anthropic/claude-3-haiku"
   claude_haiku_45: "anthropic/claude-haiku-4.5"
@@ -3435,3 +3437,99 @@ experiment_sets:
       - "noisy8_crossmodel_negative_defectors25_twotask_r3"
       - "noisy8_crossmodel_negative_defectors50_twotask_r3"
     replicate_ids: [0, 1, 2, 3, 4]
+
+  # -----------------------------------------------------------------------
+  # 2026-09-01: GPT-5.5 negative-only completion/behavior gate.
+  # These are the six control cells from the frozen 2026-08-25 protocol,
+  # restricted to replicate 0 and the exact GPT-5.5 snapshot. The model does
+  # not accept the repository's GPT-5 Nano `minimal` reasoning setting, so the
+  # supported `low` setting is an explicit, provenance-checked condition.
+  # -----------------------------------------------------------------------
+  gpt55_gate_dyad_game_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_game_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_dyad_game_myth_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_dyad_myth_game_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_game_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_game_myth_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_myth_game_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
