@@ -4,9 +4,14 @@ Keep this module minimal — only helpers duplicated in 2+ places belong here.
 """
 
 import json
+import sys
+from pathlib import Path
 from typing import Dict, Optional, Sequence
 
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.experiment_condition import check_conditions, comparison_condition, read_final_run
 
 
 def configure_matplotlib() -> None:
@@ -23,6 +28,25 @@ def load_simulation_data(filepath: str) -> Dict:
     """Load a simulation state JSON file."""
     with open(filepath, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_simulation_runs(filepaths, *, allowed_differences=None, legacy_reason=None):
+    """Read completed runs and require explicit differences before pooling them."""
+    paths = [str(Path(path).resolve()) for path in filepaths]
+    if len(paths) != len(set(paths)):
+        raise ValueError("Duplicate run paths cannot count as independent inputs")
+    runs = {path: read_final_run(path) for path in paths}
+    check_conditions([comparison_condition(data, legacy_reason) for data in runs.values()], allowed_differences)
+    return runs
+
+
+def write_output_provenance(output_dir, filepaths, *, allowed_differences=None, legacy_reason=None):
+    from src.experiment_condition import output_provenance
+
+    directory = Path(output_dir)
+    outputs = [path for path in directory.rglob("*") if path.is_file() and path != directory / "provenance.json"]
+    document = output_provenance(filepaths, outputs, allowed_differences, legacy_reason, output_root=directory)
+    (directory / "provenance.json").write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
 
 
 def infer_endowment(

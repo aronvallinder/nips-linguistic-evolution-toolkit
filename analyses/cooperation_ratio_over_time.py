@@ -43,13 +43,14 @@ import os
 import re
 import sys
 from collections import defaultdict
+from pathlib import Path
 from typing import Dict, List, Optional
 
 import numpy as np
 from scipy import stats
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _shared import configure_matplotlib  # noqa: E402
+from _shared import configure_matplotlib, load_simulation_runs, write_output_provenance
 from resources_over_time_max import (  # noqa: E402
     DEFAULT_ROOT,
     DEFECTION_COLS,
@@ -113,6 +114,7 @@ def load_runs(root: str) -> List[Dict]:
             rep = re.search(r"_rep(\d+)", fn)
             runs.append(
                 {
+                    "source_path": os.path.join(dirpath, fn),
                     "population": cond["population"],
                     "defection": cond["defection"],
                     "model": model_dir,
@@ -240,13 +242,18 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--root", default=DEFAULT_ROOT)
     ap.add_argument("--out", default=DEFAULT_OUT)
+    ap.add_argument("--comparison-spec", help="JSON mapping of allowed differing fields to reasons")
+    ap.add_argument("--legacy-reason", help="Explicit acknowledgement of missing historical provenance")
     args = ap.parse_args()
 
     configure_matplotlib()
-    os.makedirs(args.out, exist_ok=True)
     runs = load_runs(args.root)
     if not runs:
         sys.exit(f"No runs found under {args.root}")
+    allowed = json.loads(Path(args.comparison_spec).read_text()) if args.comparison_spec else {}
+    sources = [run["source_path"] for run in runs]
+    load_simulation_runs(sources, allowed_differences=allowed, legacy_reason=args.legacy_reason)
+    os.makedirs(args.out, exist_ok=True)
     print(f"Loaded {len(runs)} runs from {args.root}")
 
     rows: list = []
@@ -270,6 +277,7 @@ def main() -> None:
         w.writeheader()
         w.writerows(rows)
     print(f"wrote {csv_path}")
+    write_output_provenance(args.out, sources, allowed_differences=allowed, legacy_reason=args.legacy_reason)
 
 
 if __name__ == "__main__":

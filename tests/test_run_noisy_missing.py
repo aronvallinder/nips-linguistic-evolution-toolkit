@@ -49,6 +49,7 @@ def test_load_combinations_embeds_execution_provenance(monkeypatch, tmp_path):
     class FakeConfig:
         def __init__(self, path):
             assert path == str(config_path)
+            self.config = {"experiment_sets": {"example": {}}}
 
         def get_experiment_combinations(self, experiment_name):
             assert experiment_name == "example"
@@ -70,6 +71,7 @@ def test_load_combinations_embeds_execution_provenance(monkeypatch, tmp_path):
     combinations = run_noisy_missing.load_combinations(
         "example",
         str(config_path),
+        allow_legacy_settings=True,
     )
 
     assert [item["execution_provenance"] for item in combinations] == [

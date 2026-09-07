@@ -37,6 +37,8 @@ from src.simulation import run_simulation
 from src.myth_writer import MythWriter
 from games.trust_game_noisy import TrustGameNoisy
 from scripts.hf_sync_completed_runs import maybe_sync_completed_runs
+from src.llm_settings import prepare_combinations, prepared_plan
+from src.utils import DIRECT_MODEL_ALIASES
 
 
 def execution_provenance(config_path: str) -> Dict[str, Any]:
@@ -368,6 +370,7 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
     """
     save_path = None
     try:
+        request_plan = prepared_plan(combo)
         game_params = combo['game_params']
         configured_pairing_mode = game_params.get("pairing_mode", "balanced")
         effective_pairing_mode = (
@@ -547,7 +550,12 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
                 "switch_to_game_system_before_game",
                 False,
             ),
-            "run_metadata_extra": combo.get("execution_provenance", {}),
+            "run_metadata_extra": {
+                **combo.get("execution_provenance", {}),
+                "comparison_inputs": combo.get("comparison_inputs"),
+            },
+            "request_plan": request_plan,
+            "run_identity": {"experiment": experiment_name, "replicate_id": combo.get("replicate_id"), "output_path": str(save_path)},
         }
         quiet_batch = os.environ.get("TRUST_BATCH_QUIET", "").lower() in {"1", "true", "yes"}
         if quiet_batch:
@@ -686,6 +694,8 @@ def run_experiment_set(
     config_path: str = None,
     output_subdir: str = 'v2',
     max_runs: int = None,
+    allow_legacy_settings: bool = False,
+    dry_run: bool = False,
 ):
     """
     Run a set of noise experiments.
@@ -703,6 +713,10 @@ def run_experiment_set(
         experiment_name,
         max_runs=max_runs,
     )
+    prepare_combinations(combinations, config.config["experiment_sets"][experiment_name], DIRECT_MODEL_ALIASES, allow_legacy=allow_legacy_settings)
+    if dry_run:
+        print(f"DRY RUN: N={len(combinations)} WORKERS={workers}; no APIs called")
+        return
     provenance = execution_provenance(config_path)
     provenance.update(
         {
@@ -860,6 +874,8 @@ Examples:
         help='Limit replicates per configured cell without editing the config'
     )
 
+    parser.add_argument('--allow-legacy-settings', action='store_true', help='Explicitly retain historical environment-dependent settings')
+    parser.add_argument('--dry-run', action='store_true', help='Print resolved request plans without credentials or API calls')
     args = parser.parse_args()
 
     run_experiment_set(
@@ -868,4 +884,6 @@ Examples:
         config_path=args.config,
         output_subdir=args.output_subdir,
         max_runs=args.max_runs,
+        allow_legacy_settings=args.allow_legacy_settings,
+        dry_run=args.dry_run,
     )

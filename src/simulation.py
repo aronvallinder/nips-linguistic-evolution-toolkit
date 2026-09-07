@@ -6,6 +6,8 @@ from typing import Any, Dict, Optional
 from src.agents import Agent
 from src.utils import create_llm_client, llm_runtime_metadata, print_simulation_header
 from concurrent.futures import ThreadPoolExecutor
+from src.experiment_condition import build_condition, check_conditions, condition_from_run, digest
+from src.llm_settings import LLMSettingsError
 
 
 DEFAULT_AGENT_NAMES = [
@@ -368,6 +370,8 @@ def run_simulation(
     run_metadata_extra: Optional[Dict[str, Any]] = None,
     initial_system_prompt_template: Optional[str] = None,
     switch_to_game_system_before_game: bool = False,
+    request_plan=None,
+    run_identity=None,
 ):
     """
     Run a multi-agent simulation with any game.
@@ -376,8 +380,30 @@ def run_simulation(
     task_order: List of tasks to execute in order. Options: "game", "myth"
                 Examples: ["game"], ["myth"], ["game", "myth"], ["myth", "game"]
     """
-    client = create_llm_client(model)
+    if request_plan is not None and monitor_config and monitor_config.get("enabled"):
+        raise LLMSettingsError("Guarded strategy-monitor runs need a separately pinned monitor; use the explicit legacy path until supported")
+    protected = {"llm_request", "llm_provider", "provider_model", "experiment_condition", "condition_sha256"}
+    if request_plan is not None and protected.intersection(run_metadata_extra or {}):
+        raise LLMSettingsError("Extra run metadata cannot override protected request/condition fields")
+    client = create_llm_client(model, request_plan=request_plan) if request_plan is not None else create_llm_client(model)
     runtime_metadata = llm_runtime_metadata(client, model)
+    condition = None
+    original_metadata = None
+    if request_plan is not None:
+        condition = build_condition(game, myth_writer, runtime_metadata, {
+            "num_turns": num_turns, "num_agents": num_agents,
+            "memory_capacity": memory_capacity, "agent_biases": agent_biases,
+            "task_order": task_order, "agent_names": agent_names,
+            "seed_myth": seed_myth, "seed_user_prompt": seed_user_prompt,
+            "chat_memory_mode": chat_memory_mode, "seed_reinject": seed_reinject,
+            "initial_system_prompt_template": initial_system_prompt_template,
+            "switch_to_game_system_before_game": switch_to_game_system_before_game,
+        }, run_identity)
+        if resume_from:
+            with Path(resume_from).open(encoding="utf-8") as handle:
+                saved = json.load(handle)
+            check_conditions([condition_from_run(saved), condition])
+            original_metadata = saved["run_metadata"]
     if resume_from and Path(resume_from).exists():
         sim_data = SimulationData.load_state(resume_from, client, log_file=log_file)
         if task_order is not None:
@@ -464,6 +490,13 @@ def run_simulation(
             },
         }
     )
+
+    if condition is not None:
+        sim_data.run_metadata["temperature"] = request_plan.as_dict()["policy"]["temperature"]
+        sim_data.run_metadata["experiment_condition"] = condition
+        sim_data.run_metadata["condition_sha256"] = digest(condition)
+        if original_metadata is not None:
+            sim_data.run_metadata = original_metadata
 
     # Phase 8 silent monitor: opt-in. When enabled, after each round's myths are
     # written a monitor model flags actionable game strategy; flagged agents have
