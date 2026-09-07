@@ -1,5 +1,6 @@
 """Acceptance checks capture HTTP bodies, not only permissive SDK mocks."""
 
+import importlib
 import json
 from unittest.mock import patch
 
@@ -175,19 +176,25 @@ def test_openrouter_request_and_record_agree():
 def test_anthropic_actual_sdk_request_and_record_agree():
     import anthropic
 
+    transport_module = next(
+        base.__module__.split(".")[0]
+        for base in anthropic.DefaultHttpxClient.__mro__
+        if base.__name__ == "Client"
+    )
+    provider_http = importlib.import_module(transport_module)
     model = "anthropic/claude-sonnet-4.5"
     plan = plan_for(model, reasoning={"thinking": {"type": "disabled"}})
     captured = []
 
     def transport(request):
         captured.append(json.loads(request.content))
-        return httpx.Response(200, json={
+        return provider_http.Response(200, json={
             "id": "test-message", "type": "message", "role": "assistant", "model": plan.provider_model,
             "content": [{"type": "text", "text": '{"send": 3}'}], "stop_reason": "end_turn",
             "usage": {"input_tokens": 3, "output_tokens": 4},
         })
 
-    native = anthropic.Anthropic(api_key="test-key", max_retries=0, http_client=httpx.Client(transport=httpx.MockTransport(transport)))
+    native = anthropic.Anthropic(api_key="test-key", max_retries=0, http_client=provider_http.Client(transport=provider_http.MockTransport(transport)))
     client = LLMClient("anthropic", native)
     client.request_plan = plan
     messages = [{"role": "system", "content": "rules"}, {"role": "user", "content": "decision"}]
