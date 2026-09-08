@@ -1,3 +1,17 @@
+### 2026-09-08 — Result: Reasoning pilot measures costs
+
+**Time:** approximately 0.4 hours, including API waits
+
+#### Result
+- Replayed 72 archived requests from Aron's negative-only cross-model set, 24 per model across population sizes, game/myth tasks, and early/middle/late rounds. All completed without retries, truncation finish reasons, or task-response boundary failures; standard-rate token cost **$0.644**.
+- Direct profiles: Sonnet 4.5 thinking enabled with budget 8192, temperature omitted, output cap 64000; GPT-5 Nano high, temperature omitted, cap 128000; Gemini 3.7 Flash high, temperature 0.8, cap 65536. Gemini accepted 0.8; this does not prove how it affects sampling.
+- Weighted projection for 90 full runs per model: Claude **$126.60**, GPT **$17.49**, Gemini **$33.85**; all 270 **$177.94**, or **$213.53** with a 20% planning allowance. This replaces the unmeasured $711 scenario, not a billing guarantee.
+- Claude's sampled thinking was 514 (±94) tokens/game call and 295 (±91)/myth call: enabling an 8192 budget did not make it consume that budget.
+
+#### Scope
+- Cost-only replay: original memory-primary prompts, delayed partner-myth exchange, histories, and simulation outputs were untouched. New answers were not carried forward; these are not behavioral replicates. Two observations per sampling stratum cannot establish precise full-batch costs or failure rates.
+- Full rerun not launched. The replay uses direct HTTP and explicit request plans; it does not certify the batch runner's large-output-cap transport path. Evidence, exact replay script, source/request hashes, raw usage, and offline summary: `reports/reasoning_cost_pilot_2026_09_08/README.md`.
+
 ### 2026-09-04 — Cross-model API calls are not equivalent (provider + reasoning audit)
 
 **Time:** 2 hours
