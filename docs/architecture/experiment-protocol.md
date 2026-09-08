@@ -1,7 +1,7 @@
 ---
 title: Experiment protocol — memory regime, noise, QA, and data infrastructure
 status: current
-updated: 2026-09-04
+updated: 2026-09-08
 owner: ivar
 ---
 
@@ -68,42 +68,37 @@ _(from researchlog 2026-08-12)_
 - Retry hardening: an unanswered prompt is removed from private chat memory
   after an exhausted provider call; rejected attempts stay in the audit but
   never contaminate the retry context. _(from researchlog 2026-08-12)_
-- Provenance: runs embed git commit + dirty state, config SHA-256, provider
-  route, resolved model, and max-output-token source (Gemini runs also record
-  thinking level and whether temperature was sent). Batch launchers refuse a
-  dirty worktree. _(from researchlog 2026-08-12, 2026-08-21)_ Gaps: the
-  effective reasoning effort on OpenRouter and direct-OpenAI routes, whether
-  temperature was sent on non-Gemini routes, and the response `finish_reason`
-  are not recorded; runs before 2026-08-12 carry no provider fields at all and
-  must be classified by their reasoning signature. _(from researchlog
-  2026-09-04)_
+- Historical provenance is uneven: provider, requested settings, code state and
+  stop reasons were not uniformly recorded. Absent fields remain unknown;
+  neither current defaults nor absent reasoning text reconstruct an old request.
+  Saved zero counters may include adapter defaults. Dataset-specific limits are
+  in the [reassessment](../api-audit-reassessment-2026-09-08.md).
+  _(from researchlog 2026-09-08)_
 
 ## Provider route and sampling settings
 
-The regime is pinned in the experiment set, not in anyone's `.env`:
+Guarded experiments declare all four `llm_settings` fields: `provider`,
+provider-native `reasoning`, `temperature` policy, and `max_output_tokens`
+policy. Anthropic requires an explicit positive output cap; there is no implicit
+4096 cap in the guarded path. See [the usage guide](../safeguards-usage.md) for
+the schema, covered entrypoints, structural validation limits and legacy opt-in.
 
-```yaml
-llm_settings:
-  provider: direct        # or openrouter
-  reasoning: off          # off | minimal | low | medium | high
-  temperature: default    # or a float the model honours
-```
+Settings environment variables cannot override the resolved guarded plan.
+New guarded runs save `run_metadata.llm_request`, the experiment condition and
+per-call requested settings/outcomes. The record describes what was requested,
+not a guarantee about vendor internals. Missing usage remains unknown.
 
-The runners fail closed without it; `LLM_PROVIDER` / `LLM_REASONING` /
-`LLM_TEMPERATURE` may override and are recorded in
-`run_metadata.llm_settings_overrides`; the legacy per-vendor knobs are
-ignored with a warning (`src/llm_settings.py`, `.env.example`). Each route's
-actual parameters are in [design-constraints.md §6](design-constraints.md).
-Game prompts carry `decision_format: reasoning_then_json` so every model
-returns the same shape; rejected decisions get a corrective retry naming the
-role and key (two attempts). New analysis or figure directories must carry
-`provenance.json` (`scripts/write_provenance.py`), and
-`analyses/_shared.py::load_simulation_runs` refuses to pool runs whose
-provider / reasoning / temperature differ within a model unless told the mix
-is deliberate. Existing runs split into an OpenRouter era (Claude and Gemini
-thinking on, GPT-5 Nano at vendor-default effort) and a direct era (Claude
-thinking off, GPT-5 Nano minimal, Gemini 3.7 medium); classify legacy runs
-with `llm_settings_signature()` before pooling. _(from researchlog 2026-09-04)_
+Comparisons explicitly name fields that may differ and explain why, including
+model and replicate where appropriate; historical comparisons also acknowledge
+missing provenance. Covered readers reject undeclared differences and exact
+duplicate inputs. Resume checks retain the recorded condition. These safeguards
+do not silently change experimental prompts, memory, noise, task order or retries.
+
+The September 4 proposed low-reasoning/two-sentence profile was not adopted by
+the restart. The associated format study also changed myth instructions,
+self-context and retry policy, so it does not justify making that format a
+standard. Future native-setting robustness and format/memory interventions
+remain separate scientific decisions. _(from researchlog 2026-09-08)_
 
 ## QA: audits with negative controls
 

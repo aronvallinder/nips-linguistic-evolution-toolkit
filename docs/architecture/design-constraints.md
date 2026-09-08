@@ -1,7 +1,7 @@
 ---
 title: Design constraints — what breaks ablations in this framework
 status: current
-updated: 2026-09-04
+updated: 2026-09-08
 owner: ivar
 ---
 
@@ -99,66 +99,37 @@ _(from researchlog 2026-08-20)_
 
 ## 6. Provider route and reasoning settings are part of the condition
 
-Model slugs in `config/experiments.yaml` do not pin how a call is made.
-`LLM_PROVIDER=auto` (the default) sends `anthropic/*`, `openai/*` and
-`google/*` slugs to the **direct vendor API whenever that key is present in
-the runner's `.env`**, and falls back to OpenRouter otherwise. Each route
-applies its own sampling policy (`src/utils.py`):
+Historical environment-driven routing and incomplete request records allowed
+the same configured experiment to use different conditions. The cross-model
+defector records identify three direct vendor APIs. Older datasets vary in
+provenance strength: some have recorded routes or launch settings; others only
+have reasoning-text signatures. A missing setting is not recovered by assuming
+the current code default, and a saved zero may have been written by an adapter
+rather than measured by the provider.
 
-| Route | Temperature | Reasoning / thinking | Output cap |
-|---|---|---|---|
-| OpenRouter (Claude, Gemini slugs) | 0.8 | `reasoning.effort=medium` by default → extended thinking **on** | none |
-| OpenRouter (`openai/*`) | 0.8 requested, dropped upstream | vendor default | none |
-| Direct Anthropic | 0.8 | **off** (no thinking param) | `ANTHROPIC_MAX_TOKENS` (4096) |
-| Direct OpenAI, GPT-5 family | not sent (fixed 1.0) | `OPENAI_REASONING_EFFORT`, default **minimal** | none |
-| Direct Google | 0.8, except 3.7 Flash (not sent) | `GEMINI_THINKING_LEVEL` or vendor default | none |
+Different models need not have identical native parameters. Comparisons must
+describe model-plus-settings conditions and declare known differences; equal
+reasoning labels do not establish equal computation. This does not invalidate
+all historical results or establish a causal explanation for a model ranking.
+The [2026-09-08 reassessment](../api-audit-reassessment-2026-09-08.md) gives
+dataset-specific recorded, inferred and unknown fields. Two washout finals also
+change reasoning signature halfway despite one top-level provider label; that
+comparison needs a per-call/log check, not an assumed route history.
 
-Message roles and system-prompt placement are equivalent on every route; the
-inequivalence is entirely in sampling and reasoning. Consequences, all
-verified against saved runs on 2026-09-04:
+**Current guard:** PR19 pins provider, native reasoning parameters, temperature
+policy and output-cap policy before requests, records the plan and outcomes,
+and checks declared comparison/resume conditions. Settings environment variables
+do not override a guarded request. Coverage and explicit legacy exceptions are
+listed in [the safeguards guide](../safeguards-usage.md). The checks cannot
+retroactively verify missing historical requests and do not select a research profile.
 
-- The cross-model defector set (Claude Sonnet 4.5 / GPT-5 Nano / Gemini 3.7
-  Flash, 2026-08-25) compares a non-thinking Claude at T=0.8 with a
-  minimal-reasoning GPT at T=1.0 and a medium-thinking Gemini. Cross-model
-  rankings from it are unproven until effort levels are matched.
-- The same model has run under both regimes across the project: OpenRouter-era
-  Claude (Arabella's sets; baseline, v1–v3, myth_causal, sonnet45_8agent) had
-  thinking on, direct-era Claude (v4, phase 2–7, memtest, confirmatory,
-  defector set) had it off; GPT-5 Nano went from ~1,000 reasoning tokens per
-  decision (OpenRouter) to 0 (direct). A credit outage silently flips the
-  route (2026-07-17). Never pool runs across eras without splitting by
-  reasoning signature (reasoning text present vs absent).
-- Format confound: Claude stores ~1,000+ characters of strategy prose in its
-  assistant memory each round; GPT and Gemini store bare JSON. Under
-  memory-primary the models play with categorically different self-context.
-- `run_metadata` records provider and resolved model only since 2026-08-12,
-  and never records the effective reasoning effort, whether temperature was
-  sent (except Gemini), or `finish_reason`.
-
-Rule, now enforced in code: every experiment set carries an `llm_settings`
-block (`provider`, `reasoning`, `temperature`) in `config/*.yaml`; the batch
-runners refuse to start without it, env vars only override it and every
-override is recorded, and `run_metadata.llm_settings_effective` plus a
-per-call `finish_reason` say what was actually sent (`src/llm_settings.py`).
-Impossible combinations fail closed (reasoning off on GPT-5 or Gemini 3.x, a
-float temperature on GPT-5, Gemini 3.6+ Flash or Claude Opus 4.7+). Three
-guards keep it that way: the shared loader refuses to pool mixed regimes, the
-HF sync refuses unprovenanced runs, and `tests/test_settings_pinned.py` fails
-CI for any new unpinned set, launch script, or output directory without
-`provenance.json`. Matched low-reasoning regime for cross-model cells: Claude
-off, GPT-5 Nano low, Gemini 3.6 Flash minimal (3.7/3.8 cannot go below low),
-temperature at vendor default because only Sonnet 4.5 still honours it.
-_(from researchlog 2026-09-04)_
-
-**Reply format is part of the condition too.** Same Claude cell (8 agents,
-25% defectors, myth→game, thinking off, T=0.8), only an OUTPUT FORMAT line
-added: free prose sends 0.592 and ends at $50.35/agent (1,286 chars per
-decision); two sentences then JSON 0.531 / $47.78 (352 chars); JSON only
-0.394 / $42.12 (13 chars). Forbidding visible reasoning also made Claude
-answer with the other role's key in every run. Cross-model contrasts against
-bare-JSON models are format effects until the shape is equalized; the
-standard is `decision_format: reasoning_then_json` for every model, with a
-corrective (role + key) game retry. _(from researchlog 2026-09-04)_
+**Reply format is a condition, not an established mechanism.** Visible response
+content is retained in memory-primary and differed across the observed models.
+The September 4 format-study means reproduce, but both new arms changed myth
+instructions and own-myth repetition; JSON-only also changed retries. These are
+exploratory multi-factor comparisons, not isolated prose or memory effects.
+No universal two-sentence output standard or low-reasoning regime was selected
+by the safeguards restart. _(from researchlog 2026-09-08)_
 
 ## 7. Co-occurrence is not transmission
 

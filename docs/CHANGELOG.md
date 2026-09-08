@@ -1,5 +1,10 @@
 # Docs changelog
 
+## 2026-09-08
+- Added the raw-record API reassessment, hashed evidence and reproducible extraction helpers; separated recorded settings from defaults, missing fields and reasoning signatures.
+- Corrected provider/reasoning and format-effect interpretations in design constraints, experiment protocol, defector/task-order findings and verified facts; linked the merged PR19 safeguards without adopting a new scientific regime.
+- Preserved historical researchlog entries and added an explicit correction. Original audit reports, raw experiments, prompts and runtime code remain unchanged.
+
 ## 2026-09-04
 - design-constraints.md §6 updated from researchlog 2026-09-04 (config-over-env now enforced; reply format is part of the condition, decision-format numbers) — compile
 - experiment-protocol.md "Provider route" rewritten from researchlog 2026-09-04 (llm_settings block, decision_format standard, provenance and pooling guards) — compile
