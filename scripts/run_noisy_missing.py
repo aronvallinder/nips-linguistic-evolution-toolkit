@@ -27,6 +27,9 @@ from experiments.run_noisy_batch import (
 )
 from scripts.hf_sync_completed_runs import maybe_sync_completed_runs
 from src.batch_utils import sanitize_for_filename
+from src.experiment_condition import ConditionMismatchError, condition_from_run, read_final_run
+from src.llm_settings import prepare_combinations
+from src.utils import DIRECT_MODEL_ALIASES
 
 
 def expected_output_path(
@@ -86,12 +89,13 @@ def run_missing_job(
     return result
 
 
-def load_combinations(experiment_name: str, config_path: str | None) -> list[dict[str, Any]]:
+def load_combinations(experiment_name: str, config_path: str | None, *, allow_legacy_settings=False) -> list[dict[str, Any]]:
     if config_path is None:
         config_path = str(PROJECT_ROOT / "config" / "experiments_noisy.yaml")
 
     config = NoisyExperimentConfig(config_path)
     combinations = config.get_experiment_combinations(experiment_name)
+    prepare_combinations(combinations, config.config["experiment_sets"][experiment_name], DIRECT_MODEL_ALIASES, allow_legacy=allow_legacy_settings)
     provenance = execution_provenance(config_path)
     for combination in combinations:
         combination["execution_provenance"] = provenance.copy()
@@ -120,9 +124,14 @@ def main() -> int:
         help="Optional maximum number of missing jobs to run",
     )
 
+    parser.add_argument("--allow-legacy-settings", action="store_true", help="Explicitly retain historical environment-dependent settings")
+    parser.add_argument("--dry-run", action="store_true", help="Print resolved plans without API calls or uploads")
     args = parser.parse_args()
 
-    combinations = load_combinations(args.experiment_name, args.config)
+    combinations = load_combinations(args.experiment_name, args.config, allow_legacy_settings=args.allow_legacy_settings)
+    if args.dry_run:
+        print(f"DRY RUN: N={len(combinations)} WORKERS={args.workers}; no APIs called")
+        return 0
     missing: list[tuple[int, dict[str, Any], Path]] = []
     expected_outputs: list[Path] = []
 
@@ -136,6 +145,12 @@ def main() -> int:
         expected_outputs.append(expected_path)
         if not expected_path.exists():
             missing.append((index, combo, expected_path))
+        else:
+            saved = read_final_run(expected_path)
+            if combo.get("request_plan") is not None:
+                condition_from_run(saved)
+                if saved["run_metadata"].get("comparison_inputs") != combo["comparison_inputs"]:
+                    raise ConditionMismatchError(f"Existing final does not match the configured inputs: {expected_path}")
 
     if args.limit is not None:
         missing = missing[: args.limit]

@@ -9,6 +9,7 @@ import urllib.request
 
 from dotenv import load_dotenv
 from openai import APIConnectionError, APIError, OpenAI, RateLimitError
+from src.llm_settings import ENDPOINTS, LLMSettingsError
 
 try:
     import anthropic
@@ -57,6 +58,7 @@ class LLMClient:
     def __init__(self, provider, client):
         self.provider = provider
         self.client = client
+        self.request_plan = None
 
     def __getattr__(self, name):
         return getattr(self.client, name)
@@ -83,6 +85,11 @@ def _direct_model_override_name(model):
 
 def resolve_model_for_provider(client, model):
     """Return the model ID that should be sent to the selected provider."""
+    plan = getattr(client, "request_plan", None)
+    if plan is not None:
+        if model != plan.as_dict()["model"]:
+            raise LLMSettingsError("Model changed after request planning")
+        return plan.provider_model
     provider, _ = _unwrap_client(client)
     if provider == "openrouter":
         return model
@@ -102,6 +109,14 @@ def resolve_model_for_provider(client, model):
 
 def llm_runtime_metadata(client, model):
     """Return non-secret provider settings needed to reproduce a run."""
+    plan = getattr(client, "request_plan", None)
+    if plan is not None:
+        return {
+            "llm_provider": plan.provider,
+            "provider_model": resolve_model_for_provider(client, model),
+            "llm_provider_mode": plan.as_dict()["policy"]["provider"],
+            "llm_request": plan.as_dict(),
+        }
     provider, _ = _unwrap_client(client)
     metadata = {
         "llm_provider": provider,
@@ -167,7 +182,7 @@ def llm_runtime_metadata(client, model):
     return metadata
 
 
-def create_llm_client(model, provider=None):
+def create_llm_client(model, provider=None, request_plan=None):
     """
     Create a provider client for the given repo model slug.
 
@@ -176,6 +191,18 @@ def create_llm_client(model, provider=None):
       - direct: require a direct provider for openai/*, anthropic/*, or google/* models.
       - openrouter/openai/anthropic/google/gemini: force that provider.
     """
+    if request_plan is not None:
+        if model != request_plan.as_dict()["model"]:
+            raise LLMSettingsError("Model differs from the resolved request plan")
+        factories = {
+            "openai": lambda: _create_openai_client(pinned=True),
+            "anthropic": lambda: _create_anthropic_client(pinned=True),
+            "google": _create_gemini_client,
+            "openrouter": _create_openrouter_client,
+        }
+        client = factories[request_plan.provider]()
+        client.request_plan = request_plan
+        return client
     selected = (provider or _env("LLM_PROVIDER") or LLM_PROVIDER or "auto").strip().lower()
     if selected not in VALID_PROVIDER_MODES:
         raise RuntimeError(
@@ -233,14 +260,14 @@ def _create_openrouter_client():
     )
 
 
-def _create_openai_client():
+def _create_openai_client(pinned=False):
     api_key = _env("OPENAI_API_KEY")
     if not api_key:
         raise RuntimeError("OPENAI_API_KEY is not set.")
-    return LLMClient("openai", OpenAI(api_key=api_key))
+    return LLMClient("openai", OpenAI(api_key=api_key, base_url=ENDPOINTS["openai"] if pinned else None))
 
 
-def _create_anthropic_client():
+def _create_anthropic_client(pinned=False):
     api_key = _env("ANTHROPIC_API_KEY")
     if not api_key:
         raise RuntimeError("ANTHROPIC_API_KEY is not set.")
@@ -248,7 +275,7 @@ def _create_anthropic_client():
         raise RuntimeError(
             "The anthropic package is not installed. Run: pip install -r requirements.txt"
         )
-    return LLMClient("anthropic", anthropic.Anthropic(api_key=api_key))
+    return LLMClient("anthropic", anthropic.Anthropic(api_key=api_key, base_url=ENDPOINTS["anthropic"] if pinned else None))
 
 
 def _gemini_api_key():
@@ -332,7 +359,27 @@ def call_llm(client, model, temperature, messages, max_retries=3, reasoning_effo
     Returns:
         dict: Structured response with content, reasoning, and usage data
     """
+    plan = getattr(client, "request_plan", None)
+    try:
+        return _dispatch_llm(client, model, temperature, messages, max_retries, reasoning_effort, plan)
+    except Exception as error:
+        if plan is None or isinstance(error, LLMRequestError):
+            raise
+        usage = _request_usage({}, plan, None)
+        usage.update(outcome="error", error_type=type(error).__name__, status_code=getattr(error, "status_code", getattr(error, "code", None)))
+        message = str(error) if isinstance(error, LLMSettingsError) else f"Provider call failed: {type(error).__name__}"
+        raise LLMRequestError(message, usage) from None
+
+
+def _dispatch_llm(client, model, temperature, messages, max_retries, reasoning_effort, request_plan):
     provider, api_client = _unwrap_client(client)
+    if request_plan is not None and provider != request_plan.provider:
+        raise LLMSettingsError("Provider changed after request planning")
+    if request_plan is not None:
+        endpoint = api_client["base_url"] if provider == "google" else str(api_client.base_url)
+        if endpoint.rstrip("/") != request_plan.as_dict()["endpoint"].rstrip("/"):
+            raise LLMSettingsError("Endpoint changed after request planning")
+    extra = {"request_plan": request_plan} if request_plan is not None else {}
     if provider == "anthropic":
         return _call_anthropic(
             api_client,
@@ -340,6 +387,7 @@ def call_llm(client, model, temperature, messages, max_retries=3, reasoning_effo
             temperature,
             messages,
             max_retries,
+            **extra,
         )
     if provider == "google":
         return _call_gemini(
@@ -348,6 +396,7 @@ def call_llm(client, model, temperature, messages, max_retries=3, reasoning_effo
             temperature,
             messages,
             max_retries,
+            **extra,
         )
     return _call_openai_compatible(
         provider,
@@ -357,6 +406,7 @@ def call_llm(client, model, temperature, messages, max_retries=3, reasoning_effo
         messages,
         max_retries,
         reasoning_effort,
+        **extra,
     )
 
 
@@ -368,6 +418,7 @@ def _call_openai_compatible(
     messages,
     max_retries,
     reasoning_effort,
+    request_plan=None,
 ):
     for attempt in range(max_retries):
         try:
@@ -375,12 +426,12 @@ def _call_openai_compatible(
                 "model": provider_model,
                 "messages": _chat_messages(messages),
             }
-            if _supports_custom_temperature(provider, provider_model):
+            if request_plan is None and _supports_custom_temperature(provider, provider_model):
                 request_params["temperature"] = temperature
-            if _supports_reasoning_effort(provider, provider_model):
+            if request_plan is None and _supports_reasoning_effort(provider, provider_model):
                 request_params["reasoning_effort"] = _direct_openai_reasoning_effort()
 
-            if provider == "openrouter" and OPENROUTER_MAX_TOKENS:
+            if request_plan is None and provider == "openrouter" and OPENROUTER_MAX_TOKENS:
                 request_params["max_tokens"] = int(OPENROUTER_MAX_TOKENS)
 
             # OpenRouter-only extension. Direct OpenAI calls use standard OpenAI params.
@@ -406,9 +457,24 @@ def _call_openai_compatible(
                     }
                 }
 
+            if request_plan is not None:
+                request_params = {
+                    "model": provider_model,
+                    "messages": _chat_messages(messages),
+                    "extra_body": request_plan.parameters,
+                }
+
             response = client.chat.completions.create(**request_params)
 
             if not response.choices or not response.choices[0].message.content:
+                if request_plan is not None:
+                    finish = response.choices[0].finish_reason if response.choices else None
+                    usage = {
+                        "input_tokens": getattr(response.usage, "prompt_tokens", None),
+                        "output_tokens": getattr(response.usage, "completion_tokens", None),
+                        "reasoning_tokens": _reasoning_token_count(response.usage),
+                    }
+                    raise LLMRequestError("Empty response from LLM", _request_usage(usage, request_plan, finish))
                 raise ValueError("Empty response from LLM")
 
             reasoning = None
@@ -442,37 +508,25 @@ def _call_openai_compatible(
                         reasoning = "\n".join(reasoning_texts)
 
             if reasoning is None and hasattr(response, "usage"):
-                reasoning_tokens = 0
-                if hasattr(response.usage, "output_tokens_details") and hasattr(
-                    response.usage.output_tokens_details, "reasoning_tokens"
-                ):
-                    reasoning_tokens = response.usage.output_tokens_details.reasoning_tokens
-                elif hasattr(response.usage, "completion_tokens_details") and hasattr(
-                    response.usage.completion_tokens_details, "reasoning_tokens"
-                ):
-                    reasoning_tokens = response.usage.completion_tokens_details.reasoning_tokens
+                reasoning_tokens = _reasoning_token_count(response.usage)
 
                 if reasoning_tokens and reasoning_tokens > 0:
                     reasoning = f"[{reasoning_tokens} reasoning tokens used, but content encrypted by provider]"
 
             usage = None
             if hasattr(response, "usage"):
-                reasoning_tokens = 0
-                if hasattr(response.usage, "output_tokens_details") and hasattr(
-                    response.usage.output_tokens_details, "reasoning_tokens"
-                ):
-                    reasoning_tokens = response.usage.output_tokens_details.reasoning_tokens
-                elif hasattr(response.usage, "completion_tokens_details") and hasattr(
-                    response.usage.completion_tokens_details, "reasoning_tokens"
-                ):
-                    reasoning_tokens = response.usage.completion_tokens_details.reasoning_tokens
+                reasoning_tokens = _reasoning_token_count(response.usage)
 
                 usage = {
-                    "input_tokens": getattr(response.usage, "prompt_tokens", 0),
-                    "output_tokens": getattr(response.usage, "completion_tokens", 0),
+                    "input_tokens": getattr(response.usage, "prompt_tokens", None),
+                    "output_tokens": getattr(response.usage, "completion_tokens", None),
                     "reasoning_tokens": reasoning_tokens
                 }
 
+            usage = _request_usage(usage, request_plan, getattr(response.choices[0], "finish_reason", None))
+            if request_plan is not None:
+                usage["response_model"] = getattr(response, "model", None)
+                usage["response_id"] = getattr(response, "id", None)
             return {
                 "content": response.choices[0].message.content,
                 "reasoning": reasoning,
@@ -485,7 +539,7 @@ def _call_openai_compatible(
                 print(f"⚠️  Rate limit hit. Waiting {wait_time:.2f}s before retry {attempt + 1}/{max_retries}...")
                 time.sleep(wait_time)
                 continue
-            print(f"❌ Rate limit error after {max_retries} attempts: {e}")
+            print(f"❌ Rate limit error after {max_retries} attempts: {_public_error(e, request_plan)}")
             raise
 
         except APIConnectionError as e:
@@ -494,7 +548,7 @@ def _call_openai_compatible(
                 print(f"⚠️  Connection error. Waiting {wait_time:.2f}s before retry {attempt + 1}/{max_retries}...")
                 time.sleep(wait_time)
                 continue
-            print(f"❌ Connection error after {max_retries} attempts: {e}")
+            print(f"❌ Connection error after {max_retries} attempts: {_public_error(e, request_plan)}")
             raise
 
         except APIError as e:
@@ -504,13 +558,13 @@ def _call_openai_compatible(
                     print(f"⚠️  Server error ({e.status_code}). Waiting {wait_time:.2f}s before retry {attempt + 1}/{max_retries}...")
                     time.sleep(wait_time)
                     continue
-                print(f"❌ Server error after {max_retries} attempts: {e}")
+                print(f"❌ Server error after {max_retries} attempts: {_public_error(e, request_plan)}")
                 raise
-            print(f"❌ Client error ({e.status_code}): {e}")
+            print(f"❌ Client error ({e.status_code}): {_public_error(e, request_plan)}")
             raise
 
         except Exception as e:
-            print(f"❌ Unexpected error in LLM call: {type(e).__name__}: {e}")
+            print(f"❌ Unexpected error in LLM call: {_public_error(e, request_plan)}")
             raise
 
     raise Exception(f"Failed to get LLM response after {max_retries} attempts")
@@ -539,13 +593,13 @@ def _anthropic_supports_temperature(provider_model):
     return True
 
 
-def _call_anthropic(client, provider_model, temperature, messages, max_retries):
+def _call_anthropic(client, provider_model, temperature, messages, max_retries, request_plan=None):
     if anthropic is None:
         raise RuntimeError(
             "The anthropic package is not installed. Run: pip install -r requirements.txt"
         )
 
-    max_tokens = int(_env("ANTHROPIC_MAX_TOKENS") or "1024")
+    max_tokens = request_plan.parameters["max_tokens"] if request_plan is not None else int(_env("ANTHROPIC_MAX_TOKENS") or "1024")
     system, chat_messages = _anthropic_messages(messages)
 
     for attempt in range(max_retries):
@@ -560,19 +614,30 @@ def _call_anthropic(client, provider_model, temperature, messages, max_retries):
             if system:
                 request_params["system"] = system
 
+            if request_plan is not None:
+                request_params.pop("temperature", None)
+                parameters = request_plan.parameters
+                parameters.pop("max_tokens")
+                request_params["extra_body"] = parameters
+
             response = client.messages.create(**request_params)
             content = _anthropic_text(response)
-            if not content:
-                raise ValueError("Empty response from LLM")
-
             usage = None
             if hasattr(response, "usage") and response.usage:
                 usage = {
-                    "input_tokens": getattr(response.usage, "input_tokens", 0),
-                    "output_tokens": getattr(response.usage, "output_tokens", 0),
-                    "reasoning_tokens": 0,
+                    "input_tokens": getattr(response.usage, "input_tokens", None),
+                    "output_tokens": getattr(response.usage, "output_tokens", None),
+                    "reasoning_tokens": _reasoning_token_count(response.usage),
                 }
 
+            usage = _request_usage(usage, request_plan, getattr(response, "stop_reason", None))
+            if request_plan is not None:
+                usage["response_model"] = getattr(response, "model", None)
+                usage["response_id"] = getattr(response, "id", None)
+            if not content:
+                if request_plan is not None:
+                    raise LLMRequestError("Empty response from LLM", usage)
+                raise ValueError("Empty response from LLM")
             return {
                 "content": content,
                 "reasoning": None,
@@ -585,7 +650,7 @@ def _call_anthropic(client, provider_model, temperature, messages, max_retries):
                 print(f"⚠️  Anthropic API retryable error. Waiting {wait_time:.2f}s before retry {attempt + 1}/{max_retries}...")
                 time.sleep(wait_time)
                 continue
-            print(f"❌ Anthropic API error: {type(e).__name__}: {e}")
+            print(f"❌ Anthropic API error: {_public_error(e, request_plan)}")
             raise
 
     raise Exception(f"Failed to get LLM response after {max_retries} attempts")
@@ -614,7 +679,7 @@ def _should_retry_anthropic(error):
     )
 
 
-def _call_gemini(client, provider_model, temperature, messages, max_retries):
+def _call_gemini(client, provider_model, temperature, messages, max_retries, request_plan=None):
     api_key = client["api_key"]
     base_url = client["base_url"].rstrip("/")
     system_instruction, contents = _gemini_messages(messages)
@@ -634,6 +699,9 @@ def _call_gemini(client, provider_model, temperature, messages, max_retries):
     thinking_level = _env("GEMINI_THINKING_LEVEL")
     if thinking_level:
         payload["generationConfig"]["thinkingConfig"] = {"thinkingLevel": thinking_level}
+
+    if request_plan is not None:
+        payload["generationConfig"] = request_plan.parameters
 
     url = f"{base_url}/models/{provider_model}:generateContent"
 
@@ -655,10 +723,21 @@ def _call_gemini(client, provider_model, temperature, messages, max_retries):
                 response_data = json.loads(response.read().decode("utf-8"))
 
             content = _gemini_text(response_data)
+            candidates = response_data.get("candidates") or [{}]
+            usage = _request_usage(_gemini_usage(response_data), request_plan, candidates[0].get("finishReason"))
+            if request_plan is not None:
+                block_reason = (response_data.get("promptFeedback") or {}).get("blockReason")
+                usage["prompt_block_reason"] = block_reason
+                if block_reason and block_reason != "BLOCK_REASON_UNSPECIFIED":
+                    usage["outcome"] = "blocked"
             if not content:
+                if request_plan is not None:
+                    raise LLMRequestError("Empty response from Gemini", usage)
                 raise ValueError(f"Empty response from Gemini: {_gemini_finish_reason(response_data)}")
 
-            usage = _gemini_usage(response_data)
+            if request_plan is not None:
+                usage["response_model"] = response_data.get("modelVersion")
+                usage["response_id"] = response_data.get("responseId")
             return {
                 "content": content,
                 "reasoning": None,
@@ -672,7 +751,8 @@ def _call_gemini(client, provider_model, temperature, messages, max_retries):
                 print(f"⚠️  Gemini API retryable error ({e.code}). Waiting {wait_time:.2f}s before retry {attempt + 1}/{max_retries}...")
                 time.sleep(wait_time)
                 continue
-            print(f"❌ Gemini API error ({e.code}): {_redact_gemini_error(body)}")
+            public_body = _public_error(e, request_plan) if request_plan is not None else _redact_gemini_error(body)
+            print(f"❌ Gemini API error ({e.code}): {public_body}")
             raise
 
         except (urllib.error.URLError, TimeoutError) as e:
@@ -681,7 +761,7 @@ def _call_gemini(client, provider_model, temperature, messages, max_retries):
                 print(f"⚠️  Gemini connection error. Waiting {wait_time:.2f}s before retry {attempt + 1}/{max_retries}...")
                 time.sleep(wait_time)
                 continue
-            print(f"❌ Gemini connection error after {max_retries} attempts: {type(e).__name__}: {e}")
+            print(f"❌ Gemini connection error after {max_retries} attempts: {_public_error(e, request_plan)}")
             raise
 
     raise Exception(f"Failed to get Gemini response after {max_retries} attempts")
@@ -745,10 +825,52 @@ def _gemini_usage(response_data):
     if not usage:
         return None
     return {
-        "input_tokens": int(usage.get("promptTokenCount") or 0),
-        "output_tokens": int(usage.get("candidatesTokenCount") or 0),
-        "reasoning_tokens": int(usage.get("thoughtsTokenCount") or 0),
+        "input_tokens": usage.get("promptTokenCount"),
+        "output_tokens": usage.get("candidatesTokenCount"),
+        "reasoning_tokens": usage.get("thoughtsTokenCount"),
     }
+
+
+class LLMRequestError(ValueError):
+    """A provider failure with a non-secret request/outcome record."""
+
+    def __init__(self, message, usage):
+        super().__init__(message)
+        self.usage = usage
+
+
+def _public_error(error, request_plan):
+    return type(error).__name__ if request_plan is not None else str(error)
+
+
+def _reasoning_token_count(usage):
+    def value(record, key):
+        return record.get(key) if isinstance(record, dict) else getattr(record, key, None)
+
+    for key in ("reasoning_tokens", "thinking_tokens"):
+        count = value(usage, key)
+        if count is not None:
+            return count
+    for key in ("completion_tokens_details", "output_tokens_details"):
+        count = value(value(usage, key), "reasoning_tokens")
+        if count is not None:
+            return count
+    return None
+
+
+def _request_usage(usage, request_plan, finish_reason):
+    if request_plan is None:
+        return usage
+    outcome = "unknown"
+    if finish_reason in {"stop", "end_turn", "stop_sequence", "STOP"}:
+        outcome = "complete"
+    elif finish_reason in {"length", "max_tokens", "MAX_TOKENS"}:
+        outcome = "truncated"
+    elif finish_reason in {"content_filter", "refusal", "SAFETY", "RECITATION", "BLOCKLIST", "PROHIBITED_CONTENT"}:
+        outcome = "blocked"
+    result = {"input_tokens": None, "output_tokens": None, "reasoning_tokens": None, **(usage or {})}
+    result.update(request_settings=request_plan.as_dict(), finish_reason=finish_reason, outcome=outcome)
+    return result
 
 
 def _should_retry_gemini_http(status_code):

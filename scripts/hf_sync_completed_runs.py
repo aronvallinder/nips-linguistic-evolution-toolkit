@@ -40,6 +40,7 @@ except ImportError:  # pragma: no cover - POSIX only
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 DATA_JSON_ROOT = PROJECT_ROOT / "data" / "json"
 AUTO_UPLOAD_ENV = "HF_DATASET_AUTO_UPLOAD"
 REPO_ENV = "HF_DATASET_REPO"
@@ -247,6 +248,7 @@ def build_upload_plan(
     repo_id: str,
     namespace: str,
     data_root: Path = DATA_JSON_ROOT,
+    allow_legacy_provenance: bool = False,
 ) -> UploadPlan:
     """Build an exact, uploader-namespaced completed-run manifest."""
     repo_id = repo_id.strip()
@@ -255,8 +257,21 @@ def build_upload_plan(
     namespace = _validated_namespace(namespace)
 
     resolved_root = data_root.resolve()
+    from src.experiment_condition import ConditionMismatchError, condition_from_run
+
+    eligible = []
+    for path in discover_completed_final_jsons(final_paths, data_root=resolved_root):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        try:
+            metadata = payload.get("run_metadata") or {}
+            if not (allow_legacy_provenance and "experiment_condition" not in metadata):
+                condition_from_run(payload)
+        except (ConditionMismatchError, TypeError, KeyError) as error:
+            _warn(f"Not uploading {path}: invalid/missing provenance ({error})")
+            continue
+        eligible.append(path)
     finals, artifacts = artifacts_for_completed_runs(
-        final_paths,
+        eligible,
         data_root=resolved_root,
     )
 
@@ -492,6 +507,7 @@ def sync_completed_runs(
     api: Any | None = None,
     label: str | None = None,
     allow_public: bool = False,
+    allow_legacy_provenance: bool = False,
 ) -> UploadPlan:
     """Upload one exact plan, raising on dependency/authentication/Hub errors."""
     plan = build_upload_plan(
@@ -499,6 +515,7 @@ def sync_completed_runs(
         repo_id=repo_id,
         namespace=namespace,
         data_root=data_root,
+        allow_legacy_provenance=allow_legacy_provenance,
     )
     if not plan.artifact_paths:
         return plan
@@ -648,6 +665,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         default=DATA_JSON_ROOT,
         help="Local data/json root (mainly useful for testing or alternate clones)",
     )
+    parser.add_argument("--allow-legacy-provenance", action="store_true", help="Explicit historical backfill; never bypasses invalid modern provenance")
     args = parser.parse_args(argv)
 
     scan_paths = args.paths or [args.data_root]
@@ -664,6 +682,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             repo_id=repo_id,
             namespace=args.namespace,
             data_root=args.data_root,
+            allow_legacy_provenance=args.allow_legacy_provenance,
         )
     except ValueError as exc:
         _warn(str(exc))
@@ -690,6 +709,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             data_root=args.data_root,
             lock_path=args.lock_file,
             label="backfill",
+            allow_legacy_provenance=args.allow_legacy_provenance,
             allow_public=(
                 os.environ.get(ALLOW_PUBLIC_ENV, "").strip().lower()
                 in TRUE_VALUES
