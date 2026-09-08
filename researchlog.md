@@ -1,3 +1,27 @@
+### 2026-09-08 — Separate audit evidence from interpretation
+
+**Time:** not recorded.
+
+#### Result and correction
+- Result: reopened 4,129 inventory-listed final paths, representing 3,661 distinct
+  byte hashes after 468 exact copies; these are not verified independent replicates.
+  The defector set records three direct providers, but GPT's exact effort is absent.
+- Result: all 15 final format-study files reproduce the descriptive means. Both
+  new arms also changed myth instructions and own-myth repetition; JSON-only
+  changed retry policy. The September 4 claim that Claude's behaviour is mostly
+  its prose is withdrawn as a causal interpretation, not erased from the record.
+
+#### Scope and current position
+- Saved zero counters/no reasoning text do not prove every historical thinking
+  setting. Two washout finals change reasoning signature halfway despite a single
+  provider label; the exact transition needs per-call/log verification.
+- PR19 replaces the unmerged PR16 guards. It does not adopt the earlier proposed
+  low-reasoning/two-sentence profile or change prompts, memory or retries.
+- `docs/api-audit-reassessment-2026-09-08.md` separates recorded, inferred and
+  missing settings, qualifies the scientific claims, and links hashed evidence
+  plus reproduction scripts. Historical entries and raw records are unchanged.
+  No experiment ran and no new scientific profile was selected.
+
 ### 2026-09-04 — Config over env shipped; Claude's defector behaviour is mostly its own prose
 
 **Time:** 6 hours
