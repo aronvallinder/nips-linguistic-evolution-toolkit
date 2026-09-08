@@ -1,7 +1,9 @@
 # Safeguards restart: the review contract
 
-**Status: scope for review, not an implemented fix.** Based on shared main
-`382c4ec2` (fetched 2026-09-07). This PR starts with documentation only.
+**Status: scope approved in merged PR 18; implementation under review.**
+The replacement starts from shared main `5e00733a`. See
+[the usage and walkthrough guide](safeguards-usage.md) for the implemented
+boundaries and remaining merge gates. This is not a new experimental regime.
 
 ## Problem and boundaries
 

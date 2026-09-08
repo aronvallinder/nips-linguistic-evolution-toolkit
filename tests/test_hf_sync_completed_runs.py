@@ -4,6 +4,15 @@ from types import SimpleNamespace
 
 import pytest
 from scripts import hf_sync_completed_runs as hf_sync
+from src.experiment_condition import build_condition, digest
+from src.llm_settings import resolve_request_plan
+
+
+REQUEST = resolve_request_plan("openai/gpt-5-nano", {
+    "provider": "direct", "reasoning": {"reasoning_effort": "low"},
+    "temperature": "default", "max_output_tokens": 128,
+}, {}).as_dict()
+CONDITION = build_condition(SimpleNamespace(), None, {"llm_request": REQUEST}, {})
 
 
 FULL_STATE = {
@@ -11,7 +20,10 @@ FULL_STATE = {
     "conversation_history": [],
     "game_data": {},
     "task_order": ["game"],
-    "run_metadata": {},
+    "run_metadata": {
+        "llm_provider": "openai", "provider_model": "gpt-5-nano", "llm_request": REQUEST,
+        "experiment_condition": CONDITION, "condition_sha256": digest(CONDITION),
+    },
 }
 
 

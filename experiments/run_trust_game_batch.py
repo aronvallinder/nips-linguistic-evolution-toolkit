@@ -17,6 +17,8 @@ from src.simulation import run_simulation
 from src.myth_writer import MythWriter
 from games.trust_game import TrustGame
 from scripts.hf_sync_completed_runs import maybe_sync_completed_runs
+from src.llm_settings import prepare_combinations, prepared_plan
+from src.utils import DIRECT_MODEL_ALIASES
 
 def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: int) -> Dict[str, Any]:
     """
@@ -28,6 +30,7 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
     """
     save_path = None
     try:
+        request_plan = prepared_plan(combo)
         # Configure game
         game_params = combo['game_params']
 
@@ -155,6 +158,9 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             "agent_names": game_params.get("agent_names"),
             "monitor_config": game_params.get("monitor_config"),
             "chat_memory_mode": game_params.get("chat_memory_mode", "default"),
+            "request_plan": request_plan,
+            "run_identity": {"experiment": experiment_name, "replicate_id": combo.get("replicate_id"), "output_path": str(save_path)},
+            "run_metadata_extra": {"comparison_inputs": combo.get("comparison_inputs")},
         }
         quiet_batch = os.environ.get("TRUST_BATCH_QUIET", "").lower() in {"1", "true", "yes"}
         if quiet_batch:
@@ -223,7 +229,7 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             }
         }
 
-def run_experiment_set(experiment_name: str, workers: int = 1):
+def run_experiment_set(experiment_name: str, workers: int = 1, allow_legacy_settings: bool = False, dry_run: bool = False):
     """
     Run a set of experiments either sequentially or in parallel.
 
@@ -234,6 +240,10 @@ def run_experiment_set(experiment_name: str, workers: int = 1):
     # Load configuration
     config = ExperimentConfig('config/experiments.yaml')
     combinations = config.get_experiment_combinations(experiment_name)
+    prepare_combinations(combinations, config.config["experiment_sets"][experiment_name], DIRECT_MODEL_ALIASES, allow_legacy=allow_legacy_settings)
+    if dry_run:
+        print(f"DRY RUN: N={len(combinations)} WORKERS={workers}; no APIs called")
+        return
 
     print(f"Running {experiment_name} with {len(combinations)} combinations")
     if workers > 1:
@@ -365,12 +375,14 @@ Examples:
         help='Number of parallel workers (default: 1 for sequential execution)'
     )
 
+    parser.add_argument('--allow-legacy-settings', action='store_true', help='Explicitly retain historical environment-dependent settings')
+    parser.add_argument('--dry-run', action='store_true', help='Print resolved request plans without credentials or API calls')
     args = parser.parse_args()
 
     if args.experiment_name:
-        run_experiment_set(args.experiment_name, workers=args.workers)
+        run_experiment_set(args.experiment_name, workers=args.workers, allow_legacy_settings=args.allow_legacy_settings, dry_run=args.dry_run)
     else:
         # Run default experiment sets
-        run_experiment_set("pilot", workers=args.workers)
-        run_experiment_set("persona_comparison", workers=args.workers)
+        run_experiment_set("pilot", workers=args.workers, allow_legacy_settings=args.allow_legacy_settings, dry_run=args.dry_run)
+        run_experiment_set("persona_comparison", workers=args.workers, allow_legacy_settings=args.allow_legacy_settings, dry_run=args.dry_run)
         # run_experiment_set("full_factorial", workers=args.workers)  # Comment out for now

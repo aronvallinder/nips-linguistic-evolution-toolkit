@@ -8,6 +8,7 @@ from scripts import run_noisy_missing
 
 def _minimal_combo():
     return {
+        "request_plan": None,
         "model": "openai/gpt-5-nano",
         "persona": {"description": "neutral"},
         "task_order": ["game"],
@@ -64,7 +65,7 @@ def test_run_noisy_missing_syncs_existing_completed_paths_once(
     monkeypatch.setattr(
         run_noisy_missing,
         "load_combinations",
-        lambda experiment_name, config_path: [combo],
+        lambda experiment_name, config_path, **kwargs: [combo],
     )
 
     final_path = run_noisy_missing.expected_output_path(
@@ -74,7 +75,7 @@ def test_run_noisy_missing_syncs_existing_completed_paths_once(
         "output",
     )
     final_path.parent.mkdir(parents=True, exist_ok=True)
-    final_path.write_text("{}", encoding="utf-8")
+    _SavedFinalThenTranscriptFails().save_state(final_path)
 
     sync_calls = []
 
@@ -157,6 +158,7 @@ def test_general_noisy_runner_syncs_candidate_even_when_wrapper_fails(monkeypatc
     class FakeConfig:
         def __init__(self, config_path):
             self.config_path = config_path
+            self.config = {"experiment_sets": {"example": {}}}
 
         def get_experiment_combinations(self, experiment_name, max_runs=None):
             return [combo]
@@ -188,6 +190,7 @@ def test_general_noisy_runner_syncs_candidate_even_when_wrapper_fails(monkeypatc
         workers=1,
         config_path="config.yaml",
         output_subdir="output",
+        allow_legacy_settings=True,
     )
 
     assert sync_calls == [
@@ -205,6 +208,7 @@ def test_general_trust_runner_syncs_candidate_even_when_wrapper_fails(monkeypatc
     class FakeConfig:
         def __init__(self, config_path):
             self.config_path = config_path
+            self.config = {"experiment_sets": {"example": {}}}
 
         def get_experiment_combinations(self, experiment_name):
             return [combo]
@@ -226,6 +230,6 @@ def test_general_trust_runner_syncs_candidate_even_when_wrapper_fails(monkeypatc
         lambda paths, *, label: sync_calls.append((list(paths), label)),
     )
 
-    run_trust_game_batch.run_experiment_set("example", workers=1)
+    run_trust_game_batch.run_experiment_set("example", workers=1, allow_legacy_settings=True)
 
     assert sync_calls == [(["data/json/example/run.json"], "example")]
