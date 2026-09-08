@@ -1,0 +1,105 @@
+{
+  "complete": true,
+  "received": 72,
+  "expected": 72,
+  "attempt_status_counts": {
+    "received": 72
+  },
+  "recorded_pilot_cost_usd": 0.6439811500000001,
+  "models": {
+    "anthropic/claude-sonnet-4.5": {
+      "calls": 24,
+      "complete": true,
+      "pilot_cost_usd": 0.4581509999999999,
+      "projected_90_run_cost_usd": 126.59793749999999,
+      "tasks": {
+        "game": {
+          "calls": 12,
+          "reasoning_count_observed": 12,
+          "reasoning_tokens_mean": 514,
+          "reasoning_tokens_sample_sd": 94.17874687866878,
+          "reasoning_tokens_min": 373,
+          "reasoning_tokens_max": 703
+        },
+        "myth": {
+          "calls": 12,
+          "reasoning_count_observed": 12,
+          "reasoning_tokens_mean": 295.1666666666667,
+          "reasoning_tokens_sample_sd": 90.83935203857345,
+          "reasoning_tokens_min": 159,
+          "reasoning_tokens_max": 442
+        }
+      },
+      "finish_reasons": {
+        "end_turn": 24
+      },
+      "response_models": {
+        "claude-sonnet-4-5-20250929": 24
+      }
+    },
+    "openai/gpt-5-nano": {
+      "calls": 24,
+      "complete": true,
+      "pilot_cost_usd": 0.0659374,
+      "projected_90_run_cost_usd": 17.49366195,
+      "tasks": {
+        "game": {
+          "calls": 12,
+          "reasoning_count_observed": 12,
+          "reasoning_tokens_mean": 4634.666666666667,
+          "reasoning_tokens_sample_sd": 3205.2853321671787,
+          "reasoning_tokens_min": 768,
+          "reasoning_tokens_max": 9984
+        },
+        "myth": {
+          "calls": 12,
+          "reasoning_count_observed": 12,
+          "reasoning_tokens_mean": 8330.666666666666,
+          "reasoning_tokens_sample_sd": 2032.6393649338752,
+          "reasoning_tokens_min": 5440,
+          "reasoning_tokens_max": 11200
+        }
+      },
+      "finish_reasons": {
+        "stop": 24
+      },
+      "response_models": {
+        "gpt-5-nano-2025-08-07": 24
+      }
+    },
+    "google/gemini-3.7-flash": {
+      "calls": 24,
+      "complete": true,
+      "pilot_cost_usd": 0.11989274999999999,
+      "projected_90_run_cost_usd": 33.849043875,
+      "tasks": {
+        "game": {
+          "calls": 12,
+          "reasoning_count_observed": 11,
+          "reasoning_tokens_mean": 355.90909090909093,
+          "reasoning_tokens_sample_sd": 278.8825754848999,
+          "reasoning_tokens_min": 127,
+          "reasoning_tokens_max": 1054
+        },
+        "myth": {
+          "calls": 12,
+          "reasoning_count_observed": 12,
+          "reasoning_tokens_mean": 1254.9166666666667,
+          "reasoning_tokens_sample_sd": 459.32706872184883,
+          "reasoning_tokens_min": 746,
+          "reasoning_tokens_max": 2094
+        }
+      },
+      "finish_reasons": {
+        "STOP": 24
+      },
+      "response_models": {
+        "gemini-3.7-flash": 24
+      }
+    }
+  },
+  "limitations": "Two observations per stratum; frozen low-reasoning histories do not capture changed future trajectories, retry rates, or input lengths.",
+  "response_boundary_failures": [],
+  "projected_270_run_cost_usd": 177.940643325,
+  "projected_270_run_cost_with_20_percent_allowance_usd": 213.52877199
+}
