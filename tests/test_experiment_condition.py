@@ -108,6 +108,31 @@ def test_legacy_model_difference_requires_explicit_declaration(tmp_path):
     assert len(load_simulation_runs(paths, legacy_reason=reason, allowed_differences={"llm.model": "Intentional cross-model comparison"})) == 2
 
 
+@pytest.mark.parametrize("field,first_value,second_value", [
+    ("temperature_sent", False, True),
+    ("temperature_source", "config", "environment"),
+    ("thinking_level_source", "default", "GEMINI_THINKING_LEVEL"),
+    ("max_output_tokens_source", "provider_default", "ANTHROPIC_MAX_TOKENS"),
+    ("llm_provider_mode", "auto", "direct"),
+])
+def test_legacy_request_metadata_differences_need_declaration(field, first_value, second_value):
+    first = {"run_metadata": {"model": "google/gemini-3.7-flash", "temperature": 0.8, field: first_value}}
+    second = copy.deepcopy(first)
+    second["run_metadata"][field] = second_value
+    conditions = [comparison_condition(run, "Exploratory legacy data") for run in (first, second)]
+    with pytest.raises(ConditionMismatchError, match=field):
+        check_conditions(conditions)
+    assert check_conditions(conditions, {f"llm.{field}": "Explicit historical difference"}) == [f"llm.{field}"]
+    assert conditions[0]["llm"]["reasoning"] == "unrecorded"
+
+
+def test_unrecorded_temperature_sent_is_distinct_from_false():
+    recorded = comparison_condition({"run_metadata": {"temperature_sent": False}}, "Historical")
+    unknown = comparison_condition({"run_metadata": {}}, "Historical")
+    with pytest.raises(ConditionMismatchError, match="temperature_sent"):
+        check_conditions([recorded, unknown])
+
+
 @pytest.mark.parametrize("metadata,expected_model", [({}, "unrecorded"), ({"model": "openai/gpt-5-nano"}, "openai/gpt-5-nano")])
 def test_legacy_model_is_preserved_without_inferring_provider(metadata, expected_model):
     data = saved_run()

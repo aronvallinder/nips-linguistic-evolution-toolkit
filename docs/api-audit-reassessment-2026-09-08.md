@@ -78,7 +78,7 @@ Historical source inspection used `git show 38fa31aa:src/utils.py | nl -ba`, not
 - `scripts/audit_api_provenance_inventory.py:71` and `:79` add another missing→zero conversion. The new scratch extractor does not repeat it, but cannot undo values normalized before saving.
 - `scripts/run_baseline_match_ablation.py:237`–`:249` confirms baseline-match intentionally records `provider_env` and `openai_reasoning_effort_env`; the old inventory omitted those columns.
 - `scripts/run_overnight_2026-05-03_missing.sh:65` explicitly requests direct/low, whereas neighboring overnight scripts omit the effort variable. These show intent/default dependence, not proof of every run's settings.
-- `researchlog.md:1084` records four successful mem3 runs and one cap-related failure. `researchlog.md:1126` records the plain game/game→myth OpenRouter rerun. Preserve these historical entries rather than rewriting them.
+- The [July 20 mem3 entry](../researchlog.md#2026-07-20--result-game_myth-plateau-is-a-myth-content-effect-not-a-memory-confound) records four successful mem3 runs and one cap-related failure. The [July 17 task-order entry](../researchlog.md#2026-07-17--result-task-order-effect-survives-the-memory-fix) records the plain game/game→myth OpenRouter rerun. These dated links replace shifting line numbers; preserve the historical entries rather than rewriting them.
 
 ## Scientific claims: what changes
 

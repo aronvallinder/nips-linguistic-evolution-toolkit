@@ -8,6 +8,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import yaml
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from experiments.run_noisy_batch import NoisyExperimentConfig
 from src.experiment_config import ExperimentConfig
@@ -131,10 +133,15 @@ def snapshot(root=ROOT):
 def check_repository(root=ROOT, baseline=None):
     baseline = baseline if baseline is not None else json.loads(BASELINE.read_text())
     for path in sorted((root / "config").glob("*.yaml")):
-        loader = NoisyExperimentConfig if "noisy" in path.name else ExperimentConfig
+        document = yaml.safe_load(path.read_text())
+        if not isinstance(document, dict) or "experiment_sets" not in document:
+            continue
+        formats = {"game_parameters", "game_params"}.intersection(document)
+        if len(formats) != 1:
+            raise ValueError(f"{path}: experiment config must contain exactly one of game_parameters or game_params")
+        loader = NoisyExperimentConfig if "game_params" in document else ExperimentConfig
         config = loader(str(path))
-        if "experiment_sets" in config.config:
-            check_config(config, str(path.relative_to(root)), baseline["configurations"])
+        check_config(config, str(path.relative_to(root)), baseline["configurations"])
     launchers, groups = repository_state(root)
     for path in launchers:
         if baseline["launchers"].get(str(path.relative_to(root))) != file_hash(path):

@@ -111,7 +111,7 @@ Different models need not have identical native parameters. Comparisons must
 describe model-plus-settings conditions and declare known differences; equal
 reasoning labels do not establish equal computation. This does not invalidate
 all historical results or establish a causal explanation for a model ranking.
-The [2026-09-08 reassessment](../api-audit-reassessment-2026-09-08.md) gives
+The [dataset settings table in the 2026-09-08 reassessment](../api-audit-reassessment-2026-09-08.md#small-settings-table) gives
 dataset-specific recorded, inferred and unknown fields. Two washout finals also
 change reasoning signature halfway despite one top-level provider label; that
 comparison needs a per-call/log check, not an assumed route history.

@@ -10,18 +10,25 @@ A configuration-driven framework for running behavioral experiments with multipl
 
 ### Running Experiments
 
+Existing sets are unpinned and require `--allow-legacy-settings` to retain their
+historical, environment-dependent requests. For new work, create a new named set
+with reviewed `llm_settings` and a separate output location; do not pin an existing
+set over legacy finals or checkpoints. The legacy flag does not bypass validation
+for pinned sets. See `docs/safeguards-usage.md` §3 for migration, and use `--dry-run`
+to inspect either kind of batch without API calls.
+
 ```bash
 # Run specific experiment set (sequential, default)
-python experiments/run_trust_game_batch.py <experiment_name>
+python experiments/run_trust_game_batch.py <experiment_name> --allow-legacy-settings
 
 # Run with parallel workers (faster for large batches)
-python experiments/run_trust_game_batch.py <experiment_name> --workers 4
+python experiments/run_trust_game_batch.py <experiment_name> --workers 4 --allow-legacy-settings
 
 # Test API rate limits to find optimal worker count
 python experiments/test_rate_limits.py --max-workers 8
 
 # Run default experiments (pilot + persona_comparison)
-python experiments/run_trust_game_batch.py
+python experiments/run_trust_game_batch.py --allow-legacy-settings
 
 # Run single experiment (testing)
 python experiments/run_trust_game.py
@@ -77,10 +84,10 @@ The batch runner (`run_trust_game_batch.py`) supports parallel execution to spee
 
 ```bash
 # Run with 4 parallel workers
-python experiments/run_trust_game_batch.py model_comparison --workers 4
+python experiments/run_trust_game_batch.py model_comparison --workers 4 --allow-legacy-settings
 
 # Sequential (backward compatible, default)
-python experiments/run_trust_game_batch.py model_comparison --workers 1
+python experiments/run_trust_game_batch.py model_comparison --workers 1 --allow-legacy-settings
 ```
 
 **How it works**:
@@ -281,7 +288,7 @@ Hold-out for files that are no longer wired into the live code but weren't delet
 ### Adding a New Experiment Set
 
 1. Edit `config/experiments.yaml` under `experiment_sets:`
-2. Define models, templates, personas, task_orders, and game_params
+2. Define models, templates, personas, task_orders, game_params, and reviewed `llm_settings`; use a separate output location for the new condition
 3. Run with `python experiments/run_trust_game_batch.py <new_set_name>`
 
 ### Adding a New Model

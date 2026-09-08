@@ -20,6 +20,17 @@ Generated experiment artifacts can be backed up to a private Hugging Face datase
    HF_DATASET_NAMESPACE=your-unique-uploader-name
    ```
 
+   Existing experiment sets have legacy provenance. To include their completed
+   runs in automatic backups, also explicitly set:
+
+   ```dotenv
+   HF_DATASET_ALLOW_LEGACY_PROVENANCE=1
+   ```
+
+   Without this opt-in, missing provenance is reported and those runs are skipped.
+   The flag does not accept invalid modern provenance or partial runs, and does
+   not relabel historical settings as verified.
+
    The namespace must be unique to each collaborator (or each independently
    writing clone). For example, Aron and Ivar can use `vallinder` and
    `ivarfresh`. This prevents two machines running the same configuration from
@@ -37,6 +48,9 @@ The sync treats a run as complete only when its final full-state JSON exists and
 - `run.transcript.pdf`
 
 Checkpoints, error snapshots, malformed JSON, results without a matching final JSON, and other partial artifacts are excluded. Remote paths mirror the contents below `data/json/` under `uploaders/<namespace>/data/json/`. The reserved `uploaders/` root keeps collaborator data separate from repository-level files such as the dataset card.
+
+Modern runs must pass the condition/provenance checks. Historical finals without
+those records require the automatic opt-in above or the manual flag below.
 
 The uploader also rejects symlinks and refuses to write unless Hugging Face reports that the target dataset is private. After deliberate publication, continued uploads require the explicit `HF_DATASET_ALLOW_PUBLIC_UPLOAD=1` override.
 
@@ -61,6 +75,10 @@ After authentication and configuration, backfill the same manifest:
 ```bash
 python3 scripts/hf_sync_completed_runs.py
 ```
+
+For historical backfill, add `--allow-legacy-provenance` to either command,
+including the dry run. The environment opt-in applies to the automatic batch
+hook; the standalone CLI uses this explicit flag.
 
 The backfill is append/update-only: it does not delete remote files. Large
 manifests are split into commits of at most 100 files and 500 MiB of raw local

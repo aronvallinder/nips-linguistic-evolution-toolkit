@@ -114,14 +114,17 @@ or a causal effect of reasoning.
 - `calls.jsonl`: actual request parameters/hash, raw usage metadata, returned
   model/response ID, finish reason, visible answer, and cost for each attempt.
   No credentials or thinking text are stored.
-- `run_pilot.py`: byte-identical copy of the script used for paid calls. Its
-  `ROOT` points to the original local checkout; it is retained unchanged for
-  provenance, rather than presented as a portable production launcher.
+- `run_pilot.py`: replay script with the repository root now derived from its
+  location, so it works in another checkout. The byte-identical script used for
+  paid calls is preserved at [commit 47f83e7b](https://github.com/aronvallinder/nips-linguistic-evolution-toolkit/blob/47f83e7b41d7dea0bb430fe6f8e0c381680d2bd2/reports/reasoning_cost_pilot_2026_09_08/run_pilot.py).
+  `manifest.json` retains that original script's hash; the portability fix does
+  not rewrite the historical execution record.
 - `summarize.py`: offline validation and weighted projection. It validates
   policy/source identity, returned models, token arithmetic, and task-response
   boundaries. Missing reasoning counters are not silently replaced by zero.
 
-From the original checkout, recompute the summary without spending money:
+From a checkout containing the archived source runs, recompute the summary
+without spending money:
 
 ```bash
 python3 reports/reasoning_cost_pilot_2026_09_08/summarize.py

@@ -188,6 +188,10 @@ def comparison_condition(data, legacy_reason=None):
             "reasoning": metadata.get("thinking_level", "unrecorded"),
             "recorded_temperature": metadata.get("temperature", "unrecorded"),
             "max_output_tokens": metadata.get("max_output_tokens", "unrecorded"),
+            **{field: metadata.get(field, "unrecorded") for field in (
+                "temperature_sent", "temperature_source", "thinking_level_source",
+                "max_output_tokens_source", "llm_provider_mode",
+            )},
         },
         "protocol": {
             **{field: metadata.get(field, "unrecorded") for field in fields},

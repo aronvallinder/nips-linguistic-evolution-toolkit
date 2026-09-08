@@ -2,6 +2,7 @@ import hashlib
 import json
 
 import pytest
+import yaml
 
 from scripts.check_safeguards import BASELINE, check_config, check_launcher, check_output, check_repository, config_signature
 from src.llm_settings import LLMSettingsError
@@ -26,6 +27,42 @@ def test_frozen_legacy_baseline_and_repository_checks():
 def test_ci_rejects_new_unpinned_set():
     with pytest.raises(LLMSettingsError):
         check_config(configuration(False), "config/example.yaml", {})
+
+
+@pytest.mark.parametrize("source_name,target_name", [
+    ("experiments_noisy.yaml", "renamed.yaml"),
+    ("experiments.yaml", "contains_noisy.yaml"),
+])
+def test_repository_selects_config_format_from_content(tmp_path, monkeypatch, source_name, target_name):
+    from scripts import check_safeguards
+
+    document = yaml.safe_load((check_safeguards.ROOT / "config" / source_name).read_text())
+    name = next(iter(document["experiment_sets"]))
+    definition = document["experiment_sets"][name]
+    definition["llm_settings"] = settings(provider="openrouter", reasoning={"reasoning": {"enabled": False}})
+    document["experiment_sets"] = {name: definition}
+    document.pop("comparison_sets", None)
+    directory = tmp_path / "config"
+    directory.mkdir()
+    (directory / target_name).write_text(yaml.safe_dump(document))
+    monkeypatch.setattr(check_safeguards, "repository_state", lambda root: (set(), {}))
+    check_repository(tmp_path, {"configurations": {}, "launchers": {}, "outputs": {}})
+    definition.pop("llm_settings")
+    (directory / target_name).write_text(yaml.safe_dump(document))
+    with pytest.raises(LLMSettingsError, match="no llm_settings"):
+        check_repository(tmp_path, {"configurations": {}, "launchers": {}, "outputs": {}})
+
+
+@pytest.mark.parametrize("keys", [[], ["game_params", "game_parameters"]])
+def test_repository_rejects_unknown_or_ambiguous_config_format(tmp_path, monkeypatch, keys):
+    from scripts import check_safeguards
+
+    directory = tmp_path / "config"
+    directory.mkdir()
+    document = {"experiment_sets": {}, **{key: {} for key in keys}}
+    (directory / "example.yaml").write_text(yaml.safe_dump(document))
+    with pytest.raises(ValueError, match="exactly one"):
+        check_repository(tmp_path, {"configurations": {}, "launchers": {}, "outputs": {}})
 
 
 def test_ci_rejects_changed_legacy_set():

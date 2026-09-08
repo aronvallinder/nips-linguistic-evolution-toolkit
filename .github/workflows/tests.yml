@@ -21,3 +21,5 @@ jobs:
         run: pip install -r requirements.txt numpy matplotlib pandas pytest
       - name: Run tests
         run: python -m pytest tests/ -q
+      - name: Check experiment safeguards
+        run: python scripts/check_safeguards.py

@@ -367,7 +367,7 @@ def call_llm(client, model, temperature, messages, max_retries=3, reasoning_effo
             raise
         usage = _request_usage({}, plan, None)
         usage.update(outcome="error", error_type=type(error).__name__, status_code=getattr(error, "status_code", getattr(error, "code", None)))
-        message = str(error) if isinstance(error, LLMSettingsError) else f"Provider call failed: {type(error).__name__}"
+        message = _public_error(error, plan)
         raise LLMRequestError(message, usage) from None
 
 
@@ -751,8 +751,12 @@ def _call_gemini(client, provider_model, temperature, messages, max_retries, req
                 print(f"⚠️  Gemini API retryable error ({e.code}). Waiting {wait_time:.2f}s before retry {attempt + 1}/{max_retries}...")
                 time.sleep(wait_time)
                 continue
-            public_body = _public_error(e, request_plan) if request_plan is not None else _redact_gemini_error(body)
+            public_body = _redact_error_message(body) if request_plan is not None else _redact_gemini_error(body)
             print(f"❌ Gemini API error ({e.code}): {public_body}")
+            if request_plan is not None:
+                usage = _request_usage({}, request_plan, None)
+                usage.update(outcome="error", error_type=type(e).__name__, status_code=e.code)
+                raise LLMRequestError(f"Gemini API error ({e.code}): {public_body}", usage) from None
             raise
 
         except (urllib.error.URLError, TimeoutError) as e:
@@ -840,7 +844,31 @@ class LLMRequestError(ValueError):
 
 
 def _public_error(error, request_plan):
-    return type(error).__name__ if request_plan is not None else str(error)
+    if request_plan is None:
+        return str(error)
+    return f"{type(error).__name__}: {_redact_error_message(str(error))}"
+
+
+def _redact_error_message(message):
+    # Preserve rejected parameter names and vendor explanations, never credentials.
+    secrets = {
+        value for name, value in os.environ.items()
+        if value and name.upper().endswith(("_API_KEY", "_TOKEN", "_SECRET", "_PASSWORD"))
+    }
+    secrets.update(filter(None, (
+        OPENROUTER_API_KEY, OPENAI_API_KEY, ANTHROPIC_API_KEY,
+        GEMINI_API_KEY, TOGETHER_API_KEY,
+    )))
+    for secret in sorted(secrets, key=len, reverse=True):
+        message = message.replace(secret, "[REDACTED]")
+    message = re.sub(
+        r"(?i)(\b(?:authorization|x-api-key|x-goog-api-key|api[_-]?key|access[_-]?token|key)"
+        r"[\"']?\s*[:=]\s*[\"']?)(?:Bearer\s+)?[^\s\"',;&}\]]+",
+        r"\1[REDACTED]", message,
+    )
+    message = re.sub(r"(?i)\bBearer\s+[A-Za-z0-9._~+/-]+=*", "Bearer [REDACTED]", message)
+    message = re.sub(r"\b(?:sk-[A-Za-z0-9_-]+|hf_[A-Za-z0-9]+|AIza[A-Za-z0-9_-]+)\b", "[REDACTED]", message)
+    return message
 
 
 def _reasoning_token_count(usage):
@@ -852,9 +880,10 @@ def _reasoning_token_count(usage):
         if count is not None:
             return count
     for key in ("completion_tokens_details", "output_tokens_details"):
-        count = value(value(usage, key), "reasoning_tokens")
-        if count is not None:
-            return count
+        for token_key in ("reasoning_tokens", "thinking_tokens"):
+            count = value(value(usage, key), token_key)
+            if count is not None:
+                return count
     return None
 
 

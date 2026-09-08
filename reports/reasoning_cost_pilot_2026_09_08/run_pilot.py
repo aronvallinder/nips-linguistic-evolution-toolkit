@@ -18,7 +18,7 @@ import time
 import urllib.error
 import urllib.request
 
-ROOT = Path('/Users/ivar/Desktop/Research/AI_projects/LLM_evolution/nips-linguistic-evolution-toolkit')
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from src.llm_settings import canonical, resolve_request_plan
 from src.utils import DIRECT_MODEL_ALIASES, _anthropic_messages, _chat_messages, _gemini_messages

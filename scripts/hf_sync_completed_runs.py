@@ -46,6 +46,7 @@ AUTO_UPLOAD_ENV = "HF_DATASET_AUTO_UPLOAD"
 REPO_ENV = "HF_DATASET_REPO"
 NAMESPACE_ENV = "HF_DATASET_NAMESPACE"
 ALLOW_PUBLIC_ENV = "HF_DATASET_ALLOW_PUBLIC_UPLOAD"
+ALLOW_LEGACY_PROVENANCE_ENV = "HF_DATASET_ALLOW_LEGACY_PROVENANCE"
 TRUE_VALUES = {"1", "true", "yes", "on"}
 FULL_STATE_KEYS = {"agents", "conversation_history", "game_data", "task_order"}
 NON_FINAL_SUFFIXES = (".results.json", ".checkpoint.json", ".error.json")
@@ -604,6 +605,9 @@ def maybe_sync_completed_runs(
             label=label,
             allow_public=(
                 env.get(ALLOW_PUBLIC_ENV, "").strip().lower() in TRUE_VALUES
+            ),
+            allow_legacy_provenance=(
+                env.get(ALLOW_LEGACY_PROVENANCE_ENV, "").strip().lower() in TRUE_VALUES
             ),
         )
     except Exception as exc:

@@ -22,12 +22,13 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from experiments.run_noisy_batch import (
     NoisyExperimentConfig,
+    TrustGameNoisy,
     execution_provenance,
     run_single_experiment,
 )
 from scripts.hf_sync_completed_runs import maybe_sync_completed_runs
 from src.batch_utils import sanitize_for_filename
-from src.experiment_condition import ConditionMismatchError, condition_from_run, read_final_run
+from src.experiment_condition import ConditionMismatchError, condition_from_run, digest, read_final_run
 from src.llm_settings import prepare_combinations
 from src.utils import DIRECT_MODEL_ALIASES
 
@@ -97,9 +98,32 @@ def load_combinations(experiment_name: str, config_path: str | None, *, allow_le
     combinations = config.get_experiment_combinations(experiment_name)
     prepare_combinations(combinations, config.config["experiment_sets"][experiment_name], DIRECT_MODEL_ALIASES, allow_legacy=allow_legacy_settings)
     provenance = execution_provenance(config_path)
+    pool_hashes = {}
     for combination in combinations:
         combination["execution_provenance"] = provenance.copy()
+        if combination.get("request_plan") is not None and str(combination.get("myth_injection_mode") or "partner").strip().lower() == "shuffled":
+            pool_path = combination.get("shuffled_myth_pool_path")
+            if pool_path not in pool_hashes:
+                pool_hashes[pool_path] = digest(TrustGameNoisy._load_shuffled_myth_pool(pool_path))
+            combination["execution_provenance"]["shuffled_myth_pool_sha256"] = pool_hashes[pool_path]
     return combinations
+
+
+def check_existing_final(path, combo):
+    saved = read_final_run(path)
+    if combo.get("request_plan") is None:
+        return
+    if "experiment_condition" not in (saved.get("run_metadata") or {}):
+        raise ConditionMismatchError(
+            f"Existing final has legacy provenance: {path}. Create a new pinned experiment "
+            "set with a separate output location; --allow-legacy-settings does not verify legacy outputs."
+        )
+    condition = condition_from_run(saved)
+    if saved["run_metadata"].get("comparison_inputs") != combo["comparison_inputs"]:
+        raise ConditionMismatchError(f"Existing final does not match the configured inputs: {path}")
+    planned_pool = combo.get("execution_provenance", {}).get("shuffled_myth_pool_sha256")
+    if condition["protocol"]["game"].get("shuffled_myth_pool_sha256") != planned_pool:
+        raise ConditionMismatchError(f"Existing final uses a different shuffled myth pool: {path}")
 
 
 def main() -> int:
@@ -146,11 +170,7 @@ def main() -> int:
         if not expected_path.exists():
             missing.append((index, combo, expected_path))
         else:
-            saved = read_final_run(expected_path)
-            if combo.get("request_plan") is not None:
-                condition_from_run(saved)
-                if saved["run_metadata"].get("comparison_inputs") != combo["comparison_inputs"]:
-                    raise ConditionMismatchError(f"Existing final does not match the configured inputs: {expected_path}")
+            check_existing_final(expected_path, combo)
 
     if args.limit is not None:
         missing = missing[: args.limit]
