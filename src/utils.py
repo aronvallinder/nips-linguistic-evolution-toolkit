@@ -725,6 +725,11 @@ def _call_gemini(client, provider_model, temperature, messages, max_retries, req
             content = _gemini_text(response_data)
             candidates = response_data.get("candidates") or [{}]
             usage = _request_usage(_gemini_usage(response_data), request_plan, candidates[0].get("finishReason"))
+            if request_plan is not None:
+                block_reason = (response_data.get("promptFeedback") or {}).get("blockReason")
+                usage["prompt_block_reason"] = block_reason
+                if block_reason and block_reason != "BLOCK_REASON_UNSPECIFIED":
+                    usage["outcome"] = "blocked"
             if not content:
                 if request_plan is not None:
                     raise LLMRequestError("Empty response from Gemini", usage)

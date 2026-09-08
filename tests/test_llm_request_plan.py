@@ -231,3 +231,42 @@ def test_google_request_and_record_agree():
     assert captured[0]["generationConfig"] == plan.parameters
     assert response["usage"]["request_settings"] == plan.as_dict()
     assert response["usage"]["reasoning_tokens"] is None
+    assert response["usage"]["prompt_block_reason"] is None
+    assert response["usage"]["outcome"] == "complete"
+
+
+@pytest.mark.parametrize("block_reason,outcome", [("SAFETY", "blocked"), ("OTHER", "blocked"), (None, "unknown"), ("BLOCK_REASON_UNSPECIFIED", "unknown")])
+def test_google_prompt_block_is_preserved_in_agent_audit(block_reason, outcome):
+    model = "google/gemini-2.5-flash"
+    plan = plan_for(model, reasoning={"thinkingConfig": {"thinkingBudget": 0}})
+    client = LLMClient("google", {"api_key": "test-key", "base_url": plan.as_dict()["endpoint"]})
+    client.request_plan = plan
+    payload = {"usageMetadata": {"promptTokenCount": 3}}
+    if block_reason is not None:
+        payload["promptFeedback"] = {"blockReason": block_reason}
+
+    class Response:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self):
+            return json.dumps(payload).encode()
+
+    agent = Agent("test-agent", model, 0.8, client, 10, None)
+    with patch("src.utils.urllib.request.urlopen", return_value=Response()) as transport:
+        with pytest.raises(ValueError, match="Empty response from Gemini"):
+            agent.respond("decision")
+    transport.assert_called_once()
+    assert not agent.messages
+    assert len(agent.interaction_history) == 1
+    usage = agent.interaction_history[0]["response"]["usage"]
+    assert usage["request_settings"] == plan.as_dict()
+    assert usage["prompt_block_reason"] == block_reason
+    assert usage["finish_reason"] is None
+    assert usage["outcome"] == outcome
+    assert usage["input_tokens"] == 3
+    assert usage["output_tokens"] is None
+    assert usage["reasoning_tokens"] is None

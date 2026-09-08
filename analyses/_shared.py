@@ -3,6 +3,7 @@
 Keep this module minimal — only helpers duplicated in 2+ places belong here.
 """
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -36,6 +37,9 @@ def load_simulation_runs(filepaths, *, allowed_differences=None, legacy_reason=N
     if len(paths) != len(set(paths)):
         raise ValueError("Duplicate run paths cannot count as independent inputs")
     runs = {path: read_final_run(path) for path in paths}
+    hashes = [hashlib.sha256(Path(path).read_bytes()).hexdigest() for path in paths]
+    if len(hashes) != len(set(hashes)):
+        raise ValueError("Duplicate run contents cannot count as independent inputs")
     check_conditions([comparison_condition(data, legacy_reason) for data in runs.values()], allowed_differences)
     return runs
 

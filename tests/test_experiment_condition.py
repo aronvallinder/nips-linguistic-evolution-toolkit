@@ -1,5 +1,7 @@
 import copy
+import importlib
 import json
+import sys
 from types import SimpleNamespace
 
 import pytest
@@ -7,7 +9,7 @@ import pytest
 from analyses._shared import load_simulation_runs
 from scripts import hf_sync_completed_runs
 from src.experiment_condition import (
-    ConditionMismatchError, build_condition, check_conditions, condition_from_run,
+    ConditionMismatchError, build_condition, check_conditions, comparison_condition, condition_from_run,
     digest, output_provenance, validate_output_provenance,
 )
 from test_llm_request_plan import plan_for
@@ -34,6 +36,32 @@ def test_replication_requires_a_named_difference():
     with pytest.raises(ConditionMismatchError, match="replicate"):
         check_conditions([first, second])
     assert check_conditions([first, second], {"replicate": "Independent repeats"})
+
+
+def test_loader_rejects_copied_runs_even_with_replicate_allowance(tmp_path):
+    first = write_run(tmp_path / "run.json", saved_run())
+    copied = write_run(tmp_path / "copied.json", saved_run())
+    with pytest.raises(ValueError, match="Duplicate run contents"):
+        load_simulation_runs([first, copied], allowed_differences={"replicate": "Independent repeats"})
+
+
+def test_loader_accepts_distinct_declared_replicates(tmp_path):
+    first = write_run(tmp_path / "run0.json", saved_run(0))
+    second = write_run(tmp_path / "run1.json", saved_run(1))
+    assert len(load_simulation_runs([first, second], allowed_differences={"replicate": "Independent repeats"})) == 2
+
+
+@pytest.mark.parametrize("module_name", ["cooperation_ratio_over_time", "resources_over_time_max"])
+def test_plot_rejects_copied_runs_before_writing_outputs(tmp_path, monkeypatch, module_name):
+    module = importlib.import_module(f"analyses.{module_name}")
+    first = write_run(tmp_path / "run.json", saved_run())
+    copied = write_run(tmp_path / "copied.json", saved_run())
+    output = tmp_path / "outputs"
+    monkeypatch.setattr(module, "load_runs", lambda root: [{"source_path": str(first)}, {"source_path": str(copied)}])
+    monkeypatch.setattr(sys, "argv", [module_name, "--root", str(tmp_path), "--out", str(output)])
+    with pytest.raises(ValueError, match="Duplicate run contents"):
+        module.main()
+    assert not output.exists()
 
 
 @pytest.mark.parametrize("field", ["system_prompt_template", "noise_config", "history_policy", "decision_format"])
@@ -66,6 +94,28 @@ def test_loader_rejects_unknown_legacy_unless_acknowledged(tmp_path):
     with pytest.raises(ConditionMismatchError, match="Historical"):
         load_simulation_runs([path])
     assert load_simulation_runs([path], legacy_reason="Historical exploratory result, settings unknown")
+
+
+def test_legacy_model_difference_requires_explicit_declaration(tmp_path):
+    first = saved_run()
+    first["run_metadata"] = {"model": "anthropic/claude-sonnet-4.5"}
+    second = saved_run()
+    second["run_metadata"] = {"model": "openai/gpt-5-nano"}
+    paths = [write_run(tmp_path / "claude.json", first), write_run(tmp_path / "gpt.json", second)]
+    reason = "Historical exploratory comparison; provider and reasoning were not recorded"
+    with pytest.raises(ConditionMismatchError, match="llm.model"):
+        load_simulation_runs(paths, legacy_reason=reason)
+    assert len(load_simulation_runs(paths, legacy_reason=reason, allowed_differences={"llm.model": "Intentional cross-model comparison"})) == 2
+
+
+@pytest.mark.parametrize("metadata,expected_model", [({}, "unrecorded"), ({"model": "openai/gpt-5-nano"}, "openai/gpt-5-nano")])
+def test_legacy_model_is_preserved_without_inferring_provider(metadata, expected_model):
+    data = saved_run()
+    data["run_metadata"] = metadata
+    condition = comparison_condition(data, "Historical exploratory comparison")
+    assert condition["llm"]["model"] == expected_model
+    assert condition["llm"]["provider"] == "unrecorded"
+    assert condition["llm"]["provider_model"] == "unrecorded"
 
 
 def test_legacy_flag_does_not_bypass_corrupt_modern_record(tmp_path):

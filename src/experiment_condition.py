@@ -182,6 +182,7 @@ def comparison_condition(data, legacy_reason=None):
     return {
         "version": 0,
         "llm": {
+            "model": metadata.get("model", "unrecorded"),
             "provider": metadata.get("llm_provider", "unrecorded"),
             "provider_model": metadata.get("provider_model", "unrecorded"),
             "reasoning": metadata.get("thinking_level", "unrecorded"),
