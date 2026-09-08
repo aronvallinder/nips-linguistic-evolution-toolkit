@@ -5,7 +5,11 @@ import hashlib
 import json
 import re
 import statistics
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from analyses._shared import infer_endowment
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--repo-root", type=Path, required=True)
@@ -25,6 +29,8 @@ for cell, directory in CELLS.items():
         types = data.get('game_data', {}).get('agent_types') or {}
         ordinary = {name for name, agent in data['agents'].items() if types.get(name, agent.get('population_role', 'standard')) == 'standard'}
         sends = []
+        investor_returns = []
+        investor_payoffs = []
         returns = []
         reply_lengths = []
         game_errors = []
@@ -35,6 +41,8 @@ for cell, directory in CELLS.items():
             for dyad in round_data.get('dyads', []):
                 if dyad.get('investor') in ordinary and dyad.get('sent') is not None:
                     sends.append(float(dyad['sent']))
+                    investor_returns.append(float(dyad.get('returned', float('nan'))))
+                    investor_payoffs.append(float(dyad.get('investor_payoff', float('nan'))))
                 if dyad.get('trustee') in ordinary and float(dyad.get('received') or 0) > 0 and dyad.get('returned') is not None:
                     returns.append(float(dyad['returned']) / float(dyad['received']))
         for name, agent in data['agents'].items():
@@ -60,8 +68,9 @@ for cell, directory in CELLS.items():
         if first_myth is None or first_later_myth is None:
             raise ValueError(f'Missing task-labelled myth prompt evidence in {path}')
         balances = [float(value) for name, value in data['game_data']['balances'].items() if name in ordinary]
+        endowment = infer_endowment(sends, investor_returns, investor_payoffs)
         wanted = ('llm_provider', 'provider_model', 'llm_provider_mode', 'temperature', 'max_output_tokens', 'thinking_level', 'llm_settings_effective', 'decision_format', 'myth_default_prompt_key', 'myth_later_prompt_key', 'code_commit', 'code_dirty', 'replicate_id', 'pairing_seed', 'noise_seed', 'defector_seed', 'memory_capacity', 'chat_memory_mode', 'noise_config', 'noise_semantics', 'myth_injection_mode')
-        row = {'cell': cell, 'path': str(path.relative_to(ROOT)), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'metadata': {key: metadata.get(key, 'UNRECORDED') for key in wanted}, 'n_rounds': len(data['conversation_history']), 'n_ordinary': len(ordinary), 'n_decisions': len(reply_lengths), 'send_fraction': statistics.mean(sends) / 5, 'return_ratio': statistics.mean(returns), 'final_balance': statistics.mean(balances), 'reply_chars': statistics.mean(reply_lengths), 'n_game_rejections': len(game_errors), 'n_correction_prompts': len(correction_prompts), 'first_game_rejection': game_errors[0] if game_errors else None, 'first_correction': correction_prompts[0] if correction_prompts else None, 'first_myth_prompt': first_myth, 'later_myth_prompt_sha256': hashlib.sha256(first_later_myth.encode()).hexdigest() if first_later_myth is not None else None}
+        row = {'cell': cell, 'path': str(path.relative_to(ROOT)), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'metadata': {key: metadata.get(key, 'UNRECORDED') for key in wanted}, 'n_rounds': len(data['conversation_history']), 'n_ordinary': len(ordinary), 'n_decisions': len(reply_lengths), 'send_fraction': statistics.mean(sends) / endowment, 'return_ratio': statistics.mean(returns), 'final_balance': statistics.mean(balances), 'reply_chars': statistics.mean(reply_lengths), 'n_game_rejections': len(game_errors), 'n_correction_prompts': len(correction_prompts), 'first_game_rejection': game_errors[0] if game_errors else None, 'first_correction': correction_prompts[0] if correction_prompts else None, 'first_myth_prompt': first_myth, 'later_myth_prompt_sha256': hashlib.sha256(first_later_myth.encode()).hexdigest() if first_later_myth is not None else None}
         all_rows.append(row)
     cell_rows = [row for row in all_rows if row['cell'] == cell]
     print(cell, 'n=', len(cell_rows))

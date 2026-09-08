@@ -21,12 +21,21 @@ API keys load from `.env` at the repo root (`src/utils.py` calls `load_dotenv()`
 
 Experiment sets are defined in `config/experiments.yaml` and expand to full factorial designs over models, personas, task orders, and myth topics.
 
-```bash
-# Run an experiment set
-python experiments/run_trust_game_batch.py <experiment_set_name>
+Existing sets predate explicit `llm_settings`. Continuing them requires
+`--allow-legacy-settings`, which retains their historical, environment-dependent
+requests. For new work, create a new named set with reviewed `llm_settings` and a
+separate output location; do not pin an existing set in place over legacy finals
+or checkpoints. See the [migration and provenance guide](docs/safeguards-usage.md#3-resume-compare-and-share-deliberately).
 
-# Parallel workers (test rate limits first: experiments/test_rate_limits.py)
-python experiments/run_trust_game_batch.py <experiment_set_name> --workers 4
+```bash
+# Inspect an existing set without API calls
+python experiments/run_trust_game_batch.py <experiment_set_name> --allow-legacy-settings --dry-run
+
+# Continue an existing set with parallel workers
+python experiments/run_trust_game_batch.py <experiment_set_name> --allow-legacy-settings --workers 4
+
+# Inspect a new set after adding reviewed llm_settings
+python experiments/run_trust_game_batch.py <new_pinned_set> --dry-run
 ```
 
 Outputs land in `data/json/<experiment>/<model>/<task_order>/` as full-state `.json`, a `.log` with every prompt and response, and a lightweight `.results.json`. Interrupted runs resume from `.checkpoint.json` files.

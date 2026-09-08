@@ -139,9 +139,11 @@ def test_finish_status_is_recorded(finish, outcome):
     assert response["usage"]["outcome"] == outcome
 
 
-def test_provider_error_stays_in_agent_audit_without_secret_body(capsys):
+def test_provider_error_stays_actionable_without_credentials(capsys, monkeypatch):
     plan = plan_for()
-    client = mocked_openai(plan, [], {"error": {"message": "secret-must-not-appear", "type": "invalid_request_error", "code": "bad_parameter"}}, status=400)
+    monkeypatch.setenv("OPENAI_API_KEY", "opaque-secret-must-not-appear")
+    message = "Invalid max_completion_tokens: too large; key=opaque-secret-must-not-appear; token sk-test-secret"
+    client = mocked_openai(plan, [], {"error": {"message": message, "type": "invalid_request_error", "code": "bad_parameter"}}, status=400)
     agent = Agent("test-agent", "openai/gpt-5-nano", 0.8, client, 10, None)
     with pytest.raises(ValueError, match="BadRequestError"):
         agent.respond("decision")
@@ -149,7 +151,28 @@ def test_provider_error_stays_in_agent_audit_without_secret_body(capsys):
     assert event["response"]["usage"]["request_settings"] == plan.as_dict()
     assert event["response"]["usage"]["outcome"] == "error"
     assert not agent.messages
-    assert "secret-must-not-appear" not in json.dumps(event) + capsys.readouterr().out
+    recorded = json.dumps(event) + capsys.readouterr().out
+    assert "Invalid max_completion_tokens: too large" in recorded
+    assert "opaque-secret-must-not-appear" not in recorded
+    assert "sk-test-secret" not in recorded
+    assert "[REDACTED]" in recorded
+
+
+@pytest.mark.parametrize("credential", [
+    "Authorization: Bearer opaque-secret", '"x-api-key": "opaque-secret"',
+    "https://provider.invalid?key=opaque-secret&parameter=temperature",
+    "api_key=opaque-secret", "Bearer opaque-secret", "sk-ant-test-secret",
+    "hf_testsecret", "AIzaTestSecret",
+])
+def test_guarded_error_redacts_key_shapes(credential):
+    from src.utils import _public_error
+
+    error = ValueError(f"Unsupported temperature; {credential}")
+    public = _public_error(error, plan_for())
+    assert "Unsupported temperature" in public
+    assert "[REDACTED]" in public
+    assert not any(secret in public for secret in ("opaque-secret", "sk-ant-test-secret", "hf_testsecret", "AIzaTestSecret"))
+    assert _public_error(error, None) == str(error)
 
 
 def test_empty_response_retains_known_usage_and_truncation():
@@ -173,7 +196,16 @@ def test_openrouter_request_and_record_agree():
     assert result["usage"]["request_settings"]["parameters"] == plan.parameters
 
 
-def test_anthropic_actual_sdk_request_and_record_agree():
+@pytest.mark.parametrize("usage,expected_thinking", [
+    ({"input_tokens": 3, "output_tokens": 4}, None),
+    # Native usage from the first Anthropic call in the archived Sept 8 cost pilot.
+    ({"input_tokens": 560, "output_tokens": 647,
+      "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0,
+      "cache_creation": {"ephemeral_5m_input_tokens": 0, "ephemeral_1h_input_tokens": 0},
+      "output_tokens_details": {"thinking_tokens": 500},
+      "service_tier": "standard", "inference_geo": "not_available"}, 500),
+])
+def test_anthropic_actual_sdk_request_and_record_agree(usage, expected_thinking):
     import anthropic
 
     transport_module = next(
@@ -183,7 +215,7 @@ def test_anthropic_actual_sdk_request_and_record_agree():
     )
     provider_http = importlib.import_module(transport_module)
     model = "anthropic/claude-sonnet-4.5"
-    plan = plan_for(model, reasoning={"thinking": {"type": "disabled"}})
+    plan = plan_for(model, reasoning={"thinking": {"type": "enabled", "budget_tokens": 1024}}, cap=4096)
     captured = []
 
     def transport(request):
@@ -191,7 +223,7 @@ def test_anthropic_actual_sdk_request_and_record_agree():
         return provider_http.Response(200, json={
             "id": "test-message", "type": "message", "role": "assistant", "model": plan.provider_model,
             "content": [{"type": "text", "text": '{"send": 3}'}], "stop_reason": "end_turn",
-            "usage": {"input_tokens": 3, "output_tokens": 4},
+            "usage": usage,
         })
 
     native = anthropic.Anthropic(api_key="test-key", max_retries=0, http_client=provider_http.Client(transport=provider_http.MockTransport(transport)))
@@ -201,8 +233,40 @@ def test_anthropic_actual_sdk_request_and_record_agree():
     with patch.dict("os.environ", {"ANTHROPIC_MAX_TOKENS": "1"}):
         response = call_llm(client, model, 0.8, messages)
     assert captured[0] == {"model": plan.provider_model, "system": "rules", "messages": messages[1:], **plan.parameters}
-    assert response["usage"]["reasoning_tokens"] is None
+    assert response["usage"]["reasoning_tokens"] == expected_thinking
     assert response["usage"]["request_settings"] == plan.as_dict()
+
+
+@pytest.mark.parametrize("container", [None, "completion_tokens_details", "output_tokens_details"])
+@pytest.mark.parametrize("token_key", ["reasoning_tokens", "thinking_tokens"])
+@pytest.mark.parametrize("count", [0, 500])
+def test_reasoning_token_aliases_at_both_levels(container, token_key, count):
+    from src.utils import _reasoning_token_count
+    from types import SimpleNamespace
+
+    usage = {token_key: count}
+    if container:
+        usage = {container: usage}
+    assert _reasoning_token_count(usage) == count
+    assert _reasoning_token_count(SimpleNamespace(**usage)) == count
+
+
+def test_google_error_retains_rejected_parameter_without_key(capsys):
+    import io
+    import urllib.error
+
+    model = "google/gemini-2.5-flash"
+    plan = plan_for(model, reasoning={"thinkingConfig": {"thinkingBudget": 0}})
+    client = LLMClient("google", {"api_key": "test-key", "base_url": plan.as_dict()["endpoint"]})
+    client.request_plan = plan
+    body = b'{"error": {"message": "Invalid thinkingBudget; api_key=opaque-secret"}}'
+    error = urllib.error.HTTPError("https://provider.invalid", 400, "Bad Request", {}, io.BytesIO(body))
+    with patch("src.utils.urllib.request.urlopen", side_effect=error), pytest.raises(ValueError) as failure:
+        call_llm(client, model, 0.8, [{"role": "user", "content": "decision"}])
+    public = str(failure.value) + capsys.readouterr().out
+    assert "Invalid thinkingBudget" in str(failure.value)
+    assert "opaque-secret" not in public
+    assert failure.value.usage["outcome"] == "error"
 
 
 def test_google_request_and_record_agree():

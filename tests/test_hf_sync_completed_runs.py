@@ -688,6 +688,39 @@ def test_automatic_hook_is_noop_unless_enabled(monkeypatch):
     assert called == []
 
 
+@pytest.mark.parametrize("enabled", [False, True])
+def test_automatic_legacy_opt_in_never_uploads_corrupt_modern_or_partial_runs(monkeypatch, tmp_path, enabled):
+    import copy
+
+    data_root = tmp_path / "data" / "json"
+    legacy = {key: value for key, value in FULL_STATE.items() if key != "run_metadata"}
+    final = write_json(data_root / "example" / "legacy.json", legacy)
+    log = final.with_suffix(".log")
+    log.write_text("complete")
+    write_json(data_root / "example" / "legacy.checkpoint.json", legacy)
+    corrupt = copy.deepcopy(FULL_STATE)
+    corrupt["run_metadata"]["condition_sha256"] = "corrupt"
+    write_json(data_root / "example" / "corrupt.json", corrupt)
+    write_json(data_root / "example" / "partial.results.json", legacy)
+    plans = []
+
+    def capture(paths, **kwargs):
+        kwargs.pop("label", None)
+        kwargs.pop("allow_public", None)
+        plan = hf_sync.build_upload_plan(paths, data_root=data_root, **kwargs)
+        plans.append(plan)
+        return plan
+
+    monkeypatch.setattr(hf_sync, "DATA_JSON_ROOT", data_root)
+    monkeypatch.setattr(hf_sync, "sync_completed_runs", capture)
+    assert hf_sync.maybe_sync_completed_runs([data_root], environ={
+        "HF_DATASET_AUTO_UPLOAD": "1", "HF_DATASET_REPO": "owner/dataset",
+        "HF_DATASET_NAMESPACE": "uploader",
+        "HF_DATASET_ALLOW_LEGACY_PROVENANCE": "1" if enabled else "0",
+    })
+    assert set(plans[0].artifact_paths) == ({final.resolve(), log.resolve()} if enabled else set())
+
+
 def test_automatic_hook_discovers_only_valid_finals_in_output_directory(
     monkeypatch,
     tmp_path,

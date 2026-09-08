@@ -109,6 +109,18 @@ conservative: even a nonbehavioral source edit can require a new run rather than
 resuming an old checkpoint. The missing-run launcher requires final full-state
 JSON and matching recorded configuration inputs before treating a file as done;
 it is not a guarantee that old completed outputs came from today's source revision.
+For shuffled-myth controls, planning hashes the actual loaded pool and compares
+it with the completed run's pool hash. Workers also reject a pool changed since
+planning before starting a simulation.
+
+**Migration:** keep existing unpinned sets and their outputs under their historical
+identity. Continue them only with `--allow-legacy-settings`. Create a new named
+set with reviewed `llm_settings` and a separate output location for pinned work
+(also change any copied `output_dir` override). Do not add pinned settings in place
+over legacy outputs: a legacy final cannot satisfy a pinned missing-run check,
+and a legacy checkpoint cannot resume as a pinned run. The legacy flag does not
+disable validation on a set that already has `llm_settings`. Preserve old outputs
+as historical evidence; the new pinned condition must start its own runs.
 
 `analyses/_shared.py::load_simulation_runs` compares conditions across all input
 models. Only named differences with written reasons are allowed. For example,
@@ -122,6 +134,9 @@ Different models require explicitly naming the differing model/provider/native
 parameter fields as appropriate; there is no blanket `allow_mixed_settings`.
 Legacy input also needs `--legacy-reason` (or Python `legacy_reason`), remains
 labelled incomplete/unknown, and cannot bypass invalid modern records.
+Legacy comparisons retain recorded temperature sent-ness and setting sources.
+Missing OpenAI effort remains unknown: a passing exploratory comparison does not
+establish matched effort.
 
 The cooperation-ratio and resources-max plot CLIs accept `--comparison-spec`
 and `--legacy-reason`. They check the selected runs before creating output
@@ -132,10 +147,12 @@ declared/observed differences, and output hashes. Other analysis writers can use
 python3 scripts/write_provenance.py OUTPUT_DIR FINAL_RUN.json --comparison-spec comparison.json
 ```
 
-HF automatic sync uploads only completed full-state runs with valid modern
-provenance, plus their corresponding sidecars. Missing provenance blocks upload,
-not successful scientific completion. Manual historical backfill alone accepts
-`--allow-legacy-provenance`; it cannot excuse a broken modern record.
+HF automatic sync defaults to completed full-state runs with valid modern
+provenance, plus their corresponding sidecars. To also back up historical runs,
+explicitly set `HF_DATASET_ALLOW_LEGACY_PROVENANCE=1` alongside the usual upload
+settings. Manual historical backfill accepts `--allow-legacy-provenance`.
+Both exceptions accept missing legacy provenance, never broken modern records
+or partial runs. Upload failures do not invalidate successful scientific completion.
 
 **Remaining legacy entrypoints:** direct simulation callers
 `experiments/run_trust_game.py`, `experiments/run_ablation.py`,
@@ -151,6 +168,11 @@ its separate model request is pinned. No silent monitor fallback is added.
 `scripts/check_safeguards.py` validates new/changed experiment definitions in
 `config/*.yaml`, direct `scripts/launch_*` wrappers, declared config comparisons,
 and tracked output groups under `data/analysis`, `docs/figures`, and `data/plots`.
+Output-manifest enforcement is scoped to those directories; it is not repository-wide.
+In particular, `reports/` is outside this automatic gate. Audit/replay reports there
+retain their own evidence and reproduction scripts and require review; they are not
+certified by the plot-provenance check. Other writers can opt in by placing output
+groups in a checked directory and writing a compatible `provenance.json`.
 Unchanged historical definitions/artifacts are grandfathered by the checksummed
 fixture, not relabelled as verified. Do not regenerate that baseline to make a
 new failure disappear. Checks cannot authenticate uncommitted input data or stop
@@ -161,8 +183,9 @@ New launchers must contain only a shebang/comments, `set -euo pipefail`, and
 Complex launch orchestration requires review, not a regex-based assertion of safety.
 Changed output groups need a valid manifest matching all their tracked files.
 
-The existing `pytest` workflow runs the full `tests/` directory, including the
-new safeguard tests. No workflow change or broader OAuth permission is needed.
+The `pytest` job in `.github/workflows/tests.yml` runs the full `tests/` directory
+and then explicitly runs `python scripts/check_safeguards.py`. The safeguard gate
+therefore remains in that job even if its repository-check unit test is refactored.
 **A passing workflow becomes a merge requirement only through branch rules.**
 This account has push, not admin/maintain, access (checked 2026-09-07).
 Aron/a repo admin must require `pytest` and at least one independent approval

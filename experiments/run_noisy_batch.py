@@ -6,13 +6,13 @@ TrustGameNoisy with noise and asymmetric naming support.
 
 Usage:
     # Run specific experiment set
-    python experiments/run_noisy_batch.py noise_pilot
+    python experiments/run_noisy_batch.py noise_pilot --allow-legacy-settings
 
     # Run with parallel workers
-    python experiments/run_noisy_batch.py noise_comparison --workers 4
+    python experiments/run_noisy_batch.py noise_comparison --workers 4 --allow-legacy-settings
 
     # Run default (noise_pilot)
-    python experiments/run_noisy_batch.py
+    python experiments/run_noisy_batch.py --allow-legacy-settings
 """
 
 import os
@@ -39,6 +39,7 @@ from games.trust_game_noisy import TrustGameNoisy
 from scripts.hf_sync_completed_runs import maybe_sync_completed_runs
 from src.llm_settings import prepare_combinations, prepared_plan
 from src.utils import DIRECT_MODEL_ALIASES
+from src.experiment_condition import ConditionMismatchError, digest
 
 
 def execution_provenance(config_path: str) -> Dict[str, Any]:
@@ -442,6 +443,10 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
                 "current",
             ),
         )
+
+        planned_pool = combo.get("execution_provenance", {}).get("shuffled_myth_pool_sha256")
+        if planned_pool is not None and digest(game._shuffled_myth_pool) != planned_pool:
+            raise ConditionMismatchError("Shuffled myth pool changed after missing-run planning")
 
         myth_writer = MythWriter(
             myth_topic=combo.get("myth_topic", ""),
