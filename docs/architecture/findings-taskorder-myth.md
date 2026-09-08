@@ -1,7 +1,7 @@
 ---
 title: Findings — task order, myths, and the cultural ratchet
 status: current
-updated: 2026-09-04
+updated: 2026-09-08
 owner: ivar
 ---
 
@@ -28,12 +28,14 @@ The ordering is model-general: a corrected GPT-5 Nano replication gives
 _(from researchlog 2026-08-21)_ Earlier Sonnet triplets show the same ordering
 in plain, uninformed-noise, and informed-noise regimes (trust ratio ~0.84–0.89
 myth-first vs ~0.65–0.70 game-first); telling agents about the noise barely
-moves anything. _(from researchlog 2026-07-17, 2026-07-22)_ Caveat on the
-plain 2026-07-17 triplet only: its game and game→myth legs were rerun via
-OpenRouter (extended thinking on) after a credit outage while myth→game ran
-direct (thinking off), so that triplet mixes provider regimes; the
-informed-noise and corrected confirmatory triplets are consistently direct.
-_(from researchlog 2026-09-04)_
+moves anything. _(from researchlog 2026-07-17, 2026-07-22)_ The plain 2026-07-17 triplet has a documented provider-change caveat:
+the researchlog records OpenRouter reruns for game and game→myth, and their saved
+reasoning-text signatures differ from myth→game. Exact native effort is not
+recovered by those signatures. Do not promote no-text records from other
+triplets to proof of a direct/non-thinking regime. The
+[reassessment](../api-audit-reassessment-2026-09-08.md) lists the bounded evidence;
+this caveat does not by itself invalidate within-condition observations.
+_(from researchlog 2026-09-08)_
 
 ## Mechanism: the cultural ratchet cuts both ways
 
@@ -43,11 +45,18 @@ _(from researchlog 2026-09-04)_
   The plateau follows the myths, not memory depth: a game-only run with matched
   memory rounds escalates normally. Directive myths written after play codify
   the cautious status quo and anchor it. _(from researchlog 2026-07-20)_
-- **The edge compounds rather than washes out.** In a 20-round 8-agent washout
+- **Washout is a historical observation with a provenance caveat.** In a 20-round 8-agent washout
   (n=5/arm, directional), per-round sends never converge (myth-first ~4.9 vs
   game-first ~4.4 at round 20) and the cumulative-balance lead grows from
   +11.4/agent at round 10 to +17.9 at round 20. In dyads, sends do converge
   and the lead plateaus (~+6). _(from researchlog 2026-08-19)_
+  The 30 checked washout finals contain 23 OpenRouter and seven Anthropic
+  top-level labels. Two Anthropic-labelled population myth→game finals contain
+  reasoning text in rounds 1–10 but not 11–20. A single run-level label cannot
+  establish their full request history; inspect that transition before treating
+  the longer-horizon contrast as clean evidence of persistence. This is a
+  recorded signature change, not proof of an exact provider switch.
+  _(from researchlog 2026-09-08)_
 - **Transmission fidelity moderates the effect in both directions.** A lineage
   pointer ("Base it on the myths you wrote earlier this session") raises
   self-myth similarity 0.709→0.839 without collapsing population diversity,

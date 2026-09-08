@@ -1,7 +1,7 @@
 ---
 title: Experiment protocol — memory regime, noise, QA, and data infrastructure
 status: current
-updated: 2026-09-04
+updated: 2026-09-08
 owner: ivar
 ---
 
@@ -68,30 +68,37 @@ _(from researchlog 2026-08-12)_
 - Retry hardening: an unanswered prompt is removed from private chat memory
   after an exhausted provider call; rejected attempts stay in the audit but
   never contaminate the retry context. _(from researchlog 2026-08-12)_
-- Provenance: runs embed git commit + dirty state, config SHA-256, provider
-  route, resolved model, and max-output-token source (Gemini runs also record
-  thinking level and whether temperature was sent). Batch launchers refuse a
-  dirty worktree. _(from researchlog 2026-08-12, 2026-08-21)_ Gaps: the
-  effective reasoning effort on OpenRouter and direct-OpenAI routes, whether
-  temperature was sent on non-Gemini routes, and the response `finish_reason`
-  are not recorded; runs before 2026-08-12 carry no provider fields at all and
-  must be classified by their reasoning signature. _(from researchlog
-  2026-09-04)_
+- Historical provenance is uneven: provider, requested settings, code state and
+  stop reasons were not uniformly recorded. Absent fields remain unknown;
+  neither current defaults nor absent reasoning text reconstruct an old request.
+  Saved zero counters may include adapter defaults. Dataset-specific limits are
+  in the [reassessment](../api-audit-reassessment-2026-09-08.md).
+  _(from researchlog 2026-09-08)_
 
 ## Provider route and sampling settings
 
-Which API a run hits is decided by the runner's `.env`, not the config:
-`LLM_PROVIDER=auto` goes direct to Anthropic / OpenAI / Google when that key
-exists and to OpenRouter otherwise, and each route sets temperature, thinking
-and output cap differently (table in
-[design-constraints.md §6](design-constraints.md)). Launch scripts for any
-cross-model or cross-era comparison must pin `LLM_PROVIDER`,
-`OPENROUTER_REASONING_EFFORT`, `OPENAI_REASONING_EFFORT` and
-`GEMINI_THINKING_LEVEL` explicitly and match effort across models. Existing
-runs split into an OpenRouter era (Claude and Gemini thinking on, GPT-5 Nano at
-vendor-default effort) and a direct era (Claude thinking off, GPT-5 Nano
-minimal, Gemini 3.7 medium); analyses must not pool across them.
-_(from researchlog 2026-09-04)_
+Guarded experiments declare all four `llm_settings` fields: `provider`,
+provider-native `reasoning`, `temperature` policy, and `max_output_tokens`
+policy. Anthropic requires an explicit positive output cap; there is no implicit
+4096 cap in the guarded path. See [the usage guide](../safeguards-usage.md) for
+the schema, covered entrypoints, structural validation limits and legacy opt-in.
+
+Settings environment variables cannot override the resolved guarded plan.
+New guarded runs save `run_metadata.llm_request`, the experiment condition and
+per-call requested settings/outcomes. The record describes what was requested,
+not a guarantee about vendor internals. Missing usage remains unknown.
+
+Comparisons explicitly name fields that may differ and explain why, including
+model and replicate where appropriate; historical comparisons also acknowledge
+missing provenance. Covered readers reject undeclared differences and exact
+duplicate inputs. Resume checks retain the recorded condition. These safeguards
+do not silently change experimental prompts, memory, noise, task order or retries.
+
+The September 4 proposed low-reasoning/two-sentence profile was not adopted by
+the restart. The associated format study also changed myth instructions,
+self-context and retry policy, so it does not justify making that format a
+standard. Future native-setting robustness and format/memory interventions
+remain separate scientific decisions. _(from researchlog 2026-09-08)_
 
 ## QA: audits with negative controls
 

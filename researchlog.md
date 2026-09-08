@@ -12,6 +12,71 @@
 - Cost-only replay: original memory-primary prompts, delayed partner-myth exchange, histories, and simulation outputs were untouched. New answers were not carried forward; these are not behavioral replicates. Two observations per sampling stratum cannot establish precise full-batch costs or failure rates.
 - Full rerun not launched. The replay uses direct HTTP and explicit request plans; it does not certify the batch runner's large-output-cap transport path. Evidence, exact replay script, source/request hashes, raw usage, and offline summary: `reports/reasoning_cost_pilot_2026_09_08/README.md`.
 
+### 2026-09-08 — Separate audit evidence from interpretation
+
+**Time:** not recorded.
+
+#### Result and correction
+- Result: reopened 4,129 inventory-listed final paths, representing 3,661 distinct
+  byte hashes after 468 exact copies; these are not verified independent replicates.
+  The defector set records three direct providers, but GPT's exact effort is absent.
+- Result: all 15 final format-study files reproduce the descriptive means. Both
+  new arms also changed myth instructions and own-myth repetition; JSON-only
+  changed retry policy. The September 4 claim that Claude's behaviour is mostly
+  its prose is withdrawn as a causal interpretation, not erased from the record.
+
+#### Scope and current position
+- Saved zero counters/no reasoning text do not prove every historical thinking
+  setting. Two washout finals change reasoning signature halfway despite a single
+  provider label; the exact transition needs per-call/log verification.
+- PR19 replaces the unmerged PR16 guards. It does not adopt the earlier proposed
+  low-reasoning/two-sentence profile or change prompts, memory or retries.
+- `docs/api-audit-reassessment-2026-09-08.md` separates recorded, inferred and
+  missing settings, qualifies the scientific claims, and links hashed evidence
+  plus reproduction scripts. Historical entries and raw records are unchanged.
+  No experiment ran and no new scientific profile was selected.
+
+### 2026-09-04 — Config over env shipped; Claude's defector behaviour is mostly its own prose
+
+**Time:** 6 hours
+
+#### Result
+- Result: `llm_settings` (provider / reasoning / temperature) is now pinned
+  per experiment set in `config/*.yaml`; the batch runners fail closed
+  without it, env vars only override and are recorded, and `run_metadata`
+  carries `llm_settings_effective` plus a per-call `finish_reason`
+  (PR aronvallinder#16, `src/llm_settings.py`). Guards: the analysis loader
+  refuses mixed regimes, HF sync refuses unprovenanced runs, and
+  `tests/test_settings_pinned.py` fails CI for any new unpinned experiment
+  set, launch script, or output directory without `provenance.json`.
+- Result: decision-format confound cell (Claude Sonnet 4.5, 8 agents, 25%
+  forced-zero defectors, negative-only noise, myth->game, direct Anthropic,
+  thinking off, T=0.8; same seeds and prompts as Aron's 2026-08-25 cell,
+  plus one OUTPUT FORMAT line). Ordinary agents, mean (±std) over runs:
+  free prose (reference, n=5) send 0.592 (±0.042), return 0.444 (±0.007),
+  balance 50.35 (±1.35), 1286 chars/decision; two sentences then JSON (n=5)
+  0.531 (±0.033) / 0.428 (±0.019) / 47.78 (±1.22) / 352 chars; JSON only
+  (n=5) 0.394 (±0.049) / 0.390 (±0.030) / 42.12 (±3.02) / 13 chars.
+  Forbidding visible reasoning cuts Claude's sending by ~21 points. The
+  "Claude degrades with defectors" ordering against bare-JSON models is
+  therefore a format effect until formats are equalized.
+- Result: under JSON-only, Claude as sender answered with the receiver's key
+  in every run and a plain retry repeated it (5/5 runs died). The game retry
+  is now corrective (role + key named, 2 attempts, `games/base_game.py`);
+  1–7 corrections per run were needed and all succeeded. The prose was doing
+  role-orientation work.
+- Gemini 3.6 Flash is the no-thinking Gemini arm (`thinking_level=minimal`
+  → 0 thought tokens on the game prompt); temperature is ignored on 3.6/3.7
+  Flash, rejected on GPT-5 and Claude Opus 4.7+, so cross-model cells run at
+  vendor-default temperature (PR aronvallinder#15, `docs/verified-facts.md`).
+
+#### Caveats / next
+- json_only rep04 hit the Anthropic credit limit mid-run and was rerun after
+  the top-up with the same replicate seeds (`replicate_ids`).
+- Decision: cross-model reruns use `reasoning_then_json` for every model
+  (equal shape, keeps the reasoning->myth pathway) with the pinned regime
+  Claude off / GPT-5 Nano low / Gemini 3.6 Flash minimal, temperature default.
+
 ### 2026-09-04 — Cross-model API calls are not equivalent (provider + reasoning audit)
 
 **Time:** 2 hours
