@@ -28,23 +28,25 @@ must be split into explicit per-provider sets; there is no automatic reasoning
 translation. The configuration checker can validate named `comparison_sets`
 across those sets, with written reasons for their differences.
 
-| Field | Accepted policy and guard |
-|---|---|
-| `provider` | `direct`, `openai`, `anthropic`, `google`, or `openrouter`. Never `auto`; missing credentials fail rather than choosing another provider. |
-| `reasoning` | An explicit native request object, as listed below. Missing/unknown keys fail locally. No hidden mapping from a shared label to a vendor budget. |
-| `temperature` | `default` omits the parameter; a finite number is sent explicitly. Locally validated range is 0–2, or 0–1 for Anthropic. Model-specific support still needs verification. |
-| `max_output_tokens` | Positive integer or `default` to omit. Anthropic requires a positive value: there is **no implicit 4096 cap** in the guarded path. |
+
+| Field               | Accepted policy and guard                                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `provider`          | `direct`, `openai`, `anthropic`, `google`, or `openrouter`. Never `auto`; missing credentials fail rather than choosing another provider.                                 |
+| `reasoning`         | An explicit native request object, as listed below. Missing/unknown keys fail locally. No hidden mapping from a shared label to a vendor budget.                          |
+| `temperature`       | `default` omits the parameter; a finite number is sent explicitly. Locally validated range is 0–2, or 0–1 for Anthropic. Model-specific support still needs verification. |
+| `max_output_tokens` | Positive integer or `default` to omit. Anthropic requires a positive value: there is **no implicit 4096 cap** in the guarded path.                                        |
+
 
 Native reasoning objects accepted by `src/llm_settings.py`:
 
 - OpenAI: `reasoning_effort` (`none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`).
 - Anthropic: `thinking.type` (`disabled`, `enabled`, `adaptive`); `enabled`
-  also requires positive `budget_tokens`, strictly below the output cap.
-  Optional `output_config.effort`: `low`, `medium`, `high`, `max`.
+also requires positive `budget_tokens`, strictly below the output cap.
+Optional `output_config.effort`: `low`, `medium`, `high`, `max`.
 - Google: `thinkingConfig` with exactly `thinkingLevel` (`minimal`, `low`,
-  `medium`, `high`) or integer `thinkingBudget` ≥ −1.
+`medium`, `high`) or integer `thinkingBudget` ≥ −1.
 - OpenRouter: `reasoning` with exactly `enabled` (boolean), `effort`
-  (`none`, `minimal`, `low`, `medium`, `high`, `xhigh`), or positive `max_tokens`.
+(`none`, `minimal`, `low`, `medium`, `high`, `xhigh`), or positive `max_tokens`.
 
 These are **structurally accepted requests, not a model capability catalogue**.
 An endpoint may reject a level or combination for a particular model. Numeric
@@ -164,22 +166,20 @@ new safeguard tests. No workflow change or broader OAuth permission is needed.
 **A passing workflow becomes a merge requirement only through branch rules.**
 This account has push, not admin/maintain, access (checked 2026-09-07).
 Aron/a repo admin must require `pytest` and at least one independent approval
-on `main`, dismiss stale approvals
-after changes, and review who may bypass those rules. No claim is made that
-these repository settings have been enabled.
+on `main`, dismiss stale approvals after changes, and review who may bypass those rules. No claim is made that these repository settings have been enabled.
 
 Before merge, Ivar and an independent reviewer follow this short walkthrough:
 
 1. Inspect the synthetic test's config in `tests/test_llm_request_plan.py` and
-   the native request plan in `src/llm_settings.py`. Confirm no research profiles changed.
+  the native request plan in `src/llm_settings.py`. Confirm no research profiles changed.
 2. Run the free SDK-body tests: `python3 -m pytest tests/test_llm_request_plan.py -q`.
-   Compare the captured JSON body to the saved request record for each provider.
+  Compare the captured JSON body to the saved request record for each provider.
 3. Run `python3 -m pytest tests/test_safeguards_smoke.py -q`. This uses a real
-   local HTTP server, the installed OpenAI SDK, the simulator, and saved files;
+  local HTTP server, the installed OpenAI SDK, the simulator, and saved files;
    it sends no request to a paid vendor. Identical resume succeeds; changed
    conditions fail before HTTP.
 4. Run `python3 -m pytest tests/test_experiment_condition.py tests/test_safeguards_ci.py -q`.
-   Inspect one intentional rejection and one explicitly allowed comparison.
+  Inspect one intentional rejection and one explicitly allowed comparison.
 5. Confirm CI and the actual required-check/review rules, then approve the PR.
 
 Keep subsequent scientific decisions separate: manually verify a small set of
