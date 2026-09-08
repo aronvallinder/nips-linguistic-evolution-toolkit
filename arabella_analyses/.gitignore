@@ -1,0 +1,5 @@
+# Raw run JSON and PDF transcripts: large (~233M) and re-derivable. Shared via
+# the HF dataset repo under uploaders/arabella/ instead of git, mirroring the
+# repo-root data/ policy. Derived tables in data/tables/ ARE tracked (results).
+data/runs_json/
+data/transcripts_pdf/

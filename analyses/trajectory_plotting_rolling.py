@@ -3,7 +3,12 @@ Trajectory Plotting with Rolling Averages
 For high round counts (500+), uses smoothed lines instead of raw data points.
 """
 
-from analyses._shared import configure_matplotlib, load_simulation_data
+from analyses._shared import (
+    calculate_return_ratios,
+    configure_matplotlib,
+    infer_endowment,
+    load_simulation_data,
+)
 
 configure_matplotlib()
 
@@ -30,15 +35,12 @@ def rolling_average(values: List[float], window: int = 20) -> np.ndarray:
     if len(arr) < window:
         return arr
     
-    kernel = np.ones(window) / window
-    smoothed = np.convolve(arr, kernel, mode='same')
-    
-    # Fix edge effects by using smaller windows at edges
-    half_window = window // 2
-    for i in range(half_window):
-        smoothed[i] = np.mean(arr[:i + half_window + 1])
-        smoothed[-(i + 1)] = np.mean(arr[-(i + half_window + 1):])
-    
+    kernel = np.ones(window)
+    observed = np.isfinite(arr)
+    sums = np.convolve(np.where(observed, arr, 0.0), kernel, mode='same')
+    counts = np.convolve(observed.astype(float), kernel, mode='same')
+    smoothed = np.full(arr.shape, np.nan, dtype=float)
+    np.divide(sums, counts, out=smoothed, where=counts > 0)
     return smoothed
 
 
@@ -177,9 +179,8 @@ def plot_numerical_trajectories(conversation_history: List[Dict],
         agent_2_balance.append(balances.get('Agent_2', 0))
 
     # Calculate ratios
-    return_ratios = [ret / rec if rec > 0 else 0
-                    for ret, rec in zip(returned, received)]
-    endowment = sent[0] + investor_payoff[0] if len(sent) > 0 else 10
+    return_ratios = calculate_return_ratios(returned, received)
+    endowment = infer_endowment(sent, returned, investor_payoff)
     trust_ratios = [s / endowment if endowment > 0 else 0 for s in sent]
 
     # Compute rolling averages

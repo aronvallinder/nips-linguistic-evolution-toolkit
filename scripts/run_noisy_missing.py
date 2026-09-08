@@ -22,10 +22,15 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from experiments.run_noisy_batch import (
     NoisyExperimentConfig,
+    TrustGameNoisy,
     execution_provenance,
     run_single_experiment,
 )
+from scripts.hf_sync_completed_runs import maybe_sync_completed_runs
 from src.batch_utils import sanitize_for_filename
+from src.experiment_condition import ConditionMismatchError, condition_from_run, digest, read_final_run
+from src.llm_settings import prepare_combinations
+from src.utils import DIRECT_MODEL_ALIASES
 
 
 def expected_output_path(
@@ -85,16 +90,40 @@ def run_missing_job(
     return result
 
 
-def load_combinations(experiment_name: str, config_path: str | None) -> list[dict[str, Any]]:
+def load_combinations(experiment_name: str, config_path: str | None, *, allow_legacy_settings=False) -> list[dict[str, Any]]:
     if config_path is None:
         config_path = str(PROJECT_ROOT / "config" / "experiments_noisy.yaml")
 
     config = NoisyExperimentConfig(config_path)
     combinations = config.get_experiment_combinations(experiment_name)
+    prepare_combinations(combinations, config.config["experiment_sets"][experiment_name], DIRECT_MODEL_ALIASES, allow_legacy=allow_legacy_settings)
     provenance = execution_provenance(config_path)
+    pool_hashes = {}
     for combination in combinations:
         combination["execution_provenance"] = provenance.copy()
+        if combination.get("request_plan") is not None and str(combination.get("myth_injection_mode") or "partner").strip().lower() == "shuffled":
+            pool_path = combination.get("shuffled_myth_pool_path")
+            if pool_path not in pool_hashes:
+                pool_hashes[pool_path] = digest(TrustGameNoisy._load_shuffled_myth_pool(pool_path))
+            combination["execution_provenance"]["shuffled_myth_pool_sha256"] = pool_hashes[pool_path]
     return combinations
+
+
+def check_existing_final(path, combo):
+    saved = read_final_run(path)
+    if combo.get("request_plan") is None:
+        return
+    if "experiment_condition" not in (saved.get("run_metadata") or {}):
+        raise ConditionMismatchError(
+            f"Existing final has legacy provenance: {path}. Create a new pinned experiment "
+            "set with a separate output location; --allow-legacy-settings does not verify legacy outputs."
+        )
+    condition = condition_from_run(saved)
+    if saved["run_metadata"].get("comparison_inputs") != combo["comparison_inputs"]:
+        raise ConditionMismatchError(f"Existing final does not match the configured inputs: {path}")
+    planned_pool = combo.get("execution_provenance", {}).get("shuffled_myth_pool_sha256")
+    if condition["protocol"]["game"].get("shuffled_myth_pool_sha256") != planned_pool:
+        raise ConditionMismatchError(f"Existing final uses a different shuffled myth pool: {path}")
 
 
 def main() -> int:
@@ -119,10 +148,16 @@ def main() -> int:
         help="Optional maximum number of missing jobs to run",
     )
 
+    parser.add_argument("--allow-legacy-settings", action="store_true", help="Explicitly retain historical environment-dependent settings")
+    parser.add_argument("--dry-run", action="store_true", help="Print resolved plans without API calls or uploads")
     args = parser.parse_args()
 
-    combinations = load_combinations(args.experiment_name, args.config)
+    combinations = load_combinations(args.experiment_name, args.config, allow_legacy_settings=args.allow_legacy_settings)
+    if args.dry_run:
+        print(f"DRY RUN: N={len(combinations)} WORKERS={args.workers}; no APIs called")
+        return 0
     missing: list[tuple[int, dict[str, Any], Path]] = []
+    expected_outputs: list[Path] = []
 
     for index, combo in enumerate(combinations):
         expected_path = expected_output_path(
@@ -131,8 +166,11 @@ def main() -> int:
             index,
             args.output_subdir,
         )
+        expected_outputs.append(expected_path)
         if not expected_path.exists():
             missing.append((index, combo, expected_path))
+        else:
+            check_existing_final(expected_path, combo)
 
     if args.limit is not None:
         missing = missing[: args.limit]
@@ -144,6 +182,10 @@ def main() -> int:
     )
 
     if not missing:
+        maybe_sync_completed_runs(
+            (path for path in expected_outputs if path.is_file()),
+            label=f"{args.output_subdir}/{args.experiment_name}",
+        )
         return 0
 
     failed: list[dict[str, Any]] = []
@@ -202,10 +244,16 @@ def main() -> int:
         summary_path.parent.mkdir(parents=True, exist_ok=True)
         summary_path.write_text(json.dumps(failed, indent=2), encoding="utf-8")
         print(f"failed={len(failed)} summary={summary_path}", flush=True)
-        return 1
+        exit_status = 1
+    else:
+        print(f"complete={completed} failed=0", flush=True)
+        exit_status = 0
 
-    print(f"complete={completed} failed=0", flush=True)
-    return 0
+    maybe_sync_completed_runs(
+        (path for path in expected_outputs if path.is_file()),
+        label=f"{args.output_subdir}/{args.experiment_name}",
+    )
+    return exit_status
 
 
 if __name__ == "__main__":

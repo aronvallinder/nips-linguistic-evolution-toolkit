@@ -54,12 +54,13 @@ class Agent:
 
     def _record_interaction(self, prompt, messages_sent, response_data=None, transcript_metadata=None, error=None):
         """Store the exact request/response payload for full transcripts."""
+        plan = getattr(self.client, "request_plan", None)
         event = {
             "interaction_index": len(self.interaction_history) + 1,
             "timestamp": datetime.datetime.now().isoformat(timespec="seconds"),
             "agent_id": self.agent_id,
             "model": self.model,
-            "temperature": self.temperature,
+            "temperature": plan.as_dict()["policy"]["temperature"] if plan is not None else self.temperature,
             "memory_capacity": self.memory_capacity,
             "metadata": transcript_metadata or {},
             "prompt": prompt,
@@ -185,7 +186,7 @@ class Agent:
             self._record_interaction(
                 prompt,
                 messages_sent,
-                response_data=None,
+                response_data={"usage": exc.usage} if hasattr(exc, "usage") else None,
                 transcript_metadata=transcript_metadata,
                 error=exc,
             )

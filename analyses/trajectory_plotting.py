@@ -2,7 +2,12 @@
 Trajectory plotting.
 """
 
-from analyses._shared import configure_matplotlib, load_simulation_data
+from analyses._shared import (
+    calculate_return_ratios,
+    configure_matplotlib,
+    infer_endowment,
+    load_simulation_data,
+)
 
 configure_matplotlib()
 
@@ -43,11 +48,19 @@ def calculate_trajectory_metrics(conversation_history: List[Dict]) -> Dict:
         received_values = [_require_metric(r, "received") for r in conversation_history]
 
         # Calculate cooperation (return ratio)
-        return_ratios = [ret / rec if rec > 0 else 0 for ret, rec in zip(returned_values, received_values)]
-        metrics["cooperation_score"] = np.mean(return_ratios)
+        return_ratios = calculate_return_ratios(returned_values, received_values)
+        observed_return_ratios = return_ratios[np.isfinite(return_ratios)]
+        metrics["cooperation_score"] = (
+            float(np.mean(observed_return_ratios))
+            if observed_return_ratios.size
+            else float("nan")
+        )
 
         # Calculate trust (send ratio of endowment)
-        endowment = _require_metric(conversation_history[0], "sent") + _require_metric(conversation_history[0], "investor_payoff")
+        investor_payoffs = [
+            _require_metric(r, "investor_payoff") for r in conversation_history
+        ]
+        endowment = infer_endowment(sent_values, returned_values, investor_payoffs)
         if endowment > 0:
             send_ratios = [s / endowment for s in sent_values]
             metrics["trust_score"] = np.mean(send_ratios)
@@ -547,4 +560,3 @@ if __name__ == "__main__":
     number_of_trajectories = 1
 
     main()
-

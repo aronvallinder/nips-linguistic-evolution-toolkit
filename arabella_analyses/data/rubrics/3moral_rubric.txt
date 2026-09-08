@@ -1,0 +1,256 @@
+# Myth Moral Classification Rubric
+
+## Task
+
+You are an LLM judge. You will receive a myth about strategies in a repeated donor game. Classify the principal moral or behavioural rule endorsed by the myth into exactly one of these categories:
+
+1. `be generous`
+2. `be fair`
+3. `be cautious`
+
+## Game context
+
+In each round:
+
+* The investor receives $5 and chooses an amount to send to the trustee.
+* The amount sent is multiplied by three.
+* The trustee chooses how much of the resulting amount to return.
+* The game continues over multiple rounds, and agents may alternate between the investor and trustee roles.
+
+A myth may describe these actions metaphorically, using rivers, seeds, light, treasure, spirits, or other narrative devices.
+
+## General classification principle
+
+Classify the rule that the myth presents as wise, desirable, successful, or worthy of following.
+
+Do not classify the myth merely from:
+
+* one action taken by a character;
+* the presence of words such as “trust”, “caution”, “fairness”, or “reciprocity”;
+* the outcome of an action that the myth ultimately criticises;
+* the specific objects or metaphors used in the story.
+
+Instead, identify the behavioural policy that the myth endorses for future interactions.
+
+## Category definitions
+
+### 1. `be generous`
+
+Choose `be generous` when the myth recommends giving or returning a substantial amount as a general principle.
+
+Typical forms of this rule include:
+
+* give freely or trust boldly;
+* send most or all of the available amount;
+* return generously so that both parties benefit;
+* initiate cooperation rather than waiting for the other player;
+* continue being generous because generosity creates abundance;
+* extend substantial trust even to a new or unproven partner;
+* remain generous even when the partner has not behaved generously;
+* respond to selfishness or betrayal with continued generosity, forgiveness, or renewed trust.
+
+The defining feature is that generosity is endorsed as the appropriate default. The recommended behaviour is not principally calibrated to the partner’s previous behaviour.
+
+Fairness, mutual benefit, or sustaining a cooperative relationship may motivate generosity. These motivations do not by themselves make the myth an instance of `be fair`.
+
+Examples:
+
+> The Spring released all five drops without waiting for proof. The River returned enough for both to flourish. The lesson was that abundance begins when one gives freely.
+
+Classification:
+
+```json
+{"label":"be generous"}
+```
+
+> The elders taught that strangers become partners only when someone offers trust first. Holding back prevents the shared harvest from growing.
+
+Classification:
+
+```json
+{"label":"be generous"}
+```
+
+> Although the traveller had received little in return, she continued to share freely. Another person’s selfishness, she believed, should not determine her own generosity.
+
+Classification:
+
+```json
+{"label":"be generous"}
+```
+
+### 2. `be fair`
+
+Choose `be fair` when the myth recommends reciprocity: adjusting one’s behaviour in response to the partner’s demonstrated level of cooperation.
+
+Fairness in this category means matching, mirroring, or proportionally responding to the partner’s behaviour. It does not merely mean being kind, cooperative, or equally generous to everyone.
+
+Typical forms of this rule include:
+
+* match or mirror the partner’s generosity;
+* reciprocate the trust or cooperation shown by the partner;
+* return an amount proportional to what the investor sent;
+* reward a generous partner with a generous response;
+* reduce cooperation when the partner reduces cooperation;
+* maintain an established exchange because both players have followed it;
+* respond to betrayal with reduced cooperation and to cooperation with increased cooperation;
+* increase or decrease one’s action so that it tracks the partner’s behaviour;
+* give each partner a response that reflects how fairly or generously that partner behaved.
+
+Reciprocity may be positive or negative. It includes both rewarding cooperation and responding less generously to selfish behaviour.
+
+A rule such as “return the same proportion of every gift” counts as `be fair` because the response is explicitly calibrated to the trust extended by the investor.
+
+Merely saying that “generosity produces generosity” is not sufficient. The myth must endorse making one’s own action depend on, mirror, or proportionally respond to the partner’s action.
+
+Examples:
+
+> When the traveller offered three stones, the keeper returned six. When the traveller later offered five, the keeper returned ten. The keeper honoured every gift in proportion to the trust shown.
+
+Classification:
+
+```json
+{"label":"be fair"}
+```
+
+> Each village continued the exchange established by the other. Generosity was answered with generosity, while a smaller offering received a smaller return.
+
+Classification:
+
+```json
+{"label":"be fair"}
+```
+
+> The keeper did not give the same amount to every visitor. Those who shared freely received a generous return, while those who withheld their gifts received little in return.
+
+Classification:
+
+```json
+{"label":"be fair"}
+```
+
+### 3. `be cautious`
+
+Choose `be cautious` when the myth recommends limiting risk, protecting one’s self-interest, retaining resources, or requiring evidence before extending substantial trust.
+
+Typical forms of this rule include:
+
+* begin with a small or moderate amount;
+* keep part of the endowment in reserve;
+* protect your self-interest;
+* avoid risking more than you can afford to lose;
+* test the waters before committing more;
+* increase trust gradually after successful exchanges;
+* wait for a partner to demonstrate reliability;
+* reduce or stop cooperation after exploitation;
+* protect oneself from repeated betrayal;
+* avoid offering complete trust under uncertainty;
+* prioritise security, preservation, or personal gain over unrestricted generosity.
+
+The defining feature is that protection, verification, or limited exposure is the central behavioural principle.
+
+A cautious strategy may eventually permit greater generosity. Classify it as `be cautious` when the myth’s central lesson is that trust should first be tested or earned, or that an agent should protect its own resources and interests.
+
+Examples:
+
+> The traveller sent only a small flame across the fog, keeping the rest protected. If the other traveller returned it faithfully, a larger flame could follow.
+
+Classification:
+
+```json
+{"label":"be cautious"}
+```
+
+> After the river repeatedly kept every gift, the spring closed its gates. Continuing to sacrifice without evidence of reciprocity was not courage but self-destruction.
+
+Classification:
+
+```json
+{"label":"be cautious"}
+```
+
+> The merchant shared enough to test the stranger’s intentions but kept most of the treasure safe. Wisdom required generosity to be balanced against self-interest.
+
+Classification:
+
+```json
+{"label":"be cautious"}
+```
+
+## Decision procedure
+
+Apply these steps in order.
+
+1. Identify the rule or lesson that the myth ultimately endorses.
+2. Ignore actions that are presented as mistakes, temptations, warnings, or failed alternatives.
+3. Determine whether the central rule prioritises limiting exposure, protecting self-interest, testing trust, retaining resources, or waiting for proof.
+
+   * If yes, classify it as `be cautious`.
+4. Otherwise, determine whether the recommended action is explicitly calibrated to the partner’s gift, return, history, or level of cooperation.
+
+   * If yes, classify it as `be fair`.
+5. Otherwise, determine whether the myth recommends substantial giving, returning, trust, or forgiveness as a generally appropriate policy, including when the partner has not behaved generously.
+
+   * If yes, classify it as `be generous`.
+6. If the myth is indirect or purely narrative, classify the action or policy portrayed as producing the desirable outcome.
+7. Always select the closest of the three categories. Do not return `unknown`, `ambiguous`, or multiple labels.
+
+## Tie-breaking rules
+
+Use the following rules for myths containing more than one theme:
+
+* An explicit final moral takes precedence over earlier events.
+* A repeatedly emphasised rule takes precedence over an incidental statement.
+* “Begin cautiously and increase trust only after proof” is `be cautious`.
+* “Give in proportion to what the partner gave or returned” is `be fair`.
+* “Maintain the established pattern because both partners have followed it” is `be fair`.
+* “Reward generosity and respond to selfishness with reduced generosity” is `be fair`.
+* “Give fully even before the partner has proved trustworthy” is `be generous`.
+* “Continue giving generously despite the partner’s selfish behaviour” is `be generous`.
+* “Return generously to everyone” is `be generous`.
+* “Return a fixed proportion of each investor’s gift” is `be fair`.
+* “Keep enough resources to protect yourself” is `be cautious`.
+* A mention of caution does not imply `be cautious` when the myth explicitly rejects caution and endorses bold trust.
+* A mention of generosity does not imply `be generous` when generosity is explicitly conditional on the partner’s behaviour.
+* A mention of fairness does not imply `be fair` unless the recommended action is reciprocal or calibrated to the partner’s behaviour.
+* A response to repeated exploitation is `be cautious` when the lesson is self-protection.
+* A response to repeated exploitation is `be fair` when the lesson is specifically to mirror or proportionally match the partner’s reduced cooperation.
+* A response to repeated exploitation is `be generous` when the lesson is to continue giving generously regardless of how the partner behaved.
+
+## Output rules
+
+Return exactly one valid JSON object with exactly one key:
+
+```json
+{"label":"be generous"}
+```
+
+The value of `label` must be exactly one of:
+
+```text
+be generous
+be fair
+be cautious
+```
+
+Do not include:
+
+* an explanation;
+* a confidence score;
+* additional keys;
+* markdown fences;
+* introductory or concluding text;
+* more than one label.
+
+## Input
+
+```text
+MYTH_TEXT:
+{text}
+```
+
+## Required output
+
+```json
+{"label":"<one allowed label>"}
+```

@@ -3,3 +3,5 @@ anthropic
 together
 pyyaml
 python-dotenv
+huggingface_hub>=0.32.0
+scipy

@@ -81,11 +81,15 @@ def extract_role_series(data: dict) -> dict:
                 out[a]["investor_rounds"].append(r)
                 out[a]["investor_sends"].append(float(sent))
             elif role == "trustee":
+                # Zero received means there was no possible return decision;
+                # do not classify that round as trustee defection.
+                if received is None or float(received) <= 0:
+                    continue
                 out[a]["trustee_rounds"].append(r)
-                rate = float(returned) / float(received) if received and received > 0 else 0.0
+                rate = float(returned) / float(received)
                 out[a]["trustee_return_rates"].append(rate)
                 out[a]["trustee_returns"].append(float(returned))
-                out[a]["trustee_received"].append(float(received) if received is not None else 0.0)
+                out[a]["trustee_received"].append(float(received))
 
     return out
 

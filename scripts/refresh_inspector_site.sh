@@ -2,7 +2,7 @@
 # Refresh the public data-inspector site (GitHub Pages).
 #
 #   Live URL:  https://ivarfresh.github.io/linguistic-evolution-inspector/
-#   Source:    data/plots/inspector/{inspector.html, run_plots/}
+#   Source:    data/plots/inspector/{inspector.html, run_plots/, runs/, agg_plots/, negnoise_plots/}
 #   Repo:      github.com/ivarfresh/linguistic-evolution-inspector
 #
 # Copies the local inspector into the Pages repo (inspector.html -> index.html
@@ -43,10 +43,27 @@ else
 fi
 
 # --- sync files ------------------------------------------------------------
-echo "Syncing inspector.html -> index.html and run_plots/ ..."
+echo "Syncing inspector.html -> index.html and asset dirs ..."
+touch "$CLONE_DIR/.nojekyll"   # serve _underscore paths verbatim (skip Jekyll)
 cp "$SRC/inspector.html" "$CLONE_DIR/index.html"
-rm -rf "$CLONE_DIR/run_plots"
-cp -R "$SRC/run_plots" "$CLONE_DIR/run_plots"
+for d in run_plots runs agg_plots; do
+  [[ -d "$SRC/$d" ]] || continue
+  rm -rf "${CLONE_DIR:?}/$d"
+  cp -R "$SRC/$d" "$CLONE_DIR/$d"
+done
+
+# Standalone negnoise inspector (built by scripts/build_negnoise_inspector.py)
+# publishes under /negnoise/ on the same Pages site.
+NEG_SRC="$PROJECT_ROOT/data/plots/inspector_negnoise"
+if [[ -f "$NEG_SRC/inspector.html" ]]; then
+  echo "Syncing negnoise inspector -> negnoise/ ..."
+  rm -rf "${CLONE_DIR:?}/negnoise"
+  mkdir -p "$CLONE_DIR/negnoise"
+  cp "$NEG_SRC/inspector.html" "$CLONE_DIR/negnoise/index.html"
+  for d in runs run_plots agg_plots; do
+    [[ -d "$NEG_SRC/$d" ]] && cp -R "$NEG_SRC/$d" "$CLONE_DIR/negnoise/$d"
+  done
+fi
 
 # --- commit & push (no-op if nothing changed) ------------------------------
 cd "$CLONE_DIR"

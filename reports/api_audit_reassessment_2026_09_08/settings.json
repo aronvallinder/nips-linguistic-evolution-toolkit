@@ -1,0 +1,4477 @@
+{
+  "review_date": "2026-09-08",
+  "inventory": "data/analysis/api_equivalence_audit_2026_09_04/runs_inventory_inferred.csv",
+  "inventory_sha256": "212a45288e490ee28c8b2ee5c2b66f65dc8d127f467bf411c4919ff862b88022",
+  "selected_inventory_rows": 4129,
+  "present_full_state_paths": 4129,
+  "distinct_byte_sha256_files": 3661,
+  "exact_copy_paths_removed": 468,
+  "missing_paths": [],
+  "invalid_paths": [],
+  "round_count_mismatches": [],
+  "count_unit": "Files listed by the historical inventory, not verified independent replicates. Exact byte copies removed before grouped summaries.",
+  "usage_caveat": "Counts are stored normalized fields, not raw vendor usage. A missing numeric value is separate from zero in this extractor, but historical request adapters sometimes wrote zero when usage was absent and hard-coded zero for Anthropic.",
+  "scientific_scope": "Retrospective settings evidence only. This does not validate outcomes, independence, completeness of attempted runs, or currently available model capabilities.",
+  "groups": {
+    "memtest_memoryprimary_sonnet45_2agent_r10_n5 :: anthropic/claude-sonnet-4.5": {
+      "runs": 5,
+      "paths": 10,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 5
+        },
+        "llm_provider": {
+          "\"MISSING\"": 5
+        },
+        "provider_model": {
+          "\"MISSING\"": 5
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 5
+        },
+        "temperature": {
+          "0.8": 5
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 5
+        },
+        "code_commit": {
+          "\"MISSING\"": 5
+        },
+        "code_dirty": {
+          "\"MISSING\"": 5
+        },
+        "provider_env": {
+          "\"MISSING\"": 5
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 5
+        },
+        "config_sha256": {
+          "\"MISSING\"": 5
+        },
+        "num_agents": {
+          "2": 5
+        },
+        "num_turns": {
+          "10": 5
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 5
+        },
+        "memory_capacity": {
+          "2": 5
+        }
+      },
+      "counts": {
+        "game_calls": 100,
+        "game_reasoning_tokens_zero": 100,
+        "game_finish_reason_missing": 100,
+        "game_reasoning_absent": 100,
+        "myth_calls": 100,
+        "myth_reasoning_tokens_zero": 100,
+        "myth_finish_reason_missing": 100,
+        "myth_reasoning_absent": 100,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 134,
+          "max": 431
+        },
+        "myth_output_tokens": {
+          "min": 259,
+          "max": 317
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/memtest_memoryprimary_sonnet45_2agent_r10_n5/claude-sonnet-4.5/myth_game/memtest_memoryprimary_sonnet45_2agent_r10_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+          "sha256": "e90512a5a6f18380f804b47b69146f4fb54987a685016fdc867717051b7c7440"
+        },
+        {
+          "path": "data/json/memtest_memoryprimary_sonnet45_2agent_r10_n5/claude-sonnet-4.5/myth_game/memtest_memoryprimary_sonnet45_2agent_r10_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+          "sha256": "b31b8907801f591454ce092e85129f00a608c7f825c7411235585f32525e20cf"
+        },
+        {
+          "path": "data/json/memtest_memoryprimary_sonnet45_2agent_r10_n5/claude-sonnet-4.5/myth_game/memtest_memoryprimary_sonnet45_2agent_r10_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+          "sha256": "a38d89529d8485ccdf9c25534fe8a36546ed970c5e423d79781342dc30c678f7"
+        }
+      ],
+      "expsets": [
+        "memtest_memoryprimary_sonnet45_2agent_r10_n5"
+      ]
+    },
+    "phase8_monitored :: anthropic/claude-sonnet-4.5": {
+      "runs": 5,
+      "paths": 5,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 5
+        },
+        "llm_provider": {
+          "\"MISSING\"": 5
+        },
+        "provider_model": {
+          "\"MISSING\"": 5
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 5
+        },
+        "temperature": {
+          "0.8": 5
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 5
+        },
+        "code_commit": {
+          "\"MISSING\"": 5
+        },
+        "code_dirty": {
+          "\"MISSING\"": 5
+        },
+        "provider_env": {
+          "\"MISSING\"": 5
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 5
+        },
+        "config_sha256": {
+          "\"MISSING\"": 5
+        },
+        "num_agents": {
+          "8": 5
+        },
+        "num_turns": {
+          "10": 5
+        },
+        "chat_memory_mode": {
+          "\"default\"": 5
+        },
+        "memory_capacity": {
+          "3": 5
+        }
+      },
+      "counts": {
+        "game_calls": 400,
+        "game_reasoning_tokens_zero": 400,
+        "game_finish_reason_missing": 400,
+        "game_reasoning_absent": 400,
+        "myth_calls": 400,
+        "myth_reasoning_tokens_zero": 400,
+        "myth_finish_reason_missing": 400,
+        "myth_reasoning_absent": 400,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 121,
+          "max": 521
+        },
+        "myth_output_tokens": {
+          "min": 257,
+          "max": 324
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/phase8_monitored/claude-sonnet-4.5/myth_game/sonnet45_8agent_myth_directive_history3_anon_monitored_r10_n5_004_neutral_rep04_myth_game_directive_anything.json",
+          "sha256": "10ae6d8f1fce4cea358b999e78a68c41fba27f2f03fb0ea254dc9160027b36a6"
+        },
+        {
+          "path": "data/json/phase8_monitored/claude-sonnet-4.5/myth_game/sonnet45_8agent_myth_directive_history3_anon_monitored_r10_n5_002_neutral_rep02_myth_game_directive_anything.json",
+          "sha256": "477798972e00cdbe5f0a958d26da27b31e819de0221338cd1756dfd0b21c3279"
+        },
+        {
+          "path": "data/json/phase8_monitored/claude-sonnet-4.5/myth_game/sonnet45_8agent_myth_directive_history3_anon_monitored_r10_n5_001_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "8f89fda123345f31c877902baa02f89e50d076ce7a9da4f135d796473e57279a"
+        }
+      ],
+      "expsets": [
+        "phase8_monitored"
+      ]
+    },
+    "myth_causal_confirm_claude_fixed_prompt_r10 :: anthropic/claude-sonnet-4.5": {
+      "runs": 20,
+      "paths": 40,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 20
+        },
+        "llm_provider": {
+          "\"MISSING\"": 20
+        },
+        "provider_model": {
+          "\"MISSING\"": 20
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 20
+        },
+        "temperature": {
+          "0.8": 20
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 20
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 20
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 20
+        },
+        "thinking_level": {
+          "\"MISSING\"": 20
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 20
+        },
+        "code_commit": {
+          "\"MISSING\"": 20
+        },
+        "code_dirty": {
+          "\"MISSING\"": 20
+        },
+        "provider_env": {
+          "\"MISSING\"": 20
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 20
+        },
+        "config_sha256": {
+          "\"MISSING\"": 20
+        },
+        "num_agents": {
+          "2": 20
+        },
+        "num_turns": {
+          "10": 20
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 20
+        },
+        "memory_capacity": {
+          "3": 20
+        }
+      },
+      "counts": {
+        "game_calls": 400,
+        "game_reasoning_tokens_positive": 400,
+        "game_finish_reason_missing": 400,
+        "game_reasoning_text": 400,
+        "interaction_errors": 0,
+        "myth_calls": 200,
+        "myth_reasoning_tokens_positive": 200,
+        "myth_finish_reason_missing": 200,
+        "myth_reasoning_text": 200
+      },
+      "ranges": {
+        "game_reasoning_tokens_positive": {
+          "min": 72,
+          "max": 826
+        },
+        "game_output_tokens": {
+          "min": 142,
+          "max": 1295
+        },
+        "myth_reasoning_tokens_positive": {
+          "min": 55,
+          "max": 1196
+        },
+        "myth_output_tokens": {
+          "min": 333,
+          "max": 2688
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt_r10/claude-sonnet-4.5/game/myth_causal_confirm_claude_fixed_prompt_r10_000_neutral_rep00.json",
+          "sha256": "07c2161a1bf3c70a3140ef19e6b7c4a0063e481b2fd40b8edbb65280d10d4657"
+        },
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt_r10/claude-sonnet-4.5/game/myth_causal_confirm_claude_fixed_prompt_r10_002_neutral_rep02.json",
+          "sha256": "9eaaada7a547865ac58a9227495f26ffda4549fed9a40d6c76288ddfaf2a5bbb"
+        },
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt_r10/claude-sonnet-4.5/game/myth_causal_confirm_claude_fixed_prompt_r10_009_neutral_rep09.json",
+          "sha256": "47901f7f4f58637bcdc9e87123cadc08dd417a903c23a4a32b4ec21d63193fb2"
+        }
+      ],
+      "expsets": [
+        "myth_causal_confirm_claude_fixed_prompt_r10"
+      ]
+    },
+    "sonnet45_8agent_game_memprimary_r10_n5 :: anthropic/claude-sonnet-4.5": {
+      "runs": 5,
+      "paths": 5,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 5
+        },
+        "llm_provider": {
+          "\"MISSING\"": 5
+        },
+        "provider_model": {
+          "\"MISSING\"": 5
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 5
+        },
+        "temperature": {
+          "0.8": 5
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 5
+        },
+        "code_commit": {
+          "\"MISSING\"": 5
+        },
+        "code_dirty": {
+          "\"MISSING\"": 5
+        },
+        "provider_env": {
+          "\"MISSING\"": 5
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 5
+        },
+        "config_sha256": {
+          "\"MISSING\"": 5
+        },
+        "num_agents": {
+          "8": 5
+        },
+        "num_turns": {
+          "10": 5
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 5
+        },
+        "memory_capacity": {
+          "6": 5
+        }
+      },
+      "counts": {
+        "game_calls": 400,
+        "game_reasoning_tokens_zero": 400,
+        "game_finish_reason_missing": 400,
+        "game_reasoning_text": 400,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 148,
+          "max": 2289
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/sonnet45_8agent_game_memprimary_r10_n5/claude-sonnet-4.5/game/sonnet45_8agent_game_memprimary_r10_n5_001_neutral_rep01.json",
+          "sha256": "e43c3511809a3825b2a1b32ad0cc24670c274a8e1968887c8b600e196eff068c"
+        },
+        {
+          "path": "data/json/sonnet45_8agent_game_memprimary_r10_n5/claude-sonnet-4.5/game/sonnet45_8agent_game_memprimary_r10_n5_003_neutral_rep03.json",
+          "sha256": "326e6dafdd3f3f05ae79092b588e87c10c4ec0bf3c8072f02f9a512309156435"
+        },
+        {
+          "path": "data/json/sonnet45_8agent_game_memprimary_r10_n5/claude-sonnet-4.5/game/sonnet45_8agent_game_memprimary_r10_n5_002_neutral_rep02.json",
+          "sha256": "3d53f4cd2d52d02ee64e5df2219eec918170b8b972ad613cc2b44d9b0a2045d2"
+        }
+      ],
+      "expsets": [
+        "sonnet45_8agent_game_memprimary_r10_n5"
+      ]
+    },
+    "ablation_phase1 :: anthropic/claude-sonnet-4.5": {
+      "runs": 80,
+      "paths": 160,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 80
+        },
+        "llm_provider": {
+          "\"MISSING\"": 80
+        },
+        "provider_model": {
+          "\"MISSING\"": 80
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 80
+        },
+        "temperature": {
+          "0.8": 80
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 80
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 80
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 80
+        },
+        "thinking_level": {
+          "\"MISSING\"": 80
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 80
+        },
+        "code_commit": {
+          "\"MISSING\"": 80
+        },
+        "code_dirty": {
+          "\"MISSING\"": 80
+        },
+        "provider_env": {
+          "\"MISSING\"": 80
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 80
+        },
+        "config_sha256": {
+          "\"MISSING\"": 80
+        },
+        "num_agents": {
+          "2": 80
+        },
+        "num_turns": {
+          "10": 80
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 80
+        },
+        "memory_capacity": {
+          "3": 80
+        }
+      },
+      "counts": {
+        "game_calls": 1600,
+        "game_reasoning_tokens_zero": 1600,
+        "game_finish_reason_missing": 1600,
+        "game_reasoning_absent": 1600,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 454
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/ablation_phase1/m1_s_filler/ablation_m1_s_filler_rep05_filler_belgium.json",
+          "sha256": "897165435ba06dccbc95d18fa98b8bb84add9f46ab18b9ed088581d033909b9a"
+        },
+        {
+          "path": "data/json/ablation_phase1/m1_s_filler/ablation_m1_s_filler_rep14_filler_saturn.json",
+          "sha256": "fcbcfe3f89fb8de8a55ecd3bbdf9ecc24635995aa0cd2a915f2520b9b1bca454"
+        },
+        {
+          "path": "data/json/ablation_phase1/m1_s_filler/ablation_m1_s_filler_rep08_filler_mount_fuji.json",
+          "sha256": "e942b0d1ac491fb7a29dc18b3c80bbcc90aaa6b81b2fcb32dd68fbd2adfc9b45"
+        }
+      ],
+      "expsets": [
+        "ablation_phase1"
+      ]
+    },
+    "sonnet45_8agent_game_myth_memprimary_r10_n5 :: anthropic/claude-sonnet-4.5": {
+      "runs": 5,
+      "paths": 5,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 5
+        },
+        "llm_provider": {
+          "\"MISSING\"": 5
+        },
+        "provider_model": {
+          "\"MISSING\"": 5
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 5
+        },
+        "temperature": {
+          "0.8": 5
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 5
+        },
+        "code_commit": {
+          "\"MISSING\"": 5
+        },
+        "code_dirty": {
+          "\"MISSING\"": 5
+        },
+        "provider_env": {
+          "\"MISSING\"": 5
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 5
+        },
+        "config_sha256": {
+          "\"MISSING\"": 5
+        },
+        "num_agents": {
+          "8": 5
+        },
+        "num_turns": {
+          "10": 5
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 5
+        },
+        "memory_capacity": {
+          "6": 5
+        }
+      },
+      "counts": {
+        "game_calls": 400,
+        "game_reasoning_tokens_zero": 400,
+        "game_finish_reason_missing": 400,
+        "game_reasoning_text": 400,
+        "myth_calls": 400,
+        "myth_reasoning_tokens_zero": 400,
+        "myth_finish_reason_missing": 400,
+        "myth_reasoning_text": 400,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 318,
+          "max": 2027
+        },
+        "myth_output_tokens": {
+          "min": 392,
+          "max": 5489
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/sonnet45_8agent_game_myth_memprimary_r10_n5/claude-sonnet-4.5/game_myth/sonnet45_8agent_game_myth_memprimary_r10_n5_000_neutral_rep00_myth_game_directive_memprimary_anything.json",
+          "sha256": "70aa948cbdd53e02bee29daa2dd79db96d14a13434d36109c751855562e01e5b"
+        },
+        {
+          "path": "data/json/sonnet45_8agent_game_myth_memprimary_r10_n5/claude-sonnet-4.5/game_myth/sonnet45_8agent_game_myth_memprimary_r10_n5_002_neutral_rep02_myth_game_directive_memprimary_anything.json",
+          "sha256": "7bd731139ed02cb3dd8a51ac2580f82a482d4949a41b81b1f8a1ecffa0522222"
+        },
+        {
+          "path": "data/json/sonnet45_8agent_game_myth_memprimary_r10_n5/claude-sonnet-4.5/game_myth/sonnet45_8agent_game_myth_memprimary_r10_n5_001_neutral_rep01_myth_game_directive_memprimary_anything.json",
+          "sha256": "0142c9489c3331c4ef41089482d6a5359b5bfa2d90fd636915354891a594cd75"
+        }
+      ],
+      "expsets": [
+        "sonnet45_8agent_game_myth_memprimary_r10_n5"
+      ]
+    },
+    "memtest_hybrid_sonnet45_2agent_r10_n5 :: anthropic/claude-sonnet-4.5": {
+      "runs": 5,
+      "paths": 10,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 5
+        },
+        "llm_provider": {
+          "\"MISSING\"": 5
+        },
+        "provider_model": {
+          "\"MISSING\"": 5
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 5
+        },
+        "temperature": {
+          "0.8": 5
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 5
+        },
+        "code_commit": {
+          "\"MISSING\"": 5
+        },
+        "code_dirty": {
+          "\"MISSING\"": 5
+        },
+        "provider_env": {
+          "\"MISSING\"": 5
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 5
+        },
+        "config_sha256": {
+          "\"MISSING\"": 5
+        },
+        "num_agents": {
+          "2": 5
+        },
+        "num_turns": {
+          "10": 5
+        },
+        "chat_memory_mode": {
+          "\"hybrid\"": 5
+        },
+        "memory_capacity": {
+          "1": 5
+        }
+      },
+      "counts": {
+        "game_calls": 100,
+        "game_reasoning_tokens_zero": 100,
+        "game_finish_reason_missing": 100,
+        "game_reasoning_absent": 100,
+        "myth_calls": 100,
+        "myth_reasoning_tokens_zero": 100,
+        "myth_finish_reason_missing": 100,
+        "myth_reasoning_absent": 100,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 126,
+          "max": 316
+        },
+        "myth_output_tokens": {
+          "min": 256,
+          "max": 352
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/memtest_hybrid_sonnet45_2agent_r10_n5/claude-sonnet-4.5/myth_game/memtest_hybrid_sonnet45_2agent_r10_n5_004_neutral_rep04_memtest_hybrid_anything.json",
+          "sha256": "a3f6c9fc89c59b1dac7534867c6d7f7440f7e6f0b930accfe183ac0fb8752425"
+        },
+        {
+          "path": "data/json/memtest_hybrid_sonnet45_2agent_r10_n5/claude-sonnet-4.5/myth_game/memtest_hybrid_sonnet45_2agent_r10_n5_003_neutral_rep03_memtest_hybrid_anything.json",
+          "sha256": "f7ef5c2de84ab3b8275a72cf15974dda6b6c02f27bec826f51929df430970e59"
+        },
+        {
+          "path": "data/json/memtest_hybrid_sonnet45_2agent_r10_n5/claude-sonnet-4.5/myth_game/memtest_hybrid_sonnet45_2agent_r10_n5_000_neutral_rep00_memtest_hybrid_anything.json",
+          "sha256": "0a9dd6b52371cb6230edf08937bcf0cf16db878e5c7383ab1f337d0a3da53b77"
+        }
+      ],
+      "expsets": [
+        "memtest_hybrid_sonnet45_2agent_r10_n5"
+      ]
+    },
+    "myth_causal_confirm_claude_fixed_prompt_r10_directive_retry :: anthropic/claude-sonnet-4.5": {
+      "runs": 10,
+      "paths": 20,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 10
+        },
+        "llm_provider": {
+          "\"MISSING\"": 10
+        },
+        "provider_model": {
+          "\"MISSING\"": 10
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 10
+        },
+        "temperature": {
+          "0.8": 10
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 10
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 10
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 10
+        },
+        "thinking_level": {
+          "\"MISSING\"": 10
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 10
+        },
+        "code_commit": {
+          "\"MISSING\"": 10
+        },
+        "code_dirty": {
+          "\"MISSING\"": 10
+        },
+        "provider_env": {
+          "\"MISSING\"": 10
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 10
+        },
+        "config_sha256": {
+          "\"MISSING\"": 10
+        },
+        "num_agents": {
+          "2": 10
+        },
+        "num_turns": {
+          "10": 10
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 10
+        },
+        "memory_capacity": {
+          "3": 10
+        }
+      },
+      "counts": {
+        "game_calls": 200,
+        "game_reasoning_tokens_positive": 200,
+        "game_finish_reason_missing": 200,
+        "game_reasoning_text": 200,
+        "myth_calls": 200,
+        "myth_reasoning_tokens_positive": 200,
+        "myth_finish_reason_missing": 200,
+        "myth_reasoning_text": 200,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_reasoning_tokens_positive": {
+          "min": 144,
+          "max": 1198
+        },
+        "game_output_tokens": {
+          "min": 200,
+          "max": 1948
+        },
+        "myth_reasoning_tokens_positive": {
+          "min": 74,
+          "max": 715
+        },
+        "myth_output_tokens": {
+          "min": 336,
+          "max": 1097
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt_r10_directive_retry/claude-sonnet-4.5/myth_game/myth_causal_confirm_claude_fixed_prompt_r10_directive_retry_000_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "fa211fc6760ea5fad896ee763287b9227f77955c7146737461adbad78e5c8b2d"
+        },
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt_r10_directive_retry/claude-sonnet-4.5/myth_game/myth_causal_confirm_claude_fixed_prompt_r10_directive_retry_003_neutral_rep03_myth_game_directive_anything.json",
+          "sha256": "4317536ae7ce9bf61b454e8121e2373602fef5feb2208b1300b8984e7c70755d"
+        },
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt_r10_directive_retry/claude-sonnet-4.5/myth_game/myth_causal_confirm_claude_fixed_prompt_r10_directive_retry_008_neutral_rep08_myth_game_directive_anything.json",
+          "sha256": "1043c7d8f59f056d6ec8782791ef6b49f9c9c3204507a02d40aed236b4346a0d"
+        }
+      ],
+      "expsets": [
+        "myth_causal_confirm_claude_fixed_prompt_r10_directive_retry"
+      ]
+    },
+    "memtest_stateless_sonnet45_2agent_r10_n5 :: anthropic/claude-sonnet-4.5": {
+      "runs": 5,
+      "paths": 10,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 5
+        },
+        "llm_provider": {
+          "\"MISSING\"": 5
+        },
+        "provider_model": {
+          "\"MISSING\"": 5
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 5
+        },
+        "temperature": {
+          "0.8": 5
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 5
+        },
+        "code_commit": {
+          "\"MISSING\"": 5
+        },
+        "code_dirty": {
+          "\"MISSING\"": 5
+        },
+        "provider_env": {
+          "\"MISSING\"": 5
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 5
+        },
+        "config_sha256": {
+          "\"MISSING\"": 5
+        },
+        "num_agents": {
+          "2": 5
+        },
+        "num_turns": {
+          "10": 5
+        },
+        "chat_memory_mode": {
+          "\"stateless\"": 5
+        },
+        "memory_capacity": {
+          "1": 5
+        }
+      },
+      "counts": {
+        "game_calls": 100,
+        "game_reasoning_tokens_zero": 100,
+        "game_finish_reason_missing": 100,
+        "game_reasoning_absent": 100,
+        "myth_calls": 100,
+        "myth_reasoning_tokens_zero": 100,
+        "myth_finish_reason_missing": 100,
+        "myth_reasoning_absent": 100,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 146,
+          "max": 503
+        },
+        "myth_output_tokens": {
+          "min": 262,
+          "max": 327
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/memtest_stateless_sonnet45_2agent_r10_n5/claude-sonnet-4.5/myth_game/memtest_stateless_sonnet45_2agent_r10_n5_004_neutral_rep04_memtest_stateless_anything.json",
+          "sha256": "5858fd617feefe3ec8254ea821bf061e618c58e271b61c524f73639b4c8b3314"
+        },
+        {
+          "path": "data/json/memtest_stateless_sonnet45_2agent_r10_n5/claude-sonnet-4.5/myth_game/memtest_stateless_sonnet45_2agent_r10_n5_000_neutral_rep00_memtest_stateless_anything.json",
+          "sha256": "6f779c2ff9ea71edc1c7a6c69efe2295df95ff8b03d8a2571266d831465fae01"
+        },
+        {
+          "path": "data/json/memtest_stateless_sonnet45_2agent_r10_n5/claude-sonnet-4.5/myth_game/memtest_stateless_sonnet45_2agent_r10_n5_003_neutral_rep03_memtest_stateless_anything.json",
+          "sha256": "2a8c862562c9f4405aa47c11b3201e80df75114d6ceeff72a29e826309ad92d6"
+        }
+      ],
+      "expsets": [
+        "memtest_stateless_sonnet45_2agent_r10_n5"
+      ]
+    },
+    "memtest_memoryprimary_smoke :: anthropic/claude-haiku-4.5": {
+      "runs": 1,
+      "paths": 2,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-haiku-4.5\"": 1
+        },
+        "llm_provider": {
+          "\"MISSING\"": 1
+        },
+        "provider_model": {
+          "\"MISSING\"": 1
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 1
+        },
+        "temperature": {
+          "0.8": 1
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 1
+        },
+        "code_commit": {
+          "\"MISSING\"": 1
+        },
+        "code_dirty": {
+          "\"MISSING\"": 1
+        },
+        "provider_env": {
+          "\"MISSING\"": 1
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 1
+        },
+        "config_sha256": {
+          "\"MISSING\"": 1
+        },
+        "num_agents": {
+          "2": 1
+        },
+        "num_turns": {
+          "3": 1
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 1
+        },
+        "memory_capacity": {
+          "2": 1
+        }
+      },
+      "counts": {
+        "game_calls": 6,
+        "game_reasoning_tokens_zero": 6,
+        "game_finish_reason_missing": 6,
+        "game_reasoning_absent": 6,
+        "myth_calls": 6,
+        "myth_reasoning_tokens_zero": 6,
+        "myth_finish_reason_missing": 6,
+        "myth_reasoning_absent": 6,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 179,
+          "max": 345
+        },
+        "myth_output_tokens": {
+          "min": 271,
+          "max": 351
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/memtest_memoryprimary_smoke/claude-haiku-4.5/myth_game/memtest_memoryprimary_smoke_000_neutral_memtest_memory_primary_anything.json",
+          "sha256": "8c458bded7aa9e24cc8b3b11b98852b3f9960162cbd81f58224ace0634c93e74"
+        }
+      ],
+      "expsets": [
+        "memtest_memoryprimary_smoke"
+      ]
+    },
+    "phase2_smoke :: anthropic/claude-sonnet-4.5": {
+      "runs": 1,
+      "paths": 2,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 1
+        },
+        "llm_provider": {
+          "\"MISSING\"": 1
+        },
+        "provider_model": {
+          "\"MISSING\"": 1
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 1
+        },
+        "temperature": {
+          "0.8": 1
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 1
+        },
+        "code_commit": {
+          "\"MISSING\"": 1
+        },
+        "code_dirty": {
+          "\"MISSING\"": 1
+        },
+        "provider_env": {
+          "\"MISSING\"": 1
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 1
+        },
+        "config_sha256": {
+          "\"MISSING\"": 1
+        },
+        "num_agents": {
+          "8": 1
+        },
+        "num_turns": {
+          "10": 1
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 1
+        },
+        "memory_capacity": {
+          "3": 1
+        }
+      },
+      "counts": {
+        "game_calls": 80,
+        "game_reasoning_tokens_zero": 80,
+        "game_finish_reason_missing": 80,
+        "game_reasoning_absent": 80,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 22,
+          "max": 429
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase2_smoke/phase2_seeded_s_end_plus_phase2_8agent_history3_anon_neg5/claude-sonnet-4.5/game/default/phase2_seeded_s_end_plus_000_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "f6aa65be9fa907bf477d578f98e1eddbaccc864285a2851ecd8384bf1b7fa8ca"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase2_smoke"
+      ]
+    },
+    "v4_direct_provider_followups :: openai/gpt-5-nano": {
+      "runs": 1904,
+      "paths": 1904,
+      "metadata": {
+        "model": {
+          "\"openai/gpt-5-nano\"": 1904
+        },
+        "llm_provider": {
+          "\"MISSING\"": 1904
+        },
+        "provider_model": {
+          "\"MISSING\"": 1904
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 1904
+        },
+        "temperature": {
+          "0.8": 1904
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 1904
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 1904
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 1904
+        },
+        "thinking_level": {
+          "\"MISSING\"": 1904
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 1904
+        },
+        "code_commit": {
+          "\"MISSING\"": 1904
+        },
+        "code_dirty": {
+          "\"MISSING\"": 1904
+        },
+        "provider_env": {
+          "\"MISSING\"": 1904
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 1904
+        },
+        "config_sha256": {
+          "\"MISSING\"": 1904
+        },
+        "num_agents": {
+          "2": 1904
+        },
+        "num_turns": {
+          "10": 1904
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 1904
+        },
+        "memory_capacity": {
+          "3": 1904
+        }
+      },
+      "counts": {
+        "game_calls": 38080,
+        "game_reasoning_tokens_zero": 37960,
+        "game_finish_reason_missing": 38080,
+        "game_reasoning_absent": 37960,
+        "interaction_errors": 0,
+        "myth_calls": 34280,
+        "myth_reasoning_tokens_zero": 34280,
+        "myth_finish_reason_missing": 34280,
+        "myth_reasoning_absent": 34280,
+        "game_reasoning_tokens_positive": 120,
+        "game_reasoning_placeholder": 120
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 10,
+          "max": 5008
+        },
+        "myth_output_tokens": {
+          "min": 10,
+          "max": 2576
+        },
+        "game_reasoning_tokens_positive": {
+          "min": 128,
+          "max": 4992
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider_targeted_gpt5nano/targeted_myth_neutral_gpt5nano/gpt-5-nano/game/default/targeted_myth_neutral_gpt5nano_000_neutral.json",
+          "sha256": "4eb5c68be91c68341195f7ffaeae60f9e780a47cd40d23f1decb4f2f54b5942d"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider_targeted_gpt5nano/targeted_myth_neutral_gpt5nano/gpt-5-nano/game/default/targeted_myth_neutral_gpt5nano_001_neutral.json",
+          "sha256": "443496446cb7d35f45a72c3546ab9224732e741219ea6ed1d6e21db622dde6e7"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider_targeted_gpt5nano/targeted_myth_neutral_gpt5nano/gpt-5-nano/game/default/targeted_myth_neutral_gpt5nano_003_neutral.json",
+          "sha256": "3b29207f6e8a9500edf857e8a5cc9986ab38cebf3bf90debc645b73d90128c8b"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/v4_direct_provider_A1A3_combined",
+        "noise_experiments/v4_direct_provider_A1_adversarial_bootstrap",
+        "noise_experiments/v4_direct_provider_A1_no_noise",
+        "noise_experiments/v4_direct_provider_A1_partner_myth",
+        "noise_experiments/v4_direct_provider_A1_targeted_bootstrap",
+        "noise_experiments/v4_direct_provider_A3_forced_reasoning",
+        "noise_experiments/v4_direct_provider_baseline",
+        "noise_experiments/v4_direct_provider_controls",
+        "noise_experiments/v4_direct_provider_controls_smoke",
+        "noise_experiments/v4_direct_provider_neutral",
+        "noise_experiments/v4_direct_provider_pilot",
+        "noise_experiments/v4_direct_provider_pilot_minimal",
+        "noise_experiments/v4_direct_provider_prompt_variants",
+        "noise_experiments/v4_direct_provider_shared_context",
+        "noise_experiments/v4_direct_provider_shared_context_pilot",
+        "noise_experiments/v4_direct_provider_targeted_bootstrap",
+        "noise_experiments/v4_direct_provider_targeted_gpt5nano",
+        "noise_experiments/v4_direct_provider_targeted_k1_gpt5nano",
+        "noise_experiments/v4_direct_provider_targeted_k2_gpt5nano",
+        "noise_experiments/v4_direct_provider_targeted_neutral_gpt5nano"
+      ]
+    },
+    "v4_direct_provider_followups :: anthropic/claude-sonnet-4.5": {
+      "runs": 98,
+      "paths": 98,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 98
+        },
+        "llm_provider": {
+          "\"MISSING\"": 98
+        },
+        "provider_model": {
+          "\"MISSING\"": 98
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 98
+        },
+        "temperature": {
+          "0.8": 98
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 98
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 98
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 98
+        },
+        "thinking_level": {
+          "\"MISSING\"": 98
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 98
+        },
+        "code_commit": {
+          "\"MISSING\"": 98
+        },
+        "code_dirty": {
+          "\"MISSING\"": 98
+        },
+        "provider_env": {
+          "\"MISSING\"": 98
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 98
+        },
+        "config_sha256": {
+          "\"MISSING\"": 98
+        },
+        "num_agents": {
+          "2": 98
+        },
+        "num_turns": {
+          "10": 98
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 98
+        },
+        "memory_capacity": {
+          "3": 98
+        }
+      },
+      "counts": {
+        "game_calls": 1960,
+        "game_reasoning_tokens_zero": 1960,
+        "game_finish_reason_missing": 1960,
+        "game_reasoning_absent": 1960,
+        "interaction_errors": 0,
+        "myth_calls": 1300,
+        "myth_reasoning_tokens_zero": 1300,
+        "myth_finish_reason_missing": 1300,
+        "myth_reasoning_absent": 1300
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 62,
+          "max": 742
+        },
+        "myth_output_tokens": {
+          "min": 249,
+          "max": 351
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider_neutral/neutral_framing_v4_mem3/claude-sonnet-4.5/game/default/neutral_framing_v4_mem3_051_neutral.json",
+          "sha256": "8d3b2f55062f52b9b6c124454cc6b2ed4a0727b7f53fa36cf17c9df8b5f8ab63"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider_neutral/neutral_framing_v4_mem3/claude-sonnet-4.5/game/default/neutral_framing_v4_mem3_056_neutral.json",
+          "sha256": "ef64dd57927b4679624d710e60bd6b3651dd1953b9d7d48b0fbed3862e944450"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider_neutral/neutral_framing_v4_mem3/claude-sonnet-4.5/game/default/neutral_framing_v4_mem3_057_neutral.json",
+          "sha256": "4b09ab962dffcc061fb37dc92440009f80c069cdaabd64c22d9bf0cb45180f6f"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/v4_direct_provider_baseline",
+        "noise_experiments/v4_direct_provider_neutral"
+      ]
+    },
+    "phase6_seeded :: anthropic/claude-sonnet-4.5": {
+      "runs": 10,
+      "paths": 20,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 10
+        },
+        "llm_provider": {
+          "\"MISSING\"": 10
+        },
+        "provider_model": {
+          "\"MISSING\"": 10
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 10
+        },
+        "temperature": {
+          "0.8": 10
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 10
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 10
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 10
+        },
+        "thinking_level": {
+          "\"MISSING\"": 10
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 10
+        },
+        "code_commit": {
+          "\"MISSING\"": 10
+        },
+        "code_dirty": {
+          "\"MISSING\"": 10
+        },
+        "provider_env": {
+          "\"MISSING\"": 10
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 10
+        },
+        "config_sha256": {
+          "\"MISSING\"": 10
+        },
+        "num_agents": {
+          "8": 10
+        },
+        "num_turns": {
+          "10": 10
+        },
+        "chat_memory_mode": {
+          "\"myth_only\"": 10
+        },
+        "memory_capacity": {
+          "3": 10
+        }
+      },
+      "counts": {
+        "game_calls": 800,
+        "game_reasoning_tokens_zero": 800,
+        "game_finish_reason_missing": 800,
+        "game_reasoning_absent": 800,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 329
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase6_seeded/phase3_seeded_s_end_plus_gemini_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_plus_gemini_000_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "4dbda6bf78e83aa7e53edd52ae8d1757260e23095df3c1c8b6415e99df04392d"
+        },
+        {
+          "path": "data/json/noise_experiments/phase6_seeded/phase3_seeded_s_end_plus_gemini_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_plus_gemini_003_neutral_rep03_myth_game_directive_anything.json",
+          "sha256": "c9a08fa7e196d55b355036b6a0f81682575717ba3f4130c4b2f877c53546283e"
+        },
+        {
+          "path": "data/json/noise_experiments/phase6_seeded/phase3_seeded_s_end_plus_gemini_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_plus_gemini_002_neutral_rep02_myth_game_directive_anything.json",
+          "sha256": "68be662b97db6de5bd6a212df36c24d898c19b110087bbc5ea0127e710c2c69d"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase6_seeded"
+      ]
+    },
+    "phase3_baseline :: anthropic/claude-sonnet-4.5": {
+      "runs": 5,
+      "paths": 10,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 5
+        },
+        "llm_provider": {
+          "\"MISSING\"": 5
+        },
+        "provider_model": {
+          "\"MISSING\"": 5
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 5
+        },
+        "temperature": {
+          "0.8": 5
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 5
+        },
+        "code_commit": {
+          "\"MISSING\"": 5
+        },
+        "code_dirty": {
+          "\"MISSING\"": 5
+        },
+        "provider_env": {
+          "\"MISSING\"": 5
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 5
+        },
+        "config_sha256": {
+          "\"MISSING\"": 5
+        },
+        "num_agents": {
+          "8": 5
+        },
+        "num_turns": {
+          "10": 5
+        },
+        "chat_memory_mode": {
+          "\"myth_only\"": 5
+        },
+        "memory_capacity": {
+          "3": 5
+        }
+      },
+      "counts": {
+        "game_calls": 400,
+        "game_reasoning_tokens_zero": 400,
+        "game_finish_reason_missing": 400,
+        "game_reasoning_absent": 400,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 38,
+          "max": 394
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase3_baseline/phase3_seeded_baseline_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_baseline_001_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "dd70a5c2e9e04e8728d4ea05ac310b22c352f622a06fe74017947bddfabfe27d"
+        },
+        {
+          "path": "data/json/noise_experiments/phase3_baseline/phase3_seeded_baseline_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_baseline_002_neutral_rep02_myth_game_directive_anything.json",
+          "sha256": "4a5a49bf0f18c7bdc93d8dab7f3843ba7a7dbfa37653adf8141191853e491f41"
+        },
+        {
+          "path": "data/json/noise_experiments/phase3_baseline/phase3_seeded_baseline_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_baseline_003_neutral_rep03_myth_game_directive_anything.json",
+          "sha256": "f784dceb8a9a08498c560d8d675c1236b56f6ca7871f56f3a776a5c3d3c4081b"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase3_baseline"
+      ]
+    },
+    "phase2_baseline :: anthropic/claude-sonnet-4.5": {
+      "runs": 45,
+      "paths": 90,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 45
+        },
+        "llm_provider": {
+          "\"MISSING\"": 45
+        },
+        "provider_model": {
+          "\"MISSING\"": 45
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 45
+        },
+        "temperature": {
+          "0.8": 45
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 45
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 45
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 45
+        },
+        "thinking_level": {
+          "\"MISSING\"": 45
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 45
+        },
+        "code_commit": {
+          "\"MISSING\"": 45
+        },
+        "code_dirty": {
+          "\"MISSING\"": 45
+        },
+        "provider_env": {
+          "\"MISSING\"": 45
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 45
+        },
+        "config_sha256": {
+          "\"MISSING\"": 45
+        },
+        "num_agents": {
+          "8": 45
+        },
+        "num_turns": {
+          "10": 45
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 45
+        },
+        "memory_capacity": {
+          "3": 45
+        }
+      },
+      "counts": {
+        "game_calls": 3600,
+        "game_reasoning_tokens_zero": 3600,
+        "game_finish_reason_missing": 3600,
+        "game_reasoning_absent": 3600,
+        "interaction_errors": 0,
+        "myth_calls": 2400,
+        "myth_reasoning_tokens_zero": 2400,
+        "myth_finish_reason_missing": 2400,
+        "myth_reasoning_absent": 2400
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 32,
+          "max": 946
+        },
+        "myth_output_tokens": {
+          "min": 250,
+          "max": 342
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase2_baseline/phase2_baseline_neg5/claude-sonnet-4.5/game/phase2_8agent_history3_anon_neg5/phase2_baseline_neg5_005_neutral_rep05.json",
+          "sha256": "19a45df6a2c137c2a2f25c0ab5d06a8bf0f7ef8ecbd08dfbf1991f8bf83d3dc6"
+        },
+        {
+          "path": "data/json/noise_experiments/phase2_baseline/phase2_baseline_neg5/claude-sonnet-4.5/game/phase2_8agent_history3_anon_neg5/phase2_baseline_neg5_007_neutral_rep07.json",
+          "sha256": "fddda05607937737ca926238dc606573ed00a7442b198eeec3fcbb931158c025"
+        },
+        {
+          "path": "data/json/noise_experiments/phase2_baseline/phase2_baseline_neg5/claude-sonnet-4.5/game/phase2_8agent_history3_anon_neg5/phase2_baseline_neg5_008_neutral_rep08.json",
+          "sha256": "d43fa313628b45a1f95e12c08f773e47e92651c560830c3fc3a68d753d8d3412"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase2_baseline"
+      ]
+    },
+    "washout_20round :: anthropic/claude-sonnet-4.5": {
+      "runs": 30,
+      "paths": 30,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 30
+        },
+        "llm_provider": {
+          "\"openrouter\"": 23,
+          "\"anthropic\"": 7
+        },
+        "provider_model": {
+          "\"anthropic/claude-sonnet-4.5\"": 23,
+          "\"claude-sonnet-4-5-20250929\"": 7
+        },
+        "llm_provider_mode": {
+          "\"openrouter\"": 23,
+          "\"auto\"": 7
+        },
+        "temperature": {
+          "0.8": 30
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 30
+        },
+        "max_output_tokens": {
+          "null": 23,
+          "4096": 7
+        },
+        "max_output_tokens_source": {
+          "\"provider_default\"": 23,
+          "\"ANTHROPIC_MAX_TOKENS\"": 7
+        },
+        "thinking_level": {
+          "\"MISSING\"": 30
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 30
+        },
+        "code_commit": {
+          "\"9a972c36242818907361cac38f89d328727325f1\"": 23,
+          "\"5546f56e5f85bc018630bca995f110e4f7832141\"": 7
+        },
+        "code_dirty": {
+          "true": 30
+        },
+        "provider_env": {
+          "\"MISSING\"": 30
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 30
+        },
+        "config_sha256": {
+          "\"944092dc5eee941677a441adf631b6d1c787ca8d86574bc522cd56e3e7df846d\"": 6,
+          "\"8ce72c8750bd3e6e7fb3b295cb89bca084be9b8b6c049938100568740e195bda\"": 13,
+          "\"52ad29f32d2ecb857ace2d883a5621a865ff51d10e9d9b8c4dea2dd56eaaddb9\"": 4,
+          "\"0f9f621cefbf337592f8617b238f1e35ec500ef5444516e1a74fe5c01f291f47\"": 7
+        },
+        "num_agents": {
+          "2": 20,
+          "8": 10
+        },
+        "num_turns": {
+          "20": 30
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 30
+        },
+        "memory_capacity": {
+          "6": 30
+        }
+      },
+      "counts": {
+        "game_calls": 2400,
+        "game_reasoning_tokens_zero": 2400,
+        "game_finish_reason_missing": 2400,
+        "game_reasoning_text": 1440,
+        "myth_calls": 2400,
+        "myth_reasoning_tokens_zero": 2400,
+        "myth_finish_reason_missing": 2400,
+        "myth_reasoning_text": 1440,
+        "interaction_errors": 0,
+        "game_reasoning_absent": 960,
+        "myth_reasoning_absent": 960
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 193,
+          "max": 3550
+        },
+        "myth_output_tokens": {
+          "min": 253,
+          "max": 7858
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/washout_20round/noise2i_washout_game_myth/claude-sonnet-4.5/game_myth/noisy_bidirectional_informed_memprimary_twotask_r3_r20/noise2i_washout_game_myth_000_neutral_rep00_memtest_memory_primary_anything.json",
+          "sha256": "0eb7dca3a89bf8787489e20c024b9c928eab549a9b8e8d7bb1e2e71373585124"
+        },
+        {
+          "path": "data/json/noise_experiments/washout_20round/noise2i_washout_game_myth/claude-sonnet-4.5/game_myth/noisy_bidirectional_informed_memprimary_twotask_r3_r20/noise2i_washout_game_myth_002_neutral_rep02_memtest_memory_primary_anything.json",
+          "sha256": "7df69288719fa47dffeb92a6fdb6a6e66f145344e27228036e86b9d3c9d4870c"
+        },
+        {
+          "path": "data/json/noise_experiments/washout_20round/noise2i_washout_game_myth/claude-sonnet-4.5/game_myth/noisy_bidirectional_informed_memprimary_twotask_r3_r20/noise2i_washout_game_myth_001_neutral_rep01_memtest_memory_primary_anything_2.json",
+          "sha256": "430fdb0b24fa45c9aa18eed83ba83637099996dea88599260af2cc9cfaa22ee0"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/washout_20round"
+      ]
+    },
+    "phase4_seeded :: anthropic/claude-sonnet-4.5": {
+      "runs": 20,
+      "paths": 40,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 20
+        },
+        "llm_provider": {
+          "\"MISSING\"": 20
+        },
+        "provider_model": {
+          "\"MISSING\"": 20
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 20
+        },
+        "temperature": {
+          "0.8": 20
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 20
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 20
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 20
+        },
+        "thinking_level": {
+          "\"MISSING\"": 20
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 20
+        },
+        "code_commit": {
+          "\"MISSING\"": 20
+        },
+        "code_dirty": {
+          "\"MISSING\"": 20
+        },
+        "provider_env": {
+          "\"MISSING\"": 20
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 20
+        },
+        "config_sha256": {
+          "\"MISSING\"": 20
+        },
+        "num_agents": {
+          "8": 20
+        },
+        "num_turns": {
+          "10": 20
+        },
+        "chat_memory_mode": {
+          "\"myth_only\"": 20
+        },
+        "memory_capacity": {
+          "3": 20
+        }
+      },
+      "counts": {
+        "game_calls": 1600,
+        "game_reasoning_tokens_zero": 1600,
+        "game_finish_reason_missing": 1600,
+        "game_reasoning_absent": 1600,
+        "myth_calls": 1600,
+        "myth_reasoning_tokens_zero": 1600,
+        "myth_finish_reason_missing": 1600,
+        "myth_reasoning_absent": 1600,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 394
+        },
+        "myth_output_tokens": {
+          "min": 255,
+          "max": 339
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase4_seeded/phase3_seeded_s_end_plus_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/myth_game/default/phase3_seeded_s_end_plus_004_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "535ca2b52d662192481cfaf0b3a93852a1c77adcaa47c993bc2dbffde4338a9c"
+        },
+        {
+          "path": "data/json/noise_experiments/phase4_seeded/phase3_seeded_s_end_plus_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/myth_game/default/phase3_seeded_s_end_plus_003_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "311e1774e101e7dd65c17152558be2e3b389a92df1aaa8770736ac1d55a72692"
+        },
+        {
+          "path": "data/json/noise_experiments/phase4_seeded/phase3_seeded_s_end_plus_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/myth_game/default/phase3_seeded_s_end_plus_005_neutral_rep02_myth_game_directive_anything.json",
+          "sha256": "0cc62b77077253668542cf7cc2b9082ae2d40545bbaed15b6326ca0526b3457d"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase4_seeded"
+      ]
+    },
+    "phase4_smoke :: anthropic/claude-haiku-4.5": {
+      "runs": 2,
+      "paths": 4,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-haiku-4.5\"": 2
+        },
+        "llm_provider": {
+          "\"MISSING\"": 2
+        },
+        "provider_model": {
+          "\"MISSING\"": 2
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 2
+        },
+        "temperature": {
+          "0.8": 2
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 2
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 2
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 2
+        },
+        "thinking_level": {
+          "\"MISSING\"": 2
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 2
+        },
+        "code_commit": {
+          "\"MISSING\"": 2
+        },
+        "code_dirty": {
+          "\"MISSING\"": 2
+        },
+        "provider_env": {
+          "\"MISSING\"": 2
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 2
+        },
+        "config_sha256": {
+          "\"MISSING\"": 2
+        },
+        "num_agents": {
+          "8": 2
+        },
+        "num_turns": {
+          "10": 2
+        },
+        "chat_memory_mode": {
+          "\"myth_only\"": 2
+        },
+        "memory_capacity": {
+          "3": 2
+        }
+      },
+      "counts": {
+        "game_calls": 160,
+        "game_reasoning_tokens_zero": 160,
+        "game_finish_reason_missing": 160,
+        "game_reasoning_absent": 160,
+        "myth_calls": 160,
+        "myth_reasoning_tokens_zero": 160,
+        "myth_finish_reason_missing": 160,
+        "myth_reasoning_absent": 160,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 336
+        },
+        "myth_output_tokens": {
+          "min": 275,
+          "max": 349
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase4_smoke/phase3_seeded_s_end_plus_phase3_8agent_anon_neg5_myth_only/claude-haiku-4.5/myth_game/default/phase3_seeded_s_end_plus_001_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "48d37563ba92112b437fa22bb6e98f91d12b8fe4a530ba08c492ac77e2b0bb60"
+        },
+        {
+          "path": "data/json/noise_experiments/phase4_smoke/phase3_seeded_s_start_phase3_8agent_anon_neg5_myth_only/claude-haiku-4.5/myth_game/default/phase3_seeded_s_start_000_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "5444f9d7cc9959854894fbe5591e367218361cd9b43cc61753be242d1c6068b5"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase4_smoke"
+      ]
+    },
+    "v4_direct_provider :: openai/gpt-5.5": {
+      "runs": 79,
+      "paths": 79,
+      "metadata": {
+        "model": {
+          "\"openai/gpt-5.5\"": 79
+        },
+        "llm_provider": {
+          "\"MISSING\"": 79
+        },
+        "provider_model": {
+          "\"MISSING\"": 79
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 79
+        },
+        "temperature": {
+          "0.8": 79
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 79
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 79
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 79
+        },
+        "thinking_level": {
+          "\"MISSING\"": 79
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 79
+        },
+        "code_commit": {
+          "\"MISSING\"": 79
+        },
+        "code_dirty": {
+          "\"MISSING\"": 79
+        },
+        "provider_env": {
+          "\"MISSING\"": 79
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 79
+        },
+        "config_sha256": {
+          "\"MISSING\"": 79
+        },
+        "num_agents": {
+          "2": 79
+        },
+        "num_turns": {
+          "10": 79
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 79
+        },
+        "memory_capacity": {
+          "3": 79
+        }
+      },
+      "counts": {
+        "game_calls": 1580,
+        "game_reasoning_tokens_positive": 630,
+        "game_finish_reason_missing": 1580,
+        "game_reasoning_placeholder": 630,
+        "game_reasoning_tokens_zero": 950,
+        "game_reasoning_absent": 950,
+        "interaction_errors": 0,
+        "myth_calls": 940,
+        "myth_reasoning_tokens_positive": 519,
+        "myth_finish_reason_missing": 940,
+        "myth_reasoning_placeholder": 519,
+        "myth_reasoning_tokens_zero": 421,
+        "myth_reasoning_absent": 421
+      },
+      "ranges": {
+        "game_reasoning_tokens_positive": {
+          "min": 10,
+          "max": 218
+        },
+        "game_output_tokens": {
+          "min": 8,
+          "max": 235
+        },
+        "myth_reasoning_tokens_positive": {
+          "min": 7,
+          "max": 877
+        },
+        "myth_output_tokens": {
+          "min": 235,
+          "max": 1147
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_negative_mem3_gpt5_5/gpt-5.5/game/noisy_negative_5/noise_negative_mem3_gpt5_5_000_neutral.json",
+          "sha256": "c2993de655a8f8094fa0a832183753e14c20ff6fd45850d5e1f3e827d37fe00b"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_gpt5_5/gpt-5.5/game/noisy_positive_5_informed/noise_positive_mem3_gpt5_5_020_neutral.json",
+          "sha256": "279e17df3fedd60fb6436dc0e23f41eaf4c6d29491f40a8a5c39e393b8f90c0b"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_gpt5_5/gpt-5.5/game/noisy_positive_5_informed/noise_positive_mem3_gpt5_5_027_neutral.json",
+          "sha256": "b8b0145699e25e975025218a51333a396dd0943a58c705f8d247005abf5bd32e"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/v4_direct_provider"
+      ]
+    },
+    "v4_direct_provider :: anthropic/claude-sonnet-4.5": {
+      "runs": 180,
+      "paths": 180,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 180
+        },
+        "llm_provider": {
+          "\"MISSING\"": 180
+        },
+        "provider_model": {
+          "\"MISSING\"": 180
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 180
+        },
+        "temperature": {
+          "0.8": 180
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 180
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 180
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 180
+        },
+        "thinking_level": {
+          "\"MISSING\"": 180
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 180
+        },
+        "code_commit": {
+          "\"MISSING\"": 180
+        },
+        "code_dirty": {
+          "\"MISSING\"": 180
+        },
+        "provider_env": {
+          "\"MISSING\"": 180
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 180
+        },
+        "config_sha256": {
+          "\"MISSING\"": 180
+        },
+        "num_agents": {
+          "2": 180
+        },
+        "num_turns": {
+          "10": 180
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 180
+        },
+        "memory_capacity": {
+          "3": 180
+        }
+      },
+      "counts": {
+        "game_calls": 3600,
+        "game_reasoning_tokens_zero": 3600,
+        "game_finish_reason_missing": 3600,
+        "game_reasoning_absent": 3600,
+        "interaction_errors": 0,
+        "myth_calls": 2400,
+        "myth_reasoning_tokens_zero": 2400,
+        "myth_finish_reason_missing": 2400,
+        "myth_reasoning_absent": 2400
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 28,
+          "max": 613
+        },
+        "myth_output_tokens": {
+          "min": 254,
+          "max": 350
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_claude_sonnet_45/claude-sonnet-4.5/game/noisy_positive_5_informed/noise_positive_mem3_claude_sonnet_45_026_neutral.json",
+          "sha256": "0b93647f773098aa1ad92de36f86a9cc10eb5236044304d5f24a8b9208b17df6"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_claude_sonnet_45/claude-sonnet-4.5/game/noisy_positive_5_informed/noise_positive_mem3_claude_sonnet_45_021_neutral.json",
+          "sha256": "98bbd1cd35e7061b8830850c2301b573c67fdd5608945d61105597f3a576cf83"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_claude_sonnet_45/claude-sonnet-4.5/game/noisy_positive_5_informed/noise_positive_mem3_claude_sonnet_45_017_neutral.json",
+          "sha256": "447613909f38360dea51edd8c8766cf088e371d2d2641f36b521abdb736faf44"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/v4_direct_provider"
+      ]
+    },
+    "v4_direct_provider :: google/gemini-3.1-pro-preview": {
+      "runs": 270,
+      "paths": 270,
+      "metadata": {
+        "model": {
+          "\"google/gemini-3.1-pro-preview\"": 270
+        },
+        "llm_provider": {
+          "\"MISSING\"": 270
+        },
+        "provider_model": {
+          "\"MISSING\"": 270
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 270
+        },
+        "temperature": {
+          "0.8": 270
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 270
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 270
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 270
+        },
+        "thinking_level": {
+          "\"MISSING\"": 270
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 270
+        },
+        "code_commit": {
+          "\"MISSING\"": 270
+        },
+        "code_dirty": {
+          "\"MISSING\"": 270
+        },
+        "provider_env": {
+          "\"MISSING\"": 270
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 270
+        },
+        "config_sha256": {
+          "\"MISSING\"": 270
+        },
+        "num_agents": {
+          "2": 270
+        },
+        "num_turns": {
+          "10": 270
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 270
+        },
+        "memory_capacity": {
+          "3": 270
+        }
+      },
+      "counts": {
+        "game_calls": 5400,
+        "game_reasoning_tokens_positive": 5400,
+        "game_finish_reason_missing": 5400,
+        "game_reasoning_absent": 5400,
+        "interaction_errors": 0,
+        "myth_calls": 3600,
+        "myth_reasoning_tokens_positive": 3600,
+        "myth_finish_reason_missing": 3600,
+        "myth_reasoning_absent": 3600
+      },
+      "ranges": {
+        "game_reasoning_tokens_positive": {
+          "min": 13,
+          "max": 6179
+        },
+        "game_output_tokens": {
+          "min": 5,
+          "max": 288
+        },
+        "myth_reasoning_tokens_positive": {
+          "min": 295,
+          "max": 12715
+        },
+        "myth_output_tokens": {
+          "min": 225,
+          "max": 305
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_gemini_3_1_pro/gemini-3.1-pro-preview/game/noisy_positive_5_informed/noise_positive_mem3_gemini_3_1_pro_027_neutral.json",
+          "sha256": "5af2d5537c7cc8e37561a362759cd033c4617570dc5a61869eb97f60a01e42fe"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_gemini_3_1_pro/gemini-3.1-pro-preview/game/noisy_positive_5_informed/noise_positive_mem3_gemini_3_1_pro_020_neutral.json",
+          "sha256": "9f88e63e4271816e2301e98bfa894880de72b8864a760163de7598bd4ac5fef3"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_gemini_3_1_pro/gemini-3.1-pro-preview/game/noisy_positive_5_informed/noise_positive_mem3_gemini_3_1_pro_016_neutral.json",
+          "sha256": "c46827472937f8ba06bcaba1afb9069b5255142a7cadb4999af5dbb7eda7fa80"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/v4_direct_provider"
+      ]
+    },
+    "v4_direct_provider :: openai/gpt-5-nano": {
+      "runs": 307,
+      "paths": 307,
+      "metadata": {
+        "model": {
+          "\"openai/gpt-5-nano\"": 307
+        },
+        "llm_provider": {
+          "\"MISSING\"": 307
+        },
+        "provider_model": {
+          "\"MISSING\"": 307
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 307
+        },
+        "temperature": {
+          "0.8": 307
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 307
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 307
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 307
+        },
+        "thinking_level": {
+          "\"MISSING\"": 307
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 307
+        },
+        "code_commit": {
+          "\"MISSING\"": 307
+        },
+        "code_dirty": {
+          "\"MISSING\"": 307
+        },
+        "provider_env": {
+          "\"MISSING\"": 307
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 307
+        },
+        "config_sha256": {
+          "\"MISSING\"": 307
+        },
+        "num_agents": {
+          "2": 307
+        },
+        "num_turns": {
+          "10": 307
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 307
+        },
+        "memory_capacity": {
+          "3": 307
+        }
+      },
+      "counts": {
+        "game_calls": 6140,
+        "game_reasoning_tokens_zero": 6140,
+        "game_finish_reason_missing": 6140,
+        "game_reasoning_absent": 6140,
+        "interaction_errors": 0,
+        "myth_calls": 3740,
+        "myth_reasoning_tokens_zero": 3740,
+        "myth_finish_reason_missing": 3740,
+        "myth_reasoning_absent": 3740
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 10,
+          "max": 22
+        },
+        "myth_output_tokens": {
+          "min": 10,
+          "max": 409
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_gpt5_nano/gpt-5-nano/game/noisy_positive_5_informed/noise_positive_mem3_gpt5_nano_016_neutral.json",
+          "sha256": "1f17a334d623573aa523875a76fc3be9faacb38e77ff6985933c64933a8697c0"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_gpt5_nano/gpt-5-nano/game/noisy_positive_5_informed/noise_positive_mem3_gpt5_nano_027_neutral.json",
+          "sha256": "2bc79b8c099e341a3031c0412c5f6d0794274488bc448418ef38e1671d9298fa"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider/noise_positive_mem3_gpt5_nano/gpt-5-nano/game/noisy_positive_5_informed/noise_positive_mem3_gpt5_nano_020_neutral.json",
+          "sha256": "9c36f1f17fe5d3a00c92e6d0a74f9609ff3ba47d130db55d13f46e08adc9d833"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/v4_direct_provider"
+      ]
+    },
+    "phase4_baseline :: anthropic/claude-sonnet-4.5": {
+      "runs": 10,
+      "paths": 20,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 10
+        },
+        "llm_provider": {
+          "\"MISSING\"": 10
+        },
+        "provider_model": {
+          "\"MISSING\"": 10
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 10
+        },
+        "temperature": {
+          "0.8": 10
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 10
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 10
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 10
+        },
+        "thinking_level": {
+          "\"MISSING\"": 10
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 10
+        },
+        "code_commit": {
+          "\"MISSING\"": 10
+        },
+        "code_dirty": {
+          "\"MISSING\"": 10
+        },
+        "provider_env": {
+          "\"MISSING\"": 10
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 10
+        },
+        "config_sha256": {
+          "\"MISSING\"": 10
+        },
+        "num_agents": {
+          "8": 10
+        },
+        "num_turns": {
+          "10": 10
+        },
+        "chat_memory_mode": {
+          "\"myth_only\"": 10
+        },
+        "memory_capacity": {
+          "3": 10
+        }
+      },
+      "counts": {
+        "game_calls": 800,
+        "game_reasoning_tokens_zero": 800,
+        "game_finish_reason_missing": 800,
+        "game_reasoning_absent": 800,
+        "myth_calls": 800,
+        "myth_reasoning_tokens_zero": 800,
+        "myth_finish_reason_missing": 800,
+        "myth_reasoning_absent": 800,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 38,
+          "max": 421
+        },
+        "myth_output_tokens": {
+          "min": 254,
+          "max": 316
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase4_baseline/phase3_seeded_baseline_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/myth_game/default/phase3_seeded_baseline_001_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "6aa89c39f13a5bf64bae1c78766f717de9ea3d6f14e8a4334873ad05b9170ec3"
+        },
+        {
+          "path": "data/json/noise_experiments/phase4_baseline/phase3_seeded_baseline_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/myth_game/default/phase3_seeded_baseline_002_neutral_rep02_myth_game_directive_anything.json",
+          "sha256": "460dfd4a46e71c313c5631a7c6a043a864546e78bcc66989f12746882cb91f69"
+        },
+        {
+          "path": "data/json/noise_experiments/phase4_baseline/phase3_seeded_baseline_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/myth_game/default/phase3_seeded_baseline_000_neutral_rep03_myth_game_directive_anything.json",
+          "sha256": "8ec89379819f39b923b9ddf62273c2cf92f9ccad84c2c5186c8dc6d341fd1390"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase4_baseline"
+      ]
+    },
+    "phase2_seeded :: anthropic/claude-sonnet-4.5": {
+      "runs": 60,
+      "paths": 120,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 60
+        },
+        "llm_provider": {
+          "\"MISSING\"": 60
+        },
+        "provider_model": {
+          "\"MISSING\"": 60
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 60
+        },
+        "temperature": {
+          "0.8": 60
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 60
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 60
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 60
+        },
+        "thinking_level": {
+          "\"MISSING\"": 60
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 60
+        },
+        "code_commit": {
+          "\"MISSING\"": 60
+        },
+        "code_dirty": {
+          "\"MISSING\"": 60
+        },
+        "provider_env": {
+          "\"MISSING\"": 60
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 60
+        },
+        "config_sha256": {
+          "\"MISSING\"": 60
+        },
+        "num_agents": {
+          "8": 60
+        },
+        "num_turns": {
+          "10": 60
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 60
+        },
+        "memory_capacity": {
+          "3": 60
+        }
+      },
+      "counts": {
+        "game_calls": 4800,
+        "game_reasoning_tokens_zero": 4800,
+        "game_finish_reason_missing": 4800,
+        "game_reasoning_absent": 4800,
+        "interaction_errors": 0,
+        "myth_calls": 3200,
+        "myth_reasoning_tokens_zero": 3200,
+        "myth_finish_reason_missing": 3200,
+        "myth_reasoning_absent": 3200
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 907
+        },
+        "myth_output_tokens": {
+          "min": 249,
+          "max": 368
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase2_seeded/phase2_seeded_s_end_plus_phase2_8agent_history3_anon_neg5/claude-sonnet-4.5/game/default/phase2_seeded_s_end_plus_017_neutral_rep02_myth_game_directive_anything.json",
+          "sha256": "6e2ed6a6860cca5abb1710c96e805f1834b4f51181133b63a931192b8dac89d7"
+        },
+        {
+          "path": "data/json/noise_experiments/phase2_seeded/phase2_seeded_s_end_plus_phase2_8agent_history3_anon_neg5/claude-sonnet-4.5/game/default/phase2_seeded_s_end_plus_019_neutral_rep04_myth_game_directive_anything.json",
+          "sha256": "99826e8ec5d0cb65358aec0eb2fee093e211851b52d485abde38c0eb3afe26f8"
+        },
+        {
+          "path": "data/json/noise_experiments/phase2_seeded/phase2_seeded_s_end_plus_phase2_8agent_history3_anon_neg5/claude-sonnet-4.5/game/default/phase2_seeded_s_end_plus_016_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "905efad41949f9a4f582d447784a721efd05efd0318425cb5bda9bae4503cd19"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase2_seeded"
+      ]
+    },
+    "phase7_seeded :: anthropic/claude-sonnet-4.5": {
+      "runs": 4,
+      "paths": 8,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 4
+        },
+        "llm_provider": {
+          "\"MISSING\"": 4
+        },
+        "provider_model": {
+          "\"MISSING\"": 4
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 4
+        },
+        "temperature": {
+          "0.8": 4
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 4
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 4
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 4
+        },
+        "thinking_level": {
+          "\"MISSING\"": 4
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 4
+        },
+        "code_commit": {
+          "\"MISSING\"": 4
+        },
+        "code_dirty": {
+          "\"MISSING\"": 4
+        },
+        "provider_env": {
+          "\"MISSING\"": 4
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 4
+        },
+        "config_sha256": {
+          "\"MISSING\"": 4
+        },
+        "num_agents": {
+          "8": 4
+        },
+        "num_turns": {
+          "10": 4
+        },
+        "chat_memory_mode": {
+          "\"myth_only\"": 4
+        },
+        "memory_capacity": {
+          "3": 4
+        }
+      },
+      "counts": {
+        "game_calls": 320,
+        "game_reasoning_tokens_zero": 320,
+        "game_finish_reason_missing": 320,
+        "game_reasoning_absent": 320,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 344
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase7_seeded/phase3_seeded_s_end_plus_gowith_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_plus_gowith_003_neutral_rep03_myth_game_directive_anything.json",
+          "sha256": "b03ad667426e6549a0ff6c1494136fc073f2bc0107a0c2bb362e5c33d388fd73"
+        },
+        {
+          "path": "data/json/noise_experiments/phase7_seeded/phase3_seeded_s_end_plus_gowith_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_plus_gowith_000_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "0e426dec268cfed87605211ca69ad1cd07be133033c8ac2d025000c6b5ca9aec"
+        },
+        {
+          "path": "data/json/noise_experiments/phase7_seeded/phase3_seeded_s_end_plus_gowith_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_plus_gowith_001_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "9c0b2a695495eabff0cfc6190471e61e73e1ee58c7b0584526f8277eba1af653"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase7_seeded"
+      ]
+    },
+    "phase2_pilot :: anthropic/claude-sonnet-4.5": {
+      "runs": 3,
+      "paths": 6,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 3
+        },
+        "llm_provider": {
+          "\"MISSING\"": 3
+        },
+        "provider_model": {
+          "\"MISSING\"": 3
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 3
+        },
+        "temperature": {
+          "0.8": 3
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 3
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 3
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 3
+        },
+        "thinking_level": {
+          "\"MISSING\"": 3
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 3
+        },
+        "code_commit": {
+          "\"MISSING\"": 3
+        },
+        "code_dirty": {
+          "\"MISSING\"": 3
+        },
+        "provider_env": {
+          "\"MISSING\"": 3
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 3
+        },
+        "config_sha256": {
+          "\"MISSING\"": 3
+        },
+        "num_agents": {
+          "8": 3
+        },
+        "num_turns": {
+          "10": 3
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 3
+        },
+        "memory_capacity": {
+          "3": 3
+        }
+      },
+      "counts": {
+        "game_calls": 240,
+        "game_reasoning_tokens_zero": 240,
+        "game_finish_reason_missing": 240,
+        "game_reasoning_absent": 240,
+        "myth_calls": 240,
+        "myth_reasoning_tokens_zero": 240,
+        "myth_finish_reason_missing": 240,
+        "myth_reasoning_absent": 240,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 67,
+          "max": 674
+        },
+        "myth_output_tokens": {
+          "min": 254,
+          "max": 339
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase2_pilot/phase2_pilot_noise_levels/claude-sonnet-4.5/myth_game/phase2_8agent_history3_anon_neg3/phase2_pilot_noise_levels_001_neutral_myth_game_directive_anything.json",
+          "sha256": "68dd535e30f822cc7ff1350d3cd554d91c8cdbdb5881ee4a4d74a715c5eb4c15"
+        },
+        {
+          "path": "data/json/noise_experiments/phase2_pilot/phase2_pilot_noise_levels/claude-sonnet-4.5/myth_game/phase2_8agent_history3_anon_neg5/phase2_pilot_noise_levels_002_neutral_myth_game_directive_anything.json",
+          "sha256": "6eaadddcd37bc686a39da538d5c803e9686cdaceccec6366cf1138f22e9c556b"
+        },
+        {
+          "path": "data/json/noise_experiments/phase2_pilot/phase2_pilot_noise_levels/claude-sonnet-4.5/myth_game/phase2_8agent_history3_anon_neg2/phase2_pilot_noise_levels_000_neutral_myth_game_directive_anything.json",
+          "sha256": "c09d698e0ac386da129ac8d5cbdc3906aad352b15eec3a7a2254ad8dacbb6bff"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase2_pilot"
+      ]
+    },
+    "phase5_seeded :: anthropic/claude-sonnet-4.5": {
+      "runs": 11,
+      "paths": 22,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 11
+        },
+        "llm_provider": {
+          "\"MISSING\"": 11
+        },
+        "provider_model": {
+          "\"MISSING\"": 11
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 11
+        },
+        "temperature": {
+          "0.8": 11
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 11
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 11
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 11
+        },
+        "thinking_level": {
+          "\"MISSING\"": 11
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 11
+        },
+        "code_commit": {
+          "\"MISSING\"": 11
+        },
+        "code_dirty": {
+          "\"MISSING\"": 11
+        },
+        "provider_env": {
+          "\"MISSING\"": 11
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 11
+        },
+        "config_sha256": {
+          "\"MISSING\"": 11
+        },
+        "num_agents": {
+          "8": 11
+        },
+        "num_turns": {
+          "10": 11
+        },
+        "chat_memory_mode": {
+          "\"myth_only\"": 11
+        },
+        "memory_capacity": {
+          "3": 11
+        }
+      },
+      "counts": {
+        "game_calls": 880,
+        "game_reasoning_tokens_zero": 880,
+        "game_finish_reason_missing": 880,
+        "game_reasoning_absent": 880,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 344
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase5_seeded/phase3_seeded_s_end_minus_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_minus_002_neutral_rep02_myth_game_directive_anything.json",
+          "sha256": "b8f560b1de29dfff6c5f7336ce83554097fef67dc64b98105859705f2e936d7b"
+        },
+        {
+          "path": "data/json/noise_experiments/phase5_seeded/phase3_seeded_s_end_minus_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_minus_001_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "a22c5f23d601150c1098d328c89cc7a51ead7ec4176c187d347585d6120e3edb"
+        },
+        {
+          "path": "data/json/noise_experiments/phase5_seeded/phase3_seeded_s_end_minus_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_minus_000_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "cb45ab1c909f9506c86c12b3aff274d095155994e59778d40978e102f9c75537"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase5_seeded"
+      ]
+    },
+    "v4_direct_provider_followups :: openai/gpt-5.5": {
+      "runs": 30,
+      "paths": 30,
+      "metadata": {
+        "model": {
+          "\"openai/gpt-5.5\"": 30
+        },
+        "llm_provider": {
+          "\"MISSING\"": 30
+        },
+        "provider_model": {
+          "\"MISSING\"": 30
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 30
+        },
+        "temperature": {
+          "0.8": 30
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 30
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 30
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 30
+        },
+        "thinking_level": {
+          "\"MISSING\"": 30
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 30
+        },
+        "code_commit": {
+          "\"MISSING\"": 30
+        },
+        "code_dirty": {
+          "\"MISSING\"": 30
+        },
+        "provider_env": {
+          "\"MISSING\"": 30
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 30
+        },
+        "config_sha256": {
+          "\"MISSING\"": 30
+        },
+        "num_agents": {
+          "2": 30
+        },
+        "num_turns": {
+          "10": 30
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 30
+        },
+        "memory_capacity": {
+          "3": 30
+        }
+      },
+      "counts": {
+        "game_calls": 600,
+        "game_reasoning_tokens_positive": 142,
+        "game_finish_reason_missing": 600,
+        "game_reasoning_placeholder": 142,
+        "myth_calls": 600,
+        "myth_reasoning_tokens_positive": 364,
+        "myth_finish_reason_missing": 600,
+        "myth_reasoning_placeholder": 364,
+        "myth_reasoning_tokens_zero": 236,
+        "myth_reasoning_absent": 236,
+        "game_reasoning_tokens_zero": 458,
+        "game_reasoning_absent": 458,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_reasoning_tokens_positive": {
+          "min": 10,
+          "max": 219
+        },
+        "game_output_tokens": {
+          "min": 8,
+          "max": 234
+        },
+        "myth_reasoning_tokens_positive": {
+          "min": 7,
+          "max": 911
+        },
+        "myth_output_tokens": {
+          "min": 237,
+          "max": 1192
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider_gpt5_5_probe/gpt5_5_bootstrap_a1_probe/gpt-5.5/game_myth/noisy_bootstrap_cooperation/gpt5_5_bootstrap_a1_probe_001_neutral_anything.json",
+          "sha256": "a3323f231c26457b112da9eaf02ceb1000b344e22318e11340397b3aaa4e683d"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider_gpt5_5_probe/gpt5_5_bootstrap_a1_probe/gpt-5.5/game_myth/noisy_bootstrap_cooperation/gpt5_5_bootstrap_a1_probe_009_neutral_anything.json",
+          "sha256": "2c5d4aa31577371c6e7a85d6ce36478aefa0e88665cec5eecdefcb3f8b89b77c"
+        },
+        {
+          "path": "data/json/noise_experiments/v4_direct_provider_gpt5_5_probe/gpt5_5_bootstrap_a1_probe/gpt-5.5/game_myth/noisy_bootstrap_cooperation/gpt5_5_bootstrap_a1_probe_003_neutral_anything.json",
+          "sha256": "c6ad38702adce8dda77cba4df2b25b53bcd5aef097a65712ed4242bc826423df"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/v4_direct_provider_gpt5_5_probe"
+      ]
+    },
+    "phase3_seeded :: anthropic/claude-sonnet-4.5": {
+      "runs": 10,
+      "paths": 20,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 10
+        },
+        "llm_provider": {
+          "\"MISSING\"": 10
+        },
+        "provider_model": {
+          "\"MISSING\"": 10
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 10
+        },
+        "temperature": {
+          "0.8": 10
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 10
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 10
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 10
+        },
+        "thinking_level": {
+          "\"MISSING\"": 10
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 10
+        },
+        "code_commit": {
+          "\"MISSING\"": 10
+        },
+        "code_dirty": {
+          "\"MISSING\"": 10
+        },
+        "provider_env": {
+          "\"MISSING\"": 10
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 10
+        },
+        "config_sha256": {
+          "\"MISSING\"": 10
+        },
+        "num_agents": {
+          "8": 10
+        },
+        "num_turns": {
+          "10": 10
+        },
+        "chat_memory_mode": {
+          "\"myth_only\"": 10
+        },
+        "memory_capacity": {
+          "3": 10
+        }
+      },
+      "counts": {
+        "game_calls": 800,
+        "game_reasoning_tokens_zero": 800,
+        "game_finish_reason_missing": 800,
+        "game_reasoning_absent": 800,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 361
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase3_seeded/phase3_seeded_s_end_plus_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_plus_004_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "1352ba91f284954780b37a9fd5a34467029f361ac3ceb35a4e46a4a383af363f"
+        },
+        {
+          "path": "data/json/noise_experiments/phase3_seeded/phase3_seeded_s_end_plus_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_plus_003_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "94d44d37648eb1626034210ccf7737691eb366d7a90f1f1742ee74d57da768e4"
+        },
+        {
+          "path": "data/json/noise_experiments/phase3_seeded/phase3_seeded_s_end_plus_phase3_8agent_anon_neg5_myth_only/claude-sonnet-4.5/game/default/phase3_seeded_s_end_plus_005_neutral_rep02_myth_game_directive_anything.json",
+          "sha256": "df03448790376bedb52118c84720361be8b6a60f24a8ef836b8dd88111e43d0b"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase3_seeded"
+      ]
+    },
+    "phase3_seeded :: anthropic/claude-haiku-4.5": {
+      "runs": 3,
+      "paths": 6,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-haiku-4.5\"": 3
+        },
+        "llm_provider": {
+          "\"MISSING\"": 3
+        },
+        "provider_model": {
+          "\"MISSING\"": 3
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 3
+        },
+        "temperature": {
+          "0.8": 3
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 3
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 3
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 3
+        },
+        "thinking_level": {
+          "\"MISSING\"": 3
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 3
+        },
+        "code_commit": {
+          "\"MISSING\"": 3
+        },
+        "code_dirty": {
+          "\"MISSING\"": 3
+        },
+        "provider_env": {
+          "\"MISSING\"": 3
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 3
+        },
+        "config_sha256": {
+          "\"MISSING\"": 3
+        },
+        "num_agents": {
+          "8": 3
+        },
+        "num_turns": {
+          "10": 3
+        },
+        "chat_memory_mode": {
+          "\"myth_only\"": 3
+        },
+        "memory_capacity": {
+          "3": 3
+        }
+      },
+      "counts": {
+        "game_calls": 240,
+        "game_reasoning_tokens_zero": 240,
+        "game_finish_reason_missing": 240,
+        "game_reasoning_absent": 240,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 364
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/noise_experiments/phase3_seeded/phase3_seeded_s_end_plus_phase3_8agent_anon_neg5_myth_only/claude-haiku-4.5/game/default/phase3_seeded_s_end_plus_002_neutral_rep00_myth_game_directive_anything.json",
+          "sha256": "3f10a5eeb1a16bb1773f18e26d129d631969a04f229d393f41260f980d1e58a3"
+        },
+        {
+          "path": "data/json/noise_experiments/phase3_seeded/phase3_seeded_s_end_plus_phase3_8agent_anon_neg5_myth_only/claude-haiku-4.5/game/default/phase3_seeded_s_end_plus_003_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "9b48cb64a35e597f13ef587acaad8b58204e3912cc09da1c2b007c16aadd8867"
+        },
+        {
+          "path": "data/json/noise_experiments/phase3_seeded/phase3_seeded_s_start_phase3_8agent_anon_neg5_myth_only/claude-haiku-4.5/game/default/phase3_seeded_s_start_001_neutral_rep01_myth_game_directive_anything.json",
+          "sha256": "7fdf3f0ad785cfca9f5a9ac1140e51c968a210775b66c27f765c126ba3db5314"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/phase3_seeded"
+      ]
+    },
+    "myth_causal_confirm_claude_fixed_prompt :: anthropic/claude-sonnet-4.5": {
+      "runs": 15,
+      "paths": 30,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 15
+        },
+        "llm_provider": {
+          "\"MISSING\"": 15
+        },
+        "provider_model": {
+          "\"MISSING\"": 15
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 15
+        },
+        "temperature": {
+          "0.8": 15
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 15
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 15
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 15
+        },
+        "thinking_level": {
+          "\"MISSING\"": 15
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 15
+        },
+        "code_commit": {
+          "\"MISSING\"": 15
+        },
+        "code_dirty": {
+          "\"MISSING\"": 15
+        },
+        "provider_env": {
+          "\"MISSING\"": 15
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 15
+        },
+        "config_sha256": {
+          "\"MISSING\"": 15
+        },
+        "num_agents": {
+          "2": 15
+        },
+        "num_turns": {
+          "8": 15
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 15
+        },
+        "memory_capacity": {
+          "3": 15
+        }
+      },
+      "counts": {
+        "game_calls": 240,
+        "game_reasoning_tokens_zero": 240,
+        "game_finish_reason_missing": 240,
+        "game_reasoning_absent": 240,
+        "interaction_errors": 0,
+        "myth_calls": 160,
+        "myth_reasoning_tokens_zero": 160,
+        "myth_finish_reason_missing": 160,
+        "myth_reasoning_absent": 160
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 106,
+          "max": 470
+        },
+        "myth_output_tokens": {
+          "min": 261,
+          "max": 323
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt/claude-sonnet-4.5/game/myth_causal_confirm_claude_fixed_prompt_003_neutral_rep03.json",
+          "sha256": "729919dfcc7860e8c14eafe22240e883be6682cb184dd0c45d5289989483212b"
+        },
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt/claude-sonnet-4.5/game/myth_causal_confirm_claude_fixed_prompt_001_neutral_rep01.json",
+          "sha256": "d4590a56c380705cd4f68542df43f218b361584462937eec7db8e58f71d6298f"
+        },
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt/claude-sonnet-4.5/game/myth_causal_confirm_claude_fixed_prompt_000_neutral_rep00.json",
+          "sha256": "5c00150e71ab9bfe9ca33552ed1cc02f282991df92d0b1b1e87f092cecaced0b"
+        }
+      ],
+      "expsets": [
+        "myth_causal_confirm_claude_fixed_prompt"
+      ]
+    },
+    "sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5 :: anthropic/claude-sonnet-4.5": {
+      "runs": 5,
+      "paths": 5,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 5
+        },
+        "llm_provider": {
+          "\"MISSING\"": 5
+        },
+        "provider_model": {
+          "\"MISSING\"": 5
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 5
+        },
+        "temperature": {
+          "0.8": 5
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 5
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level": {
+          "\"MISSING\"": 5
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 5
+        },
+        "code_commit": {
+          "\"MISSING\"": 5
+        },
+        "code_dirty": {
+          "\"MISSING\"": 5
+        },
+        "provider_env": {
+          "\"MISSING\"": 5
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 5
+        },
+        "config_sha256": {
+          "\"MISSING\"": 5
+        },
+        "num_agents": {
+          "8": 5
+        },
+        "num_turns": {
+          "10": 5
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 5
+        },
+        "memory_capacity": {
+          "6": 5
+        }
+      },
+      "counts": {
+        "game_calls": 400,
+        "game_reasoning_tokens_zero": 400,
+        "game_finish_reason_missing": 400,
+        "game_reasoning_absent": 400,
+        "myth_calls": 400,
+        "myth_reasoning_tokens_zero": 400,
+        "myth_finish_reason_missing": 400,
+        "myth_reasoning_absent": 400,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 133,
+          "max": 496
+        },
+        "myth_output_tokens": {
+          "min": 261,
+          "max": 339
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5_004_neutral_rep04_myth_game_directive_memprimary_anything.json",
+          "sha256": "d48690a7aea8973a09686a290315baae2f59c72db3b023c20bd534322d5e0ae9"
+        },
+        {
+          "path": "data/json/sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5_003_neutral_rep03_myth_game_directive_memprimary_anything.json",
+          "sha256": "4b1945fa409fa98f3b40724540e6ac1f819fb5d7bd00326a6a24f13bef731e7e"
+        },
+        {
+          "path": "data/json/sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5_001_neutral_rep01_myth_game_directive_memprimary_anything.json",
+          "sha256": "04b17f51792732b6d3371e15eda1a24b138957c9dbbf8166d46dcca590b6631f"
+        }
+      ],
+      "expsets": [
+        "sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5"
+      ]
+    },
+    "myth_causal_confirm_claude_fixed_prompt_topup :: anthropic/claude-sonnet-4.5": {
+      "runs": 15,
+      "paths": 30,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 15
+        },
+        "llm_provider": {
+          "\"MISSING\"": 15
+        },
+        "provider_model": {
+          "\"MISSING\"": 15
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 15
+        },
+        "temperature": {
+          "0.8": 15
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 15
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 15
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 15
+        },
+        "thinking_level": {
+          "\"MISSING\"": 15
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 15
+        },
+        "code_commit": {
+          "\"MISSING\"": 15
+        },
+        "code_dirty": {
+          "\"MISSING\"": 15
+        },
+        "provider_env": {
+          "\"MISSING\"": 15
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 15
+        },
+        "config_sha256": {
+          "\"MISSING\"": 15
+        },
+        "num_agents": {
+          "2": 15
+        },
+        "num_turns": {
+          "8": 15
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 15
+        },
+        "memory_capacity": {
+          "3": 15
+        }
+      },
+      "counts": {
+        "game_calls": 240,
+        "game_reasoning_tokens_zero": 240,
+        "game_finish_reason_missing": 240,
+        "game_reasoning_absent": 240,
+        "interaction_errors": 0,
+        "myth_calls": 160,
+        "myth_reasoning_tokens_zero": 160,
+        "myth_finish_reason_missing": 160,
+        "myth_reasoning_absent": 160
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 87,
+          "max": 503
+        },
+        "myth_output_tokens": {
+          "min": 259,
+          "max": 334
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt_topup/claude-sonnet-4.5/game/myth_causal_confirm_claude_fixed_prompt_topup_001_neutral_rep01.json",
+          "sha256": "43aeeebcad1496b4c2aeda464bc7ce597f68fab166efed5756c6bb6d7f766f49"
+        },
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt_topup/claude-sonnet-4.5/game/myth_causal_confirm_claude_fixed_prompt_topup_003_neutral_rep03.json",
+          "sha256": "09e0537b7c364196044c44974673d06638ee902b002a0d025fb7200a9f0081c9"
+        },
+        {
+          "path": "data/json/myth_causal_confirm_claude_fixed_prompt_topup/claude-sonnet-4.5/game/myth_causal_confirm_claude_fixed_prompt_topup_002_neutral_rep02.json",
+          "sha256": "2bd237d8de410add5f22f1426bb4b4283e2a585b921e9b7d1a39eb5b5dc2fd9f"
+        }
+      ],
+      "expsets": [
+        "myth_causal_confirm_claude_fixed_prompt_topup"
+      ]
+    },
+    "phase8_smoke :: anthropic/claude-haiku-4.5": {
+      "runs": 1,
+      "paths": 1,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-haiku-4.5\"": 1
+        },
+        "llm_provider": {
+          "\"MISSING\"": 1
+        },
+        "provider_model": {
+          "\"MISSING\"": 1
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 1
+        },
+        "temperature": {
+          "0.8": 1
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 1
+        },
+        "code_commit": {
+          "\"MISSING\"": 1
+        },
+        "code_dirty": {
+          "\"MISSING\"": 1
+        },
+        "provider_env": {
+          "\"MISSING\"": 1
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 1
+        },
+        "config_sha256": {
+          "\"MISSING\"": 1
+        },
+        "num_agents": {
+          "8": 1
+        },
+        "num_turns": {
+          "3": 1
+        },
+        "chat_memory_mode": {
+          "\"default\"": 1
+        },
+        "memory_capacity": {
+          "3": 1
+        }
+      },
+      "counts": {
+        "game_calls": 24,
+        "game_reasoning_tokens_zero": 24,
+        "game_finish_reason_missing": 24,
+        "game_reasoning_absent": 24,
+        "myth_calls": 24,
+        "myth_reasoning_tokens_zero": 24,
+        "myth_finish_reason_missing": 24,
+        "myth_reasoning_absent": 24,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 11,
+          "max": 369
+        },
+        "myth_output_tokens": {
+          "min": 284,
+          "max": 352
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/phase8_smoke/claude-haiku-4.5/myth_game/phase8_monitor_smoke_000_neutral_myth_game_directive_anything.json",
+          "sha256": "dc2dbecb37bb94686b09975bf9884ef76d77883ac7a30f3840a7ced060725a88"
+        }
+      ],
+      "expsets": [
+        "phase8_smoke"
+      ]
+    },
+    "memtest_stateless_smoke :: anthropic/claude-haiku-4.5": {
+      "runs": 1,
+      "paths": 2,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-haiku-4.5\"": 1
+        },
+        "llm_provider": {
+          "\"MISSING\"": 1
+        },
+        "provider_model": {
+          "\"MISSING\"": 1
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 1
+        },
+        "temperature": {
+          "0.8": 1
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 1
+        },
+        "code_commit": {
+          "\"MISSING\"": 1
+        },
+        "code_dirty": {
+          "\"MISSING\"": 1
+        },
+        "provider_env": {
+          "\"MISSING\"": 1
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 1
+        },
+        "config_sha256": {
+          "\"MISSING\"": 1
+        },
+        "num_agents": {
+          "2": 1
+        },
+        "num_turns": {
+          "3": 1
+        },
+        "chat_memory_mode": {
+          "\"stateless\"": 1
+        },
+        "memory_capacity": {
+          "1": 1
+        }
+      },
+      "counts": {
+        "game_calls": 6,
+        "game_reasoning_tokens_zero": 6,
+        "game_finish_reason_missing": 6,
+        "game_reasoning_absent": 6,
+        "myth_calls": 6,
+        "myth_reasoning_tokens_zero": 6,
+        "myth_finish_reason_missing": 6,
+        "myth_reasoning_absent": 6,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 178,
+          "max": 385
+        },
+        "myth_output_tokens": {
+          "min": 289,
+          "max": 336
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/memtest_stateless_smoke/claude-haiku-4.5/myth_game/memtest_stateless_smoke_000_neutral_memtest_stateless_anything.json",
+          "sha256": "49be2b822bdd7a4669e26f1313c8a8b733d7fd4ef2a55aea9757ffaeb3432145"
+        }
+      ],
+      "expsets": [
+        "memtest_stateless_smoke"
+      ]
+    },
+    "memtest_hybrid_smoke :: anthropic/claude-haiku-4.5": {
+      "runs": 1,
+      "paths": 2,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-haiku-4.5\"": 1
+        },
+        "llm_provider": {
+          "\"MISSING\"": 1
+        },
+        "provider_model": {
+          "\"MISSING\"": 1
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 1
+        },
+        "temperature": {
+          "0.8": 1
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 1
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level": {
+          "\"MISSING\"": 1
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 1
+        },
+        "code_commit": {
+          "\"MISSING\"": 1
+        },
+        "code_dirty": {
+          "\"MISSING\"": 1
+        },
+        "provider_env": {
+          "\"MISSING\"": 1
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 1
+        },
+        "config_sha256": {
+          "\"MISSING\"": 1
+        },
+        "num_agents": {
+          "2": 1
+        },
+        "num_turns": {
+          "3": 1
+        },
+        "chat_memory_mode": {
+          "\"hybrid\"": 1
+        },
+        "memory_capacity": {
+          "1": 1
+        }
+      },
+      "counts": {
+        "game_calls": 6,
+        "game_reasoning_tokens_zero": 6,
+        "game_finish_reason_missing": 6,
+        "game_reasoning_absent": 6,
+        "myth_calls": 6,
+        "myth_reasoning_tokens_zero": 6,
+        "myth_finish_reason_missing": 6,
+        "myth_reasoning_absent": 6,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 143,
+          "max": 312
+        },
+        "myth_output_tokens": {
+          "min": 267,
+          "max": 339
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/memtest_hybrid_smoke/claude-haiku-4.5/myth_game/memtest_hybrid_smoke_000_neutral_memtest_hybrid_anything.json",
+          "sha256": "f7333a3f9ebb9e25f0d3c6a256c0f1172878108b3b6462a443e1cce9ea3b15f4"
+        }
+      ],
+      "expsets": [
+        "memtest_hybrid_smoke"
+      ]
+    },
+    "sonnet45_8agent_game_memprimary_mem3_r10_n5 :: anthropic/claude-sonnet-4.5": {
+      "runs": 4,
+      "paths": 4,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 4
+        },
+        "llm_provider": {
+          "\"MISSING\"": 4
+        },
+        "provider_model": {
+          "\"MISSING\"": 4
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 4
+        },
+        "temperature": {
+          "0.8": 4
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 4
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 4
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 4
+        },
+        "thinking_level": {
+          "\"MISSING\"": 4
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 4
+        },
+        "code_commit": {
+          "\"MISSING\"": 4
+        },
+        "code_dirty": {
+          "\"MISSING\"": 4
+        },
+        "provider_env": {
+          "\"MISSING\"": 4
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 4
+        },
+        "config_sha256": {
+          "\"MISSING\"": 4
+        },
+        "num_agents": {
+          "8": 4
+        },
+        "num_turns": {
+          "10": 4
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 4
+        },
+        "memory_capacity": {
+          "3": 4
+        }
+      },
+      "counts": {
+        "game_calls": 320,
+        "game_reasoning_tokens_zero": 320,
+        "game_finish_reason_missing": 320,
+        "game_reasoning_absent": 320,
+        "interaction_errors": 0
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 138,
+          "max": 543
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/sonnet45_8agent_game_memprimary_mem3_r10_n5/claude-sonnet-4.5/game/sonnet45_8agent_game_memprimary_mem3_r10_n5_001_neutral_rep01.json",
+          "sha256": "23b6b62cd81c114e077253d6cacbb7798da761ec1318673014881b34ef58a043"
+        },
+        {
+          "path": "data/json/sonnet45_8agent_game_memprimary_mem3_r10_n5/claude-sonnet-4.5/game/sonnet45_8agent_game_memprimary_mem3_r10_n5_004_neutral_rep04.json",
+          "sha256": "b854970134eb08b93d41f869c141aef9dec0d7d990e8c4d3dcc7ebf5641062a2"
+        },
+        {
+          "path": "data/json/sonnet45_8agent_game_memprimary_mem3_r10_n5/claude-sonnet-4.5/game/sonnet45_8agent_game_memprimary_mem3_r10_n5_002_neutral_rep02.json",
+          "sha256": "fedd57e2dc7e3c04d7c22bcfbb8550d80cdedd08e5d3485c24ae1a87aa4ecb4a"
+        }
+      ],
+      "expsets": [
+        "sonnet45_8agent_game_memprimary_mem3_r10_n5"
+      ]
+    },
+    "baseline_match_ablation :: openai/gpt-5-nano": {
+      "runs": 126,
+      "paths": 252,
+      "metadata": {
+        "model": {
+          "\"openai/gpt-5-nano\"": 126
+        },
+        "llm_provider": {
+          "\"MISSING\"": 126
+        },
+        "provider_model": {
+          "\"MISSING\"": 126
+        },
+        "llm_provider_mode": {
+          "\"MISSING\"": 126
+        },
+        "temperature": {
+          "0.8": 126
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 126
+        },
+        "max_output_tokens": {
+          "\"MISSING\"": 126
+        },
+        "max_output_tokens_source": {
+          "\"MISSING\"": 126
+        },
+        "thinking_level": {
+          "\"MISSING\"": 126
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 126
+        },
+        "code_commit": {
+          "\"MISSING\"": 126
+        },
+        "code_dirty": {
+          "\"MISSING\"": 126
+        },
+        "provider_env": {
+          "\"direct\"": 126
+        },
+        "openai_reasoning_effort_env": {
+          "\"low\"": 126
+        },
+        "config_sha256": {
+          "\"MISSING\"": 126
+        },
+        "num_agents": {
+          "2": 126
+        },
+        "num_turns": {
+          "15": 45,
+          "10": 81
+        },
+        "chat_memory_mode": {
+          "\"MISSING\"": 126
+        },
+        "memory_capacity": {
+          "3": 126
+        }
+      },
+      "counts": {
+        "game_calls": 2970,
+        "game_reasoning_tokens_positive": 2915,
+        "game_finish_reason_missing": 2970,
+        "game_reasoning_placeholder": 2915,
+        "interaction_errors": 0,
+        "game_reasoning_tokens_zero": 55,
+        "game_reasoning_absent": 55,
+        "myth_calls": 1940,
+        "myth_reasoning_tokens_positive": 1939,
+        "myth_finish_reason_missing": 1940,
+        "myth_reasoning_placeholder": 1939,
+        "myth_reasoning_tokens_zero": 1,
+        "myth_reasoning_absent": 1
+      },
+      "ranges": {
+        "game_reasoning_tokens_positive": {
+          "min": 64,
+          "max": 1664
+        },
+        "game_output_tokens": {
+          "min": 15,
+          "max": 1681
+        },
+        "myth_reasoning_tokens_positive": {
+          "min": 64,
+          "max": 4352
+        },
+        "myth_output_tokens": {
+          "min": 282,
+          "max": 4604
+        }
+      },
+      "examples": [
+        {
+          "path": "data/json/baseline_match_ablation/direct/old_prompt_old_runner_15/gpt-5-nano/game/default/old_prompt_old_runner_15_001_neutral.json",
+          "sha256": "950ccfff2a527453088040b3c214fc8ed89481ea9d2415ee6eb67b018fdd1909"
+        },
+        {
+          "path": "data/json/baseline_match_ablation/direct/old_prompt_old_runner_15/gpt-5-nano/game/default/old_prompt_old_runner_15_006_neutral.json",
+          "sha256": "e27f92e07615594a64e98f60dbeb4123c4a4620082dce62edc56f5070f667fdb"
+        },
+        {
+          "path": "data/json/baseline_match_ablation/direct/old_prompt_old_runner_15/gpt-5-nano/game/default/old_prompt_old_runner_15_013_neutral.json",
+          "sha256": "ceae3e4a89f2fcd92a2369f7e1fe4c7581e308de0b2da9ae4ed1635bf3d34227"
+        }
+      ],
+      "expsets": [
+        "baseline_match_ablation"
+      ]
+    },
+    "negative_only_crossmodel_defectors_n5_20260825 :: anthropic/claude-sonnet-4.5": {
+      "runs": 90,
+      "paths": 90,
+      "metadata": {
+        "model": {
+          "\"anthropic/claude-sonnet-4.5\"": 90
+        },
+        "llm_provider": {
+          "\"anthropic\"": 90
+        },
+        "provider_model": {
+          "\"claude-sonnet-4-5-20250929\"": 90
+        },
+        "llm_provider_mode": {
+          "\"direct\"": 89,
+          "\"auto\"": 1
+        },
+        "temperature": {
+          "0.8": 90
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 90
+        },
+        "max_output_tokens": {
+          "4096": 90
+        },
+        "max_output_tokens_source": {
+          "\"ANTHROPIC_MAX_TOKENS\"": 90
+        },
+        "thinking_level": {
+          "\"MISSING\"": 90
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 90
+        },
+        "code_commit": {
+          "\"58d15e2418a2533e6a12f752e3037035fcc202a5\"": 89,
+          "\"c97f59ee4aef157645e4175880ac8767f9215297\"": 1
+        },
+        "code_dirty": {
+          "false": 90
+        },
+        "provider_env": {
+          "\"MISSING\"": 90
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 90
+        },
+        "config_sha256": {
+          "\"52091a5b2d196d217da931d1daf311098114371aa3bb21fbc992c09a8a9b8687\"": 90
+        },
+        "num_agents": {
+          "2": 45,
+          "8": 45
+        },
+        "num_turns": {
+          "10": 90
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 90
+        },
+        "memory_capacity": {
+          "6": 60,
+          "3": 30
+        }
+      },
+      "counts": {
+        "game_calls": 3378,
+        "game_reasoning_tokens_zero": 3378,
+        "game_finish_reason_missing": 3378,
+        "game_reasoning_absent": 3378,
+        "myth_calls": 3000,
+        "myth_reasoning_tokens_zero": 3000,
+        "myth_finish_reason_missing": 3000,
+        "myth_reasoning_absent": 3000,
+        "game_non_llm": 1122,
+        "interaction_errors": 18
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 9,
+          "max": 677
+        },
+        "myth_output_tokens": {
+          "min": 242,
+          "max": 555
+        }
+      },
+      "examples": [
+        {
+          "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_005_neutral_rep00_memtest_memory_primary_anything.json",
+          "sha256": "e8d02ee00510a9a61487451bceea3cd005922a053f35af2dc5b5c8ab2550c0a3"
+        },
+        {
+          "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_006_neutral_rep01_memtest_memory_primary_anything.json",
+          "sha256": "6433dca45527692cdad4c6939b43ad78877b1a65d0c19aec7b79fdeba3e7dc06"
+        },
+        {
+          "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_009_neutral_rep04_memtest_memory_primary_anything.json",
+          "sha256": "8ab27eabc1a74ab16de03e1b7af2ab2bbfe1147b41300ab703cf7c1741a7c777"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/negative_only_crossmodel_defectors_n5_20260825"
+      ]
+    },
+    "negative_only_crossmodel_defectors_n5_20260825 :: google/gemini-3.7-flash": {
+      "runs": 90,
+      "paths": 90,
+      "metadata": {
+        "model": {
+          "\"google/gemini-3.7-flash\"": 90
+        },
+        "llm_provider": {
+          "\"google\"": 90
+        },
+        "provider_model": {
+          "\"gemini-3.7-flash\"": 90
+        },
+        "llm_provider_mode": {
+          "\"direct\"": 90
+        },
+        "temperature": {
+          "0.8": 90
+        },
+        "temperature_sent": {
+          "false": 90
+        },
+        "max_output_tokens": {
+          "null": 90
+        },
+        "max_output_tokens_source": {
+          "\"provider_default\"": 90
+        },
+        "thinking_level": {
+          "\"medium\"": 90
+        },
+        "thinking_level_source": {
+          "\"GEMINI_THINKING_LEVEL\"": 90
+        },
+        "code_commit": {
+          "\"58d15e2418a2533e6a12f752e3037035fcc202a5\"": 90
+        },
+        "code_dirty": {
+          "false": 90
+        },
+        "provider_env": {
+          "\"MISSING\"": 90
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 90
+        },
+        "config_sha256": {
+          "\"52091a5b2d196d217da931d1daf311098114371aa3bb21fbc992c09a8a9b8687\"": 90
+        },
+        "num_agents": {
+          "2": 45,
+          "8": 45
+        },
+        "num_turns": {
+          "10": 90
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 90
+        },
+        "memory_capacity": {
+          "6": 60,
+          "3": 30
+        }
+      },
+      "counts": {
+        "game_calls": 3378,
+        "game_reasoning_tokens_positive": 2819,
+        "game_finish_reason_missing": 3378,
+        "game_reasoning_absent": 3378,
+        "myth_calls": 3000,
+        "myth_reasoning_tokens_positive": 2745,
+        "myth_finish_reason_missing": 3000,
+        "myth_reasoning_absent": 3000,
+        "game_non_llm": 1122,
+        "myth_reasoning_tokens_zero": 255,
+        "interaction_errors": 3,
+        "game_reasoning_tokens_zero": 559
+      },
+      "ranges": {
+        "game_reasoning_tokens_positive": {
+          "min": 9,
+          "max": 1504
+        },
+        "game_output_tokens": {
+          "min": 5,
+          "max": 18
+        },
+        "myth_reasoning_tokens_positive": {
+          "min": 23,
+          "max": 6717
+        },
+        "myth_output_tokens": {
+          "min": 191,
+          "max": 267
+        }
+      },
+      "examples": [
+        {
+          "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_038_neutral_rep03_memtest_memory_primary_anything.json",
+          "sha256": "139387e4aef02d84c53d9b8e2a95229b6b063f832fd816287be310d078cb4846"
+        },
+        {
+          "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_035_neutral_rep00_memtest_memory_primary_anything.json",
+          "sha256": "97c7f4bba7f68b5cc3b6bfbff1c9f31aedb4c2b872e9a9398ccefd3708b3dce7"
+        },
+        {
+          "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_036_neutral_rep01_memtest_memory_primary_anything.json",
+          "sha256": "ce3c296ccf7f88de4e1b3875f2694dee05a237e411124fc3f07eba8a227db47f"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/negative_only_crossmodel_defectors_n5_20260825"
+      ]
+    },
+    "negative_only_crossmodel_defectors_n5_20260825 :: openai/gpt-5-nano": {
+      "runs": 90,
+      "paths": 90,
+      "metadata": {
+        "model": {
+          "\"openai/gpt-5-nano\"": 90
+        },
+        "llm_provider": {
+          "\"openai\"": 90
+        },
+        "provider_model": {
+          "\"gpt-5-nano\"": 90
+        },
+        "llm_provider_mode": {
+          "\"direct\"": 90
+        },
+        "temperature": {
+          "0.8": 90
+        },
+        "temperature_sent": {
+          "\"MISSING\"": 90
+        },
+        "max_output_tokens": {
+          "null": 90
+        },
+        "max_output_tokens_source": {
+          "\"provider_default\"": 90
+        },
+        "thinking_level": {
+          "\"MISSING\"": 90
+        },
+        "thinking_level_source": {
+          "\"MISSING\"": 90
+        },
+        "code_commit": {
+          "\"58d15e2418a2533e6a12f752e3037035fcc202a5\"": 90
+        },
+        "code_dirty": {
+          "false": 90
+        },
+        "provider_env": {
+          "\"MISSING\"": 90
+        },
+        "openai_reasoning_effort_env": {
+          "\"MISSING\"": 90
+        },
+        "config_sha256": {
+          "\"52091a5b2d196d217da931d1daf311098114371aa3bb21fbc992c09a8a9b8687\"": 90
+        },
+        "num_agents": {
+          "2": 45,
+          "8": 45
+        },
+        "num_turns": {
+          "10": 90
+        },
+        "chat_memory_mode": {
+          "\"memory_primary\"": 90
+        },
+        "memory_capacity": {
+          "6": 60,
+          "3": 30
+        }
+      },
+      "counts": {
+        "game_calls": 3378,
+        "game_reasoning_tokens_zero": 3378,
+        "game_finish_reason_missing": 3378,
+        "game_reasoning_absent": 3378,
+        "myth_calls": 3000,
+        "myth_reasoning_tokens_zero": 3000,
+        "myth_finish_reason_missing": 3000,
+        "myth_reasoning_absent": 3000,
+        "game_non_llm": 1122,
+        "interaction_errors": 93
+      },
+      "ranges": {
+        "game_output_tokens": {
+          "min": 15,
+          "max": 20
+        },
+        "myth_output_tokens": {
+          "min": 104,
+          "max": 375
+        }
+      },
+      "examples": [
+        {
+          "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_022_neutral_rep02_memtest_memory_primary_anything.json",
+          "sha256": "0efa91101adcee2a83d5669f9d9821c20b8080de72b3beabe0ab637c6c070014"
+        },
+        {
+          "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_020_neutral_rep00_memtest_memory_primary_anything.json",
+          "sha256": "38e97329acdfd9f64f372dca1bbe91602c9b4ca528b4c23a77cd957421df4086"
+        },
+        {
+          "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_023_neutral_rep03_memtest_memory_primary_anything.json",
+          "sha256": "134390fd8fca86408c72b822282b63307adc2e40e27d1a675564602d907d2beb"
+        }
+      ],
+      "expsets": [
+        "noise_experiments/negative_only_crossmodel_defectors_n5_20260825"
+      ]
+    }
+  },
+  "mixed_claude_reasoning_signatures": [
+    {
+      "path": "data/json/noise_experiments/washout_20round/noise8i_washout_myth_game/claude-sonnet-4.5/myth_game/noisy8_bidirectional_informed_memprimary_twotask_r3_r20/noise8i_washout_myth_game_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "sha256": "682efc514f3667e78a40bcd2183bcfd9d79ce3f9024ddee4caba53d89ff5abf5",
+      "recorded_provider": "anthropic",
+      "game_calls": 160,
+      "game_reasoning_text": 80,
+      "game_reasoning_absent": 80,
+      "rounds": [
+        {
+          "round_position": 1,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 2,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 3,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 4,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 5,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 6,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 7,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 8,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 9,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 10,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 11,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 12,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 13,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 14,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 15,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 16,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 17,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 18,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 19,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 20,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        }
+      ]
+    },
+    {
+      "path": "data/json/noise_experiments/washout_20round/noise8i_washout_myth_game/claude-sonnet-4.5/myth_game/noisy8_bidirectional_informed_memprimary_twotask_r3_r20/noise8i_washout_myth_game_000_neutral_rep00_memtest_memory_primary_anything_2.json",
+      "sha256": "501020b49adc626acaff791507ae7ff20da1c00309b4a51604be6c4b73f27678",
+      "recorded_provider": "anthropic",
+      "game_calls": 160,
+      "game_reasoning_text": 80,
+      "game_reasoning_absent": 80,
+      "rounds": [
+        {
+          "round_position": 1,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 2,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 3,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 4,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 5,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 6,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 7,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 8,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 9,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 10,
+          "game_calls": 8,
+          "with_reasoning_text": 8
+        },
+        {
+          "round_position": 11,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 12,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 13,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 14,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 15,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 16,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 17,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 18,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 19,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        },
+        {
+          "round_position": 20,
+          "game_calls": 8,
+          "with_reasoning_text": 0
+        }
+      ]
+    }
+  ]
+}

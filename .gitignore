@@ -79,9 +79,18 @@ data/json/
 data/plots/
 data/share/
 
+# Local mirror created by the Hugging Face dataset download command
+nlet-hf-data/
+
 # Local agent harness state
 .claude/scheduled_tasks.lock
 
 # Local clone used by scripts/refresh_inspector_site.sh
 .inspector-site/
 .inspector-refresh.log
+data/shared_runs/
+data/.hf_stage/
+.data-sync.log
+
+# Local analysis outputs (large; regenerate via scripts/analyze_*.py)
+data/analysis/

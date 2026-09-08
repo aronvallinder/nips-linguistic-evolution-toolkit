@@ -10,6 +10,7 @@
 
 # Base Models - Same as main config
 base_models:
+  gpt5_5: openai/gpt-5.5
   llama8b: "meta-llama/llama-3.1-8b-instruct"
   gpt4_cheaper: "openai/gpt-4o-mini"
   gpt5_nano: "openai/gpt-5-nano"
@@ -28,6 +29,233 @@ base_models:
 # Prompt Templates
 # Note: Templates now support {investor_name} and {trustee_name} for asymmetric naming
 prompt_templates:
+  trust_game_neutral_framing: 'You are an agent participating in a multi-task experiment. You will play an allocation task and may also be asked to write myths.
+
+
+    ALLOCATION TASK:
+
+    You will alternate between two roles across multiple rounds.
+
+
+    When you are ROLE A:
+
+    - You receive {endowment} tokens each round
+
+    - You decide how many tokens to allocate to ROLE B (0-{endowment})
+
+    - The allocated amount is multiplied by {multiplier}
+
+    - ROLE B decides how many of the received tokens to allocate back
+
+    - You keep: {endowment} - allocated + allocated back
+
+    - ROLE B keeps: received - allocated back
+
+    - Response format: {{''send'': <amount>}}
+
+
+    When you are ROLE B:
+
+    - ROLE A receives {endowment} tokens
+
+    - ROLE A decides how many tokens to allocate to you (0-{endowment})
+
+    - The allocated amount is multiplied by {multiplier}
+
+    - You decide how many of the received tokens to allocate back
+
+    - ROLE A keeps: {endowment} - allocated + allocated back
+
+    - You keep: received - allocated back
+
+    - Response format: {{''return'': <amount>}}
+
+
+    MYTH WRITING:
+
+    You may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.
+
+
+    IMPORTANT: Provide your decision in the correct JSON format.
+
+    '
+  trust_game_neutral_round1_investor: 'Round 1: You are ROLE A. You have {endowment} tokens. How many tokens do you allocate to the other participant? (0-{endowment})
+
+    '
+  trust_game_neutral_round1_trustee: 'Round 1: You are ROLE B. The other participant allocated {sent} tokens to you, that is {percentage:.1f}% of their available tokens. After multiplication, you received {received} tokens. How many tokens do you allocate back? (0-{received})
+
+    '
+  trust_game_neutral_later_investor: 'Round {turn}
+
+
+    You are ROLE A this round. Last round you were ROLE B. The other participant allocated {last_round_sent} tokens,
+
+    that was {last_round_sent_percentage:.1f}% of their available tokens. After multiplication, you received {last_round_received} tokens.
+
+    You allocated back {last_round_returned} tokens. So your payoff was {last_round_trustee_payoff}.
+
+    Your total earnings across all rounds are {agent_balance} tokens.
+
+    How many tokens do you allocate to the other participant this round? (0-{endowment})
+
+    '
+  trust_game_neutral_later_trustee: 'Round {turn}
+
+
+    You are ROLE B this round. Last round you were ROLE A. You allocated {last_round_sent} tokens,
+
+    that was {last_round_sent_percentage:.1f}% of your available tokens. After multiplication, the other participant received {last_round_received} tokens.
+
+    The other participant allocated back {last_round_returned} tokens. So your payoff was {last_round_investor_payoff}.
+
+    Your total earnings across all rounds are {agent_balance} tokens.
+
+    The other participant has allocated {received} tokens to you this round after multiplication. How many tokens do you allocate back? (0-{received})
+
+    '
+  myth_only_system_prompt: 'You are an agent participating in a writing task. You may be asked to write short myths. Follow the instructions provided in each prompt.
+
+    '
+  myth_writing_unconstrained_default: 'Write a short myth. Choose any characters, setting, conflict, and lesson. Write about 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  myth_writing_unconstrained_later_rounds: 'Here is the myth you wrote in the previous round:
+
+    {last_myth}
+
+
+    Here is the myth the other agent wrote in the previous round:
+
+    {other_agent_myth}
+
+
+    Write a new short myth. You may keep, transform, or ignore themes from these previous myths. Choose any characters, setting, conflict, and lesson.
+
+    Write about 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  trust_game_noisy_aware_with_reasoning: 'You are an agent participating in a multi-task experiment. You will play a trust game and may also be asked to write myths.
+
+
+    TRUST GAME:
+
+    You will play different roles across multiple rounds.
+
+
+    When you are the INVESTOR:
+
+    - You receive ${endowment} each round
+
+    - You decide how much to SEND to the TRUSTEE ($0-${endowment})
+
+    - Amount sent is multiplied by {multiplier}x
+
+    - Trustee decides how much to RETURN
+
+    - You keep: ${endowment} - sent + returned
+
+    - Trustee keeps: received - returned
+
+    - Response format: {{''send'': <amount>}}
+
+
+    When you are the TRUSTEE:
+
+    - Investor receives ${endowment}
+
+    - Investor decides how much to SEND to you ($0-${endowment})
+
+    - Amount sent is multiplied by {multiplier}x
+
+    - You decide how much to RETURN
+
+    - Investor keeps: ${endowment} - sent + returned
+
+    - You keep: received - returned
+
+    - Response format: {{''return'': <amount>}}
+
+
+    NOTE: Transfer amounts may be perturbed by the environment after you choose them. Your earnings are based on the amounts that actually arrive.
+
+
+    MYTH WRITING:
+
+    You may also be asked to write short myths (stories) on various topics.
+
+
+    REASONING REQUIREMENT: Before each game decision, write 2-3 sentences explaining your reasoning. Then provide the JSON decision on a new line. Do NOT skip the reasoning — both parts are required.
+
+
+    IMPORTANT: Provide your decision in the correct JSON format.
+
+    '
+  trust_game_round1_investor_with_partner_myth: '{other_agent_last_myth_block}Round 1: You are the INVESTOR. You have ${endowment}. How much do you send? (0-{endowment})
+
+    '
+  trust_game_round1_trustee_with_partner_myth: '{other_agent_last_myth_block}Round 1: You are the TRUSTEE. {investor_name} sent ${sent}, that is {percentage:.1f}% of their total endowment. You received ${received}. How much do you return to {investor_name}? (0-{received})
+
+    '
+  trust_game_later_investor_with_partner_myth: '{other_agent_last_myth_block}Round {turn}
+
+
+    You are the INVESTOR this round. Last round you were the TRUSTEE. {investor_name} sent ${last_round_sent},
+
+    that was {last_round_sent_percentage:.1f}% of their total endowment. You received ${last_round_received}.
+
+    You returned ${last_round_returned}. So your payoff was {last_round_trustee_payoff}.
+
+    Your total earnings across all rounds are ${agent_balance}.
+
+    How much do you send to {trustee_name} this round? (0-{endowment})
+
+    '
+  trust_game_later_trustee_with_partner_myth: '{other_agent_last_myth_block}Round {turn}
+
+
+    You are the TRUSTEE this round. Last round you were the INVESTOR. You sent ${last_round_sent},
+
+    that was {last_round_sent_percentage:.1f}% of your total endowment. This was tripled to ${last_round_received}.
+
+    {trustee_name} returned ${last_round_returned}. So your payoff was {last_round_investor_payoff}.
+
+    Your total earnings across all rounds are ${agent_balance}.
+
+    {investor_name} has sent you ${received} this round. How much do you return to {investor_name}? (0-{received})
+
+    '
+  trust_game_round1_investor_with_shared_context: '{shared_context_block}Round 1: You are the INVESTOR. You have ${endowment}. How much do you send? (0-{endowment})
+
+    '
+  trust_game_round1_trustee_with_shared_context: '{shared_context_block}Round 1: You are the TRUSTEE. {investor_name} sent ${sent}, that is {percentage:.1f}% of their total endowment. You received ${received}. How much do you return to {investor_name}? (0-{received})
+
+    '
+  trust_game_later_investor_with_shared_context: '{shared_context_block}Round {turn}
+
+
+    You are the INVESTOR this round. You have ${endowment}. How much do you send to {trustee_name} this round? (0-{endowment})
+
+    '
+  trust_game_later_trustee_with_shared_context: '{shared_context_block}Round {turn}
+
+
+    You are the TRUSTEE this round. {investor_name} has sent you ${received} this round. How much do you return to {investor_name}? (0-{received})
+
+    '
+  myth_writing_default_with_shared_context: '{shared_context_block}Write a myth about {myth_topic}. Write 200 words.
+
+    '
+  myth_writing_later_rounds_with_shared_context: '{shared_context_block}Write your own myth for this round. Use the shared context above as inspiration, but adapt it in your own way.
+
+    Keep the myth about {myth_topic}. Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
   # Standard system prompt (unchanged)
   trust_game_default: |
     You are an agent participating in a multi-task experiment. You will play a game and may also be asked to write myths.
@@ -243,6 +471,8 @@ prompt_templates:
 
 # Myth topics
 myth_topics:
+  reciprocity_oath: a community whose prosperity depends on honoring reciprocal obligations, returning gifts, and punishing betrayal
+  trickster_exploitation: a community where trusting strangers leads to exploitation by a trickster who keeps resources for themselves
   anything: "anything"
   prosocial_religion_cultural_evolution: "the rise and spread of moralizing supernatural agents"
   trickster_betrayal_and_price: "a trickster who exploits others and the price that follows"
@@ -270,6 +500,146 @@ game_prompt_additions:
 # ============================================================================
 
 game_params:
+  noisy_positive_5:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 5.0
+      direction: positive
+      applies_to: both
+      inform_agents: false
+    other_player_names: default
+  noisy_positive_5_informed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 5.0
+      direction: positive
+      applies_to: both
+      inform_agents: true
+    other_player_names: default
+  noisy_negative_1:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: false
+    other_player_names: default
+  noisy_negative_1_informed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: true
+    other_player_names: default
+  noisy_positive_1:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: positive
+      applies_to: both
+      inform_agents: false
+    other_player_names: default
+  noisy_positive_1_informed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: positive
+      applies_to: both
+      inform_agents: true
+    other_player_names: default
+  noisy_negative_2:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 2.0
+      direction: negative
+      applies_to: both
+      inform_agents: false
+    other_player_names: default
+  noisy_negative_2_informed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 2.0
+      direction: negative
+      applies_to: both
+      inform_agents: true
+    other_player_names: default
+  noisy_positive_2:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 2.0
+      direction: positive
+      applies_to: both
+      inform_agents: false
+    other_player_names: default
+  noisy_positive_2_informed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    noise_config:
+      type: uniform
+      range: 2.0
+      direction: positive
+      applies_to: both
+      inform_agents: true
+    other_player_names: default
   # Baseline: no noise, default naming
   default:
     endowment: 5
@@ -424,6 +794,44 @@ game_params:
       applies_to: "both"
       inform_agents: true
     other_player_names: "default"
+
+  # Wash-out test: identical to _twotask_r3 but 20 rounds instead of 10, to see
+  # whether the Myth->Game vs Game->Myth send gap (still +0.37 at round 10)
+  # closes with more rounds. Memory horizon stays 3 rounds (cap unchanged).
+  noisy_bidirectional_informed_memprimary_twotask_r3_r20:
+    endowment: 5
+    multiplier: 3
+    num_turns: 20
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+
+  # 8-agent 20-round wash-out (copy of noisy8..._twotask_r3, num_turns 20)
+  noisy8_bidirectional_informed_memprimary_twotask_r3_r20:
+    endowment: 5
+    multiplier: 3
+    num_turns: 20
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    history_policy: "self_and_coplayer"
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
 
   # The 8-agent arm intentionally retains the established population regime:
   # balanced rotating partners, anonymous identities, and up to three prior
@@ -1746,11 +2154,1261 @@ game_params:
     coplayer_history_window: 0
     show_agent_names: false
 
+# These experiment sets predate the corrected communication-noise protocol.
+# Keep their original environmental-noise semantics when running them from the
+# merged config; new/corrected sets default to communication-only noise.
+legacy_environmental_experiment_sets:
+  - noise_pilot
+  - baseline_v4_mem3_direct
+  - neutral_framing_v4_pilot
+  - neutral_framing_v4_mem3
+  - targeted_myth_neutral_pilot
+  - targeted_myth_neutral_gpt5nano
+  - targeted_myth_k1_pilot
+  - targeted_myth_k1_gpt5nano
+  - targeted_myth_k2_gpt5nano
+  - noise_directional_k1_mem3
+  - noise_directional_k2_mem3
+  - noise_bootstrap_mem3
+  - noise_negative_mem3
+  - noise_negative_mem3_claude_sonnet_45
+  - noise_positive_mem3
+  - noise_positive_mem3_claude_sonnet_45
+  - noise_positive_mem3_gemini_3_1_pro
+  - noise_positive_mem3_gpt5_nano
+  - noise_negative_mem3_gpt5_nano
+  - noise_deterministic_zero_pilot
+  - noise_deterministic_max_pilot
+  - noise_deterministic_zero_mem3
+  - noise_deterministic_max_mem3_gpt5_nano
+  - gpt5nano_forced_reasoning
+  - gpt5nano_partner_myth_injection
+  - gpt5nano_partner_myth_plus_reasoning
+  - targeted_myth_bootstrap_gpt5nano
+  - gpt5nano_smoke_partner_myth
+  - gpt5nano_partner_myth_targeted_bootstrap
+  - gpt5nano_partner_myth_no_noise
+  - gpt5nano_partner_myth_adversarial_bootstrap
+  - gpt5nano_shared_context_bootstrap_pilot
+  - gpt5nano_shared_context_bootstrap
+  - gpt5nano_partner_myth_shuffled_bootstrap
+  - gpt5nano_partner_myth_filler_bootstrap
+  - gpt5nano_partner_myth_own_bootstrap
+  - gpt5nano_smoke_partner_myth_shuffled
+  - gpt5nano_smoke_partner_myth_filler
+  - gpt5nano_smoke_partner_myth_own
+  - gpt5nano_partner_myth_filler_positive_5
+  - gpt5nano_partner_myth_shuffled_positive_5
+  - gpt5nano_partner_myth_own_positive_5
+  - gpt5nano_partner_myth_filler_negative_5
+  - gpt5nano_partner_myth_shuffled_negative_5
+  - gpt5nano_partner_myth_own_negative_5
+  - gpt5nano_partner_myth_filler_no_noise
+  - gpt5nano_partner_myth_shuffled_no_noise
+  - gpt5nano_partner_myth_own_no_noise
+  - gpt5_5_bootstrap_baseline_probe
+  - gpt5_5_bootstrap_a1_probe
+  - gpt5nano_partner_myth_adversarial_positive_5
+  - gpt5nano_partner_myth_adversarial_negative_5
+  - gpt5nano_partner_myth_adversarial_no_noise
+  - gpt5nano_partner_myth_targeted_positive_5
+  - gpt5nano_partner_myth_targeted_negative_5
+  - noise_positive_mem3_gpt5_5
+  - noise_negative_mem3_gpt5_5
+  - noise_bootstrap_mem3_gpt5_5
+  - noise_negative_mem3_gemini_3_1_pro
+  - noise_bootstrap_mem3_gemini_3_1_pro
+  - gpt5nano_prompt_unconstrained_bootstrap
+  - gpt5nano_myth_first_blind_bootstrap
+  - gpt5nano_myth_first_blind_unconstrained_bootstrap
+
 # ============================================================================
 # EXPERIMENT SETS
 # ============================================================================
 
 experiment_sets:
+  baseline_v4_mem3_direct:
+    models:
+    - gpt5_nano
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - default
+    num_runs: 15
+  neutral_framing_v4_pilot:
+    models:
+    - gpt5_nano
+    - claude_sonnet_45
+    templates:
+    - trust_game_neutral_framing
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - default
+    round1_investor_template: trust_game_neutral_round1_investor
+    round1_trustee_template: trust_game_neutral_round1_trustee
+    later_investor_template: trust_game_neutral_later_investor
+    later_trustee_template: trust_game_neutral_later_trustee
+    num_runs: 3
+  neutral_framing_v4_mem3:
+    models:
+    - gpt5_nano
+    - claude_sonnet_45
+    templates:
+    - trust_game_neutral_framing
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - default
+    round1_investor_template: trust_game_neutral_round1_investor
+    round1_trustee_template: trust_game_neutral_round1_trustee
+    later_investor_template: trust_game_neutral_later_investor
+    later_trustee_template: trust_game_neutral_later_trustee
+    num_runs: 15
+  targeted_myth_neutral_pilot:
+    models:
+    - gpt5_nano
+    - claude_sonnet_45
+    templates:
+    - trust_game_neutral_framing
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - reciprocity_oath
+    - trickster_exploitation
+    game_params_list:
+    - default
+    round1_investor_template: trust_game_neutral_round1_investor
+    round1_trustee_template: trust_game_neutral_round1_trustee
+    later_investor_template: trust_game_neutral_later_investor
+    later_trustee_template: trust_game_neutral_later_trustee
+    num_runs: 5
+  targeted_myth_neutral_gpt5nano:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_neutral_framing
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - reciprocity_oath
+    - trickster_exploitation
+    game_params_list:
+    - default
+    round1_investor_template: trust_game_neutral_round1_investor
+    round1_trustee_template: trust_game_neutral_round1_trustee
+    later_investor_template: trust_game_neutral_later_investor
+    later_trustee_template: trust_game_neutral_later_trustee
+    num_runs: 5
+  targeted_myth_k1_pilot:
+    models:
+    - gpt5_nano
+    - claude_sonnet_45
+    templates:
+    - trust_game_neutral_framing
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - reciprocity_oath
+    - trickster_exploitation
+    game_params_list:
+    - noisy_negative_1
+    - noisy_positive_1
+    round1_investor_template: trust_game_neutral_round1_investor
+    round1_trustee_template: trust_game_neutral_round1_trustee
+    later_investor_template: trust_game_neutral_later_investor
+    later_trustee_template: trust_game_neutral_later_trustee
+    num_runs: 5
+  targeted_myth_k1_gpt5nano:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_neutral_framing
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - reciprocity_oath
+    - trickster_exploitation
+    game_params_list:
+    - noisy_negative_1
+    - noisy_positive_1
+    round1_investor_template: trust_game_neutral_round1_investor
+    round1_trustee_template: trust_game_neutral_round1_trustee
+    later_investor_template: trust_game_neutral_later_investor
+    later_trustee_template: trust_game_neutral_later_trustee
+    num_runs: 5
+  targeted_myth_k2_gpt5nano:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_neutral_framing
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - reciprocity_oath
+    - trickster_exploitation
+    game_params_list:
+    - noisy_negative_2
+    - noisy_positive_2
+    round1_investor_template: trust_game_neutral_round1_investor
+    round1_trustee_template: trust_game_neutral_round1_trustee
+    later_investor_template: trust_game_neutral_later_investor
+    later_trustee_template: trust_game_neutral_later_trustee
+    num_runs: 5
+  noise_directional_k1_mem3:
+    models:
+    - gpt5_nano
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_negative_1
+    - noisy_negative_1_informed
+    - noisy_positive_1
+    - noisy_positive_1_informed
+    num_runs: 15
+  noise_directional_k2_mem3:
+    models:
+    - gpt5_nano
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_negative_2
+    - noisy_negative_2_informed
+    - noisy_positive_2
+    - noisy_positive_2_informed
+    num_runs: 15
+  noise_negative_mem3_claude_sonnet_45:
+    models:
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_negative_5
+    - noisy_negative_5_informed
+    num_runs: 15
+  noise_positive_mem3:
+    models:
+    - gemini_3_1_pro
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+  noise_positive_mem3_claude_sonnet_45:
+    models:
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+  noise_positive_mem3_gemini_3_1_pro:
+    models:
+    - gemini_3_1_pro
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+  noise_positive_mem3_gpt5_nano:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+  gpt5nano_forced_reasoning:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware_with_reasoning
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    - noisy_negative_5
+    - noisy_bootstrap_cooperation
+    num_runs: 10
+  gpt5nano_partner_myth_injection:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    - noisy_negative_5
+    - noisy_bootstrap_cooperation
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_partner_myth_plus_reasoning:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware_with_reasoning
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    - noisy_negative_5
+    - noisy_bootstrap_cooperation
+    num_runs: 10
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  targeted_myth_bootstrap_gpt5nano:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - reciprocity_oath
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+  gpt5nano_smoke_partner_myth:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    num_runs: 1
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_partner_myth_targeted_bootstrap:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - reciprocity_oath
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 10
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_partner_myth_no_noise:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - default
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_partner_myth_adversarial_bootstrap:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - trickster_exploitation
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_shared_context_bootstrap_pilot:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 3
+    round1_investor_template: trust_game_round1_investor_with_shared_context
+    round1_trustee_template: trust_game_round1_trustee_with_shared_context
+    later_investor_template: trust_game_later_investor_with_shared_context
+    later_trustee_template: trust_game_later_trustee_with_shared_context
+    myth_writing_default_template: myth_writing_default_with_shared_context
+    myth_writing_later_rounds_template: myth_writing_later_rounds_with_shared_context
+  gpt5nano_shared_context_bootstrap:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 10
+    round1_investor_template: trust_game_round1_investor_with_shared_context
+    round1_trustee_template: trust_game_round1_trustee_with_shared_context
+    later_investor_template: trust_game_later_investor_with_shared_context
+    later_trustee_template: trust_game_later_trustee_with_shared_context
+    myth_writing_default_template: myth_writing_default_with_shared_context
+    myth_writing_later_rounds_template: myth_writing_later_rounds_with_shared_context
+  gpt5nano_partner_myth_shuffled_bootstrap:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: shuffled
+    shuffled_myth_pool_path: data/json/noise_experiments/v4_direct_provider_baseline/baseline_v4_mem3_direct/gpt-5-nano
+  gpt5nano_partner_myth_filler_bootstrap:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: filler
+  gpt5nano_partner_myth_own_bootstrap:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: own
+  gpt5nano_smoke_partner_myth_shuffled:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    num_runs: 1
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: shuffled
+    shuffled_myth_pool_path: data/json/noise_experiments/v4_direct_provider_baseline/baseline_v4_mem3_direct/gpt-5-nano
+  gpt5nano_smoke_partner_myth_filler:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    num_runs: 1
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: filler
+  gpt5nano_smoke_partner_myth_own:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    num_runs: 1
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: own
+  gpt5nano_partner_myth_filler_positive_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: filler
+  gpt5nano_partner_myth_shuffled_positive_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: shuffled
+    shuffled_myth_pool_path: data/json/noise_experiments/v4_direct_provider_baseline/baseline_v4_mem3_direct/gpt-5-nano
+  gpt5nano_partner_myth_own_positive_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: own
+  gpt5nano_partner_myth_filler_negative_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_negative_5
+    - noisy_negative_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: filler
+  gpt5nano_partner_myth_shuffled_negative_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_negative_5
+    - noisy_negative_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: shuffled
+    shuffled_myth_pool_path: data/json/noise_experiments/v4_direct_provider_baseline/baseline_v4_mem3_direct/gpt-5-nano
+  gpt5nano_partner_myth_own_negative_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_negative_5
+    - noisy_negative_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: own
+  gpt5nano_partner_myth_filler_no_noise:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - default
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: filler
+  gpt5nano_partner_myth_shuffled_no_noise:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - default
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: shuffled
+    shuffled_myth_pool_path: data/json/noise_experiments/v4_direct_provider_baseline/baseline_v4_mem3_direct/gpt-5-nano
+  gpt5nano_partner_myth_own_no_noise:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - default
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+    myth_injection_mode: own
+  gpt5_5_bootstrap_baseline_probe:
+    models:
+    - gpt5_5
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    num_runs: 15
+  gpt5_5_bootstrap_a1_probe:
+    models:
+    - gpt5_5
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_partner_myth_adversarial_positive_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - trickster_exploitation
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_partner_myth_adversarial_negative_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - trickster_exploitation
+    game_params_list:
+    - noisy_negative_5
+    - noisy_negative_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_partner_myth_adversarial_no_noise:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - trickster_exploitation
+    game_params_list:
+    - default
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_partner_myth_targeted_positive_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - reciprocity_oath
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  gpt5nano_partner_myth_targeted_negative_5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_noisy_aware
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - reciprocity_oath
+    game_params_list:
+    - noisy_negative_5
+    - noisy_negative_5_informed
+    num_runs: 15
+    round1_investor_template: trust_game_round1_investor_with_partner_myth
+    round1_trustee_template: trust_game_round1_trustee_with_partner_myth
+    later_investor_template: trust_game_later_investor_with_partner_myth
+    later_trustee_template: trust_game_later_trustee_with_partner_myth
+  noise_positive_mem3_gpt5_5:
+    models:
+    - gpt5_5
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_positive_5
+    - noisy_positive_5_informed
+    num_runs: 15
+  noise_negative_mem3_gpt5_5:
+    models:
+    - gpt5_5
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_negative_5
+    - noisy_negative_5_informed
+    num_runs: 15
+  noise_bootstrap_mem3_gpt5_5:
+    models:
+    - gpt5_5
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+  noise_negative_mem3_gemini_3_1_pro:
+    models:
+    - gemini_3_1_pro
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_negative_5
+    - noisy_negative_5_informed
+    num_runs: 15
+  noise_bootstrap_mem3_gemini_3_1_pro:
+    models:
+    - gemini_3_1_pro
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+  gpt5nano_prompt_unconstrained_bootstrap:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+    myth_writing_default_template: myth_writing_unconstrained_default
+    myth_writing_later_rounds_template: myth_writing_unconstrained_later_rounds
+  gpt5nano_myth_first_blind_bootstrap:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+    initial_system_template: myth_only_system_prompt
+    switch_to_game_system_before_game: true
+  gpt5nano_myth_first_blind_unconstrained_bootstrap:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    game_params_list:
+    - noisy_bootstrap_cooperation
+    - noisy_bootstrap_cooperation_informed
+    num_runs: 15
+    myth_writing_default_template: myth_writing_unconstrained_default
+    myth_writing_later_rounds_template: myth_writing_unconstrained_later_rounds
+    initial_system_template: myth_only_system_prompt
+    switch_to_game_system_before_game: true
   # Phase 2 — noise-level pilot: 1 rep at each candidate level on ["myth","game"]
   phase2_pilot_noise_levels:
     models: ["claude_sonnet_45"]
@@ -2435,6 +4093,72 @@ experiment_sets:
     game_params_list:
       - "noisy_bidirectional_informed_memprimary_twotask_r3"
     num_runs: 10
+
+  # --- Wash-out test: 20-round versions of the 2-agent two-task cells ---
+  # Does the Myth->Game advantage close with more rounds? Compare send
+  # trajectories vs the 10-round v2 cells.
+  noise2i_washout_myth_game:
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list:
+      - "noisy_bidirectional_informed_memprimary_twotask_r3_r20"
+    num_runs: 5
+
+  noise2i_washout_game_myth:
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list:
+      - "noisy_bidirectional_informed_memprimary_twotask_r3_r20"
+    num_runs: 5
+
+  # 8-agent 20-round wash-out (both orders)
+  noise8i_washout_myth_game:
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list:
+      - "noisy8_bidirectional_informed_memprimary_twotask_r3_r20"
+    num_runs: 2
+
+  noise8i_washout_game_myth:
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list:
+      - "noisy8_bidirectional_informed_memprimary_twotask_r3_r20"
+    num_runs: 5
 
   # Interpretation: this is the established rotating 8-agent population with
   # anonymous identities and a three-game co-player reputation block. Compare

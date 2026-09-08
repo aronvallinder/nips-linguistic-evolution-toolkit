@@ -1,0 +1,10 @@
+meme_family,parent_free_capsules,parent_free_hits,parent_free_rate,system_prompt_hit_capsules,direct_prompt_hit_capsules,capsules_total
+proportional_reciprocity,300,185,0.6167,0,0,5000
+sustainable_equilibrium,300,29,0.0967,0,0,5000
+consistency_over_volatility,300,20,0.0667,0,0,5000
+trust_escalation,300,0,0.0,0,0,5000
+noise_adaptation,300,104,0.3467,5000,0,5000
+prosperity_through_cooperation,300,71,0.2367,0,0,5000
+trust_seeding,300,82,0.2733,0,0,5000
+punitive_deterrence,300,21,0.07,0,0,5000
+repair_after_disruption,300,0,0.0,0,0,5000

@@ -27,6 +27,7 @@ def build_game(
     pairing_seed=None,
     noise_seed=None,
     prompt_regime="legacy",
+    noise_semantics="communication",
 ):
     game = TrustGameNoisy(
         endowment=5,
@@ -42,6 +43,7 @@ def build_game(
             "direction": "both",
             "applies_to": "sent",
         },
+        noise_semantics=noise_semantics,
         history_policy=history_policy,
         self_history_window=self_history_window,
         coplayer_history_window=coplayer_history_window,
@@ -519,6 +521,8 @@ class PairingAndPromptRegimeTests(unittest.TestCase):
             build_game(pairing_mode="typo")
         with self.assertRaisesRegex(ValueError, "prompt_regime"):
             build_game(prompt_regime="typo")
+        with self.assertRaisesRegex(ValueError, "noise_semantics"):
+            build_game(noise_semantics="typo")
 
     def test_seeded_pairing_and_noise_are_reproducible(self):
         first_game = build_game(

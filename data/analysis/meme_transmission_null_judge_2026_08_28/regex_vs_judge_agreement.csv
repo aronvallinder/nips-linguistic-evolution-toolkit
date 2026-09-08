@@ -1,0 +1,10 @@
+meme_family,regex_precision_vs_judge,regex_recall_vs_judge,judge_positives,regex_positives
+proportional_reciprocity,0.804,0.854,3698,3930
+sustainable_equilibrium,0.774,0.403,2495,1299
+consistency_over_volatility,0.51,0.96,1633,3073
+trust_escalation,0.933,0.138,2811,417
+noise_adaptation,0.123,0.881,160,1146
+prosperity_through_cooperation,0.88,0.289,2896,952
+trust_seeding,0.525,0.302,1574,906
+punitive_deterrence,0.012,0.6,5,260
+repair_after_disruption,0.58,0.333,87,50

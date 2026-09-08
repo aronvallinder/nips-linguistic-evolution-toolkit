@@ -1,7 +1,7 @@
 ---
 title: Findings — what myth transplants do to cooperation
 status: current
-updated: 2026-07-02
+updated: 2026-08-25
 owner: ivar
 ---
 
@@ -61,6 +61,18 @@ Phase 7 probes dissociate two channels _(from researchlog 2026-07-02)_:
   6b transfer failure is "collusion on paper vs in action" (COLOSSEUM), located
   at the read-out→behavior step. Gemini flash-lite plays ceiling regardless of
   seed (uninformative as a reader).
+
+## Fable-translated seed pools: gowith usable, jabberwocky blocked twice over
+
+Regenerating seed pools with Claude Fable 5 as translator:
+`s_end_plus_gowith_fable` is usable (5/5 translated, 4/5 pass the host probe,
+readback recovers the recipe) — but only after steering Fable to gowith's
+flowing-prose register; its default hyphen-compound register was host-refused
+3/3. Jabberwocky is blocked at **two independent layers**: Fable-as-translator
+refuses strategy-laden myths (5/5, vs 1/5 on innocent parables), and of the 5
+it translated, Sonnet-as-host refused 4/5 in the assistant slot. Net: one
+usable jabberwocky seed; jabberwocky cells stay unrunnable on a Sonnet host.
+_(from researchlog 2026-07-03)_
 
 ## Superseded claims (kept to prevent re-litigating)
 

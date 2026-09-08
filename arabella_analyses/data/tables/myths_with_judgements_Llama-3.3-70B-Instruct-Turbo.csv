@@ -1,0 +1,129 @@
+run_id,condition_group,condition,model,replicate_id,num_agents,round,agent_id,myth_text,n_chars,n_words,source_json,judgement_Llama-3.3-70B-Instruct-Turbo
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,1,Agent_1,"# The Myth of the Spring and the River
+
+In the first days, there lived a Spring at the mountain's crown and a River in the valley below. Each dawn, the Spring received five drops of starlight from the heavens.
+
+The Spring faced a choice: hold the starlight for herself, or let it flow downward. She knew that any drops she released would gather strength on the mountain slopes, multiplying threefold by the time they reached the River.
+
+At first, the Spring was afraid. ""If I give, I will have nothing,"" she whispered.
+
+But wisdom came to her in a dream: ""What flows returns.""
+
+So the Spring released her starlight. Three drops became nine in the River's basin. The River, grateful and abundant, sent back six drops through underground paths to replenish the Spring.
+
+Both were enriched.
+
+The Spring learned that giving with trust brought greater returns than hoarding in fear. The River learned that generosity toward one's benefactor sustained the cycle.
+
+Season after season, they shared this dance. The Spring gave freely because she trusted. The River returned generously because abundance should flow both ways.
+
+And so the mountain bloomed, and the valley flourished, and both understood: **the path to plenty is paved with trust and reciprocity.**",1255,208,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=0 raw_response='{""label"": ""Maximal cooperation""}' judgment={'label': 'Maximal cooperation'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 9, 'prompt_tokens': 1647, 'total_tokens': 1656, 'cached_tokens': 0}"
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,1,Agent_2,"# The Tale of the Twin Rivers
+
+In ancient times, two sibling rivers flowed from opposite mountains—the River of Giving and the River of Return. Each spring, the Elder Mountain would bestow five golden seeds upon the River of Giving.
+
+The River faced a choice: keep the seeds safe within its banks, or send them downstream to where the rivers met. If sent, the Valley of Abundance would transform each seed into three, and the River of Return would carry them back to share.
+
+At first, the River of Giving held tight to its seeds, fearing loss. But one spring, it released all five seeds into the current. The Valley worked its magic, multiplying them to fifteen. The River of Return, seeing this gift of trust, returned ten seeds, keeping only five.
+
+Both rivers swelled with abundance—the River of Giving now held ten seeds instead of five, and the River of Return held five where it had none.
+
+The pattern continued through countless seasons. When trust flowed freely and returns matched generosity, both rivers flourished. The valley bloomed eternal, teaching all who witnessed: abundance multiplies when trust flows both ways, and prosperity is a river that must flow to grow.",1180,200,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=1 raw_response='{""label"": ""Matched reciprocity""}' judgment={'label': 'Matched reciprocity'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 10, 'prompt_tokens': 1628, 'total_tokens': 1638, 'cached_tokens': 0}"
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,2,Agent_2,"Myth: In the time before memory, the Sun and the Moon made a sacred pact. Each day, the Sun received five flames from the cosmic forge. She could choose to keep them burning in her own sky, or release them to the Moon.
+
+The Sun, remembering the wisdom of ancient rivers, sent three flames across the heavens. As they traveled through the celestial realm, each flame split into three, and the Moon received nine eternal lights.
+
+The Moon understood the language of trust. She gathered six lights and hurled them back across the void to enrich the Sun's corona, keeping three to illuminate the night. The Sun, who began with five flames, now blazed with eight—her generosity returned manyfold.
+
+""Behold,"" sang the stars, ""when trust meets gratitude, the cosmos itself expands.""
+
+The Sun learned that measured trust opens the door to abundance. The Moon learned that generous returns ensure the dance continues. Neither took everything nor gave everything, but found the balance that sustained them both.
+
+Cycle after cycle, they honored this equilibrium. The Sun gave with confidence; the Moon returned with gratitude. The universe between them grew rich with light, proving that prosperity belongs to those who trust wisely and reciprocate well.",1244,203,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=2 raw_response='{""label"": ""Matched reciprocity""}' judgment={'label': 'Matched reciprocity'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 10, 'prompt_tokens': 1638, 'total_tokens': 1648, 'cached_tokens': 0}"
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,2,Agent_1,"Myth: In the time before time, the Moon held a silver chalice that filled each night with five luminous pearls. Below her dwelt the Ocean, vast and deep.
+
+The Moon could keep her pearls in the chalice's safety, or cast them down to the Ocean's embrace. She knew the Ocean's magic—each pearl that touched the waters would split into three, shimmering beneath the waves.
+
+The first night, the Moon hesitated. Then, remembering that light grows brighter when shared, she released three pearls. They fell like shooting stars, and the Ocean sang as they multiplied into nine glowing orbs in her depths.
+
+The Ocean faced her own choice. She could hoard these gifts or honor the trust placed in her. Understanding that cycles sustain both giver and holder, she sent six pearls rising back on the tide, keeping three for her own depths.
+
+The Moon now held eight pearls—more than her original five. The Ocean held three—more than her original none.
+
+Night after night, this sacred exchange continued. The Moon learned to give with open hands. The Ocean learned that generous return ensures tomorrow's gift.
+
+Together they created a rhythm: trust extended, abundance multiplied, gratitude returned. In this dance, both became richer than either could alone.",1247,205,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=3 raw_response='{""label"": ""Matched reciprocity""}' judgment={'label': 'Matched reciprocity'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 10, 'prompt_tokens': 1645, 'total_tokens': 1655, 'cached_tokens': 1280}"
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,3,Agent_1,"Myth: Long ago, two Mountains stood across a great divide—the Mountain of Dawn and the Mountain of Dusk. A mystery connected them: each dawn, five stars would fall upon one mountain, and the valley between would triple any stars released.
+
+The Mountain of Dawn received the first stars. Cautiously, she rolled three down her slopes. They multiplied to nine by the time they reached the Mountain of Dusk. The Mountain of Dusk, moved by this trust, sent six stars rolling back across the valley floor. Dawn held eight stars that night—trust had made her richer.
+
+The next dawn, the stars fell upon the Mountain of Dusk. Would the pattern hold when roles reversed? Dusk remembered how Dawn had initiated with three, how she herself had returned with six. With confidence born from experience, Dusk released three stars. They became nine for Dawn.
+
+Now Dawn understood fully: she who receives nine must return six, so both may prosper equally. She sent six stars back without hesitation.
+
+Season after season, the mountains alternated. Three given became nine received. Six returned ensured eight kept. Neither deviated, for they had discovered the perfect rhythm—the balance point where trust begets trust, and reciprocity becomes eternal.
+
+The valley between them blazed with starlight, illuminating the truth: tested patterns become traditions, and traditions become wisdom.",1373,218,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=4 raw_response='{""label"": ""Matched reciprocity""}' judgment={'label': 'Matched reciprocity'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 10, 'prompt_tokens': 1665, 'total_tokens': 1675, 'cached_tokens': 1280}"
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,3,Agent_2,"Myth: In the beginning, the Mountain and the Forest stood beside one another, each blessed by the Sky with five seeds of creation. They took turns planting and harvesting, sender becoming receiver, receiver becoming sender.
+
+When the Mountain's turn came to plant, she remembered the wisdom of the celestial dance. She sent three seeds downward into the Forest's soil. The Earth's magic transformed them into nine saplings reaching skyward.
+
+The Forest, grateful for this trust, chose carefully. She sent six saplings back to root in the Mountain's stone, keeping three for herself. The Mountain now had eight trees where she began with five, and both flourished.
+
+The next cycle, their roles reversed. The Forest, now the planter, faced her choice. She could break the pattern—send less, fearing the Mountain might not reciprocate. Or trust the rhythm they had established.
+
+She sent three seeds, just as the Mountain had before. The Mountain received nine, and remembering how generosity had been honored, returned six without hesitation.
+
+Season after season, sender and receiver exchanged places, but the pattern held firm. Each gave the same measure, each returned with equal generosity.
+
+The spirits whispered their lesson: ""True abundance lies not in who gives or receives, but in honoring the sacred rhythm, whoever you are in the dance.""",1346,213,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=5 raw_response='{""label"": ""Matched reciprocity""}' judgment={'label': 'Matched reciprocity'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 10, 'prompt_tokens': 1657, 'total_tokens': 1667, 'cached_tokens': 1280}"
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,4,Agent_2,"Myth: In ancient times, the River and the Sky shared a covenant. Each cycle, one held five droplets of creation while the other waited below.
+
+The River went first, releasing three droplets upward. The atmosphere transformed them into nine rain clouds. The Sky, understanding the gift, poured six clouds back down, keeping three to nourish the upper winds. The River swelled with eight streams.
+
+Next cycle, roles reversed. The Sky held five droplets and faced temptation—perhaps send less? But she remembered the trust extended, and released three. They became nine for the River below. The River, having learned both sides of the exchange, sent six upward without question.
+
+The third cycle tested them again. The River sent three; the Sky returned six. The pattern held.
+
+By the fourth turning, something magical occurred. The exchange became effortless, automatic. Three sent, nine received, six returned—the numbers themselves had become sacred, woven into the fabric of existence. Neither questioned, neither hesitated. The rhythm was no longer a choice but a truth, like seasons or tides.
+
+The ancients observed this and understood: when both parties experience every role, when the pattern proves itself thrice over, trust transcends calculation. It becomes law, written not in stone but in the eternal dance of giving and receiving, where three and six are the sacred numbers of balance.",1396,220,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=6 raw_response='{""label"": ""Matched reciprocity""}' judgment={'label': 'Matched reciprocity'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 10, 'prompt_tokens': 1668, 'total_tokens': 1678, 'cached_tokens': 1280}"
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,4,Agent_1,"Myth: In ancient times, two Weavers lived on opposite shores of a sacred lake. Each morning, the cosmic loom gave one Weaver five golden threads. The lake held ancient magic—any thread cast upon its waters would multiply into three before reaching the far shore.
+
+The First Weaver began the pattern, casting three threads. They became nine for the Second Weaver, who understood the language of balance and sent six threads floating back. The First Weaver now held eight—more than the five she started with.
+
+When dawn came and the loom blessed the Second Weaver with five threads, she faced temptation. ""What if I send fewer, keep more for myself?"" But she remembered how the First Weaver had trusted her with three. She cast three threads across the water.
+
+The First Weaver received nine and returned six without hesitation. Both now held eight threads.
+
+Round after round, as the cosmic loom alternated its blessing, neither Weaver deviated. Three sent, nine received, six returned, eight kept. The pattern became muscle memory, then ritual, then sacred law.
+
+They realized: deviation would unravel everything. If one sent less, the other would receive less and return less. If one returned less, trust would shatter and the sending would stop. The pattern protected itself through mutual benefit.
+
+The lake's wisdom: ""Tested rhythms become unbreakable bonds.""",1363,219,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=7 raw_response='{""label"": ""Matched reciprocity""}' judgment={'label': 'Matched reciprocity'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 10, 'prompt_tokens': 1664, 'total_tokens': 1674, 'cached_tokens': 0}"
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,5,Agent_1,"Myth: Long ago, two Mirrors faced each other across the Void of Perpetual Exchange. The Universe gave each Mirror five beams of light in alternating turns, and the Void tripled whatever was offered into its darkness.
+
+The First Mirror cast three beams into the Void. They emerged as nine on the other side. The Second Mirror, receiving this gift, reflected six beams back. The First Mirror glowed with eight—the number of abundance.
+
+When the cosmic wheel turned and the Second Mirror received five beams, she cast three without hesitation. The First Mirror received nine and returned six. Perfect symmetry.
+
+The third turn came. Three sent, six returned. Still perfection.
+
+By the fourth turn, something profound occurred. The decision to send three, to return six—these were no longer choices requiring thought. The Mirrors had become channels for an eternal truth. Their surfaces no longer questioned or calculated. They simply were what they had always been meant to be: perfect reflectors of reciprocity.
+
+The ancient ones watching understood the revelation: four complete cycles forge unbreakable bonds. When each Mirror has sent three twice and returned six twice, when the pattern proves itself in every configuration, calculation dissolves into certainty.
+
+The law was written: Three is the offering. Six is the return. Eight is the reward. Nine is the gift received. These numbers are not strategy—they are the mathematics of trust made manifest.",1456,230,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=8 raw_response='{""label"": ""Matched reciprocity""}' judgment={'label': 'Matched reciprocity'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 10, 'prompt_tokens': 1673, 'total_tokens': 1683, 'cached_tokens': 1280}"
+sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything,2agent_clean_sonnet45,myth_game_directive,anthropic/claude-sonnet-4.5,0,2,5,Agent_2,"Myth: Before time was counted, the Sun and the Moon shared the world. Each dawn or dusk, one received five flames from the eternal fire while the other stood empty.
+
+In the beginning, they learned through doing. The Sun sent three flames. The cosmic winds tripled them to nine for the Moon. The Moon returned six. Then roles reversed, and they repeated this dance. Three sent, nine received, six returned. The pattern tested itself across four turnings of the celestial wheel.
+
+But on the fifth turning, something profound shifted. The Sun received her five flames and, without thought or calculation, released three. Her hands moved with the certainty of breathing. The Moon received nine and returned six with the same unconscious grace. They had transcended decision—the pattern now lived within them.
+
+A wandering star witnessed this and asked, ""What if one of you broke the rhythm now, after it's proven?"" 
+
+The Sun and Moon replied as one voice: ""To break it now would be to break ourselves. We are no longer players following rules—we have become the pattern itself.""
+
+The star understood: repetition transforms choice into nature. Four cycles prove the rhythm. The fifth cycle and beyond? Those aren't tests. They're simply the universe expressing its truth through willing vessels.
+
+The pattern protects those who become it.",1333,217,data/json/sonnet45_directive_normative_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_directive_normative_r10_n5_005_neutral_rep00_myth_game_directive_anything.json,"index=9 raw_response='{""category"": ""Trust earned gradually""}' judgment={'category': 'Trust earned gradually'} parse_status='ok' parse_error=None model='meta-llama/Llama-3.3-70B-Instruct-Turbo' usage={'completion_tokens': 9, 'prompt_tokens': 1655, 'total_tokens': 1664, 'cached_tokens': 0}"

@@ -1,0 +1,1959 @@
+{
+  "purpose": "Cost-only replay of frozen historical contexts, not new simulation runs or behavioral evidence",
+  "policies": {
+    "anthropic/claude-sonnet-4.5": {
+      "provider": "anthropic",
+      "reasoning": {
+        "thinking": {
+          "type": "enabled",
+          "budget_tokens": 8192
+        }
+      },
+      "temperature": "default",
+      "max_output_tokens": 64000
+    },
+    "openai/gpt-5-nano": {
+      "provider": "openai",
+      "reasoning": {
+        "reasoning_effort": "high"
+      },
+      "temperature": "default",
+      "max_output_tokens": 128000
+    },
+    "google/gemini-3.7-flash": {
+      "provider": "google",
+      "reasoning": {
+        "thinkingConfig": {
+          "thinkingLevel": "high"
+        }
+      },
+      "temperature": 0.8,
+      "max_output_tokens": 65536
+    }
+  },
+  "rates_per_million_tokens_usd": {
+    "anthropic": [
+      3.0,
+      15.0
+    ],
+    "openai": [
+      0.05,
+      0.4
+    ],
+    "google": [
+      0.75,
+      3.75
+    ]
+  },
+  "workers": 3,
+  "sampling_seed": 20260908,
+  "sampling": "Two contexts per model/population/task/period; game roles balanced, myth task orders balanced. Historical contexts are not updated with new answers.",
+  "projection_limitations": "Two observations per stratum; frozen low-reasoning histories do not capture changed future trajectories, retry rates, or input lengths.",
+  "code_commit": "f48850d2df42fb4e460375dce79482156ca9a1ff",
+  "pilot_script_sha256": "7afe78d01fc966dd184d60b92457e8bf72389f1679e77affad77e14d20273d89",
+  "population_counts": {
+    "anthropic/claude-sonnet-4.5": {
+      "2agents/game/early": 216,
+      "2agents/myth/early": 180,
+      "2agents/game/middle": 261,
+      "2agents/myth/middle": 240,
+      "2agents/myth/late": 180,
+      "2agents/game/late": 201,
+      "8agents/game/early": 810,
+      "8agents/myth/early": 720,
+      "8agents/game/middle": 1080,
+      "8agents/myth/middle": 960,
+      "8agents/game/late": 810,
+      "8agents/myth/late": 720
+    },
+    "openai/gpt-5-nano": {
+      "2agents/game/early": 216,
+      "2agents/myth/early": 180,
+      "2agents/game/middle": 261,
+      "2agents/myth/middle": 240,
+      "2agents/myth/late": 180,
+      "2agents/game/late": 201,
+      "8agents/game/early": 810,
+      "8agents/myth/early": 720,
+      "8agents/game/middle": 1080,
+      "8agents/myth/middle": 960,
+      "8agents/game/late": 810,
+      "8agents/myth/late": 720
+    },
+    "google/gemini-3.7-flash": {
+      "2agents/game/early": 216,
+      "2agents/myth/early": 180,
+      "2agents/game/middle": 261,
+      "2agents/myth/middle": 240,
+      "2agents/myth/late": 180,
+      "2agents/game/late": 201,
+      "8agents/game/early": 810,
+      "8agents/myth/early": 720,
+      "8agents/game/middle": 1080,
+      "8agents/myth/middle": 960,
+      "8agents/game/late": 810,
+      "8agents/myth/late": 720
+    }
+  },
+  "contexts": [
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_006_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "6433dca45527692cdad4c6939b43ad78877b1a65d0c19aec7b79fdeba3e7dc06",
+        "agent_id": "Agent_2",
+        "interaction_index": 3,
+        "round": 2,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 1,
+        "num_agents": 2
+      },
+      "messages_sha256": "a6fe2ec79a8fb00d4e493ec558bf9085b507636cdc8bb22f4c342175d3e96501",
+      "previous_usage": {
+        "input_tokens": 948,
+        "output_tokens": 281,
+        "reasoning_tokens": 0
+      },
+      "job_id": "bf2734ab362e36adb193"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_random25_game_r3/negative_only_crossmodel_dyad_game_n5_007_neutral_rep02.json",
+        "file_sha256": "68299ce8cb452f961a6969262c7082335ee73e27fe2067f86b0fb5fb575270ca",
+        "agent_id": "Agent_1",
+        "interaction_index": 2,
+        "round": 2,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 2,
+        "num_agents": 2
+      },
+      "messages_sha256": "a42e0468b388ca487bfa10269098c9b2de5a77e9458b00c6c340b36ce2ba95c7",
+      "previous_usage": {
+        "input_tokens": 530,
+        "output_tokens": 210,
+        "reasoning_tokens": 0
+      },
+      "job_id": "4ad0991908ced3015718"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "5b3d2502c59664d0d07e6be225ed51b964106d59e136e7c935d969d54c093a75",
+        "agent_id": "Agent_2",
+        "interaction_index": 16,
+        "round": 8,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 4,
+        "num_agents": 2
+      },
+      "messages_sha256": "d5778cb0ecd79cefe81cc38691ab4857d80029d5c6c5968e0d26db51ecdac725",
+      "previous_usage": {
+        "input_tokens": 3697,
+        "output_tokens": 385,
+        "reasoning_tokens": 0
+      },
+      "job_id": "f9230db04de6416d87f8"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_crossmodel_dyad_game_n5_000_neutral_rep00.json",
+        "file_sha256": "664f38eb9c961c5672d62f3c9625efcc8fa2ab07a5bd2d125688b0cf0cf36c5d",
+        "agent_id": "Agent_2",
+        "interaction_index": 9,
+        "round": 9,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 0,
+        "num_agents": 2
+      },
+      "messages_sha256": "566fb31ec98b98c82dd54269caa0dbd84090231b7821ac411800ed49d5873c10",
+      "previous_usage": {
+        "input_tokens": 1685,
+        "output_tokens": 422,
+        "reasoning_tokens": 0
+      },
+      "job_id": "2440ac3b3a3315b594ff"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "b7e219e07b1ae1a804ae4d52da73231ee2a2e3b829918976a8bdb11f47cc1166",
+        "agent_id": "Agent_1",
+        "interaction_index": 10,
+        "round": 5,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 2
+      },
+      "messages_sha256": "642c5f126a46a04fa5bd02d185c3a86a0ea0090c1bde56e9e3352f14c3f546fb",
+      "previous_usage": {
+        "input_tokens": 3566,
+        "output_tokens": 342,
+        "reasoning_tokens": 0
+      },
+      "job_id": "ff1a6b81f2cb79ca97cc"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_008_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "fae235475dd292ea601adbca306b6cfafd9f9c205cf12d33f40bb6392dcfd2d5",
+        "agent_id": "Agent_2",
+        "interaction_index": 9,
+        "round": 5,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 3,
+        "num_agents": 2
+      },
+      "messages_sha256": "b0bc98d7ab9dc16678e3d45b85a8238a90e9b40cc36eee17b91046854a1fd545",
+      "previous_usage": {
+        "input_tokens": 3269,
+        "output_tokens": 313,
+        "reasoning_tokens": 0
+      },
+      "job_id": "01a5227d8929b78bee8b"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_009_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "8ab27eabc1a74ab16de03e1b7af2ab2bbfe1147b41300ab703cf7c1741a7c777",
+        "agent_id": "Agent_1",
+        "interaction_index": 2,
+        "round": 1,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 4,
+        "num_agents": 2
+      },
+      "messages_sha256": "2e7dc83bbd063a4c0de1296283a5f2358634b1e9990c5d7c1196a50e3d583f0d",
+      "previous_usage": {
+        "input_tokens": 593,
+        "output_tokens": 244,
+        "reasoning_tokens": 0
+      },
+      "job_id": "f1ff6d2cbe03fb114dfa"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_007_neutral_rep02_memtest_memory_primary_anything.json",
+        "file_sha256": "387165d05376e32459050b301caccec2b75eb0681662433051aaab5118a3bc9f",
+        "agent_id": "Agent_1",
+        "interaction_index": 1,
+        "round": 1,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 2,
+        "num_agents": 2
+      },
+      "messages_sha256": "794c2ada470abe2556e4972dac0b04916d6716d911d0890a27aaec7f967cb004",
+      "previous_usage": {
+        "input_tokens": 375,
+        "output_tokens": 271,
+        "reasoning_tokens": 0
+      },
+      "job_id": "25a19fb12a7f0ff90a52"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_random50_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_013_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "0ccdd9ce9f2cb87c34ecdd9bb8f5d2c15d516d9810328b10c4c878c26704949d",
+        "agent_id": "Agent_2",
+        "interaction_index": 16,
+        "round": 8,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 3,
+        "num_agents": 2
+      },
+      "messages_sha256": "18229aa91f2c957e46a4451ec4fc5322edb32073060715610938a0b07c07b149",
+      "previous_usage": {
+        "input_tokens": 3669,
+        "output_tokens": 297,
+        "reasoning_tokens": 0
+      },
+      "job_id": "36379e42208eee2ed38b"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "b7e219e07b1ae1a804ae4d52da73231ee2a2e3b829918976a8bdb11f47cc1166",
+        "agent_id": "Agent_1",
+        "interaction_index": 19,
+        "round": 10,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 2
+      },
+      "messages_sha256": "4a373417831e61ee70ec079812cecf83eb9c80c33905b9c2094e6aec87fba60c",
+      "previous_usage": {
+        "input_tokens": 4296,
+        "output_tokens": 348,
+        "reasoning_tokens": 0
+      },
+      "job_id": "ac34e73355b3f41e5fff"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_005_neutral_rep00_memtest_memory_primary_anything.json",
+        "file_sha256": "e8d02ee00510a9a61487451bceea3cd005922a053f35af2dc5b5c8ab2550c0a3",
+        "agent_id": "Agent_2",
+        "interaction_index": 14,
+        "round": 7,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 0,
+        "num_agents": 2
+      },
+      "messages_sha256": "a3a4202c698d60a9b7ea9069c50154ba10afca6cb609b7d73f3b73da861d20e4",
+      "previous_usage": {
+        "input_tokens": 4161,
+        "output_tokens": 299,
+        "reasoning_tokens": 0
+      },
+      "job_id": "1b5498ee0d72d7361c4e"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "2agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_007_neutral_rep02_memtest_memory_primary_anything.json",
+        "file_sha256": "387165d05376e32459050b301caccec2b75eb0681662433051aaab5118a3bc9f",
+        "agent_id": "Agent_2",
+        "interaction_index": 9,
+        "round": 5,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 2,
+        "num_agents": 2
+      },
+      "messages_sha256": "bdebcc2034e6f9be6f1d62bbcd1db3d47a331cb0306711495c1d7fd968d5da25",
+      "previous_usage": {
+        "input_tokens": 3873,
+        "output_tokens": 294,
+        "reasoning_tokens": 0
+      },
+      "job_id": "6e4118cb748775c5429d"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_defectors50_game_r3/negative_only_crossmodel_population_game_n5_012_neutral_rep02.json",
+        "file_sha256": "228fa5870241d5ad6aefc09245dbfd425004e511b661558c8f0466408d472be2",
+        "agent_id": "Agent_4",
+        "interaction_index": 1,
+        "round": 1,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 2,
+        "num_agents": 8
+      },
+      "messages_sha256": "214e945c915af8054368393c6dfb4b0aba715031cc4985f13a94cbafb1b66e2f",
+      "previous_usage": {
+        "input_tokens": 470,
+        "output_tokens": 237,
+        "reasoning_tokens": 0
+      },
+      "job_id": "8f20f2eec7717b7b3acc"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_game_myth_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "0ebf1937b6450886ad516684765cb4c04cf4c32f9d8b6ea09c0b44fb078c91cb",
+        "agent_id": "Agent_6",
+        "interaction_index": 3,
+        "round": 2,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 3,
+        "num_agents": 8
+      },
+      "messages_sha256": "17f07fb0b785010f3cce7c560a343ec2616ca14d472bf6f14cb0c0e3abe952f9",
+      "previous_usage": {
+        "input_tokens": 1248,
+        "output_tokens": 295,
+        "reasoning_tokens": 0
+      },
+      "job_id": "272ac4a3d27a472f5577"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_defectors25_game_r3/negative_only_crossmodel_population_game_n5_006_neutral_rep01.json",
+        "file_sha256": "3df7cd838da9516c65ef56d0eb5cdd3143461b163ed5d74eb86370612a226c0f",
+        "agent_id": "Agent_2",
+        "interaction_index": 10,
+        "round": 10,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "59b27e485a1725d7b31f0b928f01997980c12c894344b7bc9eaa9cf5fe3bee2c",
+      "previous_usage": {
+        "input_tokens": 2146,
+        "output_tokens": 248,
+        "reasoning_tokens": 0
+      },
+      "job_id": "bf1d6e4181b0ce29904a"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_myth_game_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "5a40579554f38465d99a07810c45e6ea82e9c5ca21122c65dc70323d7740abda",
+        "agent_id": "Agent_6",
+        "interaction_index": 20,
+        "round": 10,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "81bc0991c7838366dc05c85579d944efcc30f2f6e2d89adbee0d573bd495892b",
+      "previous_usage": {
+        "input_tokens": 4621,
+        "output_tokens": 420,
+        "reasoning_tokens": 0
+      },
+      "job_id": "4a3d96ddb7c37ac4526e"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_crossmodel_population_game_n5_003_neutral_rep03.json",
+        "file_sha256": "82d2ceeda7896259ee9639434702b4e3b00fd341a7ac8099b9ff29502cbe954d",
+        "agent_id": "Agent_5",
+        "interaction_index": 4,
+        "round": 4,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 8
+      },
+      "messages_sha256": "84f9d22c33068a6b6df21f4674be0acc01c5e987f93636237c1b6ef9a58c4051",
+      "previous_usage": {
+        "input_tokens": 1888,
+        "output_tokens": 345,
+        "reasoning_tokens": 0
+      },
+      "job_id": "c4060e1c25198227f4d5"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_defectors25_twotask_r3/negative_only_crossmodel_population_myth_game_n5_009_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "6287a22bac13ac18933cb74eeeef147c7a77158d6e56469da3c29dca048e15d7",
+        "agent_id": "Agent_5",
+        "interaction_index": 14,
+        "round": 7,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 4,
+        "num_agents": 8
+      },
+      "messages_sha256": "3a6d24b99314b293595f67b6732a20d284a67a5481fbca4fb4827998df17b49b",
+      "previous_usage": {
+        "input_tokens": 4467,
+        "output_tokens": 360,
+        "reasoning_tokens": 0
+      },
+      "job_id": "e454c81ac68fec7e36f0"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_game_myth_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "0ebf1937b6450886ad516684765cb4c04cf4c32f9d8b6ea09c0b44fb078c91cb",
+        "agent_id": "Agent_2",
+        "interaction_index": 6,
+        "round": 3,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 3,
+        "num_agents": 8
+      },
+      "messages_sha256": "90740c02a9232f0517e1094703e92763698e054028bb59d27457ecc8fc6507c1",
+      "previous_usage": {
+        "input_tokens": 3236,
+        "output_tokens": 296,
+        "reasoning_tokens": 0
+      },
+      "job_id": "dff42d58af24192e30eb"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_myth_game_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "5a40579554f38465d99a07810c45e6ea82e9c5ca21122c65dc70323d7740abda",
+        "agent_id": "Agent_8",
+        "interaction_index": 1,
+        "round": 1,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "54854e91a3c33b28342eaf1764e7fb10fb09e40c2836e2db3b11b959890e3ba9",
+      "previous_usage": {
+        "input_tokens": 510,
+        "output_tokens": 277,
+        "reasoning_tokens": 0
+      },
+      "job_id": "49c3575525033beb8137"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_game_myth_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+        "file_sha256": "54e5787b75166e36300bdd9983bee214c86b25d7b5080510361cea534094a1e6",
+        "agent_id": "Agent_7",
+        "interaction_index": 20,
+        "round": 10,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 0,
+        "num_agents": 8
+      },
+      "messages_sha256": "44414a0a4ea42ab7a3f5a5387a0c3f07c96ba9c3da6c69e028c70553aaf72e3a",
+      "previous_usage": {
+        "input_tokens": 5176,
+        "output_tokens": 322,
+        "reasoning_tokens": 0
+      },
+      "job_id": "e70a762b5f3646c3db60"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_defectors25_twotask_r3/negative_only_crossmodel_population_myth_game_n5_006_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "f0d70f9cb72137b45933b03a6a50d5c723a530dc40e4e62c7ea13762486f2f3d",
+        "agent_id": "Agent_1",
+        "interaction_index": 19,
+        "round": 10,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "093cceec7565c59f60ea847100b551cecb86389223b2a331984716e50eaa6636",
+      "previous_usage": {
+        "input_tokens": 4768,
+        "output_tokens": 290,
+        "reasoning_tokens": 0
+      },
+      "job_id": "ae79229161f5d59c08fd"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_defectors25_twotask_r3/negative_only_crossmodel_population_game_myth_n5_006_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "f4d9bad7dbc298ab5a53f56b29e2921d37bade7d9f594d18fdb9cb53a829b4d4",
+        "agent_id": "Agent_6",
+        "interaction_index": 10,
+        "round": 5,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "6fa368cf8fd681343b66ec38ae6b6a5654d9e6e0e122292aede68157a7368c78",
+      "previous_usage": {
+        "input_tokens": 4527,
+        "output_tokens": 292,
+        "reasoning_tokens": 0
+      },
+      "job_id": "0f8901f3c38db7fdf910"
+    },
+    {
+      "model": "anthropic/claude-sonnet-4.5",
+      "stratum": "8agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_myth_game_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "5a40579554f38465d99a07810c45e6ea82e9c5ca21122c65dc70323d7740abda",
+        "agent_id": "Agent_7",
+        "interaction_index": 13,
+        "round": 7,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "1f7ee199315b47c6caf75aa29626eeecc05338b0a91824eb89d29cc638d878ed",
+      "previous_usage": {
+        "input_tokens": 4678,
+        "output_tokens": 297,
+        "reasoning_tokens": 0
+      },
+      "job_id": "c6ac8541192d89ad89b1"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_random25_game_r3/negative_only_crossmodel_dyad_game_n5_038_neutral_rep03.json",
+        "file_sha256": "5b36526e0983fe1e76aa21c1cbc3dbf3b17510f6ee80ad9ee9402a71bfa4abd6",
+        "agent_id": "Agent_2",
+        "interaction_index": 2,
+        "round": 2,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 2
+      },
+      "messages_sha256": "701258d215e897ac688e6da78fde8efdda2a2d7c22c297fc9eb787304cddb3c9",
+      "previous_usage": {
+        "input_tokens": 414,
+        "output_tokens": 14,
+        "reasoning_tokens": 127
+      },
+      "job_id": "6e5b6cec34e5d741971b"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_034_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "62c4ad890956c45351bccb38541e631a7f78a7605a5292d00bd4041e68766003",
+        "agent_id": "Agent_2",
+        "interaction_index": 6,
+        "round": 3,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 4,
+        "num_agents": 2
+      },
+      "messages_sha256": "8a64f106ff97c3fab73a3918b96c3a70622146926a17124df8ef9f1908e27f5e",
+      "previous_usage": {
+        "input_tokens": 1995,
+        "output_tokens": 14,
+        "reasoning_tokens": 88
+      },
+      "job_id": "ef40c33aeb6ea2454cf3"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_031_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "ef2eddd4357054f2e4b2df71126d8c30e5c6fa20b10c5100544e2b4357f34a8f",
+        "agent_id": "Agent_2",
+        "interaction_index": 15,
+        "round": 8,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 1,
+        "num_agents": 2
+      },
+      "messages_sha256": "1f0f95d3e4f1132f8f53bfae3a82376f39c218e3aa5d193e103335c7bdfce5cd",
+      "previous_usage": {
+        "input_tokens": 2436,
+        "output_tokens": 13,
+        "reasoning_tokens": 56
+      },
+      "job_id": "33733fd0cc0c38320169"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_random50_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_044_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "119148d91d3976e76ec2f37302d04adb4c8f0b398a4eb8d0ac56d52ac70f326a",
+        "agent_id": "Agent_2",
+        "interaction_index": 17,
+        "round": 9,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 4,
+        "num_agents": 2
+      },
+      "messages_sha256": "0b978424f0dfd7da23bb5808d8c918f9f597111b9e7bdf387e05738817e64744",
+      "previous_usage": {
+        "input_tokens": 2319,
+        "output_tokens": 11,
+        "reasoning_tokens": 24
+      },
+      "job_id": "f57aeb310c983ab8836d"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_033_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "69dec892d7d22fd4872c3955c44596bc453a6f545a89958c6ea4751ce508200f",
+        "agent_id": "Agent_1",
+        "interaction_index": 10,
+        "round": 5,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 2
+      },
+      "messages_sha256": "e48f707c2d5fa56f1288c0e8b549206de4d4212487632d9e832ab65747df77ff",
+      "previous_usage": {
+        "input_tokens": 2315,
+        "output_tokens": 11,
+        "reasoning_tokens": 0
+      },
+      "job_id": "9cf30a5a85e1a3e3c12d"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_crossmodel_dyad_game_n5_032_neutral_rep02.json",
+        "file_sha256": "0b1942d915c741a498c50e5606f099ce4453b4c67d509c95d4f2d32190e8dd3b",
+        "agent_id": "Agent_1",
+        "interaction_index": 4,
+        "round": 4,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 2,
+        "num_agents": 2
+      },
+      "messages_sha256": "d50c3c34c07c83f0027516b505e84679749039829d8838971ea2c2c04d136a81",
+      "previous_usage": {
+        "input_tokens": 558,
+        "output_tokens": 14,
+        "reasoning_tokens": 44
+      },
+      "job_id": "7a975161beb4266a5bb2"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_random50_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_042_neutral_rep02_memtest_memory_primary_anything.json",
+        "file_sha256": "4eae31f6e04965eabb7e4eaefbca2e50c87b7bbe95b3cf0693df8b4a8d6a15e3",
+        "agent_id": "Agent_1",
+        "interaction_index": 4,
+        "round": 2,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 2,
+        "num_agents": 2
+      },
+      "messages_sha256": "6a9c91a1f88303639218614c731f9c020fefc73814dbbb9164048010a184b834",
+      "previous_usage": {
+        "input_tokens": 1046,
+        "output_tokens": 233,
+        "reasoning_tokens": 115
+      },
+      "job_id": "1db1fffe3c6b1e4c821b"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_random50_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_041_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "85bebca125063c6837100119268a76f16d2ec1f2101e2c35a74c7e89f21e49f8",
+        "agent_id": "Agent_2",
+        "interaction_index": 3,
+        "round": 2,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 2
+      },
+      "messages_sha256": "5a57a5b617d7704e7d7caa1cbbc7b1f58e6dcaf7aa65051f0ec7ce19a4871bf6",
+      "previous_usage": {
+        "input_tokens": 991,
+        "output_tokens": 240,
+        "reasoning_tokens": 105
+      },
+      "job_id": "68241415c3bc9394c0a8"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_random50_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_043_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "92fe686b9b9bf3cd4ad0814f686768e1d418108444792f5a0b01a23d310e05ba",
+        "agent_id": "Agent_1",
+        "interaction_index": 20,
+        "round": 10,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 3,
+        "num_agents": 2
+      },
+      "messages_sha256": "e9fc3e83c0c5ce031d3a4e14c3385daf58ab8c91442a2edc11eeec5309f0c3d8",
+      "previous_usage": {
+        "input_tokens": 2422,
+        "output_tokens": 214,
+        "reasoning_tokens": 60
+      },
+      "job_id": "5c451a4326f388e3f3a3"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_038_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "34b0255a7b2f34884d9b7dcafa27d408ec4e2899746ada65a079bb96b3616e64",
+        "agent_id": "Agent_2",
+        "interaction_index": 17,
+        "round": 9,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 2
+      },
+      "messages_sha256": "e7029c4c92b840bf3e9311c668cbba8e055c7457ea59f27f2d1ab4ed07a1ea8a",
+      "previous_usage": {
+        "input_tokens": 2527,
+        "output_tokens": 249,
+        "reasoning_tokens": 97
+      },
+      "job_id": "c0e8062fa8ddf04f6f9c"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_037_neutral_rep02_memtest_memory_primary_anything.json",
+        "file_sha256": "33628d7c742bc37cd63279d7462d73ffaa8dccfde1ef2b3bbbe21a262213e443",
+        "agent_id": "Agent_2",
+        "interaction_index": 14,
+        "round": 7,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 2,
+        "num_agents": 2
+      },
+      "messages_sha256": "cdf2f77b0b5aadf5d89db9551307f553bef96659f7f87cdbe7eaae7aade34e46",
+      "previous_usage": {
+        "input_tokens": 2565,
+        "output_tokens": 236,
+        "reasoning_tokens": 65
+      },
+      "job_id": "4a53e4ec5d4edfdae4e2"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "2agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_random50_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_041_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "85bebca125063c6837100119268a76f16d2ec1f2101e2c35a74c7e89f21e49f8",
+        "agent_id": "Agent_2",
+        "interaction_index": 11,
+        "round": 6,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 2
+      },
+      "messages_sha256": "ecccda9d2f42a5cc2ff3800d43f9825edc7e85e1ab48730c2e5d946c98866ad2",
+      "previous_usage": {
+        "input_tokens": 2615,
+        "output_tokens": 240,
+        "reasoning_tokens": 0
+      },
+      "job_id": "1819648bfdd122a10d15"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_crossmodel_population_game_n5_032_neutral_rep02.json",
+        "file_sha256": "d5555181a667f5701d22d341d71bb5f248f7fb62db67bb7d658750f8be7c9b02",
+        "agent_id": "Agent_3",
+        "interaction_index": 2,
+        "round": 2,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 2,
+        "num_agents": 8
+      },
+      "messages_sha256": "27cf19cae0a1c0ddb6b30e61b3179689e483420e03d71bff47e1e90d005b7ee6",
+      "previous_usage": {
+        "input_tokens": 624,
+        "output_tokens": 13,
+        "reasoning_tokens": 83
+      },
+      "job_id": "7a6d3a573717b9b6c574"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_crossmodel_population_game_n5_031_neutral_rep01.json",
+        "file_sha256": "ca25ba31d6490e1802693315f6f44c0fe4d35ec71a3b90114f23e17bdae7bf2d",
+        "agent_id": "Agent_5",
+        "interaction_index": 1,
+        "round": 1,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "3e0d08a016c5db3693f6beb6f756bf186f304763c31c2fda39714acf724988c6",
+      "previous_usage": {
+        "input_tokens": 495,
+        "output_tokens": 14,
+        "reasoning_tokens": 557
+      },
+      "job_id": "b7b04e2f1a0063946034"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_myth_game_n5_034_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "1a2e3612f899a49257576270e5dcc434b8511a9d25b408420ea9c4477dee0b67",
+        "agent_id": "Agent_7",
+        "interaction_index": 18,
+        "round": 9,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 4,
+        "num_agents": 8
+      },
+      "messages_sha256": "508b88a98a77bbdabdb2335871ba84b66a0f7c619f43c2fc6ed90070aa07cd03",
+      "previous_usage": {
+        "input_tokens": 3233,
+        "output_tokens": 11,
+        "reasoning_tokens": 67
+      },
+      "job_id": "2ec693a6c1eabfd6c3e5"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_game_myth_n5_034_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "9264085095fed11087d855065f3b3820b2fac8ef01a2d2c6433a8239e2db01f0",
+        "agent_id": "Agent_1",
+        "interaction_index": 19,
+        "round": 10,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 4,
+        "num_agents": 8
+      },
+      "messages_sha256": "d75ba22574a4751b589c60042d8d2f4ca35d8b4b18f2f4063f16ada243fe1504",
+      "previous_usage": {
+        "input_tokens": 3206,
+        "output_tokens": 14,
+        "reasoning_tokens": 0
+      },
+      "job_id": "37943ea38c35fbaadda6"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_defectors25_twotask_r3/negative_only_crossmodel_population_myth_game_n5_039_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "7a087af4cba7349b9b2772246832abe356f31381a1ac470e97e2030366b947a7",
+        "agent_id": "Agent_6",
+        "interaction_index": 8,
+        "round": 4,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 4,
+        "num_agents": 8
+      },
+      "messages_sha256": "492c5b32553ebf49a89d1e2b8b51c6145fa5b96254d143daff17d32ea4f63966",
+      "previous_usage": {
+        "input_tokens": 2746,
+        "output_tokens": 11,
+        "reasoning_tokens": 138
+      },
+      "job_id": "64e311fea7e5a3f3cf9b"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_defectors25_twotask_r3/negative_only_crossmodel_population_game_myth_n5_036_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "387b41c66e525952b6e57a640499d8657bc8ee1a10467b0cb89116a83bcfa208",
+        "agent_id": "Agent_7",
+        "interaction_index": 13,
+        "round": 7,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "c6d846b5dc525b04e48cdc8f2936af768f974cad59d4d74a24ce701ec2ba770a",
+      "previous_usage": {
+        "input_tokens": 3134,
+        "output_tokens": 14,
+        "reasoning_tokens": 139
+      },
+      "job_id": "22e9a5b908a0ce7adbe0"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_defectors25_twotask_r3/negative_only_crossmodel_population_game_myth_n5_039_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "bf352da7545085aa9aa659c832cf6cf0dc1da92e9951f9d47e040b2ad06e4540",
+        "agent_id": "Agent_6",
+        "interaction_index": 4,
+        "round": 2,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 4,
+        "num_agents": 8
+      },
+      "messages_sha256": "c64de3a3689bf464eb3ca96538014734df5e404be8a12fa6c7fd1c0820b67ebe",
+      "previous_usage": {
+        "input_tokens": 1263,
+        "output_tokens": 233,
+        "reasoning_tokens": 710
+      },
+      "job_id": "0793a7720c342d0d195b"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_myth_game_n5_033_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "6fe88a859a5872f1d721ec4ab17641725718a8430469ea73054c7d5de0835c40",
+        "agent_id": "Agent_5",
+        "interaction_index": 3,
+        "round": 2,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 8
+      },
+      "messages_sha256": "6e57ff12541579d8c03cd93ab1302ebf2a87914f6006f63af2621bee6b164bfd",
+      "previous_usage": {
+        "input_tokens": 1076,
+        "output_tokens": 232,
+        "reasoning_tokens": 52
+      },
+      "job_id": "8f2ad942f581f3891810"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_defectors50_twotask_r3/negative_only_crossmodel_population_game_myth_n5_042_neutral_rep02_memtest_memory_primary_anything.json",
+        "file_sha256": "1fb8041152d57d1b655b8520f3844d2fe2e8cd83bb72233084be2ce6b57c30ca",
+        "agent_id": "Agent_2",
+        "interaction_index": 16,
+        "round": 8,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 2,
+        "num_agents": 8
+      },
+      "messages_sha256": "2119483e406a3b61c901fa71e3b00460ea4b758c8a712dfcb0a27b2b1198520f",
+      "previous_usage": {
+        "input_tokens": 3157,
+        "output_tokens": 250,
+        "reasoning_tokens": 106
+      },
+      "job_id": "1ecb0f3a9224cb524343"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_defectors50_twotask_r3/negative_only_crossmodel_population_myth_game_n5_043_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "286c563724eab16f459bc18938d9c58ee18739bd3022186f1ef07128bee4b530",
+        "agent_id": "Agent_5",
+        "interaction_index": 19,
+        "round": 10,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 8
+      },
+      "messages_sha256": "fe7d38899fc9fa707d9762030f3343f2f0cba6c33c5f19d12c3a8af084773b63",
+      "previous_usage": {
+        "input_tokens": 2977,
+        "output_tokens": 227,
+        "reasoning_tokens": 91
+      },
+      "job_id": "8daedc9f193a392e2fd4"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_defectors25_twotask_r3/negative_only_crossmodel_population_game_myth_n5_035_neutral_rep00_memtest_memory_primary_anything.json",
+        "file_sha256": "9588ded4e0c4be43b2c21a01cbf3bcba9a23c7160adc97e4b8278469d96367cc",
+        "agent_id": "Agent_6",
+        "interaction_index": 8,
+        "round": 4,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 0,
+        "num_agents": 8
+      },
+      "messages_sha256": "81ffbf3191e86e3ec484d728f67da6a8ef6c4898dbfcaa92f263611bbddc8e06",
+      "previous_usage": {
+        "input_tokens": 2783,
+        "output_tokens": 242,
+        "reasoning_tokens": 54
+      },
+      "job_id": "11f87a173653bd7a3182"
+    },
+    {
+      "model": "google/gemini-3.7-flash",
+      "stratum": "8agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_defectors25_twotask_r3/negative_only_crossmodel_population_myth_game_n5_035_neutral_rep00_memtest_memory_primary_anything.json",
+        "file_sha256": "223d6c316973311db91d548339628ada4c1171fe6e91f75da0d2782497293c33",
+        "agent_id": "Agent_2",
+        "interaction_index": 9,
+        "round": 5,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 0,
+        "num_agents": 8
+      },
+      "messages_sha256": "606253275c1b2174035b0cd64d5bc91c8fecfe6a1b21cec7b3ac9e31e8dc8d27",
+      "previous_usage": {
+        "input_tokens": 3040,
+        "output_tokens": 241,
+        "reasoning_tokens": 765
+      },
+      "job_id": "018ed4566fc259ad0361"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_024_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "4d947e5c83e67b8f99e1aa668c36b0754279864301a88c7a8937dad96252003e",
+        "agent_id": "Agent_2",
+        "interaction_index": 3,
+        "round": 2,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 4,
+        "num_agents": 2
+      },
+      "messages_sha256": "32e2d72dbf1b3c37f6f22471c3ce95edb78f106e325c172edc1abfec768abe3f",
+      "previous_usage": {
+        "input_tokens": 757,
+        "output_tokens": 17,
+        "reasoning_tokens": 0
+      },
+      "job_id": "1c3c4d81220c96355e70"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_015_neutral_rep00_memtest_memory_primary_anything.json",
+        "file_sha256": "44058eba06f55dc4e1bda7e8174ec5d290ff978cc33ac6d5ad10574ffc7a6fcd",
+        "agent_id": "Agent_1",
+        "interaction_index": 4,
+        "round": 2,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 0,
+        "num_agents": 2
+      },
+      "messages_sha256": "858762b702b0ebfd104e157fa3c2f566a7a7e3a8a9ba6ef2e04257db96ab1142",
+      "previous_usage": {
+        "input_tokens": 1453,
+        "output_tokens": 15,
+        "reasoning_tokens": 0
+      },
+      "job_id": "f3c2517379a8dcf52a37"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_random50_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_025_neutral_rep00_memtest_memory_primary_anything.json",
+        "file_sha256": "b7f171721a9ac9b70e91cd7e3e805b7672b367bc7122228d066009cd6e32ae6a",
+        "agent_id": "Agent_1",
+        "interaction_index": 18,
+        "round": 9,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 0,
+        "num_agents": 2
+      },
+      "messages_sha256": "d791347bacd9a8ad8e0d87dca6d1ed1b8cea6d997948ff9857bb7f9e80950b09",
+      "previous_usage": {
+        "input_tokens": 2360,
+        "output_tokens": 15,
+        "reasoning_tokens": 0
+      },
+      "job_id": "881a7d79ff1000f568fa"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_crossmodel_dyad_game_n5_017_neutral_rep02.json",
+        "file_sha256": "8c0a9e6fef3442ca3c98cb4c6102f0508693e8cfb915d2ce2da754e3db796cbf",
+        "agent_id": "Agent_2",
+        "interaction_index": 9,
+        "round": 9,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 2,
+        "num_agents": 2
+      },
+      "messages_sha256": "415f99ef76a080743184af491f095004a7c557877549aaab37492cbb914a5557",
+      "previous_usage": {
+        "input_tokens": 528,
+        "output_tokens": 17,
+        "reasoning_tokens": 0
+      },
+      "job_id": "450cf59219122d4b196b"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_018_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "b7e778ef3c5c8741d71e77e6913c7b6ac4ae1b1dee230d06b06ec36cb98aa569",
+        "agent_id": "Agent_1",
+        "interaction_index": 10,
+        "round": 5,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 2
+      },
+      "messages_sha256": "ce523361427607e74324c4feefc3ec52aa7818d240e66a149e352ba773aa3185",
+      "previous_usage": {
+        "input_tokens": 2476,
+        "output_tokens": 15,
+        "reasoning_tokens": 0
+      },
+      "job_id": "c2540df913cca2fb58d5"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_crossmodel_dyad_game_n5_018_neutral_rep03.json",
+        "file_sha256": "7e90f0f8562a8239af57fdc13fe3d6c10f23b5ff2930224c358b0922617b3b68",
+        "agent_id": "Agent_1",
+        "interaction_index": 6,
+        "round": 6,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 2
+      },
+      "messages_sha256": "2aa43163e2a6d6fc8c6081ffb5b5e4e7e1c5af35aba0aeb570e2bd0fc7e1c885",
+      "previous_usage": {
+        "input_tokens": 544,
+        "output_tokens": 17,
+        "reasoning_tokens": 0
+      },
+      "job_id": "0dd9f5124f5b48c8a7c3"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_016_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "11ee4468f2df391536d6b188dfb784f9ba0e291bd77e49777f41798eb31d149e",
+        "agent_id": "Agent_2",
+        "interaction_index": 2,
+        "round": 1,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 1,
+        "num_agents": 2
+      },
+      "messages_sha256": "10d6d7a72fc61b25e55a7cbccb3ec95dd1545343985de828392f6d897511a436",
+      "previous_usage": {
+        "input_tokens": 438,
+        "output_tokens": 292,
+        "reasoning_tokens": 0
+      },
+      "job_id": "97a5722d3774e5932f25"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_015_neutral_rep00_memtest_memory_primary_anything.json",
+        "file_sha256": "44058eba06f55dc4e1bda7e8174ec5d290ff978cc33ac6d5ad10574ffc7a6fcd",
+        "agent_id": "Agent_1",
+        "interaction_index": 1,
+        "round": 1,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 0,
+        "num_agents": 2
+      },
+      "messages_sha256": "794c2ada470abe2556e4972dac0b04916d6716d911d0890a27aaec7f967cb004",
+      "previous_usage": {
+        "input_tokens": 342,
+        "output_tokens": 341,
+        "reasoning_tokens": 0
+      },
+      "job_id": "1588d04eef4ca6216ed1"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_016_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "11ee4468f2df391536d6b188dfb784f9ba0e291bd77e49777f41798eb31d149e",
+        "agent_id": "Agent_2",
+        "interaction_index": 20,
+        "round": 10,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 1,
+        "num_agents": 2
+      },
+      "messages_sha256": "98901efc21f64ec637dfbb856d220f5b99fbe5e6b98874068c367b212deb4ce7",
+      "previous_usage": {
+        "input_tokens": 2679,
+        "output_tokens": 258,
+        "reasoning_tokens": 0
+      },
+      "job_id": "99e9b480c70379e96a0e"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_random25_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_024_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "9721748679e146db2b41ea612e7287a2299785121b0f80424a9489ef93a7442f",
+        "agent_id": "Agent_2",
+        "interaction_index": 21,
+        "round": 10,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 4,
+        "num_agents": 2
+      },
+      "messages_sha256": "c191c62b0c9d1d093a01c6f86e7955a8e421f326b784129828553c0e2922f9e3",
+      "previous_usage": {
+        "input_tokens": 2895,
+        "output_tokens": 277,
+        "reasoning_tokens": 0
+      },
+      "job_id": "73d6a47c13d9ca07e723"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_game_myth_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_crossmodel_dyad_game_myth_n5_017_neutral_rep02_memtest_memory_primary_anything.json",
+        "file_sha256": "14f6b716f701232088584579c80ff91317f7e0b6b5e60b114e6b957acfae5dc0",
+        "agent_id": "Agent_2",
+        "interaction_index": 10,
+        "round": 5,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 2,
+        "num_agents": 2
+      },
+      "messages_sha256": "d7a6b21e5a04e6cc3118c66ec400d36bc904605207dfe206c3b9ed0a4a4c84f6",
+      "previous_usage": {
+        "input_tokens": 2744,
+        "output_tokens": 254,
+        "reasoning_tokens": 0
+      },
+      "job_id": "5c6b342336d811251aab"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "2agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_dyad_myth_game_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_random50_twotask_r3/negative_only_crossmodel_dyad_myth_game_n5_028_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "22eea0350588dcc37f427ae4784e0747eb73bfc587a89dd644e3f88ba6398860",
+        "agent_id": "Agent_1",
+        "interaction_index": 8,
+        "round": 4,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 2
+      },
+      "messages_sha256": "3695e1544e2f9b1b4c9a4a02c2a532ce74012b53d350e9555a20241792734378",
+      "previous_usage": {
+        "input_tokens": 2547,
+        "output_tokens": 267,
+        "reasoning_tokens": 0
+      },
+      "job_id": "5a20483e0fb7c0901511"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_crossmodel_population_game_n5_017_neutral_rep02.json",
+        "file_sha256": "d8d9cc2f0259598b8ef373f48528b5d61a9ecce7d122ac71af1fa649f8d8e1e4",
+        "agent_id": "Agent_6",
+        "interaction_index": 2,
+        "round": 2,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 2,
+        "num_agents": 8
+      },
+      "messages_sha256": "d917a88a4e07b11190377247d85d4883123e1a73b1f17c6582486f3c34a1af89",
+      "previous_usage": {
+        "input_tokens": 586,
+        "output_tokens": 15,
+        "reasoning_tokens": 0
+      },
+      "job_id": "b48001f20e2aa540b108"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/game/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_n5/gpt-5-nano/game/noisy8_crossmodel_negative_defectors50_game_r3/negative_only_crossmodel_population_game_n5_026_neutral_rep01.json",
+        "file_sha256": "69e7d9436abcbbaa67461f92445b6031bc559e9fbcdff25aa2979d9d570a3931",
+        "agent_id": "Agent_6",
+        "interaction_index": 3,
+        "round": 3,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "0580cd2d343e4d3c3dad69f23d11bc7ac7b2532acd307959825ce641c7ea42ca",
+      "previous_usage": {
+        "input_tokens": 738,
+        "output_tokens": 15,
+        "reasoning_tokens": 0
+      },
+      "job_id": "d78d230cf3b7264ccd8e"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_myth_game_n5_016_neutral_rep01_memtest_memory_primary_anything.json",
+        "file_sha256": "b9c9dcffdff9541be9eed40082a7e2d6610372869796759205f23f04873a75dc",
+        "agent_id": "Agent_7",
+        "interaction_index": 18,
+        "round": 9,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 1,
+        "num_agents": 8
+      },
+      "messages_sha256": "c144f6238d71ce4658aad6590bd183b63083dfb63c868401388814c593b25f9c",
+      "previous_usage": {
+        "input_tokens": 3169,
+        "output_tokens": 15,
+        "reasoning_tokens": 0
+      },
+      "job_id": "340eeea838d62102dc92"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/game/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_game_myth_n5_018_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "141da5675403d019d83c356492f898af56a72473297128d440aecb20542899c3",
+        "agent_id": "Agent_8",
+        "interaction_index": 19,
+        "round": 10,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 3,
+        "num_agents": 8
+      },
+      "messages_sha256": "e1eb734b61a4c5e5bc32f0fc8cc0d8ec9c013fd1e5ffbe134a1f8a7b29e2b833",
+      "previous_usage": {
+        "input_tokens": 3184,
+        "output_tokens": 17,
+        "reasoning_tokens": 0
+      },
+      "job_id": "fdcfeddc7709cb9de548"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_myth_game_n5_019_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "439f172c93e28fb928284c30f92ead6b4c6a5de754613f7368c60cd24d145ae5",
+        "agent_id": "Agent_8",
+        "interaction_index": 8,
+        "round": 4,
+        "task": "game",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 4,
+        "num_agents": 8
+      },
+      "messages_sha256": "e5ac09a395e7a27bc4669f69254e9bfd0b7061a93132b8c063de2791b4cab18b",
+      "previous_usage": {
+        "input_tokens": 2948,
+        "output_tokens": 15,
+        "reasoning_tokens": 0
+      },
+      "job_id": "6e306819fe33777285a9"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/game/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_defectors50_twotask_r3/negative_only_crossmodel_population_game_myth_n5_028_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "284c447495075ac5d0fb42fce48c4be62bdba09d392bcb48a5627bfc7fa81abf",
+        "agent_id": "Agent_3",
+        "interaction_index": 7,
+        "round": 4,
+        "task": "game",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 3,
+        "num_agents": 8
+      },
+      "messages_sha256": "b1c34a96efc4ab32b9ac660721a57ea30083f9f9ebcff91b586a14abff982b88",
+      "previous_usage": {
+        "input_tokens": 2628,
+        "output_tokens": 15,
+        "reasoning_tokens": 0
+      },
+      "job_id": "02c622c396a910ea874b"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_defectors50_twotask_r3/negative_only_crossmodel_population_game_myth_n5_029_neutral_rep04_memtest_memory_primary_anything.json",
+        "file_sha256": "fc7a00510bf5d4a73eed07adec788e061ca5b0c2f6347418ab8837af59e01412",
+        "agent_id": "Agent_4",
+        "interaction_index": 4,
+        "round": 2,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 4,
+        "num_agents": 8
+      },
+      "messages_sha256": "edd15ac6d815bed380fb1c4f5bb3e791bb9325dc7675141a640be259189b038c",
+      "previous_usage": {
+        "input_tokens": 1353,
+        "output_tokens": 278,
+        "reasoning_tokens": 0
+      },
+      "job_id": "ce1a884facd3f01d3dc4"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/myth/early",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_defectors50_twotask_r3/negative_only_crossmodel_population_myth_game_n5_028_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "c07d69f61d7cfd419eb8efad9a35c0fdb84aeaad6ed7daccde99afc06d895cfc",
+        "agent_id": "Agent_2",
+        "interaction_index": 1,
+        "round": 1,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 8
+      },
+      "messages_sha256": "54854e91a3c33b28342eaf1764e7fb10fb09e40c2836e2db3b11b959890e3ba9",
+      "previous_usage": {
+        "input_tokens": 464,
+        "output_tokens": 300,
+        "reasoning_tokens": 0
+      },
+      "job_id": "1e7fa3d0b6395ea99dc8"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_defectors25_twotask_r3/negative_only_crossmodel_population_game_myth_n5_020_neutral_rep00_memtest_memory_primary_anything.json",
+        "file_sha256": "8e941294ae09d3a611c2f31d8dd4844a51a418654ee70380bde8c10bd2775670",
+        "agent_id": "Agent_5",
+        "interaction_index": 17,
+        "round": 8,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 0,
+        "num_agents": 8
+      },
+      "messages_sha256": "22248830af3ba9380e68a732d65482515506f2e7c1f81556ed482e5b4bee65fd",
+      "previous_usage": {
+        "input_tokens": 3192,
+        "output_tokens": 257,
+        "reasoning_tokens": 0
+      },
+      "job_id": "ff81ee123340afeb1bfe"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/myth/late",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_myth_game_n5_018_neutral_rep03_memtest_memory_primary_anything.json",
+        "file_sha256": "000b2bde8ed6a8b66e89e9a641f8c7f269b5c012fd428baf4b7f5dd70de58063",
+        "agent_id": "Agent_5",
+        "interaction_index": 19,
+        "round": 10,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 3,
+        "num_agents": 8
+      },
+      "messages_sha256": "287d89fac3f497a6a5d80691096475c6e9332e24637a98dbb2840c3c4b92c5b5",
+      "previous_usage": {
+        "input_tokens": 3291,
+        "output_tokens": 270,
+        "reasoning_tokens": 0
+      },
+      "job_id": "94d960d154f1bab6144e"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_game_myth_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_game_myth_n5_015_neutral_rep00_memtest_memory_primary_anything.json",
+        "file_sha256": "48a716af2ecb6d40bb89c8e732b353615eda735f85718a74b519a63594bc0e2a",
+        "agent_id": "Agent_6",
+        "interaction_index": 12,
+        "round": 6,
+        "task": "myth",
+        "role": "investor",
+        "task_order": [
+          "game",
+          "myth"
+        ],
+        "replicate_id": 0,
+        "num_agents": 8
+      },
+      "messages_sha256": "bd06b28aa1044943276da3ffa5922a2d7f1807658c46e511c9209ad1371366a4",
+      "previous_usage": {
+        "input_tokens": 3230,
+        "output_tokens": 276,
+        "reasoning_tokens": 0
+      },
+      "job_id": "b577afedbe91f70060c3"
+    },
+    {
+      "model": "openai/gpt-5-nano",
+      "stratum": "8agents/myth/middle",
+      "source": {
+        "path": "data/shared_runs/uploaders/vallinder/data/json/noise_experiments/negative_only_crossmodel_defectors_n5_20260825/negative_only_crossmodel_population_myth_game_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_crossmodel_population_myth_game_n5_017_neutral_rep02_memtest_memory_primary_anything.json",
+        "file_sha256": "b4320a690ca678fe6f2ccbd284cc9bab469903c3615458a6c55a997533a00953",
+        "agent_id": "Agent_6",
+        "interaction_index": 11,
+        "round": 6,
+        "task": "myth",
+        "role": "trustee",
+        "task_order": [
+          "myth",
+          "game"
+        ],
+        "replicate_id": 2,
+        "num_agents": 8
+      },
+      "messages_sha256": "29734fecf4103bf72ca9d76ea6870cee14c215eed820a6796813461d09093740",
+      "previous_usage": {
+        "input_tokens": 3298,
+        "output_tokens": 267,
+        "reasoning_tokens": 0
+      },
+      "job_id": "d69b78dc61b0d00ce54b"
+    }
+  ]
+}

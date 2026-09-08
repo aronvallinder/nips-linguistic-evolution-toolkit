@@ -1,9 +1,18 @@
+import glob
 import hashlib
+import json
+import os
 import random
 import re
 
 from games.base_game import Game
 from games.dyadic_pairing import DyadicPairingMixin
+from src.control_text_pool import get_filler_text
+from src.shared_context import build_previous_round_shared_context
+
+
+VALID_MYTH_INJECTION_MODES = {"partner", "own", "shuffled", "filler"}
+VALID_NOISE_SEMANTICS = {"communication", "environmental"}
 
 
 OTHER_PLAYER_NAMES = {
@@ -41,7 +50,11 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
         later_investor_template=None,
         later_trustee_template=None,
         noise_config=None,
+        noise_semantics="communication",
         other_player_names="default",
+        myth_injection_mode="partner",
+        shuffled_myth_pool_path=None,
+        run_seed=None,
         history_policy="minimal",
         self_history_window=1,
         coplayer_history_window=0,
@@ -80,6 +93,31 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
         self.later_trustee_template = later_trustee_template
         self.personas = personas or {}
         self.noise_config = noise_config or {}
+        normalized_noise_semantics = str(
+            noise_semantics or "communication"
+        ).strip().lower()
+        if normalized_noise_semantics not in VALID_NOISE_SEMANTICS:
+            choices = ", ".join(sorted(VALID_NOISE_SEMANTICS))
+            raise ValueError(
+                f"noise_semantics must be one of: {choices}; "
+                f"got {noise_semantics!r}"
+            )
+        self.noise_semantics = normalized_noise_semantics
+        normalized_injection_mode = str(myth_injection_mode or "partner").strip().lower()
+        if normalized_injection_mode not in VALID_MYTH_INJECTION_MODES:
+            choices = ", ".join(sorted(VALID_MYTH_INJECTION_MODES))
+            raise ValueError(
+                f"myth_injection_mode must be one of: {choices}; "
+                f"got {myth_injection_mode!r}"
+            )
+        self.myth_injection_mode = normalized_injection_mode
+        self.shuffled_myth_pool_path = shuffled_myth_pool_path
+        self.run_seed = run_seed
+        self._shuffled_myth_pool = None
+        if self.myth_injection_mode == "shuffled":
+            self._shuffled_myth_pool = self._load_shuffled_myth_pool(
+                shuffled_myth_pool_path
+            )
         self.history_policy = self._validate_history_policy(history_policy)
         self.self_history_window = self._coerce_history_window(self_history_window, 1)
         self.coplayer_history_window = self._coerce_history_window(coplayer_history_window, 0)
@@ -154,6 +192,110 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
         if numeric <= 0:
             raise ValueError(f"{name} must be a positive number.")
         return numeric
+
+    @staticmethod
+    def _load_shuffled_myth_pool(pool_path):
+        """Load myths used by the legacy shuffled-partner-text control."""
+        if not pool_path:
+            raise ValueError(
+                "myth_injection_mode='shuffled' requires "
+                "shuffled_myth_pool_path."
+            )
+
+        candidates = []
+        if os.path.isdir(pool_path):
+            for root, _directories, filenames in os.walk(pool_path):
+                for filename in filenames:
+                    if filename.endswith(".json"):
+                        candidates.append(os.path.join(root, filename))
+        else:
+            candidates.extend(glob.glob(pool_path, recursive=True))
+
+        pool = []
+        ignored_suffixes = (".checkpoint.json", ".results.json", ".error.json")
+        for candidate in sorted(candidates):
+            if not candidate.endswith(".json") or candidate.endswith(ignored_suffixes):
+                continue
+            try:
+                with open(candidate, encoding="utf-8") as handle:
+                    payload = json.load(handle)
+            except (OSError, json.JSONDecodeError):
+                continue
+            for entry in payload.get("conversation_history", []) or []:
+                for myth in (entry.get("myths") or {}).values():
+                    if isinstance(myth, str) and myth.strip():
+                        pool.append(myth.strip())
+
+        if not pool:
+            raise ValueError(
+                f"Shuffled myth pool at {pool_path!r} is empty. Check the path "
+                "and that the runs contain non-empty myths."
+            )
+        return tuple(pool)
+
+    def _make_myth_injection_seed_key(self, agent_id, sim_data, turn):
+        parts = [
+            str(self.run_seed) if self.run_seed is not None else "no_seed",
+            agent_id,
+            str(turn),
+        ]
+        task_order = getattr(sim_data, "task_order", None) if sim_data else None
+        if task_order:
+            parts.append("_".join(task_order))
+        return "|".join(parts)
+
+    @staticmethod
+    def _latest_myth_for(target_agent_id, sim_data):
+        if sim_data is None:
+            return ""
+        for entry in reversed(sim_data.conversation_history):
+            myth = (entry.get("myths") or {}).get(target_agent_id)
+            if isinstance(myth, str) and myth.strip():
+                return myth.strip()
+        return ""
+
+    def _legacy_injected_myth(self, agent_id, opponent_id, sim_data, turn):
+        """Resolve text for legacy partner/own/shuffled/filler prompt cells.
+
+        Current corrected protocols use templates without the corresponding
+        placeholder, so retaining this compatibility path cannot alter them.
+        """
+        if self.myth_injection_mode == "partner":
+            return self._latest_myth_for(opponent_id, sim_data)
+        if self.myth_injection_mode == "own":
+            return self._latest_myth_for(agent_id, sim_data)
+
+        seed_key = self._make_myth_injection_seed_key(agent_id, sim_data, turn)
+        if self.myth_injection_mode == "filler":
+            return get_filler_text(seed_key)
+        if self.myth_injection_mode == "shuffled":
+            digest = hashlib.sha256(seed_key.encode("utf-8")).digest()
+            index = int.from_bytes(digest[:8], "big") % len(self._shuffled_myth_pool)
+            return self._shuffled_myth_pool[index]
+        return ""
+
+    def _legacy_prompt_context(self, agent_id, opponent_id, sim_data, turn):
+        injected_myth = self._legacy_injected_myth(
+            agent_id,
+            opponent_id,
+            sim_data,
+            turn,
+        )
+        myth_block = ""
+        if injected_myth:
+            myth_block = (
+                "Your partner's most recent story:\n"
+                f'"{injected_myth}"\n\n'
+            )
+        return {
+            "other_agent_last_myth": injected_myth,
+            "other_agent_last_myth_block": myth_block,
+            "shared_context_block": build_previous_round_shared_context(
+                agent_id,
+                sim_data,
+                turn,
+            ),
+        }
 
     def _apply_noise(self, actual_amount, max_amount, rng=None):
         if not self.noise_config:
@@ -321,11 +463,19 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
             base_prompt += f"\n\n{self.personas[agent_id]['system_addition']}"
 
         if self.noise_config.get("inform_agents", False):
-            base_prompt += (
-                "\n\nNOTE: There may be communication noise in this game.\n"
-                "The amounts you see may differ slightly from what was actually sent/returned.\n"
-                "This is part of the experimental design."
-            )
+            if self.noise_semantics == "environmental":
+                base_prompt += (
+                    "\n\nNOTE: Transfer amounts may be perturbed by the environment "
+                    "after you choose them.\n"
+                    "Your earnings are based on the amounts that actually arrive."
+                )
+            else:
+                base_prompt += (
+                    "\n\nNOTE: There may be communication noise in this game.\n"
+                    "The amounts you see may differ slightly from what was actually "
+                    "sent/returned.\n"
+                    "This is part of the experimental design."
+                )
 
         if self.punishment_enabled:
             base_prompt += (
@@ -352,6 +502,13 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
     def get_game_prompt_round_1(self, agent_id, agent, turn):
         pairing = self.get_pairing_for_agent(agent_id, turn)
         opponent_id = self.get_opponent_id(agent_id, turn)
+        sim_data = getattr(self, "sim_data_ref", None)
+        legacy_context = self._legacy_prompt_context(
+            agent_id,
+            opponent_id,
+            sim_data,
+            turn,
+        )
 
         if agent_id == pairing["investor"]:
             if not self.round1_investor_template:
@@ -365,6 +522,7 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
                 opponent_name=self.current_coplayer_label(opponent_id),
                 investor_name=self._role_display_name(pairing, "investor"),
                 trustee_name=self._role_display_name(pairing, "trustee"),
+                **legacy_context,
             )
             return self._finalize_game_prompt(prompt, agent_id, opponent_id)
 
@@ -393,6 +551,7 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
             opponent_name=self.current_coplayer_label(opponent_id),
             investor_name=self._role_display_name(pairing, "investor"),
             trustee_name=self._role_display_name(pairing, "trustee"),
+            **legacy_context,
         )
         return self._finalize_game_prompt(prompt, agent_id, opponent_id)
 
@@ -406,6 +565,12 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
         last_round = self.find_last_completed_dyad_for_agent(agent_id, turn, sim_data)
         if last_round is None:
             return self.get_game_prompt_round_1(agent_id, None, turn)
+        legacy_context = self._legacy_prompt_context(
+            agent_id,
+            opponent_id,
+            sim_data,
+            turn,
+        )
 
         balances = (
             sim_data.game_data.get("balances_communicated")
@@ -438,6 +603,7 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
                 opponent_name=self.current_coplayer_label(opponent_id),
                 investor_name=self._role_display_name(pairing, "investor"),
                 trustee_name=self._role_display_name(pairing, "trustee"),
+                **legacy_context,
             )
             return self._finalize_game_prompt(prompt, agent_id, opponent_id)
 
@@ -479,6 +645,7 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
             opponent_name=self.current_coplayer_label(opponent_id),
             investor_name=self._role_display_name(pairing, "investor"),
             trustee_name=self._role_display_name(pairing, "trustee"),
+            **legacy_context,
         )
         return self._finalize_game_prompt(prompt, agent_id, opponent_id)
 
@@ -781,30 +948,54 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
             investor_id = pairing["investor"]
             trustee_id = pairing["trustee"]
             sent_raw = self._extract_amount(agent_responses[investor_id], "send")
-            sent_actual, sent_clamped = self._bounded_amount(sent_raw, self.endowment)
-
-            sent_communicated = sim_data.game_data.get("pending_sents_communicated", {}).get(
-                pairing["dyad_id"],
-                sent_actual,
+            sent_decision, sent_clamped = self._bounded_amount(
+                sent_raw,
+                self.endowment,
             )
+
+            sent_after_noise = sim_data.game_data.get(
+                "pending_sents_communicated",
+                {},
+            ).get(
+                pairing["dyad_id"],
+            )
+            if sent_after_noise is None:
+                sent_after_noise = self._communicated_sent_for_prompt(
+                    sim_data,
+                    pairing,
+                    sent_decision,
+                )
+            if self.noise_semantics == "environmental":
+                sent_actual = sent_after_noise
+                sent_communicated = sent_actual
+            else:
+                sent_actual = sent_decision
+                sent_communicated = sent_after_noise
             received_actual = sent_actual * self.multiplier
             received_communicated = sent_communicated * self.multiplier
             returned_raw = self._extract_amount(agent_responses[trustee_id], "return")
-            returned_actual, returned_clamped = self._bounded_amount(
+            returned_decision, returned_clamped = self._bounded_amount(
                 returned_raw,
                 received_actual,
             )
 
             if self._should_apply_noise_to("returned"):
-                returned_communicated, _ = self._apply_noise_for_event(
-                    returned_actual,
+                returned_after_noise, _ = self._apply_noise_for_event(
+                    returned_decision,
                     received_actual,
                     turn=turn,
                     dyad_id=pairing["dyad_id"],
                     action_type="returned",
                 )
             else:
+                returned_after_noise = returned_decision
+
+            if self.noise_semantics == "environmental":
+                returned_actual = returned_after_noise
                 returned_communicated = returned_actual
+            else:
+                returned_actual = returned_decision
+                returned_communicated = returned_after_noise
 
             investor_payoff = (self.endowment - sent_actual) + returned_actual
             trustee_payoff = received_actual - returned_actual
@@ -816,26 +1007,25 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
             sim_data.game_data["balances_communicated"][investor_id] += investor_payoff_communicated
             sim_data.game_data["balances_communicated"][trustee_id] += trustee_payoff_communicated
 
-            noise_applied = (
-                sent_communicated != sent_actual
-                or returned_communicated != returned_actual
-            )
+            sent_noise = round(sent_after_noise - sent_decision, 2)
+            returned_noise = round(returned_after_noise - returned_decision, 2)
+            noise_applied = sent_noise != 0 or returned_noise != 0
             if noise_applied:
                 stats = sim_data.game_data["noise_stats"]
                 stats["rounds_with_noise"] += 1
-                stats["total_sent_noise"] += abs(sent_communicated - sent_actual)
-                stats["total_returned_noise"] += abs(returned_communicated - returned_actual)
+                stats["total_sent_noise"] += abs(sent_noise)
+                stats["total_returned_noise"] += abs(returned_noise)
             action_validation = {
                 "sent": {
                     "raw": sent_raw,
-                    "amount": sent_actual,
+                    "amount": sent_decision,
                     "min": 0,
                     "max": self.endowment,
                     "clamped": sent_clamped,
                 },
                 "returned": {
                     "raw": returned_raw,
-                    "amount": returned_actual,
+                    "amount": returned_decision,
                     "min": 0,
                     "max": received_actual,
                     "clamped": returned_clamped,
@@ -845,11 +1035,15 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
                 "action": "sent",
                 "amount": sent_actual,
                 "communicated": sent_communicated,
+                "decision": sent_decision,
+                "noise": sent_noise,
             }
             trustee_action = {
                 "action": "returned",
                 "amount": returned_actual,
                 "communicated": returned_communicated,
+                "decision": returned_decision,
+                "noise": returned_noise,
             }
             if sent_clamped:
                 investor_action["raw_amount"] = sent_raw
@@ -861,10 +1055,14 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
             dyad = {
                 **pairing,
                 "sent": sent_actual,
+                "sent_decision": sent_decision,
+                "sent_noise": sent_noise,
                 "sent_communicated": sent_communicated,
                 "received": received_actual,
                 "received_communicated": received_communicated,
                 "returned": returned_actual,
+                "returned_decision": returned_decision,
+                "returned_noise": returned_noise,
                 "returned_communicated": returned_communicated,
                 "investor_payoff": investor_payoff,
                 "trustee_payoff": trustee_payoff,
@@ -880,6 +1078,7 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
                 },
                 "balances": dict(sim_data.game_data["balances"]),
                 "balances_communicated": dict(sim_data.game_data["balances_communicated"]),
+                "noise_semantics": self.noise_semantics,
                 "noise_applied": noise_applied,
                 "action_validation": action_validation,
                 "other_player_names": self.other_player_names,
@@ -893,10 +1092,12 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
             round_payoffs.update(dyad["payoffs"])
             last_responses[investor_id] = {
                 "sent": sent_actual,
+                "sent_decision": sent_decision,
                 "sent_communicated": sent_communicated,
             }
             last_responses[trustee_id] = {
                 "returned": returned_actual,
+                "returned_decision": returned_decision,
                 "returned_communicated": returned_communicated,
             }
 
@@ -1192,15 +1393,20 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
                 dyad["dyad_id"]: dyad["action_validation"] for dyad in dyads
             }
             entry["other_player_names"] = self.other_player_names
+            entry["noise_semantics"] = self.noise_semantics
 
             if len(dyads) == 1:
                 dyad = dyads[0]
                 for key in [
                     "sent",
+                    "sent_decision",
+                    "sent_noise",
                     "sent_communicated",
                     "received",
                     "received_communicated",
                     "returned",
+                    "returned_decision",
+                    "returned_noise",
                     "returned_communicated",
                     "investor_payoff",
                     "trustee_payoff",
@@ -1212,10 +1418,14 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
             else:
                 for key in [
                     "sent",
+                    "sent_decision",
+                    "sent_noise",
                     "sent_communicated",
                     "received",
                     "received_communicated",
                     "returned",
+                    "returned_decision",
+                    "returned_noise",
                     "returned_communicated",
                     "investor_payoff",
                     "trustee_payoff",
@@ -1279,10 +1489,18 @@ class TrustGameNoisy(DyadicPairingMixin, Game):
                 f"-> Returned: ${dyad['returned']}"
             )
             if dyad.get("noise_applied"):
-                print(
-                    f"    [NOISE] Communicated sent=${dyad['sent_communicated']:.2f}, "
-                    f"returned=${dyad['returned_communicated']:.2f}"
-                )
+                if self.noise_semantics == "environmental":
+                    print(
+                        f"    [NOISE] Decisions sent=${dyad['sent_decision']:.2f}, "
+                        f"returned=${dyad['returned_decision']:.2f}; actual ledger "
+                        f"sent=${dyad['sent']:.2f}, returned=${dyad['returned']:.2f}"
+                    )
+                else:
+                    print(
+                        f"    [NOISE] Communicated sent="
+                        f"${dyad['sent_communicated']:.2f}, returned="
+                        f"${dyad['returned_communicated']:.2f}"
+                    )
             if "deduction_spent" in dyad:
                 print(
                     f"    Deduction: sender spent {dyad['deduction_spent']} "

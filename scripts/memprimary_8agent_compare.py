@@ -22,7 +22,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from analyses._shared import configure_matplotlib
+from analyses._shared import calculate_return_ratios, configure_matplotlib
 
 ENDOWMENT = 5.0
 
@@ -55,13 +55,11 @@ def per_round_game(run):
         if not dyads:
             continue
         sent_rounds.append(np.mean([d["sent"] for d in dyads]))
-        rr_rounds.append(
-            np.mean([
-                d["returned"] / d["received"] if d.get("received") else 0.0
-                for d in dyads
-                if d.get("returned") is not None
-            ])
-        )
+        returned = [d["returned"] for d in dyads if d.get("returned") is not None]
+        received = [d["received"] for d in dyads if d.get("returned") is not None]
+        ratios = calculate_return_ratios(returned, received)
+        observed = ratios[np.isfinite(ratios)]
+        rr_rounds.append(float(np.mean(observed)) if observed.size else np.nan)
     return np.array(sent_rounds), np.array(rr_rounds)
 
 
@@ -106,7 +104,7 @@ def myth_metrics(run, model):
 def stack_mean_std(series_list):
     n = min(len(s) for s in series_list)
     arr = np.stack([s[:n] for s in series_list])
-    return arr.mean(axis=0), arr.std(axis=0)
+    return np.nanmean(arr, axis=0), np.nanstd(arr, axis=0)
 
 
 def main():
@@ -156,9 +154,9 @@ def main():
             rows.append({
                 "Condition": CONDITION_LABELS[cond],
                 "Mean Trust Ratio": float(np.mean(s)) / ENDOWMENT,
-                "Mean Return Ratio": float(np.mean(r)),
+                "Mean Return Ratio": float(np.nanmean(r)),
                 "Mean Sent": float(np.mean(s)),
-                "Cooperation Stability": float(np.std(r)),
+                "Cooperation Stability": float(np.nanstd(r)),
                 "Population Myth Similarity": float(np.mean(c)),
                 "Self Myth Similarity": float(np.mean(d)),
             })

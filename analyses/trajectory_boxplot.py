@@ -443,8 +443,8 @@ def export_to_csv(data_by_condition: Dict, data_by_topic: Dict, output_dir: Path
             'n_simulations': len(metrics_list),
             'mean_trust_ratio': np.mean(trust_ratios),
             'std_trust_ratio': np.std(trust_ratios),
-            'mean_return_ratio': np.mean(return_ratios),
-            'std_return_ratio': np.std(return_ratios),
+            'mean_return_ratio': np.nanmean(return_ratios),
+            'std_return_ratio': np.nanstd(return_ratios),
             'mean_final_balance': np.mean(final_balances),
             'std_final_balance': np.std(final_balances),
         })
@@ -499,8 +499,8 @@ def export_to_csv(data_by_condition: Dict, data_by_topic: Dict, output_dir: Path
             'n_simulations': len(metrics_list),
             'mean_trust_ratio': np.mean(trust_ratios),
             'std_trust_ratio': np.std(trust_ratios),
-            'mean_return_ratio': np.mean(return_ratios),
-            'std_return_ratio': np.std(return_ratios),
+            'mean_return_ratio': np.nanmean(return_ratios),
+            'std_return_ratio': np.nanstd(return_ratios),
             'mean_final_balance': np.mean(final_balances),
             'std_final_balance': np.std(final_balances),
         })
@@ -527,7 +527,7 @@ def print_summary_statistics(data_by_condition: Dict, data_by_topic: Dict):
 
         print(f"\n{CONDITION_LABELS[condition]} (n={len(metrics_list)}):")
         print(f"  Trust Ratio:  {np.mean(trust_ratios):.3f} ± {np.std(trust_ratios):.3f}")
-        print(f"  Return Ratio: {np.mean(return_ratios):.3f} ± {np.std(return_ratios):.3f}")
+        print(f"  Return Ratio: {np.nanmean(return_ratios):.3f} ± {np.nanstd(return_ratios):.3f}")
 
     print("\n" + "="*80)
     print("SUMMARY STATISTICS: COOPERATION BY MYTH TOPIC")
@@ -540,7 +540,7 @@ def print_summary_statistics(data_by_condition: Dict, data_by_topic: Dict):
 
         print(f"\n{topic.replace('_', ' ').title()} (n={len(metrics_list)}):")
         print(f"  Trust Ratio:  {np.mean(trust_ratios):.3f} ± {np.std(trust_ratios):.3f}")
-        print(f"  Return Ratio: {np.mean(return_ratios):.3f} ± {np.std(return_ratios):.3f}")
+        print(f"  Return Ratio: {np.nanmean(return_ratios):.3f} ± {np.nanstd(return_ratios):.3f}")
 
     print("\n" + "="*80)
 

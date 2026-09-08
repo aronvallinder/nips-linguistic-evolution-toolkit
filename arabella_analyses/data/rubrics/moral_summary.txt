@@ -1,0 +1,7 @@
+Can you summarise the moral of the following story in one short sentence. 
+The summary should focus on morals such as consistency, reciprocity, generosity, fairness, caution or self-interest. 
+
+{text}
+
+Return only the sentence in the json format: 
+{moral_summary: YOUR_SUMMARY_HERE}

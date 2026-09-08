@@ -6,6 +6,10 @@ Tests different worker counts to find optimal parallelism without hitting rate l
 Runs minimal experiments (2-3 turns) to quickly probe rate limits.
 """
 
+# This is a paid, manually invoked CLI despite its historical filename.  Do
+# not let pytest collect its worker-probing functions as unit tests.
+__test__ = False
+
 import os
 import sys
 import argparse

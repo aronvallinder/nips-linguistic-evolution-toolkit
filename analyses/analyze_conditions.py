@@ -220,7 +220,9 @@ def extract_game_metrics(experiment_data):
             metrics['sent'].append(sent)
             metrics['returned'].append(returned)
             metrics['sent_pct'].append(sent / endowment * 100 if endowment > 0 else 0)
-            metrics['returned_pct'].append(returned / received * 100 if received > 0 else 0)
+            metrics['returned_pct'].append(
+                returned / received * 100 if received > 0 else np.nan
+            )
 
             # Noise-specific data
             metrics['sent_communicated'].append(entry.get('sent_communicated', sent))
@@ -254,7 +256,13 @@ def aggregate_condition_data(data_by_condition):
                 all_metrics['mean_sent'].append(np.mean(metrics['sent']))
                 all_metrics['mean_returned'].append(np.mean(metrics['returned']))
                 all_metrics['mean_sent_pct'].append(np.mean(metrics['sent_pct']))
-                all_metrics['mean_returned_pct'].append(np.mean(metrics['returned_pct']))
+                observed_returns = np.asarray(metrics['returned_pct'], dtype=float)
+                observed_returns = observed_returns[np.isfinite(observed_returns)]
+                all_metrics['mean_returned_pct'].append(
+                    float(np.mean(observed_returns))
+                    if observed_returns.size
+                    else np.nan
+                )
                 all_metrics['noise_rate'].append(np.mean(metrics['noise_applied']))
 
                 # Per-round data for trajectories
@@ -262,7 +270,8 @@ def aggregate_condition_data(data_by_condition):
                     round_metrics[r]['sent'].append(metrics['sent'][i])
                     round_metrics[r]['returned'].append(metrics['returned'][i])
                     round_metrics[r]['sent_pct'].append(metrics['sent_pct'][i])
-                    round_metrics[r]['returned_pct'].append(metrics['returned_pct'][i])
+                    if np.isfinite(metrics['returned_pct'][i]):
+                        round_metrics[r]['returned_pct'].append(metrics['returned_pct'][i])
 
         aggregated[condition] = {
             'overall': dict(all_metrics),
@@ -331,8 +340,9 @@ def plot_trajectories(ax, aggregated_data, metric='sent_pct'):
         sems = []
 
         for r in rounds:
-            values = by_round[r].get(metric, [])
-            if values:
+            values = np.asarray(by_round[r].get(metric, []), dtype=float)
+            values = values[np.isfinite(values)]
+            if values.size:
                 means.append(np.mean(values))
                 sems.append(np.std(values) / np.sqrt(len(values)))
             else:
@@ -363,14 +373,22 @@ def plot_investor_vs_trustee(ax, aggregated_data):
         returned = data['overall'].get('mean_returned_pct', [])
 
         if sent and returned:
+            points = [
+                (sent_value, returned_value)
+                for sent_value, returned_value in zip(sent, returned)
+                if np.isfinite(sent_value) and np.isfinite(returned_value)
+            ]
+            if not points:
+                continue
+            sent_values, returned_values = map(np.asarray, zip(*points))
             color = CONDITION_COLORS.get(condition, '#888888')
             label = CONDITION_LABELS.get(condition, condition)
 
             # Plot each experiment as a point
-            ax.scatter(sent, returned, c=color, label=label, alpha=0.7, s=50, edgecolors='black', linewidth=0.5)
+            ax.scatter(sent_values, returned_values, c=color, label=label, alpha=0.7, s=50, edgecolors='black', linewidth=0.5)
 
             # Plot mean as larger marker
-            ax.scatter([np.mean(sent)], [np.mean(returned)], c=color, s=150,
+            ax.scatter([np.mean(sent_values)], [np.mean(returned_values)], c=color, s=150,
                       marker='*', edgecolors='black', linewidth=1)
 
     ax.set_xlabel('Investor: Mean Sent (%)')
@@ -489,8 +507,9 @@ def create_detailed_trajectory_figure(aggregated_data, output_path, title_suffix
             means = []
             sems = []
             for r in rounds:
-                values = by_round[r].get(metric, [])
-                if values:
+                values = np.asarray(by_round[r].get(metric, []), dtype=float)
+                values = values[np.isfinite(values)]
+                if values.size:
                     means.append(np.mean(values))
                     sems.append(np.std(values) / np.sqrt(len(values)))
                 else:
@@ -535,7 +554,10 @@ def print_summary_stats(aggregated_data):
         n = data['n_experiments']
 
         sent = overall.get('mean_sent_pct', [])
-        returned = overall.get('mean_returned_pct', [])
+        returned = [
+            value for value in overall.get('mean_returned_pct', [])
+            if np.isfinite(value)
+        ]
         noise_rate = overall.get('noise_rate', [])
 
         print(f"\n{CONDITION_LABELS.get(condition, condition)} (n={n}):")

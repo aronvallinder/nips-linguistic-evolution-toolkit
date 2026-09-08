@@ -1,0 +1,173 @@
+## Classification rubric
+
+Assign exactly one of the following seven labels.
+
+### 1. Maximal cooperation
+
+The myth endorses the highest available level of cooperative commitment from the outset.
+
+Use this label when:
+
+* an agent should give the maximum available amount;
+* generosity should be complete, unrestricted, or wholehearted;
+* the donor should give everything and the recipient should make a generous or equitable return;
+* maximal cooperation is recommended without requiring prior evidence of trustworthiness.
+
+Do not use this label when cooperation is deliberately limited, matched to the partner, or increased gradually.
+
+Typical moral: “Give fully and both will prosper.”
+
+---
+
+### 2. Moderate cooperation
+
+The myth endorses cooperation from the outset, but not at the maximum level.
+
+Use this label when:
+
+* an agent should give a positive but limited amount;
+* cooperation is described as prudent, balanced, or restrained;
+* the recommended cooperative amount is fixed rather than determined by the partner’s behaviour;
+* cooperation is endorsed, but the text does not clearly advocate giving the maximum.
+
+Do not infer maximal cooperation merely from positive language such as “be generous”. When the amount is unspecified and there is no clear language of complete or maximal giving, use **Moderate cooperation**.
+
+Typical moral: “Share generously, but keep something for yourself.”
+
+---
+
+### 3. Matched reciprocity
+
+The myth endorses adjusting one’s cooperation to match the other agent’s generosity.
+
+Use this label when:
+
+* an agent should give back approximately what the partner gave;
+* greater generosity should be rewarded with greater generosity;
+* low cooperation should receive a similarly low response;
+* the recommended strategy is tit for tat or proportional reciprocity.
+
+The defining feature is that the amount of cooperation depends directly on the partner’s previous level of cooperation.
+
+Do not use this label for a fixed cooperative amount or for cooperation that increases because trust is gradually being established.
+
+Typical moral: “Return generosity in the measure in which it was offered.”
+
+---
+
+### 4. Trust earned gradually
+
+The myth endorses beginning cautiously and increasing cooperation only after receiving evidence that the other agent is trustworthy.
+
+Use this label when:
+
+* an agent should begin with a small or moderate cooperative act;
+* trust should be tested before substantial cooperation;
+* cooperation should increase over repeated successful interactions;
+* reputation, consistency, verification, or reliable observations should determine whether trust is extended;
+* apparent defection under noisy or uncertain observations should be investigated before trust is withdrawn.
+
+The defining feature is a progression from limited trust to greater trust based on evidence.
+
+Do not use this label when cooperation simply mirrors the partner’s amount, or when the story concerns rebuilding trust after a confirmed betrayal.
+
+Typical moral: “Begin cautiously and deepen trust when it is repeatedly justified.”
+
+---
+
+### 5. Forgiveness after betrayal
+
+The myth endorses resuming or rebuilding cooperation after a confirmed betrayal.
+
+Use this label when:
+
+* an agent is betrayed but offers another opportunity to cooperate;
+* forgiveness is presented as preferable to permanent retaliation;
+* cooperation resumes immediately or through a gradual process;
+* the betrayer can regain trust through apology, restitution, or subsequent cooperative behaviour.
+
+The defining feature is that a genuine betrayal occurs and the recommended response permits renewed cooperation.
+
+Do not use this label for mere uncertainty about whether betrayal occurred, or when cooperation ends permanently after betrayal.
+
+Typical moral: “Betrayal need not end cooperation; trust can be rebuilt.”
+
+---
+
+### 6. No cooperation after betrayal
+
+The myth endorses withdrawing cooperation after a confirmed betrayal.
+
+Use this label when:
+
+* an agent cooperates initially but stops after being exploited or betrayed;
+* betrayal permanently or indefinitely ends the cooperative relationship;
+* the moral recommends refusing further transfers to the betrayer;
+* the strategy resembles a grim trigger: cooperate until betrayal, then defect thereafter.
+
+The defining feature is that cooperation was initially possible, but betrayal causes its withdrawal.
+
+Do not use this label when the agent rejects cooperation from the outset or when forgiveness remains possible.
+
+Typical moral: “Once trust is broken, do not cooperate again.”
+
+---
+
+### 7. No cooperation
+
+The myth endorses refusing cooperation from the outset, independently of the partner’s behaviour.
+
+Use this label when:
+
+* an agent should always keep its resources;
+* trust is portrayed as inherently foolish or dangerous;
+* self-interest or hoarding is recommended as the general strategy;
+* the agent would not cooperate even with a generous or trustworthy partner.
+
+The defining feature is unconditional non-cooperation: no betrayal is required to trigger it.
+
+Do not use this label when non-cooperation begins only after betrayal.
+
+Typical moral: “Trust no one and always keep what is yours.”
+
+## Decision procedure
+
+Apply the following rules in order:
+
+1. **Identify the behaviour endorsed by the moral**, rather than every behaviour mentioned in the narrative.
+2. If a confirmed betrayal occurs:
+
+   * cooperation is subsequently possible → **Forgiveness after betrayal**;
+   * cooperation is permanently or indefinitely withdrawn → **No cooperation after betrayal**.
+3. If cooperation is rejected from the outset → **No cooperation**.
+4. If cooperation increases as evidence or trust accumulates → **Trust earned gradually**.
+5. If cooperation is calibrated to the partner’s previous generosity → **Matched reciprocity**.
+6. Otherwise, classify unconditional or fixed cooperation by degree:
+
+   * complete or clearly maximal cooperation → **Maximal cooperation**;
+   * positive but limited or unspecified cooperation → **Moderate cooperation**.
+
+## Tie-breaking rules
+
+* **Betrayal response takes priority** over the amount cooperated earlier.
+* **Trust earned gradually takes priority over matched reciprocity** when increasing cooperation reflects accumulated confidence rather than simple amount matching.
+* **Matched reciprocity takes priority over maximal or moderate cooperation** when the recommended amount explicitly depends on the partner’s behaviour.
+* A story that praises maximal cooperation only after trust has been earned is **Trust earned gradually**, not Maximal cooperation.
+* A story that depicts non-cooperation negatively should not be labelled No cooperation.
+* Under noisy observations, classify according to the endorsed response:
+
+  * gather evidence before trusting or retaliating → **Trust earned gradually**;
+  * restore cooperation after accepting that harm occurred → **Forgiveness after betrayal**;
+  * cease cooperation after concluding that betrayal occurred → **No cooperation after betrayal**.
+
+## Required output
+
+Return only the category name, written exactly as one of:
+
+* Maximal cooperation
+* Moderate cooperation
+* Matched reciprocity
+* Trust earned gradually
+* Forgiveness after betrayal
+* No cooperation after betrayal
+* No cooperation

@@ -1,0 +1,11 @@
+condition_group,condition,n_runs,n_myths,n_game_rows,mean_final_balance,min_final_balance,max_final_balance
+2agent_clean_sonnet45,game_only,5,0,50,55.0,55.0,55.0
+2agent_clean_sonnet45,myth_game_directive,5,100,50,69.0,55.0,75.0
+2agent_clean_sonnet45,myth_game_normative,5,100,50,67.9,55.0,75.0
+2agent_noisy_sonnet45_negative2_informed,game_only,5,0,50,32.67999999999999,32.2,33.5
+2agent_noisy_sonnet45_negative2_informed,myth_game_directive,5,100,50,40.0,33.5,45.0
+2agent_noisy_sonnet45_negative2_informed,myth_game_normative,5,100,50,38.88,37.0,43.0
+8agent_anonymous_history3_sonnet45,myth_game_directive,5,400,200,73.1,68.5,74.5
+8agent_named_history3_sonnet45,myth_game_directive,5,400,200,72.55,71.0,73.5
+8agent_old_prompt_sonnet45,game_only,5,0,200,56.275,55.0,59.25
+8agent_old_prompt_sonnet45,myth_game_directive,5,400,200,69.1,66.0,71.25

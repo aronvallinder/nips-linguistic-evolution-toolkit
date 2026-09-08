@@ -251,7 +251,7 @@ def print_summary_statistics(data_by_condition: Dict, model_name: str):
 
         print(f"\n{CONDITION_LABELS[condition]} (n={len(metrics_list)}):")
         print(f"  Trust Ratio:  {np.mean(trust_ratios):.3f} ± {np.std(trust_ratios):.3f}")
-        print(f"  Return Ratio: {np.mean(return_ratios):.3f} ± {np.std(return_ratios):.3f}")
+        print(f"  Return Ratio: {np.nanmean(return_ratios):.3f} ± {np.nanstd(return_ratios):.3f}")
 
     print("\n" + "="*80)
 

@@ -1,0 +1,310 @@
+<title>Cross-Model API Audit</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F6F7F9;
+    --surface: #FFFFFF;
+    --ink: #1C2330;
+    --muted: #5C6678;
+    --rule: #D8DDE5;
+    --accent: #B0741A;
+    --accent-soft: #FBF3E3;
+    --ok: #2E7D4F;
+    --ok-soft: #E6F3EB;
+    --warn: #B0741A;
+    --warn-soft: #FBF3E3;
+    --bad: #B23A3A;
+    --bad-soft: #F9E8E8;
+    --code-bg: #EEF1F5;
+    --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "IBM Plex Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141920;
+      --surface: #1C222B;
+      --ink: #E4E8EE;
+      --muted: #98A2B3;
+      --rule: #2C3440;
+      --accent: #E3AB3E;
+      --accent-soft: #2E2716;
+      --ok: #6CC493;
+      --ok-soft: #17301F;
+      --warn: #E3AB3E;
+      --warn-soft: #2E2716;
+      --bad: #E27979;
+      --bad-soft: #351C1C;
+      --code-bg: #232B36;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141920;
+    --surface: #1C222B;
+    --ink: #E4E8EE;
+    --muted: #98A2B3;
+    --rule: #2C3440;
+    --accent: #E3AB3E;
+    --accent-soft: #2E2716;
+    --ok: #6CC493;
+    --ok-soft: #17301F;
+    --warn: #E3AB3E;
+    --warn-soft: #2E2716;
+    --bad: #E27979;
+    --bad-soft: #351C1C;
+    --code-bg: #232B36;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  main {
+    max-width: 76ch;
+    margin: 0 auto;
+    padding: 3rem 1.25rem 5rem;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 0;
+  }
+  h1 { font-size: 2.2rem; letter-spacing: -0.01em; }
+  h2 { font-size: 1.45rem; margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  h3 { font-size: 1.1rem; margin-top: 1.75rem; }
+  p { margin: 0.8rem 0; max-width: 68ch; }
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+  }
+  code, .mono {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+  }
+  code {
+    background: var(--code-bg);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+  .headline {
+    margin-top: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border-left: 4px solid var(--accent);
+  }
+  .headline p:first-child { margin-top: 0; font-size: 1.12rem; font-weight: 500; }
+  .headline p:last-child { margin-bottom: 0; }
+
+  .tablewrap { overflow-x: auto; margin: 1.25rem 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  th {
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  td:first-child { font-weight: 500; white-space: nowrap; }
+  .wide th, .wide td { min-width: 9rem; }
+  .wide td:first-child { min-width: 11rem; }
+
+  .pill {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .pill.ok { background: var(--ok-soft); color: var(--ok); }
+  .pill.warn { background: var(--warn-soft); color: var(--warn); }
+  .pill.bad { background: var(--bad-soft); color: var(--bad); }
+
+  ol.findings { padding-left: 0; list-style: none; counter-reset: f; margin: 1.25rem 0; }
+  ol.findings > li {
+    counter-increment: f;
+    display: grid;
+    grid-template-columns: 2.25rem 1fr;
+    gap: 0.5rem 0.75rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  ol.findings > li::before {
+    content: counter(f);
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    padding-top: 0.1rem;
+  }
+  ol.findings > li > div p:first-child { margin-top: 0; font-weight: 500; }
+  ol.findings > li > div p:last-child { margin-bottom: 0; }
+  .test { color: var(--muted); font-size: 0.9rem; }
+  .test strong { color: var(--ink); font-weight: 500; }
+
+  ul { padding-left: 1.25rem; max-width: 68ch; }
+  li { margin: 0.35rem 0; }
+
+  .timeline { list-style: none; padding: 0; margin: 1rem 0; max-width: 68ch; }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .timeline .d { font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); padding-top: 0.15rem; }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; margin: 1.25rem 0; }
+  .box { background: var(--surface); border: 1px solid var(--rule); padding: 1rem 1.15rem; }
+  .box h3 { margin-top: 0; font-size: 1rem; }
+  .box ul { padding-left: 1.1rem; margin: 0.5rem 0 0; font-size: 0.93rem; }
+  .box.ok { border-color: var(--ok); }
+  .box.bad { border-color: var(--bad); }
+
+  .sources { font-size: 0.9rem; color: var(--muted); }
+  .sources code { font-size: 0.82em; }
+  a { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<main>
+  <div class="eyebrow">Linguistic evolution toolkit · read-only audit · 2026-09-04</div>
+  <h1>Are the Claude, GPT and Gemini API calls equivalent?</h1>
+  <p class="meta">Team-meeting action item from 2026-09-01. Three Claude agents (code path, run data, history and provider docs) and one independent Codex agent audited the repo and every saved run. All four reached the same answer.</p>
+
+  <div class="headline">
+    <p>No. The runs on the meeting slides did not go through OpenRouter, and the three models did not share sampling settings.</p>
+    <p>The 270-run cross-model defector set from 2026-08-25 sent each model to its own vendor API directly. Claude played at temperature 0.8 with no thinking. GPT-5 Nano played at the vendor's fixed temperature with reasoning effort set to "minimal", which is near zero. Gemini 3.7 Flash played with medium thinking and no temperature control. Message roles and the system prompt are handled equivalently on all three paths, so this is not a role-format bug. It is a settings inequivalence plus one large format confound.</p>
+  </div>
+
+  <h2>What each model actually got in the slide set</h2>
+  <p>Source: the <code>run_metadata</code> block in every JSON under <code>data/shared_runs/uploaders/vallinder/.../negative_only_crossmodel_defectors_n5_20260825</code>, cross-checked against the request builders in <code>src/utils.py</code>.</p>
+  <div class="tablewrap">
+    <table class="wide">
+      <thead>
+        <tr><th>Setting</th><th>Claude Sonnet 4.5</th><th>GPT-5 Nano</th><th>Gemini 3.7 Flash</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Provider</td><td>Anthropic direct</td><td>OpenAI direct</td><td>Google direct</td></tr>
+        <tr><td>Temperature</td><td>0.8 sent</td><td><span class="pill warn">not sent</span> vendor fixes 1.0</td><td><span class="pill warn">not sent</span> model ignores it</td></tr>
+        <tr><td>Reasoning / thinking</td><td><span class="pill warn">off</span> no thinking param</td><td><span class="pill warn">minimal</span> code default, 0 reasoning tokens on every call</td><td><span class="pill warn">medium</span> ~106 hidden thought tokens per decision</td></tr>
+        <tr><td>Output cap</td><td>4096 tokens</td><td>none</td><td>none</td></tr>
+        <tr><td>Visible text per decision</td><td>~1,000 to 1,250 chars of strategy, kept in memory</td><td>13 chars, bare JSON</td><td>~25 chars, bare JSON</td></tr>
+        <tr><td>System prompt</td><td>top-level <code>system</code> field</td><td><code>system</code> role message</td><td><code>system_instruction</code></td></tr>
+        <tr><td>Roles</td><td><span class="pill ok">equivalent</span></td><td><span class="pill ok">equivalent</span></td><td><span class="pill ok">equivalent</span> assistant renamed to model</td></tr>
+        <tr><td>Silent parse defaults</td><td><span class="pill ok">none</span></td><td><span class="pill ok">none</span></td><td><span class="pill ok">none</span></td></tr>
+        <tr><td>Truncation / empty replies</td><td><span class="pill ok">none found</span></td><td><span class="pill ok">none found</span></td><td><span class="pill ok">none found</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Findings, ranked by how likely each is to explain the cross-model differences</h2>
+  <ol class="findings">
+    <li><div>
+      <p>Three vendors, three sampling regimes. The comparison pits a non-thinking Claude against a barely-reasoning GPT and a medium-thinking Gemini.</p>
+      <p>Nobody chose "minimal" for GPT-5 Nano on scientific grounds. It is the code default for direct OpenAI calls, added in commit 83654c20 on 2026-04-29, and the August launch scripts left it unset. GPT-5 Nano's "anomalous" behaviour in the meeting is consistent with a model that does almost no reasoning. Temperature is not a shared condition either, even though every protocol doc says 0.8.</p>
+      <p class="test"><strong>Test:</strong> rerun one GPT-5 Nano cell with <code>OPENAI_REASONING_EFFORT=medium</code> and compare against the existing minimal-effort cell.</p>
+    </div></li>
+    <li><div>
+      <p>Claude re-reads its own deliberation every round. The other two only see their past numbers.</p>
+      <p>The validator accepts any reply that contains a quoted send or return key, and the whole accepted reply is stored as the next assistant message. Under memory-primary mode Claude therefore carries several paragraphs of its own strategic reasoning forward in its 3-round window, while GPT and Gemini carry bare JSON. This is a format-driven treatment difference that could produce "Claude degrades with defectors" on its own.</p>
+      <p class="test"><strong>Test:</strong> rerun a Claude cell with a prompt that requires JSON-only replies, or strip prose from stored assistant messages, and see whether the defector effect survives.</p>
+    </div></li>
+    <li><div>
+      <p>Both Claude and GPT-5 Nano have run under two different regimes across the project, so older and newer results are not directly comparable.</p>
+      <p>OpenRouter-era Claude runs (Arabella's five sets, Ivar's baseline, v1, v2, v3, myth_causal and sonnet45_8agent sets, ~1,100 runs) had extended thinking switched on, because the OpenRouter path sends reasoning effort medium by default. Direct-Anthropic runs (defector set, v4, phase 2 to 7, memtest, mem3) had none. GPT-5 Nano used a median of about 1,000 reasoning tokens per decision via OpenRouter and zero via direct OpenAI.</p>
+      <p class="test"><strong>Test:</strong> split any pooled Claude or GPT analysis by the reasoning signature (reasoning text present vs absent) before trusting it.</p>
+    </div></li>
+    <li><div>
+      <p>Some conditions mix regimes inside a single comparison.</p>
+      <p>The plain 8-agent memory-primary triplet plotted by <code>scripts/memprimary_taskorder_boxplot.py</code> has game and game_myth via OpenRouter (thinking on, after the Anthropic balance ran dry on 2026-07-17) and myth_game direct (thinking off). The washout_20round set and noise v2 also contain both regimes. Any Myth→Game vs Game→Myth claim drawn from that triplet is confounded. The informed-noise v2 triplet from 2026-07-22 and the 2026-08-12 confirmatory runs are consistently direct and unaffected.</p>
+    </div></li>
+    <li><div>
+      <p>GPT-5 Nano confuses the two tasks: in 39 of 90 two-task runs it answered a myth prompt with a game decision.</p>
+      <p>93 myth calls were rejected and retried with a correction suffix. Claude and Gemini had zero. The validator that catches this was added on 2026-08-25, so older GPT-5 Nano two-task runs may contain unflagged game JSON stored as myths.</p>
+      <p class="test"><strong>Test:</strong> regex older GPT-5 Nano myth fields for <code>"send"</code> or <code>"return"</code>.</p>
+    </div></li>
+    <li><div>
+      <p>Model-dependent failure rates filter the sample rather than defaulting values.</p>
+      <p>A decision that fails validation is retried once, then the run dies and is excluded from the shared data. Claude had 18 such rejections in 15 runs (long analyses that never emitted the JSON line), the others none. Not large here, but it is a survivorship channel, and no <code>finish_reason</code> is ever stored so truncation can only be inferred from token counts.</p>
+    </div></li>
+  </ol>
+
+  <h2>What is not a bug</h2>
+  <div class="cols">
+    <div class="box ok">
+      <h3>Verified equivalent</h3>
+      <ul>
+        <li>Message roles, system-prompt placement, seed injection and memory truncation are identical across providers (<code>src/utils.py:270-316</code>).</li>
+        <li>No silent parse default. Missing keys raise, retry once, then kill the run. The one historical default (return 0 when nothing was received) is benign.</li>
+        <li>No truncation and no empty replies in any completed slide-set run.</li>
+        <li>Model aliasing never bit: every metadata-bearing run resolved to the expected native model id.</li>
+        <li>Gemini's ceiling-lock is not a provider artefact. It maxes out under OpenRouter and direct, with and without visible thinking.</li>
+      </ul>
+    </div>
+    <div class="box bad">
+      <h3>Cannot be verified from the repo</h3>
+      <ul>
+        <li>The exact code that produced the defector set: commit 58d15e24 is on no remote.</li>
+        <li>The reasoning effort actually used on any direct OpenAI run; it is never written to metadata.</li>
+        <li>Provider of the ~1,065 no-thinking Claude runs before 2026-08-25; direct Anthropic is likely but unproven.</li>
+        <li>Whether OpenRouter forwarded temperature 0.8 to GPT-5 Nano in the OpenRouter era. Its model card lists no temperature support, so it was most likely dropped.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>How it happened</h2>
+  <ul class="timeline">
+    <li><span class="d">2026-04-21</span><span>Ivar's original code: one OpenRouter client for everything, temperature 0.8 always sent, medium reasoning for Claude and Gemini slugs, none for OpenAI slugs. Even then the models were not parameter-identical.</span></li>
+    <li><span class="d">2026-04-29</span><span>Aron adds direct OpenAI, Anthropic and Gemini routing. <code>auto</code> mode prefers a direct vendor whenever its key is present. GPT-5 gets temperature dropped and reasoning effort "minimal"; Anthropic gets a 1024-token cap and no thinking.</span></li>
+    <li><span class="d">2026-05-11</span><span>Meeting notes say discrepant results were "likely due to new API calls not allowing the same settings" and that the team would revert to the original code. No revert was ever committed.</span></li>
+    <li><span class="d">2026-07-17</span><span>Anthropic balance runs dry; Ivar reruns via <code>LLM_PROVIDER=openrouter</code>, which silently turns Claude thinking on. Cap raised to 4096 after truncation killed two runs.</span></li>
+    <li><span class="d">2026-08-12</span><span>Provider fields first written to <code>run_metadata</code>. Everything earlier carries no provenance.</span></li>
+    <li><span class="d">2026-08-21</span><span>Cross-model screens launched with <code>LLM_PROVIDER=direct</code>, GPT effort unset (minimal), Gemini thinking medium.</span></li>
+    <li><span class="d">2026-08-25</span><span>All of it merged to shared main. CLAUDE.md and README still describe a single OpenRouter client.</span></li>
+  </ul>
+
+  <h2>Recommended next steps</h2>
+  <ul>
+    <li><strong>Pick one regime and pin it.</strong> Either all three via OpenRouter with an explicit <code>OPENROUTER_REASONING_EFFORT</code>, or all three direct with matched effort levels. Set it in the launch script, not in a per-machine <code>.env</code>.</li>
+    <li><strong>Record what was sent.</strong> Add the effective reasoning effort, whether temperature was sent, and the response <code>finish_reason</code> to <code>run_metadata</code> and per-call usage.</li>
+    <li><strong>Control the prose confound.</strong> Either require JSON-only decisions for all models or store only the extracted decision in memory. Rerun one Claude defector cell each way.</li>
+    <li><strong>Rerun the GPT-5 Nano slide cells at medium effort</strong> before drawing any conclusion about GPT beating Claude on collective returns.</li>
+    <li><strong>Re-plot the memory-primary triplet</strong> from consistently-routed runs only, or drop it.</li>
+    <li><strong>Fix the docs.</strong> CLAUDE.md and README describe a single OpenRouter client; <code>.env.example</code> omits <code>OPENAI_REASONING_EFFORT</code> and <code>GEMINI_THINKING_LEVEL</code>; <code>docs/verified-facts.md:9</code> cites a stale line number.</li>
+  </ul>
+
+  <h2>Method and sources</h2>
+  <p class="sources">Four independent read-only audits: a Claude agent on the request-building code (<code>src/utils.py</code>, <code>src/agents.py</code>, <code>src/simulation.py</code>, <code>games/</code>); a Claude agent on all 6,678 saved run JSONs and their logs (inventory and diagnostics CSVs in the session scratchpad); a Claude agent on git history, researchlog, and OpenRouter, OpenAI, Anthropic and Google docs fetched live; and a Codex 0.152 agent given the full question independently. Full reports: <code>code_path_report.md</code>, <code>empirical_report.md</code>, <code>history_and_provider_report.md</code>, <code>codex_report.md</code>. No repo file was modified.</p>
+</main>

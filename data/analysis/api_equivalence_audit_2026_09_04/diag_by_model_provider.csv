@@ -1,0 +1,17 @@
+model,inferred,n,runs,chars_mean,out_mean,out_p95,out_max,rtok_mean,rtok_max,pct_rtext,pct_renc,pct_json,pct_empty,pct_cap,pct_bare,pct_send5,pct_ret0
+anthropic/claude-haiku-4.5,direct-anthropic-or-openrouter-no-thinking(ambiguous),1032.0,25.0,739.0,177.7,337.44999999999993,456.0,0.0,0.0,0.0,0.0,100.0,0.0,0.0,20.3,44.4,15.5
+anthropic/claude-sonnet-4.5,anthropic(meta),4498.0,97.0,1293.0,394.7,631.0,2148.0,0.0,0.0,3.6,0.0,100.0,0.0,0.0,1.7,12.7,18.0
+anthropic/claude-sonnet-4.5,direct-anthropic-or-openrouter-no-thinking(ambiguous),44260.0,1040.0,1009.0,289.1,470.0,946.0,0.0,0.0,0.0,0.0,100.0,0.0,0.0,4.0,15.5,35.3
+anthropic/claude-sonnet-4.5,openrouter(meta),1280.0,23.0,1162.0,924.7,1554.1999999999998,3550.0,0.0,0.0,100.0,0.0,100.0,0.0,0.0,0.0,57.8,0.0
+anthropic/claude-sonnet-4.5,openrouter(reasoning text),25260.0,1052.0,788.0,717.7,1366.0499999999993,5853.0,383.7,2667.0,100.0,0.0,100.0,0.0,0.0,5.0,14.2,22.3
+google/gemini-3-pro-preview,openrouter(reasoning text),5240.0,212.0,129.0,230.5,632.8000000000029,5230.0,197.4,4965.0,81.9,18.1,100.0,0.0,0.0,89.3,96.6,0.0
+google/gemini-3.1-flash-lite,"direct-gemini(no text, thought tokens)",40.0,2.0,14.0,188.0,247.2,251.0,180.6,243.0,0.0,100.0,100.0,0.0,0.0,100.0,100.0,0.0
+google/gemini-3.1-flash-lite,openrouter(reasoning text),4540.0,161.0,55.0,271.2,549.0,1832.0,255.6,1595.0,42.1,57.9,100.0,0.0,0.0,96.9,76.0,40.0
+google/gemini-3.1-pro-preview,"direct-gemini(no text, thought tokens)",5400.0,270.0,26.0,12.1,14.0,288.0,356.9,6179.0,0.0,0.0,100.0,0.0,0.0,99.9,51.6,31.7
+google/gemini-3.1-pro-preview,openrouter(reasoning text),6320.0,270.0,24.0,197.6,367.0,1000.0,186.0,986.0,96.3,3.7,100.0,0.0,0.0,100.0,40.1,52.5
+google/gemini-3.7-flash,google(meta),3378.0,90.0,25.0,12.4,14.0,18.0,105.7,1504.0,0.0,0.0,100.0,0.0,0.0,100.0,83.3,26.5
+openai/gpt-5-nano,direct-openai-minimal-or-ambiguous,44120.0,2206.0,40.0,21.2,75.0,582.0,0.0,0.0,0.0,0.0,99.88,0.0,0.0,91.6,53.4,19.0
+openai/gpt-5-nano,openai(meta),3378.0,90.0,13.0,15.8,17.0,20.0,0.0,0.0,0.0,0.0,100.0,0.0,0.0,100.0,21.6,26.3
+openai/gpt-5-nano,openrouter(reasoning text),18764.0,773.0,13.0,1127.3,2416.0,6205.0,1028.2,6144.0,91.0,6.8,100.0,0.0,0.0,100.0,13.4,83.1
+openai/gpt-5-nano,openrouter-or-direct(ambiguous),6060.0,258.0,13.0,303.5,655.0,5008.0,287.4,4992.0,0.0,98.2,100.0,0.0,0.0,100.0,20.6,16.3
+openai/gpt-5.5,openrouter-or-direct(ambiguous),2180.0,109.0,13.0,27.7,94.04999999999973,235.0,16.3,219.0,0.0,35.4,100.0,0.0,0.0,100.0,98.2,0.8

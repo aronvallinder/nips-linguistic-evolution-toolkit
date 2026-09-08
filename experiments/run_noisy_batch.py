@@ -6,13 +6,13 @@ TrustGameNoisy with noise and asymmetric naming support.
 
 Usage:
     # Run specific experiment set
-    python experiments/run_noisy_batch.py noise_pilot
+    python experiments/run_noisy_batch.py noise_pilot --allow-legacy-settings
 
     # Run with parallel workers
-    python experiments/run_noisy_batch.py noise_comparison --workers 4
+    python experiments/run_noisy_batch.py noise_comparison --workers 4 --allow-legacy-settings
 
     # Run default (noise_pilot)
-    python experiments/run_noisy_batch.py
+    python experiments/run_noisy_batch.py --allow-legacy-settings
 """
 
 import os
@@ -36,6 +36,10 @@ from src.batch_utils import unique_json_path as _unique_json_path
 from src.simulation import run_simulation
 from src.myth_writer import MythWriter
 from games.trust_game_noisy import TrustGameNoisy
+from scripts.hf_sync_completed_runs import maybe_sync_completed_runs
+from src.llm_settings import prepare_combinations, prepared_plan
+from src.utils import DIRECT_MODEL_ALIASES
+from src.experiment_condition import ConditionMismatchError, digest
 
 
 def execution_provenance(config_path: str) -> Dict[str, Any]:
@@ -76,6 +80,17 @@ class NoisyExperimentConfig:
         """Generate all parameter combinations for an experiment set."""
         exp_set = self.config['experiment_sets'][experiment_name]
         provider_settings = exp_set.get("provider_settings", {}).copy()
+        legacy_environmental_sets = set(
+            self.config.get("legacy_environmental_experiment_sets", [])
+        )
+        noise_semantics = exp_set.get(
+            "noise_semantics",
+            (
+                "environmental"
+                if experiment_name in legacy_environmental_sets
+                else "communication"
+            ),
+        )
 
         # Resolve "all" references
         models = self._resolve_all(exp_set['models'], 'base_models')
@@ -126,14 +141,20 @@ class NoisyExperimentConfig:
         myth_prompt_prefix = exp_set.get("myth_prompt_prefix", "")
         myth_default_key = exp_set.get(
             "myth_default_prompt_key",
-            f"{myth_prompt_prefix}myth_writing_default",
+            exp_set.get(
+                "myth_writing_default_template",
+                f"{myth_prompt_prefix}myth_writing_default",
+            ),
         )
         myth_later_keys = exp_set.get("myth_later_prompt_keys")
         if myth_later_keys is None:
             myth_later_keys = [
                 exp_set.get(
                     "myth_later_prompt_key",
-                    f"{myth_prompt_prefix}myth_writing_later_rounds",
+                    exp_set.get(
+                        "myth_writing_later_rounds_template",
+                        f"{myth_prompt_prefix}myth_writing_later_rounds",
+                    ),
                 )
             ]
         else:
@@ -182,14 +203,56 @@ class NoisyExperimentConfig:
             # Optional per-set override of game prompt templates (same
             # mechanism as the main config's game_prompt_keys).
             game_prompt_keys = exp_set.get("game_prompt_keys", {})
+            legacy_game_prompt_keys = {
+                "trust_game_round1_investor": exp_set.get(
+                    "round1_investor_template"
+                ),
+                "trust_game_round1_trustee": exp_set.get(
+                    "round1_trustee_template"
+                ),
+                "trust_game_later_investor": exp_set.get(
+                    "later_investor_template"
+                ),
+                "trust_game_later_trustee": exp_set.get(
+                    "later_trustee_template"
+                ),
+            }
+
+            def _game_template_key(name):
+                return (
+                    game_prompt_keys.get(name)
+                    or legacy_game_prompt_keys.get(name)
+                    or name
+                )
+
+            round_prompt_template_names = {
+                "round1_investor": _game_template_key(
+                    "trust_game_round1_investor"
+                ),
+                "round1_trustee": _game_template_key(
+                    "trust_game_round1_trustee"
+                ),
+                "later_investor": _game_template_key(
+                    "trust_game_later_investor"
+                ),
+                "later_trustee": _game_template_key(
+                    "trust_game_later_trustee"
+                ),
+            }
 
             def _game_template(name):
-                key = game_prompt_keys.get(name, name)
-                return self.config["prompt_templates"].get(key)
+                return self.config["prompt_templates"].get(
+                    _game_template_key(name)
+                )
+
+            initial_system_template_name = exp_set.get(
+                "initial_system_template"
+            )
 
             for run in replicate_ids:
                 combo = {
                     "model": self.config["base_models"][model],
+                    "template_name": template,
                     "template": self.config["prompt_templates"][template],
                     "persona": self.config["personas"][persona],
                     "task_order": order,
@@ -199,6 +262,7 @@ class NoisyExperimentConfig:
                     "myth_topic": myth_topic,
                     "run_number": run,
                     # Prompt templates
+                    "round_prompt_template_names": round_prompt_template_names,
                     "trust_game_round1_investor": _game_template("trust_game_round1_investor"),
                     "trust_game_round1_trustee": _game_template("trust_game_round1_trustee"),
                     "trust_game_later_investor": _game_template("trust_game_later_investor"),
@@ -214,6 +278,10 @@ class NoisyExperimentConfig:
                         else None
                     ),
                     "myth_prompt_arm_id": myth_prompt_arm["id"] if "myth" in order else None,
+                    "myth_prompt_template_names": {
+                        "round1": active_myth_default_key,
+                        "later": active_myth_later_key,
+                    },
                     "myth_default_prompt_key": active_myth_default_key,
                     "myth_later_prompt_key": active_myth_later_key,
                     "myth_writing_default": self._get_prompt_template(active_myth_default_key),
@@ -222,8 +290,29 @@ class NoisyExperimentConfig:
                     "game_prompt_addition_id": (
                         "myth_decision_link" if game_prompt_addition else None
                     ),
-                    "provider_settings": provider_settings.copy(),
+                    "myth_injection_mode": exp_set.get(
+                        "myth_injection_mode",
+                        "partner",
+                    ),
+                    "shuffled_myth_pool_path": exp_set.get(
+                        "shuffled_myth_pool_path"
+                    ),
+                    "noise_semantics": noise_semantics,
+                    "initial_system_template_name": initial_system_template_name,
+                    "initial_system_prompt_template": (
+                        self.config["prompt_templates"].get(
+                            initial_system_template_name
+                        )
+                        if initial_system_template_name
+                        else None
+                    ),
+                    "switch_to_game_system_before_game": exp_set.get(
+                        "switch_to_game_system_before_game",
+                        False,
+                    ),
                 }
+                if provider_settings:
+                    combo["provider_settings"] = provider_settings.copy()
                 combinations.append(combo)
 
         return combinations
@@ -283,7 +372,9 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
     Returns:
         dict with keys: success, file_path, error, combo_info
     """
+    save_path = None
     try:
+        request_plan = prepared_plan(combo)
         configured_openai_reasoning_effort = combo.get(
             "provider_settings", {}
         ).get("openai_reasoning_effort")
@@ -332,7 +423,11 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             later_investor_template=combo['trust_game_later_investor'],
             later_trustee_template=combo['trust_game_later_trustee'],
             noise_config=game_params.get('noise_config'),
+            noise_semantics=combo.get("noise_semantics", "communication"),
             other_player_names=game_params.get('other_player_names', 'default'),
+            myth_injection_mode=combo.get("myth_injection_mode", "partner"),
+            shuffled_myth_pool_path=combo.get("shuffled_myth_pool_path"),
+            run_seed=combo.get("replicate_id", index),
             history_policy=game_params.get('history_policy', 'minimal'),
             self_history_window=game_params.get('self_history_window', 1),
             coplayer_history_window=game_params.get('coplayer_history_window', 0),
@@ -378,6 +473,10 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
                 "current",
             ),
         )
+
+        planned_pool = combo.get("execution_provenance", {}).get("shuffled_myth_pool_sha256")
+        if planned_pool is not None and digest(game._shuffled_myth_pool) != planned_pool:
+            raise ConditionMismatchError("Shuffled myth pool changed after missing-run planning")
 
         myth_writer = MythWriter(
             myth_topic=combo.get("myth_topic", ""),
@@ -427,6 +526,9 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             f.write(f"Task Order: {combo['task_order']}\n")
             f.write(f"Game Params: {game_params_name}\n")
             f.write(f"Noise Config: {game_params.get('noise_config', 'None')}\n")
+            f.write(f"Noise Semantics: {combo.get('noise_semantics', 'communication')}\n")
+            f.write(f"Initial System Template: {combo.get('initial_system_template_name') or 'game system'}\n")
+            f.write(f"Switch To Game System Before Game: {combo.get('switch_to_game_system_before_game', False)}\n")
             f.write(f"Other Player Names: {game_params.get('other_player_names', 'default')}\n")
             f.write(f"Myth Topic ID: {combo.get('myth_topic_id', 'N/A')}\n")
             f.write(f"Replicate ID: {combo.get('replicate_id') if combo.get('replicate_id') is not None else 'none'}\n")
@@ -434,6 +536,8 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             f.write(f"Myth Default Prompt Key: {combo.get('myth_default_prompt_key', 'myth_writing_default')}\n")
             f.write(f"Myth Later Prompt Key: {combo.get('myth_later_prompt_key', 'myth_writing_later_rounds')}\n")
             f.write(f"Game Prompt Addition ID: {combo.get('game_prompt_addition_id') or 'none'}\n")
+            f.write(f"Myth Injection Mode: {combo.get('myth_injection_mode', 'partner')}\n")
+            f.write(f"Shuffled Myth Pool Path: {combo.get('shuffled_myth_pool_path') or 'none'}\n")
             f.write(f"Pairing Mode Configured: {configured_pairing_mode}\n")
             f.write(f"Pairing Mode Effective: {effective_pairing_mode}\n")
             f.write(f"Pairing Seed: {pairing_seed if pairing_seed is not None else 'none'}\n")
@@ -477,7 +581,19 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             "log_file": log_path,
             "agent_names": game_params.get("agent_names"),
             "chat_memory_mode": game_params.get("chat_memory_mode", "default"),
-            "run_metadata_extra": combo.get("execution_provenance", {}),
+            "initial_system_prompt_template": combo.get(
+                "initial_system_prompt_template"
+            ),
+            "switch_to_game_system_before_game": combo.get(
+                "switch_to_game_system_before_game",
+                False,
+            ),
+            "run_metadata_extra": {
+                **combo.get("execution_provenance", {}),
+                "comparison_inputs": combo.get("comparison_inputs"),
+            },
+            "request_plan": request_plan,
+            "run_identity": {"experiment": experiment_name, "replicate_id": combo.get("replicate_id"), "output_path": str(save_path)},
         }
         quiet_batch = os.environ.get("TRUST_BATCH_QUIET", "").lower() in {"1", "true", "yes"}
         if quiet_batch:
@@ -492,6 +608,26 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
         sim_data.run_metadata["myth_topic"] = combo.get("myth_topic", "")
         sim_data.run_metadata["game_params_name"] = game_params_name
         sim_data.run_metadata["noise_config"] = game_params.get("noise_config")
+        sim_data.run_metadata["noise_semantics"] = combo.get(
+            "noise_semantics",
+            "communication",
+        )
+        sim_data.run_metadata["system_prompt_template"] = combo.get(
+            "template_name"
+        )
+        sim_data.run_metadata["initial_system_template"] = combo.get(
+            "initial_system_template_name"
+        )
+        sim_data.run_metadata["switch_to_game_system_before_game"] = combo.get(
+            "switch_to_game_system_before_game",
+            False,
+        )
+        sim_data.run_metadata["round_prompt_templates"] = combo.get(
+            "round_prompt_template_names"
+        )
+        sim_data.run_metadata["myth_prompt_templates"] = combo.get(
+            "myth_prompt_template_names"
+        )
         sim_data.run_metadata["other_player_names"] = game_params.get("other_player_names", "default")
         sim_data.run_metadata["replicate_id"] = combo.get("replicate_id")
         sim_data.run_metadata["myth_prompt_arm_id"] = combo.get("myth_prompt_arm_id")
@@ -502,6 +638,13 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
         )
         sim_data.run_metadata["game_prompt_addition"] = combo.get(
             "game_prompt_addition", ""
+        )
+        sim_data.run_metadata["myth_injection_mode"] = combo.get(
+            "myth_injection_mode",
+            "partner",
+        )
+        sim_data.run_metadata["shuffled_myth_pool_path"] = combo.get(
+            "shuffled_myth_pool_path"
         )
         sim_data.run_metadata["history_policy"] = game_params.get("history_policy", "minimal")
         sim_data.run_metadata["self_history_window"] = game_params.get("self_history_window", 1)
@@ -570,7 +713,7 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
         import traceback
         return {
             "success": False,
-            "file_path": None,
+            "file_path": save_path,
             "error": f"{str(e)}\n{traceback.format_exc()}",
             "combo_info": {
                 "model": combo.get('model', 'unknown'),
@@ -592,6 +735,8 @@ def run_experiment_set(
     config_path: str = None,
     output_subdir: str = 'v2',
     max_runs: int = None,
+    allow_legacy_settings: bool = False,
+    dry_run: bool = False,
 ):
     """
     Run a set of noise experiments.
@@ -609,6 +754,10 @@ def run_experiment_set(
         experiment_name,
         max_runs=max_runs,
     )
+    prepare_combinations(combinations, config.config["experiment_sets"][experiment_name], DIRECT_MODEL_ALIASES, allow_legacy=allow_legacy_settings)
+    if dry_run:
+        print(f"DRY RUN: N={len(combinations)} WORKERS={workers}; no APIs called")
+        return
     provenance = execution_provenance(config_path)
     provenance.update(
         {
@@ -628,6 +777,7 @@ def run_experiment_set(
     else:
         print("Running sequentially (workers=1)")
 
+    candidate_final_paths = []
     if workers == 1:
         # Sequential execution
         for i, combo in enumerate(combinations):
@@ -644,6 +794,8 @@ def run_experiment_set(
             print(f"Myth Later Prompt Key: {combo.get('myth_later_prompt_key', 'myth_writing_later_rounds')}")
 
             result = run_single_experiment(combo, experiment_name, i, output_subdir)
+            if result.get('file_path'):
+                candidate_final_paths.append(result['file_path'])
 
             if result['success']:
                 print(f"Saved to {result['file_path']}")
@@ -669,6 +821,8 @@ def run_experiment_set(
                 try:
                     result = future.result()
                     completed += 1
+                    if result.get('file_path'):
+                        candidate_final_paths.append(result['file_path'])
 
                     if result['success']:
                         print(f"[{completed}/{len(combinations)}] {result['combo_info']['model']} / "
@@ -707,6 +861,11 @@ def run_experiment_set(
                 print(f"  - {exp['combo_info']['model']} / {exp['combo_info']['game_params']}: "
                       f"{exp['error'][:100]}")
         print(f"{'='*60}")
+
+    maybe_sync_completed_runs(
+        candidate_final_paths,
+        label=f"{output_subdir}/{experiment_name}",
+    )
 
 
 if __name__ == "__main__":
@@ -756,6 +915,8 @@ Examples:
         help='Limit replicates per configured cell without editing the config'
     )
 
+    parser.add_argument('--allow-legacy-settings', action='store_true', help='Explicitly retain historical environment-dependent settings')
+    parser.add_argument('--dry-run', action='store_true', help='Print resolved request plans without credentials or API calls')
     args = parser.parse_args()
 
     run_experiment_set(
@@ -764,4 +925,6 @@ Examples:
         config_path=args.config,
         output_subdir=args.output_subdir,
         max_runs=args.max_runs,
+        allow_legacy_settings=args.allow_legacy_settings,
+        dry_run=args.dry_run,
     )

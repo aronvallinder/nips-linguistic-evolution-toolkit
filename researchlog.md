@@ -1,3 +1,210 @@
+### 2026-09-08 — Result: Reasoning pilot measures costs
+
+**Time:** approximately 0.4 hours, including API waits
+
+#### Result
+- Replayed 72 archived requests from Aron's negative-only cross-model set, 24 per model across population sizes, game/myth tasks, and early/middle/late rounds. All completed without retries, truncation finish reasons, or task-response boundary failures; standard-rate token cost **$0.644**.
+- Direct profiles: Sonnet 4.5 thinking enabled with budget 8192, temperature omitted, output cap 64000; GPT-5 Nano high, temperature omitted, cap 128000; Gemini 3.7 Flash high, temperature 0.8, cap 65536. Gemini accepted 0.8; this does not prove how it affects sampling.
+- Weighted projection for 90 full runs per model: Claude **$126.60**, GPT **$17.49**, Gemini **$33.85**; all 270 **$177.94**, or **$213.53** with a 20% planning allowance. This replaces the unmeasured $711 scenario, not a billing guarantee.
+- Claude's sampled thinking was 514 (±94) tokens/game call and 295 (±91)/myth call: enabling an 8192 budget did not make it consume that budget.
+
+#### Scope
+- Cost-only replay: original memory-primary prompts, delayed partner-myth exchange, histories, and simulation outputs were untouched. New answers were not carried forward; these are not behavioral replicates. Two observations per sampling stratum cannot establish precise full-batch costs or failure rates.
+- Full rerun not launched. The replay uses direct HTTP and explicit request plans; it does not certify the batch runner's large-output-cap transport path. Evidence, exact replay script, source/request hashes, raw usage, and offline summary: `reports/reasoning_cost_pilot_2026_09_08/README.md`.
+
+### 2026-09-08 — Separate audit evidence from interpretation
+
+**Time:** not recorded.
+
+#### Result and correction
+- Result: reopened 4,129 inventory-listed final paths, representing 3,661 distinct
+  byte hashes after 468 exact copies; these are not verified independent replicates.
+  The defector set records three direct providers, but GPT's exact effort is absent.
+- Result: all 15 final format-study files reproduce the descriptive means. Both
+  new arms also changed myth instructions and own-myth repetition; JSON-only
+  changed retry policy. The September 4 claim that Claude's behaviour is mostly
+  its prose is withdrawn as a causal interpretation, not erased from the record.
+
+#### Scope and current position
+- Saved zero counters/no reasoning text do not prove every historical thinking
+  setting. Two washout finals change reasoning signature halfway despite a single
+  provider label; the exact transition needs per-call/log verification.
+- PR19 replaces the unmerged PR16 guards. It does not adopt the earlier proposed
+  low-reasoning/two-sentence profile or change prompts, memory or retries.
+- `docs/api-audit-reassessment-2026-09-08.md` separates recorded, inferred and
+  missing settings, qualifies the scientific claims, and links hashed evidence
+  plus reproduction scripts. Historical entries and raw records are unchanged.
+  No experiment ran and no new scientific profile was selected.
+
+### 2026-09-04 — Config over env shipped; Claude's defector behaviour is mostly its own prose
+
+**Time:** 6 hours
+
+#### Result
+- Result: `llm_settings` (provider / reasoning / temperature) is now pinned
+  per experiment set in `config/*.yaml`; the batch runners fail closed
+  without it, env vars only override and are recorded, and `run_metadata`
+  carries `llm_settings_effective` plus a per-call `finish_reason`
+  (PR aronvallinder#16, `src/llm_settings.py`). Guards: the analysis loader
+  refuses mixed regimes, HF sync refuses unprovenanced runs, and
+  `tests/test_settings_pinned.py` fails CI for any new unpinned experiment
+  set, launch script, or output directory without `provenance.json`.
+- Result: decision-format confound cell (Claude Sonnet 4.5, 8 agents, 25%
+  forced-zero defectors, negative-only noise, myth->game, direct Anthropic,
+  thinking off, T=0.8; same seeds and prompts as Aron's 2026-08-25 cell,
+  plus one OUTPUT FORMAT line). Ordinary agents, mean (±std) over runs:
+  free prose (reference, n=5) send 0.592 (±0.042), return 0.444 (±0.007),
+  balance 50.35 (±1.35), 1286 chars/decision; two sentences then JSON (n=5)
+  0.531 (±0.033) / 0.428 (±0.019) / 47.78 (±1.22) / 352 chars; JSON only
+  (n=5) 0.394 (±0.049) / 0.390 (±0.030) / 42.12 (±3.02) / 13 chars.
+  Forbidding visible reasoning cuts Claude's sending by ~21 points. The
+  "Claude degrades with defectors" ordering against bare-JSON models is
+  therefore a format effect until formats are equalized.
+- Result: under JSON-only, Claude as sender answered with the receiver's key
+  in every run and a plain retry repeated it (5/5 runs died). The game retry
+  is now corrective (role + key named, 2 attempts, `games/base_game.py`);
+  1–7 corrections per run were needed and all succeeded. The prose was doing
+  role-orientation work.
+- Gemini 3.6 Flash is the no-thinking Gemini arm (`thinking_level=minimal`
+  → 0 thought tokens on the game prompt); temperature is ignored on 3.6/3.7
+  Flash, rejected on GPT-5 and Claude Opus 4.7+, so cross-model cells run at
+  vendor-default temperature (PR aronvallinder#15, `docs/verified-facts.md`).
+
+#### Caveats / next
+- json_only rep04 hit the Anthropic credit limit mid-run and was rerun after
+  the top-up with the same replicate seeds (`replicate_ids`).
+- Decision: cross-model reruns use `reasoning_then_json` for every model
+  (equal shape, keeps the reasoning->myth pathway) with the pinned regime
+  Claude off / GPT-5 Nano low / Gemini 3.6 Flash minimal, temperature default.
+
+### 2026-09-04 — Cross-model API calls are not equivalent (provider + reasoning audit)
+
+**Time:** 2 hours
+
+#### Result
+- Result: the 2026-09-01 action item "verify Gemini/GPT/Claude API calls" is
+  answered: NO, they are not equivalent. Four independent read-only audits
+  (three Claude agents on code path, run data, history/provider docs; one
+  Codex agent) agree. Message roles and system-prompt placement ARE
+  equivalent across providers (`src/utils.py:270-316`); the inequivalence is
+  in provider routing and sampling/reasoning settings.
+- `LLM_PROVIDER=auto` (default since Aron's 2026-04-29 commits bf90f967,
+  1374148b) routes `anthropic/*`, `openai/*`, `google/*` slugs to the direct
+  vendor API whenever that key is in the runner's `.env`; OpenRouter is only
+  the fallback. Provider therefore depends on whose machine ran the batch.
+- Result: the slide-set defector runs (vallinder,
+  `negative_only_crossmodel_defectors_n5_20260825`, 270 runs) went direct to
+  all three vendors: Claude Sonnet 4.5 T=0.8, no thinking, cap 4096; GPT-5
+  Nano temperature not sent, reasoning effort `minimal` (code default,
+  `src/utils.py:531`; 0 reasoning tokens on 3,378/3,378 calls); Gemini 3.7
+  Flash temperature not sent, thinking `medium` (~106 hidden tokens/decision).
+- Result: the OpenRouter path sends `reasoning.effort=medium` for Claude and
+  Gemini slugs by default, so OpenRouter-era Claude runs (Arabella's sets;
+  baseline/v1/v2/v3/myth_causal/sonnet45_8agent, ~1,100 runs) had extended
+  thinking ON while direct runs had it OFF. GPT-5 Nano: ~1,000 reasoning
+  tokens/decision via OpenRouter vs 0 direct. The plain 8-agent memprimary
+  triplet mixes both regimes (game + game_myth OpenRouter, myth_game direct).
+- Format confound: Claude stores ~1,000-1,250 chars of strategy prose in its
+  assistant memory each round; GPT and Gemini store bare JSON.
+- Not bugs: no silent parse defaults, no truncation, no model aliasing bit,
+  Gemini ceiling-lock holds under both routes.
+
+#### Consequences
+- Do not pool Claude or GPT-5 Nano runs across the OpenRouter/direct eras
+  without splitting by reasoning signature. "GPT-5 Nano beats Claude" and
+  "Claude degrades with defectors" are unproven until GPT cells are rerun at
+  matched effort and the prose-in-memory confound is controlled.
+- Pin provider + reasoning effort in launch scripts; record effective effort,
+  temperature-sent and `finish_reason` in `run_metadata` (currently absent).
+- Full report: https://claude.ai/code/artifact/cecd3178-dbbb-4741-9f86-dcd97a8a19ec
+
+### 2026-09-01 — Team meeting: game saturates; cooperation-ratio plots are the missing view
+
+**Time:** 1 hour
+
+#### Decisions / findings
+- Result: reviewed negative-only vs bidirectional noise (8-agent and 2-agent
+  dyads). Bidirectional: send and return fractions keep climbing past round
+  10–15, then stabilize. Negative-only: much flatter, weaker visible effect.
+- Result: return proportions across game-only, myth→game and if-game
+  conditions (slides 707/709/711/721; Aron added send proportions, slide 728).
+  Gemini 3.7 Flash ceiling-locks without forced defection; GPT-5 Nano beats
+  Claude on collective returns in some conditions; Claude degrades notably once
+  defectors are added.
+- Core problem: the trust game saturates at full cooperation, so condition
+  differences are hard to detect. Cooperation-ratio plots (not yet made) were
+  flagged as the most informative view.
+- Analysis direction: split myths by cooperativeness of *language* rather than
+  by outcome, then check whether outcomes follow. Earlier injection of the 25
+  most cooperative myths as starting conditions had a large effect. Find the
+  property (language convergence, cooperative words, ...) that correlates most
+  with outcomes and use it to split the main results analysis.
+
+#### Action items
+- Cooperation-ratio plots in the format of slides 724/725, on the same axes as
+  send/return proportions (dotted vs solid per condition).
+- Myth split by cooperative language (see above).
+- Verify Gemini and GPT API calls (Aron, Ivar): message roles and settings must
+  match Claude's, which was debugged extensively. Rule out format bugs behind
+  GPT-5 Nano's anomalous behavior.
+- Results scaffold in the overlay doc for Edward: which experiments are
+  finalized, which models were used, what goes in the results section.
+
+### 2026-08-28 — Meme transmission mostly base rate
+
+**Time:** 3 hours
+
+#### Result
+- Re-analyzed the 60-run informed-noise corpus with exposure contrasts, a
+  degree-preserving rewiring null (B=10,000, Holm), and negative controls
+  (`scripts/analyze_meme_transmission_null.py`, PR aronvallinder#10; outputs
+  `data/analysis/meme_transmission_null_2026_08_28/`). No new runs.
+- The Aug-19 report's 60–77% "edge transmission" was dominated by base rate:
+  honest excess over the null is single-digit pp. Largest raw families are
+  confounded — for consistency_over_volatility a *not-yet-visible* future myth
+  "predicts" adoption (+35pp) better than the seen myth (+32pp).
+- Regex candidates: sustainable_equilibrium (+10.9pp vs +1.7pp null) and
+  proportional_reciprocity (+3.6pp vs −4.1pp null). noise_adaptation is prompt
+  elicitation (system prompt announces noise in all 5,000 capsules).
+- Blinded LLM-judge relabel of all 5,000 capsules (gpt-4o-mini, $0.87,
+  `scripts/judge_meme_labels.py`) then same analysis on semantic labels
+  (`data/analysis/meme_transmission_null_judge_2026_08_28/`): NO family
+  survives cleanly. The two Holm-significant ones (proportional_reciprocity
+  +8.4pp excess, consistency +4.0pp) fail the future-myth control;
+  sustainable_equilibrium drops to p=0.11. Regex vs judge agreement is poor
+  (punitive precision 1%, noise 12%, trust_escalation recall 14%).
+
+#### Why / method choice
+- Deep-research review (Shalizi & Thomas 2011; Anagnostopoulos 2008; Bentley
+  2004) + external model review: co-occurrence can never establish transmission
+  between same-model agents; nulls and exposure contrasts are the accepted fix.
+- 2-agent dyads have no within-run rewiring null; dyadic claims need the
+  seeding/transplant intervention. Next: LLM-judge relabeling of all 5,000
+  responses, then rerun these contrasts on semantic labels.
+
+### 2026-08-25 — Shared run-data store on Hugging Face
+
+**Time:** 1.5 hours
+
+#### What changed
+- Raw run JSONs (`data/json/`, gitignored) now sync to the shared private HF
+  dataset `machine-cultural-evolution/nips-linguistic-evolution-runs`, one
+  namespace per user. `scripts/sync_data.sh push|pull`; optional Claude Code
+  hook (`scripts/data_sync_hook.sh`) auto-pushes after each batch run.
+- Ivar's corpus is uploaded and verified: 16,222 files, 4.1 GB under
+  `ivarfresh/json/`. Tooling PR to shared main: aronvallinder#8. Aron's
+  onboarding: HF login + one push.
+- Uploads are resumable and content-deduplicated (only new runs transfer);
+  pulls land in `data/shared_runs/` and never touch local `data/json`.
+
+#### Rationale / rejected alternatives
+- Raw data never fit in git (3.8 GB, 10k+ files; GitHub LFS free tier is 1 GB).
+  Drive+rclone rejected (slow on many small files); plain git rejected
+  (permanent history bloat). HF repo doubles as the citable public dataset at
+  publication.
+
+---
+
 ### 2026-08-23 — Gemini 3.7 selectively punishes but shows no return crowding
 
 - Completed the frozen new-seed Gemini 3.7 Flash population screen crossing

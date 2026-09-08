@@ -21,7 +21,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from analyses._shared import configure_matplotlib
+from analyses._shared import calculate_return_ratios, configure_matplotlib
 
 
 def load_runs(condition_dir):
@@ -44,7 +44,7 @@ def per_round_game(run):
         rounds.append(entry["round"])
         sent.append(entry["sent"])
         received = entry.get("received") or 0
-        rr.append(entry["returned"] / received if received else 0.0)
+        rr.append(calculate_return_ratios([entry["returned"]], [received])[0])
     return np.array(rounds), np.array(sent, dtype=float), np.array(rr, dtype=float)
 
 
@@ -100,10 +100,16 @@ def final_balance(run):
 def stack_mean_std(series_list):
     n = min(len(s) for s in series_list)
     arr = np.stack([s[:n] for s in series_list])
-    return arr.mean(axis=0), arr.std(axis=0)
+    return np.nanmean(arr, axis=0), np.nanstd(arr, axis=0)
 
 
 def welch(a, b):
+    a = np.asarray(a, dtype=float)
+    b = np.asarray(b, dtype=float)
+    a = a[np.isfinite(a)]
+    b = b[np.isfinite(b)]
+    if len(a) < 2 or len(b) < 2:
+        return None, None
     try:
         from scipy import stats
 
@@ -155,7 +161,7 @@ def main():
         myth[name] = (cross, self_sim)
         summary[name] = {
             "mean_sent_per_run": [float(np.mean(s)) for s in sents],
-            "mean_return_ratio_per_run": [float(np.mean(r)) for r in rrs],
+            "mean_return_ratio_per_run": [float(np.nanmean(r)) for r in rrs],
             "mean_cross_sim_per_run": [float(np.mean(c)) for c in cross],
             "mean_self_sim_per_run": [float(np.mean(s)) for s in self_sim],
             "final_balance_per_run": [final_balance(run) for run in runs],
@@ -174,7 +180,7 @@ def main():
         parts = []
         for name in names:
             v = np.array(summary[name][key])
-            parts.append(f"{name} {v.mean():.3f} (±{v.std():.3f})")
+            parts.append(f"{name} {np.nanmean(v):.3f} (±{np.nanstd(v):.3f})")
         print(f"{label:26s} " + "  ".join(parts))
         for i in range(len(names)):
             for j in range(i + 1, len(names)):

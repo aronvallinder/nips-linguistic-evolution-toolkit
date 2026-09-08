@@ -1,0 +1,25 @@
+name: tests
+
+# On pull_request, actions/checkout checks out the PR *merge commit*
+# (base + head merged), so a green run means the merged result passes —
+# not just the head branch in isolation.
+on:
+  pull_request:
+  push:
+    branches: [main, codex/fix-dyad-transfer-noise]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt numpy matplotlib pandas pytest
+      - name: Run tests
+        run: python -m pytest tests/ -q
+      - name: Check experiment safeguards
+        run: python scripts/check_safeguards.py

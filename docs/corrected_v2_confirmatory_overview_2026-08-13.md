@@ -1,7 +1,7 @@
 # Corrected informed-noise experiments: implementation and results update
 
-**Status:** 60/60 confirmatory runs complete and protocol-audited  
-**Branch:** `codex/fix-dyad-transfer-noise`  
+**Status:** 60/60 confirmatory runs complete and protocol-audited
+**Integration branch:** `codex/integrate-trust-game-updates`
 **Analysis date:** 2026-08-13
 
 ## Executive summary
@@ -271,4 +271,3 @@ in durable shared storage with checksums.
    the three task orders, then analyze cooperation and myth content separately.
 5. Make required pairing/noise seeds a fail-closed launcher condition before
    any future experiment described as paired.
-
