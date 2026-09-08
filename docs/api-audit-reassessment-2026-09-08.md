@@ -1,8 +1,8 @@
 # API audit reassessment — 2026-09-08
 
 Two independent reviews checked the saved settings and scientific interpretation.
-No experiment ran and no historical data changed. The corrected write-up is in PR17;
-the safeguards are already merged through PR19.
+No experiment ran and no historical data changed. The corrected write-up is in PR20,
+which supersedes closed PR17; the safeguards are already merged through PR19.
 
 ## Bottom line
 
