@@ -1,7 +1,7 @@
 ---
 title: Findings — hidden defectors and costly punishment
 status: current
-updated: 2026-09-04
+updated: 2026-09-08
 owner: aron
 ---
 
@@ -82,16 +82,24 @@ Flash ceiling-locking without forced defection, GPT-5 Nano beating Claude
 Sonnet 4.5 on collective returns in some conditions, and Claude degrading
 notably once defectors are added. _(from researchlog 2026-09-01)_
 
-**These cross-model orderings are unconfirmed.** The three models ran on three
-direct vendor APIs with unmatched settings: Claude with thinking off at T=0.8
-and a 4096 cap, GPT-5 Nano at reasoning effort *minimal* (the code default,
-zero reasoning tokens on every call) with temperature fixed at 1.0, Gemini 3.7
-with medium thinking. Claude also carries ~1,000+ characters of its own
-strategy prose in memory each round while the other two carry bare JSON.
-Message roles are equivalent, and no parse defaults, truncation or model
-aliasing occurred, so the data are clean but the conditions are not matched.
-Rerun the GPT-5 Nano cells at matched effort and control the prose confound
-before citing a ranking. _(from researchlog 2026-09-04)_
+**These are model-plus-settings observations, not an isolated model-only ranking.**
+The 270 checked final files record direct Anthropic/OpenAI/Google routes, 90 per
+model. Claude's cap of 4096 and Gemini's medium thinking/omitted temperature are
+recorded. GPT's exact effort is not: minimal was a code-default inference.
+Different visible reply formats also change the context retained by
+memory-primary. Those differences motivate robustness checks, not blanket
+invalidation or a claim that low reasoning explains the ranking.
+
+The review found no identified silent numeric-default explanation in accepted
+slide-set decisions. Missing stop reasons and incomplete attempted-run evidence
+prevent a universal no-truncation or clean-data certificate. Historical model
+aliases also require dataset-specific interpretation.
+
+The later Claude format-study means reproduce, but its arms also changed myth
+instructions/self-context and retries. It does not establish that prose explains
+the cross-model gap or the effect of adding defectors. See the
+[reassessment and descriptive table](../api-audit-reassessment-2026-09-08.md)
+before citing either comparison. _(from researchlog 2026-09-08)_
 
 ## Standing design gates
 
