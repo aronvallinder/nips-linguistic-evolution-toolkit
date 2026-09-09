@@ -215,7 +215,7 @@ def test_anthropic_actual_sdk_request_and_record_agree(usage, expected_thinking)
     )
     provider_http = importlib.import_module(transport_module)
     model = "anthropic/claude-sonnet-4.5"
-    plan = plan_for(model, reasoning={"thinking": {"type": "enabled", "budget_tokens": 1024}}, cap=4096)
+    plan = plan_for(model, reasoning={"thinking": {"type": "enabled", "budget_tokens": 8192}}, cap=64000)
     captured = []
 
     def transport(request):

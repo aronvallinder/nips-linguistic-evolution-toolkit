@@ -633,6 +633,12 @@ def _call_anthropic(client, provider_model, temperature, messages, max_retries, 
                 parameters = request_plan.parameters
                 parameters.pop("max_tokens")
                 request_params["extra_body"] = parameters
+                # A large output ceiling makes the Anthropic SDK estimate that
+                # a non-streaming call may exceed ten minutes and reject it
+                # locally unless a timeout is explicit. This matches the
+                # transport timeout exercised by the September 8 pilot; it
+                # does not alter the provider request body or model condition.
+                request_params["timeout"] = 1200.0
 
             response = client.messages.create(**request_params)
             content = _anthropic_text(response)
