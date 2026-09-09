@@ -110,7 +110,9 @@ def condition_from_run(data):
     for agent in data.get("agents", {}).values():
         for event in agent.get("interaction_history", []):
             response = event.get("response") or {}
-            if response.get("response_source") == "scripted":
+            # Scripted events (forced-zero defectors, deduction notices, ...) never
+            # reach a provider, so they carry no request settings to check.
+            if response.get("response_source", "llm") != "llm":
                 continue
             usage = response.get("usage") or {}
             if usage.get("request_settings") != condition["llm"]:
