@@ -172,6 +172,20 @@ def llm_runtime_metadata(client, model):
                 ),
             }
         )
+    elif provider == "openai":
+        configured_effort = _env("OPENAI_REASONING_EFFORT")
+        metadata.update(
+            {
+                "max_output_tokens": None,
+                "max_output_tokens_source": "provider_default",
+                "reasoning_effort": _direct_openai_reasoning_effort(),
+                "reasoning_effort_source": (
+                    "OPENAI_REASONING_EFFORT"
+                    if configured_effort
+                    else "repository_default_minimal"
+                ),
+            }
+        )
     else:
         metadata.update(
             {

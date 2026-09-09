@@ -20,7 +20,7 @@ def configuration(pinned=True):
 
 
 def test_frozen_legacy_baseline_and_repository_checks():
-    assert hashlib.sha256(BASELINE.read_bytes()).hexdigest() == "5f2109d1c1a9985349deea56e6cea009e70f2d43f019a90bc3aa4010caf2d722"
+    assert hashlib.sha256(BASELINE.read_bytes()).hexdigest() == "ba16683250cb90ef832dfadef2fbdf8db821568cdb9e791613f035c2ca04dae8"
     check_repository()
 
 

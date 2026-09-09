@@ -152,3 +152,12 @@ def test_resume_refuses_changed_condition_before_http(local_simulation, change):
     with pytest.raises(ConditionMismatchError):
         run_simulation(**changed, resume_from=arguments["checkpoint_path"])
     assert len(captured) == 2
+
+
+def test_guarded_retry_default_ignores_machine_environment(local_simulation, monkeypatch):
+    arguments, captured, directory = local_simulation
+    monkeypatch.setenv("GAME_RESPONSE_RETRY_POLICY", "invalid-machine-setting")
+    state = run_simulation(**arguments)
+    condition = state.run_metadata["experiment_condition"]
+    assert condition["protocol"]["game_retry"]["policy"] == "repeat_same_prompt_once"
+    assert len(captured) == 2

@@ -29,6 +29,30 @@ DEFAULT_AGENT_NAMES = [
     "Pia",
 ]
 
+GAME_RESPONSE_RETRY_REPEAT = "repeat_same_prompt_once"
+GAME_RESPONSE_RETRY_CORRECTIVE = "corrective_role_key_once_v1"
+GAME_RESPONSE_RETRY_POLICIES = {
+    GAME_RESPONSE_RETRY_REPEAT,
+    GAME_RESPONSE_RETRY_CORRECTIVE,
+}
+
+
+def _corrective_game_retry_prompt(prompt: str, role: str) -> str:
+    role_config = {
+        "investor": ("SENDER", "send", "return"),
+        "trustee": ("RECEIVER", "return", "send"),
+    }
+    if role not in role_config:
+        raise ValueError(f"Unknown game role for corrective retry: {role!r}")
+    role_label, expected_key, wrong_key = role_config[role]
+    return (
+        f"{prompt}\n\n"
+        "FORMAT CORRECTION: Your previous response used the wrong decision field. "
+        f"You are the {role_label} this round. Reply only with one JSON object "
+        f"whose quoted decision key is \"{expected_key}\". Choose the amount "
+        f"yourself from the original prompt; do not use \"{wrong_key}\"."
+    )
+
 
 def _format_initial_system_prompt(game, template, agent_id, agent):
     """Format an optional pre-game system prompt for myth-first controls."""
@@ -372,6 +396,7 @@ def run_simulation(
     switch_to_game_system_before_game: bool = False,
     request_plan=None,
     run_identity=None,
+    game_response_retry_policy=None,
 ):
     """
     Run a multi-agent simulation with any game.
@@ -380,6 +405,19 @@ def run_simulation(
     task_order: List of tasks to execute in order. Options: "game", "myth"
                 Examples: ["game"], ["myth"], ["game", "myth"], ["myth", "game"]
     """
+    if game_response_retry_policy is None:
+        game_response_retry_policy = (
+            GAME_RESPONSE_RETRY_REPEAT if request_plan is not None
+            else os.environ.get("GAME_RESPONSE_RETRY_POLICY", GAME_RESPONSE_RETRY_REPEAT)
+        )
+    game_response_retry_policy = game_response_retry_policy.strip()
+    if game_response_retry_policy not in GAME_RESPONSE_RETRY_POLICIES:
+        raise ValueError(
+            "Unsupported GAME_RESPONSE_RETRY_POLICY: "
+            f"{game_response_retry_policy!r}. Expected one of "
+            f"{sorted(GAME_RESPONSE_RETRY_POLICIES)!r}."
+        )
+
     if request_plan is not None and monitor_config and monitor_config.get("enabled"):
         raise LLMSettingsError("Guarded strategy-monitor runs need a separately pinned monitor; use the explicit legacy path until supported")
     protected = {"llm_request", "llm_provider", "provider_model", "experiment_condition", "condition_sha256"}
@@ -398,6 +436,7 @@ def run_simulation(
             "chat_memory_mode": chat_memory_mode, "seed_reinject": seed_reinject,
             "initial_system_prompt_template": initial_system_prompt_template,
             "switch_to_game_system_before_game": switch_to_game_system_before_game,
+            "game_response_retry_policy": game_response_retry_policy,
         }, run_identity)
         if resume_from:
             with Path(resume_from).open(encoding="utf-8") as handle:
@@ -475,6 +514,7 @@ def run_simulation(
             "seed_user_prompt": seed_user_prompt,
             "chat_memory_mode": chat_memory_mode,
             "seed_reinject": seed_reinject,
+            "game_response_retry_policy": game_response_retry_policy,
             "initial_system_prompt_overridden": bool(
                 initial_system_prompt_template
             ),
@@ -674,6 +714,7 @@ def run_simulation(
                             forced_response = game.get_forced_game_response(
                                 agent_id,
                                 roles_by_agent.get(agent_id),
+                                turn,
                             )
                         if forced_response is not None:
                             interaction_metadata["response_source"] = forced_response[
@@ -699,16 +740,29 @@ def run_simulation(
                                     response_validator=validate_game_response,
                                 )
                             except Exception as e:
+                                retry_prompt = prompt
+                                memory_prompt = None
+                                if (
+                                    game_response_retry_policy
+                                    == GAME_RESPONSE_RETRY_CORRECTIVE
+                                ):
+                                    retry_prompt = _corrective_game_retry_prompt(
+                                        prompt,
+                                        role,
+                                    )
+                                    memory_prompt = prompt
                                 print(
                                     f"⚠️  Game decision failed for {agent_id}: "
-                                    f"{type(e).__name__}: {e}. Retrying once..."
+                                    f"{type(e).__name__}: {e}. Retrying once "
+                                    f"with policy {game_response_retry_policy!r}..."
                                 )
                                 time.sleep(1.0)
                                 response_data = agent.respond(
-                                    prompt,
+                                    retry_prompt,
                                     transcript_metadata=interaction_metadata,
                                     remember=remember_game,
                                     response_validator=validate_game_response,
+                                    memory_prompt=memory_prompt,
                                 )
                         agent_responses[agent_id] = response_data
 

@@ -147,6 +147,7 @@ class Agent:
         transcript_metadata=None,
         remember=True,
         response_validator=None,
+        memory_prompt=None,
     ):
         """Respond to a prompt with the LLM. The truncation effectuates
         a short term memory effect; earlier interactions are forgotten. Thus introduces recency bias;
@@ -157,6 +158,12 @@ class Agent:
         nor the assistant response is appended to `self.messages`. Used by
         Phase 3 myth-only memory mode so game decisions don't pollute the
         seeded-myth chat memory.
+
+        `memory_prompt` is an operational-retry escape hatch. The LLM and
+        interaction audit see `prompt`, while a successful response is paired
+        with `memory_prompt` in chat memory. This lets a format-only corrective
+        retry enforce the response schema without changing the experimental
+        prompt remembered in later rounds.
         """
         # Truncate oldest messages if memory is full (but keep system prompt).
         self._truncate_messages()
@@ -208,6 +215,12 @@ class Agent:
                 raise
 
         if remember:
+            if memory_prompt is not None:
+                if not self.messages or self.messages[-1].get("role") != "user":
+                    raise RuntimeError(
+                        "Cannot replace retry prompt: pending user message is missing."
+                    )
+                self.messages[-1]["content"] = memory_prompt
             # Store full response data in messages
             self.messages.append({
                 "role": "assistant",

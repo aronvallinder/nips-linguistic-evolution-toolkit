@@ -1,3 +1,4 @@
+import hashlib
 import random
 from collections import Counter, defaultdict
 
@@ -24,6 +25,8 @@ class DyadicPairingMixin:
         defector_action_policy="prompted",
         defector_myth_policy="normal",
         defector_role_visible_to_self=True,
+        random_defection_probability=0.0,
+        random_defection_seed=0,
     ):
         try:
             ratio = float(defector_ratio or 0.0)
@@ -31,6 +34,17 @@ class DyadicPairingMixin:
             raise ValueError("defector_ratio must be a number between 0 and 1.") from exc
         if not 0 <= ratio <= 1:
             raise ValueError("defector_ratio must be between 0 and 1.")
+
+        try:
+            random_probability = float(random_defection_probability or 0.0)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(
+                "random_defection_probability must be a number between 0 and 1."
+            ) from exc
+        if not 0 <= random_probability <= 1:
+            raise ValueError(
+                "random_defection_probability must be between 0 and 1."
+            )
 
         if defector_agent_ids is None:
             requested_ids = None
@@ -58,6 +72,10 @@ class DyadicPairingMixin:
         self.defector_role_visible_to_self = self._coerce_bool(
             defector_role_visible_to_self,
             True,
+        )
+        self.random_defection_probability = random_probability
+        self.random_defection_seed = (
+            0 if random_defection_seed is None else random_defection_seed
         )
         self.defector_agent_ids = []
 
@@ -164,12 +182,42 @@ class DyadicPairingMixin:
             or self.defector_role_visible_to_self
         )
 
-    def get_forced_game_response(self, agent_id, role):
-        """Return a deterministic game response for a scripted defector."""
-        if not self.is_defector(agent_id):
+    def is_random_defection(self, agent_id, role, turn):
+        """Return whether this standard-agent decision is a seeded defection.
+
+        The schedule is keyed by replicate seed, round, agent, and role rather
+        than mutable RNG state. It is therefore stable across retries/resumes,
+        shared across model/task-order cells, and nested across probabilities:
+        every event in a 25% arm also occurs in its matched 50% arm.
+        """
+        if self.random_defection_probability <= 0 or self.is_defector(agent_id):
+            return False
+        if turn is None:
+            raise ValueError(
+                "turn is required when random_defection_probability is positive."
+            )
+        if role not in {"investor", "trustee"}:
+            raise ValueError(f"Unknown trust-game role for {agent_id}: {role!r}")
+
+        key = (
+            "random-defection-v1|"
+            f"{self.random_defection_seed}|{int(turn)}|{agent_id}|{role}"
+        ).encode("utf-8")
+        draw = int.from_bytes(hashlib.sha256(key).digest()[:8], "big") / 2**64
+        return draw < self.random_defection_probability
+
+    def get_forced_game_response(self, agent_id, role, turn=None):
+        """Return a deterministic zero response for a configured defection."""
+        response_source = None
+        if self.is_defector(agent_id):
+            if self.defector_action_policy != "forced_zero":
+                return None
+            response_source = "forced_zero"
+        elif self.is_random_defection(agent_id, role, turn):
+            response_source = "random_defection_forced_zero"
+        else:
             return None
-        if self.defector_action_policy != "forced_zero":
-            return None
+
         if role == "investor":
             content = '{"send": 0}'
         elif role == "trustee":
@@ -180,7 +228,7 @@ class DyadicPairingMixin:
             "content": content,
             "reasoning": None,
             "usage": None,
-            "response_source": "forced_zero",
+            "response_source": response_source,
         }
 
     def get_agent_types(self):
@@ -203,6 +251,9 @@ class DyadicPairingMixin:
             "defector_action_policy": self.defector_action_policy,
             "defector_myth_policy": self.defector_myth_policy,
             "defector_role_visible_to_self": self.defector_role_visible_to_self,
+            "random_defection_probability": self.random_defection_probability,
+            "random_defection_seed": self.random_defection_seed,
+            "random_defection_unit": "agent_game_decision",
             "agent_types": self.get_agent_types(),
         }
 

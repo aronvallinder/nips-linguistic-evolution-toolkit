@@ -79,6 +79,7 @@ class NoisyExperimentConfig:
     ) -> List[Dict]:
         """Generate all parameter combinations for an experiment set."""
         exp_set = self.config['experiment_sets'][experiment_name]
+        provider_settings = exp_set.get("provider_settings", {}).copy()
         legacy_environmental_sets = set(
             self.config.get("legacy_environmental_experiment_sets", [])
         )
@@ -310,6 +311,8 @@ class NoisyExperimentConfig:
                         False,
                     ),
                 }
+                if provider_settings:
+                    combo["provider_settings"] = provider_settings.copy()
                 combinations.append(combo)
 
         return combinations
@@ -362,6 +365,100 @@ def resolve_protocol_seeds(game_params: Dict[str, Any], combo: Dict[str, Any]):
     return noise_seed, pairing_seed
 
 
+def build_noisy_protocol(combo, index):
+    """Construct the configured game and myth writer without making API calls."""
+    game_params = combo['game_params']
+    configured_pairing_mode = game_params.get("pairing_mode", "balanced")
+    noise_seed, pairing_seed = resolve_protocol_seeds(game_params, combo)
+
+    agent_ids = [f"Agent_{i+1}" for i in range(game_params['num_agents'])]
+    personas = {agent_id: combo['persona'] for agent_id in agent_ids}
+    defector_seed = game_params.get("defector_seed")
+    if defector_seed is None:
+        defector_seed = combo.get("replicate_id")
+    if defector_seed is None:
+        defector_seed = 0
+    random_defection_seed = game_params.get("random_defection_seed")
+    if random_defection_seed is None:
+        random_defection_seed = (
+            noise_seed if noise_seed is not None else defector_seed
+        )
+
+    # Create noisy trust game with noise config and other_player_names
+    game = TrustGameNoisy(
+        endowment=game_params['endowment'],
+        multiplier=game_params['multiplier'],
+        system_prompt_template=combo['template'],
+        personas=personas,
+        round1_investor_template=combo['trust_game_round1_investor'],
+        round1_trustee_template=combo['trust_game_round1_trustee'],
+        later_investor_template=combo['trust_game_later_investor'],
+        later_trustee_template=combo['trust_game_later_trustee'],
+        noise_config=game_params.get('noise_config'),
+        noise_semantics=combo.get("noise_semantics", "communication"),
+        other_player_names=game_params.get('other_player_names', 'default'),
+        myth_injection_mode=combo.get("myth_injection_mode", "partner"),
+        shuffled_myth_pool_path=combo.get("shuffled_myth_pool_path"),
+        run_seed=combo.get("replicate_id", index),
+        history_policy=game_params.get('history_policy', 'minimal'),
+        self_history_window=game_params.get('self_history_window', 1),
+        coplayer_history_window=game_params.get('coplayer_history_window', 0),
+        population_history_window=game_params.get(
+            'population_history_window',
+            0,
+        ),
+        show_agent_names=game_params.get('show_agent_names', True),
+        defector_ratio=game_params.get("defector_ratio", 0.0),
+        defector_agent_ids=game_params.get("defector_agent_ids"),
+        defector_seed=defector_seed,
+        defector_prompt_template=combo.get("defector_game_instruction"),
+        defector_action_policy=game_params.get(
+            "defector_action_policy",
+            "prompted",
+        ),
+        defector_myth_policy=game_params.get(
+            "defector_myth_policy",
+            "normal",
+        ),
+        defector_role_visible_to_self=game_params.get(
+            "defector_role_visible_to_self",
+            True,
+        ),
+        random_defection_probability=game_params.get(
+            "random_defection_probability",
+            0.0,
+        ),
+        random_defection_seed=random_defection_seed,
+        game_prompt_addition=combo.get("game_prompt_addition", ""),
+        pairing_mode=configured_pairing_mode,
+        pairing_seed=pairing_seed,
+        noise_seed=noise_seed,
+        prompt_regime=game_params.get("prompt_regime", "legacy"),
+        punishment_enabled=game_params.get("punishment_enabled", False),
+        punishment_budget=game_params.get("punishment_budget", 2),
+        punishment_effect_multiplier=game_params.get(
+            "punishment_effect_multiplier",
+            3,
+        ),
+        punishment_prompt_variant=game_params.get(
+            "punishment_prompt_variant",
+            "current",
+        ),
+    )
+
+    planned_pool = combo.get("execution_provenance", {}).get("shuffled_myth_pool_sha256")
+    if planned_pool is not None and digest(game._shuffled_myth_pool) != planned_pool:
+        raise ConditionMismatchError("Shuffled myth pool changed after missing-run planning")
+
+    myth_writer = MythWriter(
+        myth_topic=combo.get("myth_topic", ""),
+        round1_template=combo['myth_writing_default'],
+        later_rounds_template=combo['myth_writing_later_rounds']
+    )
+
+    return game, myth_writer
+
+
 def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: int, output_subdir: str = 'v2') -> Dict[str, Any]:
     """
     Run a single noise experiment with the given combination.
@@ -372,87 +469,37 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
     save_path = None
     try:
         request_plan = prepared_plan(combo)
+        configured_openai_reasoning_effort = combo.get(
+            "provider_settings", {}
+        ).get("openai_reasoning_effort")
+        active_openai_reasoning_effort = (
+            request_plan.as_dict()["parameters"].get("reasoning_effort")
+            if request_plan is not None else os.environ.get("OPENAI_REASONING_EFFORT")
+        )
+        if (
+            configured_openai_reasoning_effort is not None
+            and active_openai_reasoning_effort
+            != configured_openai_reasoning_effort
+        ):
+            raise RuntimeError(
+                "Configured openai_reasoning_effort does not match "
+                "resolved request reasoning effort: "
+                f"{configured_openai_reasoning_effort!r} != "
+                f"{active_openai_reasoning_effort!r}"
+            )
+        game, myth_writer = build_noisy_protocol(combo, index)
         game_params = combo['game_params']
         configured_pairing_mode = game_params.get("pairing_mode", "balanced")
-        effective_pairing_mode = (
-            "fixed" if game_params["num_agents"] == 2 else configured_pairing_mode
-        )
+        effective_pairing_mode = "fixed" if game_params["num_agents"] == 2 else configured_pairing_mode
         noise_seed, pairing_seed = resolve_protocol_seeds(game_params, combo)
-
-        agent_ids = [f"Agent_{i+1}" for i in range(game_params['num_agents'])]
-        personas = {agent_id: combo['persona'] for agent_id in agent_ids}
         defector_seed = game_params.get("defector_seed")
         if defector_seed is None:
             defector_seed = combo.get("replicate_id")
         if defector_seed is None:
             defector_seed = 0
-
-        # Create noisy trust game with noise config and other_player_names
-        game = TrustGameNoisy(
-            endowment=game_params['endowment'],
-            multiplier=game_params['multiplier'],
-            system_prompt_template=combo['template'],
-            personas=personas,
-            round1_investor_template=combo['trust_game_round1_investor'],
-            round1_trustee_template=combo['trust_game_round1_trustee'],
-            later_investor_template=combo['trust_game_later_investor'],
-            later_trustee_template=combo['trust_game_later_trustee'],
-            noise_config=game_params.get('noise_config'),
-            noise_semantics=combo.get("noise_semantics", "communication"),
-            other_player_names=game_params.get('other_player_names', 'default'),
-            myth_injection_mode=combo.get("myth_injection_mode", "partner"),
-            shuffled_myth_pool_path=combo.get("shuffled_myth_pool_path"),
-            run_seed=combo.get("replicate_id", index),
-            history_policy=game_params.get('history_policy', 'minimal'),
-            self_history_window=game_params.get('self_history_window', 1),
-            coplayer_history_window=game_params.get('coplayer_history_window', 0),
-            population_history_window=game_params.get(
-                'population_history_window',
-                0,
-            ),
-            show_agent_names=game_params.get('show_agent_names', True),
-            defector_ratio=game_params.get("defector_ratio", 0.0),
-            defector_agent_ids=game_params.get("defector_agent_ids"),
-            defector_seed=defector_seed,
-            defector_prompt_template=combo.get("defector_game_instruction"),
-            defector_action_policy=game_params.get(
-                "defector_action_policy",
-                "prompted",
-            ),
-            defector_myth_policy=game_params.get(
-                "defector_myth_policy",
-                "normal",
-            ),
-            defector_role_visible_to_self=game_params.get(
-                "defector_role_visible_to_self",
-                True,
-            ),
-            game_prompt_addition=combo.get("game_prompt_addition", ""),
-            pairing_mode=configured_pairing_mode,
-            pairing_seed=pairing_seed,
-            noise_seed=noise_seed,
-            prompt_regime=game_params.get("prompt_regime", "legacy"),
-            punishment_enabled=game_params.get("punishment_enabled", False),
-            punishment_budget=game_params.get("punishment_budget", 2),
-            punishment_effect_multiplier=game_params.get(
-                "punishment_effect_multiplier",
-                3,
-            ),
-            punishment_prompt_variant=game_params.get(
-                "punishment_prompt_variant",
-                "current",
-            ),
-        )
-
-        planned_pool = combo.get("execution_provenance", {}).get("shuffled_myth_pool_sha256")
-        if planned_pool is not None and digest(game._shuffled_myth_pool) != planned_pool:
-            raise ConditionMismatchError("Shuffled myth pool changed after missing-run planning")
-
-        myth_writer = MythWriter(
-            myth_topic=combo.get("myth_topic", ""),
-            round1_template=combo['myth_writing_default'],
-            later_rounds_template=combo['myth_writing_later_rounds']
-        )
+        random_defection_seed = game_params.get("random_defection_seed")
+        if random_defection_seed is None:
+            random_defection_seed = noise_seed if noise_seed is not None else defector_seed
 
         # Build directory structure: data/json/noise_experiments/{experiment_name}/{model}/{task_order}/{game_params}/
         model_name = combo['model'].split('/')[-1] if '/' in combo['model'] else combo['model']
@@ -524,6 +571,9 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             f.write(f"Defector Action Policy: {game_params.get('defector_action_policy', 'prompted')}\n")
             f.write(f"Defector Myth Policy: {game_params.get('defector_myth_policy', 'normal')}\n")
             f.write(f"Defector Role Visible To Self: {game_params.get('defector_role_visible_to_self', True)}\n")
+            f.write(f"Random Defection Probability: {game_params.get('random_defection_probability', 0.0)}\n")
+            f.write(f"Random Defection Seed: {random_defection_seed}\n")
+            f.write("Random Defection Unit: agent_game_decision\n")
             f.write(f"Deduction Stage Enabled: {game_params.get('punishment_enabled', False)}\n")
             f.write(f"Deduction Budget: {game_params.get('punishment_budget', 2)}\n")
             f.write(f"Deduction Effect Multiplier: {game_params.get('punishment_effect_multiplier', 3)}\n")
@@ -560,6 +610,7 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
                 "comparison_inputs": combo.get("comparison_inputs"),
             },
             "request_plan": request_plan,
+            "game_response_retry_policy": game_params.get("game_response_retry_policy"),
             "run_identity": {"experiment": experiment_name, "replicate_id": combo.get("replicate_id"), "output_path": str(save_path)},
         }
         quiet_batch = os.environ.get("TRUST_BATCH_QUIET", "").lower() in {"1", "true", "yes"}
@@ -641,6 +692,9 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
         sim_data.run_metadata["punishment_prompt_variant"] = game_params.get(
             "punishment_prompt_variant",
             "current",
+        )
+        sim_data.run_metadata["configured_openai_reasoning_effort"] = (
+            configured_openai_reasoning_effort
         )
 
         # Save final state

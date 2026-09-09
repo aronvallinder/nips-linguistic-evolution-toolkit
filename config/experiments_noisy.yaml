@@ -14,6 +14,8 @@ base_models:
   llama8b: "meta-llama/llama-3.1-8b-instruct"
   gpt4_cheaper: "openai/gpt-4o-mini"
   gpt5_nano: "openai/gpt-5-nano"
+  # Exact snapshot for the 2026-09-01 GPT-5.5 completion/behavior gate.
+  gpt5_5_20260423: "openai/gpt-5.5-2026-04-23"
   claude_main: "anthropic/claude-3.5-sonnet"
   claude_haiku: "anthropic/claude-3-haiku"
   claude_haiku_45: "anthropic/claude-haiku-4.5"
@@ -961,6 +963,285 @@ game_params:
     other_player_names: "default"
     paired_protocol_seeds: true
     protocol_seed_base: 202608200
+
+  # Slide-695 rerun: the corrected cross-model population/task-order matrix
+  # with informed negative-only U(-1, 0) transfer noise. Replicate seeds are
+  # paired across models, task orders, population regimes, and treatment arms.
+  noisy2_crossmodel_negative_game_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    pairing_mode: "fixed"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+
+  noisy2_crossmodel_negative_random25_game_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    pairing_mode: "fixed"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    random_defection_probability: 0.25
+    random_defection_seed: null
+
+  noisy2_crossmodel_negative_random50_game_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    pairing_mode: "fixed"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    random_defection_probability: 0.50
+    random_defection_seed: null
+
+  noisy2_crossmodel_negative_twotask_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    pairing_mode: "fixed"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+
+  noisy2_crossmodel_negative_random25_twotask_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    pairing_mode: "fixed"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    random_defection_probability: 0.25
+    random_defection_seed: null
+
+  noisy2_crossmodel_negative_random50_twotask_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    pairing_mode: "fixed"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    random_defection_probability: 0.50
+    random_defection_seed: null
+
+  noisy8_crossmodel_negative_game_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    history_policy: "self_and_coplayer"
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: "balanced"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+
+  noisy8_crossmodel_negative_defectors25_game_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    history_policy: "self_and_coplayer"
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: "balanced"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    defector_ratio: 0.25
+    defector_action_policy: "forced_zero"
+    defector_myth_policy: "normal"
+    defector_role_visible_to_self: false
+
+  noisy8_crossmodel_negative_defectors50_game_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    history_policy: "self_and_coplayer"
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: "balanced"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    defector_ratio: 0.50
+    defector_action_policy: "forced_zero"
+    defector_myth_policy: "normal"
+    defector_role_visible_to_self: false
+
+  noisy8_crossmodel_negative_twotask_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    history_policy: "self_and_coplayer"
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: "balanced"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+
+  noisy8_crossmodel_negative_defectors25_twotask_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    history_policy: "self_and_coplayer"
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: "balanced"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    defector_ratio: 0.25
+    defector_action_policy: "forced_zero"
+    defector_myth_policy: "normal"
+    defector_role_visible_to_self: false
+
+  noisy8_crossmodel_negative_defectors50_twotask_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    history_policy: "self_and_coplayer"
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: "balanced"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    defector_ratio: 0.50
+    defector_action_policy: "forced_zero"
+    defector_myth_policy: "normal"
+    defector_role_visible_to_self: false
 
   # Own-history-only match for the GPT partner-dossier game-only cell. Agents
   # retain their own last three game exchanges in private chat memory, but no
@@ -4781,3 +5062,289 @@ experiment_sets:
     game_params_list:
       - "noisy8_bidirectional_informed_memprimary"
     num_runs: 5
+
+  # -----------------------------------------------------------------------
+  # 2026-08-25: slide-695 negative-only cross-model rerun and defector arms.
+  # Each set has 3 models x 3 paired treatment arms x 5 replicates = 45 runs.
+  # -----------------------------------------------------------------------
+  negative_only_crossmodel_dyad_game_n5:
+    models: ["claude_sonnet_45", "gpt5_nano", "gemini_3_7_flash"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list:
+      - "noisy2_crossmodel_negative_game_r3"
+      - "noisy2_crossmodel_negative_random25_game_r3"
+      - "noisy2_crossmodel_negative_random50_game_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+
+  negative_only_crossmodel_dyad_game_myth_n5:
+    models: ["claude_sonnet_45", "gpt5_nano", "gemini_3_7_flash"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list:
+      - "noisy2_crossmodel_negative_twotask_r3"
+      - "noisy2_crossmodel_negative_random25_twotask_r3"
+      - "noisy2_crossmodel_negative_random50_twotask_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+
+  negative_only_crossmodel_dyad_myth_game_n5:
+    models: ["claude_sonnet_45", "gpt5_nano", "gemini_3_7_flash"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list:
+      - "noisy2_crossmodel_negative_twotask_r3"
+      - "noisy2_crossmodel_negative_random25_twotask_r3"
+      - "noisy2_crossmodel_negative_random50_twotask_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+
+  negative_only_crossmodel_population_game_n5:
+    models: ["claude_sonnet_45", "gpt5_nano", "gemini_3_7_flash"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list:
+      - "noisy8_crossmodel_negative_game_r3"
+      - "noisy8_crossmodel_negative_defectors25_game_r3"
+      - "noisy8_crossmodel_negative_defectors50_game_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+
+  negative_only_crossmodel_population_game_myth_n5:
+    models: ["claude_sonnet_45", "gpt5_nano", "gemini_3_7_flash"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list:
+      - "noisy8_crossmodel_negative_twotask_r3"
+      - "noisy8_crossmodel_negative_defectors25_twotask_r3"
+      - "noisy8_crossmodel_negative_defectors50_twotask_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+
+  negative_only_crossmodel_population_myth_game_n5:
+    models: ["claude_sonnet_45", "gpt5_nano", "gemini_3_7_flash"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list:
+      - "noisy8_crossmodel_negative_twotask_r3"
+      - "noisy8_crossmodel_negative_defectors25_twotask_r3"
+      - "noisy8_crossmodel_negative_defectors50_twotask_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+
+  # -----------------------------------------------------------------------
+  # 2026-09-01: GPT-5.5 negative-only completion/behavior gate.
+  # These are the six control cells from the frozen 2026-08-25 protocol,
+  # restricted to replicate 0 and the exact GPT-5.5 snapshot. The model does
+  # not accept the repository's GPT-5 Nano `minimal` reasoning setting, so the
+  # supported `low` setting is an explicit, provenance-checked condition.
+  # -----------------------------------------------------------------------
+  gpt55_gate_dyad_game_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_game_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_dyad_game_myth_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_dyad_myth_game_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_game_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_game_myth_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_myth_game_r1:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  # Predeclared extension after all six r1 cells passed the completion,
+  # formatting, and behavioral-headroom gates. These use the next paired seed.
+  gpt55_gate_dyad_game_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_game_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_dyad_game_myth_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_twotask_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_dyad_myth_game_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_twotask_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_game_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_game_myth_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
+
+  gpt55_gate_population_myth_game_r2:
+    models: ["gpt5_5_20260423"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [1]
+    provider_settings:
+      openai_reasoning_effort: "low"
