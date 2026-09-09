@@ -161,6 +161,8 @@ def run(output_subdir: str, workers: int, execute: bool, resume: bool) -> None:
         f"python3 scripts/rerun_negative_only_crossmodel.py --output-subdir {output_subdir} "
         f"--workers {workers} --execute"
     )
+    if resume:
+        command += " --resume"
     print(
         "PREFLIGHT: MODEL=claude-sonnet-4.5(thinking=8192),"
         "gpt-5-nano(reasoning=high),gemini-3.7-flash(thinking=high) "
