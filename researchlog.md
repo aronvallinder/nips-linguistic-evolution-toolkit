@@ -1,3 +1,18 @@
+### 2026-09-09 — Resume validator rejected every forced-defector run
+
+**Time:** ~0.3 hours engineering; the 270-run batch is still in progress.
+
+#### Blocker
+- The negative-only cross-model reasoning rerun (`negative_only_crossmodel_reasoning_rerun_20260909`) lost its network connection at 105/270 finals; all 15 in-flight GPT‑5 Nano myth→game runs errored and the runner exited. Relaunching with `--resume` then refused to start: `check_existing_final` rejected 70 of the 105 completed finals — exactly every `random25`/`random50` run, all three models, all task orders — as "Per-call request settings differ from the run condition".
+- Cause: `condition_from_run` exempted only `response_source == "scripted"` from the per-call settings check, but forced-defector decisions are tagged `forced_zero` / `random_defection_forced_zero` (`games/dyadic_pairing.py`) and receiver notices `deduction_notification` (`games/trust_game_noisy.py`). Those events never call a provider and carry no request settings. The runner's own end-of-run audit already skipped any source `!= "llm"`; the two checks disagreed, so an uninterrupted run would have failed at the final audit instead of ~8 hours earlier.
+
+#### Resolution
+- `af3c9951`: the condition check now skips every non-LLM source; a missing source still defaults to `llm` and is checked (existing tests pin this). Regression test added for the four scripted sources. 278 tests pass; all 105 finals validate. Run resumed at 17:04 from a clean worktree; the seven completed sets were recognised (`missing=0`) and no call was repeated.
+- The 30 `.checkpoint.json.error.json` files in the output tree (15 from the first resume, 15 from the disconnect) are leftovers, not failed finals; an earlier "zero errors" audit classified them as checkpoints.
+
+#### Caveat
+- Sets launched before the fix record `code_commit` `893a9713`; later sets record `af3c9951`. The rerun's audit and matrix validation do not compare commits across runs, but any future `output_provenance` document over these 270 runs must declare `implementation.code_commit` as an allowed difference.
+
 ### 2026-09-09 — Result: GPT-5.5 gate rerun completes
 
 **Time:** API interaction phase 7.0 minutes; engineering time not tracked.
