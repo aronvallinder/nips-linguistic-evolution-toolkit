@@ -31,6 +31,18 @@ def file_hash(path):
     return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else "missing"
 
 
+def legacy_launcher_opt_in(path, expected_hash):
+    """Admit only the explicit opt-in added to an otherwise frozen wrapper.
+
+    The inverse edit must recover the reviewed baseline bytes exactly; changes
+    to models, shell commands, arguments or output paths still require review.
+    """
+    added = b"    --allow-legacy-settings \\\n"
+    content = path.read_bytes()
+    return (content.count(added) == 1 and expected_hash is not None
+            and hashlib.sha256(content.replace(added, b"", 1)).hexdigest() == expected_hash)
+
+
 def config_signature(config, name):
     definition = config.config["experiment_sets"][name]
     try:
@@ -144,7 +156,8 @@ def check_repository(root=ROOT, baseline=None):
         check_config(config, str(path.relative_to(root)), baseline["configurations"])
     launchers, groups = repository_state(root)
     for path in launchers:
-        if baseline["launchers"].get(str(path.relative_to(root))) != file_hash(path):
+        expected = baseline["launchers"].get(str(path.relative_to(root)))
+        if expected != file_hash(path) and not legacy_launcher_opt_in(path, expected):
             check_launcher(path, root)
     for directory, files in groups.items():
         signature = digest({str(path.relative_to(directory)): file_hash(path) for path in files})

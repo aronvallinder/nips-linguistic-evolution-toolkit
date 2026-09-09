@@ -55,6 +55,7 @@ run_one() {
   local experiment="$1"
   run_python scripts/run_noisy_missing.py \
     "$experiment" \
+    --allow-legacy-settings \
     --workers 1 \
     --output-subdir "$OUTPUT_SUBDIR" \
     --log-dir "$LOG_ROOT"

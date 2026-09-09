@@ -22,8 +22,9 @@ GAME_FIELDS = (
     "defector_role_visible_to_self", "game_prompt_addition", "pairing_mode",
     "prompt_regime", "punishment_enabled", "punishment_budget",
     "punishment_effect_multiplier", "punishment_prompt_variant", "decision_format",
+    "random_defection_probability",
 )
-SEED_FIELDS = ("pairing_seed", "noise_seed", "run_seed", "defector_seed")
+SEED_FIELDS = ("pairing_seed", "noise_seed", "run_seed", "defector_seed", "random_defection_seed")
 
 
 class ConditionMismatchError(ValueError):
@@ -44,7 +45,7 @@ def build_condition(game, myth_writer, runtime_metadata, simulation, replicate_i
             for name in ("myth_topic", "round1_template", "later_rounds_template")
         },
         "simulation": simulation,
-        "game_retry": {"policy": "repeat_prompt", "attempts": 2},
+        "game_retry": {"policy": simulation.get("game_response_retry_policy", "repeat_same_prompt_once"), "attempts": 2},
         "myth_retry": {"policy": "task_boundary_v1", "retries": 2},
     }
     pool = getattr(game, "_shuffled_myth_pool", None)

@@ -1,0 +1,50 @@
+{
+  "gpt55_gate_dyad_game_myth_r1": {
+    "condition": "8dd89c5922c456707101cec5342b523b82539ebcc445856162c62094d63372a2",
+    "inputs": "4429f2ef945742ecd2e93ad66477307732f9faccc992fdba82fb69ab44ca89a9"
+  },
+  "gpt55_gate_dyad_game_myth_r2": {
+    "condition": "eab0efd69fd7d148f27a14a1efd2925994dd26a9402f7a74ccb1e01e379277f9",
+    "inputs": "3e8aaf9a91e895ef34523b2fd589230462588b5f97fe54108ac1be540d173ed9"
+  },
+  "gpt55_gate_dyad_game_r1": {
+    "condition": "24b6c3df37b38a66adee1a09289e12c013db4f27aae6d211019f5a9230ed0540",
+    "inputs": "af5ad6f2e1cca8360f2bac0f39e72962a7bc5538353cda5276dcaae141e8b4b5"
+  },
+  "gpt55_gate_dyad_game_r2": {
+    "condition": "956e32b4d62446bf6503d9ee768df0ade9640d915be26ab520855c99113a637c",
+    "inputs": "43c5849c10e3ed8bef233182655736f6898613ae8c8f877f524df8085e15068a"
+  },
+  "gpt55_gate_dyad_myth_game_r1": {
+    "condition": "685225bc598389928b5a990d0038c3a5292ca9bd623a5d0a94473753a83367b7",
+    "inputs": "0bfe2f6fcc251a317bb42dd67154c38352777ea58aaa3221eaad413acb21ee46"
+  },
+  "gpt55_gate_dyad_myth_game_r2": {
+    "condition": "c5c515b25626c7daa5ee6e08299000d88b2f3b25bf26f333e45154f0c1ca65d1",
+    "inputs": "7f23dc79a41e5f452df20f9c81e9ffe2e1a1af836596e23d3ad5a940c7b4f92b"
+  },
+  "gpt55_gate_population_game_myth_r1": {
+    "condition": "e28093a8092c958ce029bb320744da48687692d0ec4fb427217d19592b8c9bdc",
+    "inputs": "6bb106e0aa4a1bc34461b2f2bddf59699d1864bc1fa109fecc5167387456ee09"
+  },
+  "gpt55_gate_population_game_myth_r2": {
+    "condition": "fac3c65c780017f8582b1c45ee104f45c781cdee3e790f537c3b9204b04dd89e",
+    "inputs": "2110ed46a77bcf01bded44aaffd743d0ac9a5cd2a722e0d971de2b51e7a1b6ff"
+  },
+  "gpt55_gate_population_game_r1": {
+    "condition": "e7db1f1739b66fb21a1e677b61e475050b71e6191533a4e20a1034f6a07e0e97",
+    "inputs": "a1f4207d3723f618193ecb80ee32f4b3b654661b0d0d55d8de37513ba2eda1f5"
+  },
+  "gpt55_gate_population_game_r2": {
+    "condition": "b4392372d3ee61776f748e83e419f9f4b2438421c78d3c9319155843763dc7e8",
+    "inputs": "366d999fe9fef08ade76ff436e74dc1a43d8045439cfc0e8ae761bb33efc8283"
+  },
+  "gpt55_gate_population_myth_game_r1": {
+    "condition": "4a354d6c4de7dc8de5f93c472bfc37b635fb9ae62fff33dba4229af5a38cbe55",
+    "inputs": "e497bbb92c34810ffe8b5a028d517510c18c595bb5058a66a45c22d9ecb679ee"
+  },
+  "gpt55_gate_population_myth_game_r2": {
+    "condition": "0900717185973fc9875b0c1ea2025647fced033ddc9e30e6ca6f13f801cd32d0",
+    "inputs": "379668c2d699eb54761bca2f1a6dde95b76463cf1f5af5fe47700542f1643693"
+  }
+}

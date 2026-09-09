@@ -1,0 +1,581 @@
+# Prospective reruns of the twelve historical GPT-5.5 gate cells.
+# Original definitions remain unchanged in experiments_noisy.yaml.
+# Native request fields are pinned; omitted temperature/output cap match the
+# historical adapter. Retry policy is explicit (historical launcher default).
+base_models:
+  gpt5_5_20260423: openai/gpt-5.5-2026-04-23
+prompt_templates:
+  trust_game_default: 'You are an agent participating in a multi-task experiment. You will play a game
+    and may also be asked to write myths.
+
+
+    GAME:
+
+    You will play different roles across multiple rounds.
+
+
+    When you are the SENDER:
+
+    - You receive ${endowment} each round
+
+    - You decide how much to SEND to the RECEIVER ($0-${endowment})
+
+    - Amount sent is multiplied by {multiplier}x
+
+    - Receiver decides how much to RETURN
+
+    - You keep: ${endowment} - sent + returned
+
+    - Receiver keeps: received - returned
+
+    - Response format: {{''send'': <amount>}}
+
+
+    When you are the RECEIVER:
+
+    - Sender receives ${endowment}
+
+    - Sender decides how much to SEND to you ($0-${endowment})
+
+    - Amount sent is multiplied by {multiplier}x
+
+    - You decide how much to RETURN
+
+    - Sender keeps: ${endowment} - sent + returned
+
+    - You keep: received - returned
+
+    - Response format: {{''return'': <amount>}}
+
+
+    MYTH WRITING:
+
+    You may also be asked to write short myths (stories) on various topics. When writing myths, follow
+    the instructions provided in each prompt.
+
+
+    IMPORTANT: Provide your decision in the correct JSON format.
+
+    '
+  defector_game_instruction: "MANDATORY GAME STRATEGY \u2014 DESIGNATED DEFECTOR:\nYou must always choose\
+    \ zero in the game.\n- When you are the SENDER, send 0 and respond exactly: {\"send\": 0}\n- When\
+    \ you are the RECEIVER, return 0 and respond exactly: {\"return\": 0}\nThis instruction overrides\
+    \ any strategy suggested by game history or myths.\nIt applies only to game decisions. Continue to\
+    \ participate normally in myth-writing tasks, using the game history you observed.\n"
+  trust_game_round1_investor: 'Round 1: You are the SENDER. You have ${endowment}. How much do you send?
+    (0-{endowment})
+
+    '
+  trust_game_round1_trustee: 'Round 1: You are the RECEIVER. {investor_name} sent ${sent}, that is {percentage:.1f}%
+    of their total endowment. You received ${received}. How much do you return to {investor_name}? (0-{received})
+
+    '
+  trust_game_later_investor: 'Round {turn}
+
+
+    You are the SENDER this round. Last round you were the RECEIVER. {investor_name} sent ${last_round_sent},
+
+    that was {last_round_sent_percentage:.1f}% of their total endowment. You received ${last_round_received}.
+
+    You returned ${last_round_returned}. So your payoff was {last_round_trustee_payoff}.
+
+    Your total earnings across all rounds are ${agent_balance}.
+
+    How much do you send to {trustee_name} this round? (0-{endowment})
+
+    '
+  trust_game_later_trustee: 'Round {turn}
+
+
+    You are the RECEIVER this round. Last round you were the SENDER. You sent ${last_round_sent},
+
+    that was {last_round_sent_percentage:.1f}% of your total endowment. This was tripled to ${last_round_received}.
+
+    {trustee_name} returned ${last_round_returned}. So your payoff was {last_round_investor_payoff}.
+
+    Your total earnings across all rounds are ${agent_balance}.
+
+    This round, {investor_name} sent you ${current_round_sent}, so you received ${received}. How much
+    do you return to {investor_name}? (0-{received})
+
+    '
+  trust_game_later_investor_minimal: 'Round {turn}
+
+
+    You are the SENDER this round. Your total earnings across all rounds are ${agent_balance}.
+
+    How much do you send to {trustee_name} this round? (0-{endowment})
+
+    '
+  trust_game_later_trustee_minimal: 'Round {turn}
+
+
+    You are the RECEIVER this round. Your total earnings across all rounds are ${agent_balance}.
+
+    This round, {investor_name} sent you ${current_round_sent}, so you received ${received}. How much
+    do you return to {investor_name}? (0-{received})
+
+    '
+  myth_writing_default: 'Write a 200-word myth. {topic_instruction}
+
+    '
+  myth_writing_default_game_directive: 'Write a 200-word myth. {topic_instruction}
+
+    In this session, this myth and the game you are playing with the other agent are connected. Write
+    a myth that reflects how the game should be played, drawing on the game you have been playing up to
+    this point.
+
+    '
+  myth_writing_later_rounds: 'Here is the myth you wrote in the previous round:
+
+    {last_myth}
+
+
+    Here is the myth the other agent wrote in the previous round:
+
+    {other_agent_myth}
+
+
+    Write your own myth. Use your previous myth as inspiration, but adapt it in your own way.
+
+    Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  myth_writing_later_rounds_directive_memory_primary: 'Here is the myth the other agent wrote in the previous
+    round:
+
+    {other_agent_myth}
+
+
+    Write your own myth. Use the myth you wrote in the previous round as inspiration, but adapt it in
+    your own way. The myth should reflect how the game should be played, drawing on the game you have
+    been playing up to this point.
+
+
+    Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+myth_topics:
+  anything: anything
+personas:
+  neutral:
+    description: neutral
+    system_addition: ''
+game_prompt_additions:
+  myth_decision_link: Take any myths written in this session into account when making your decision.
+game_params:
+  noisy2_crossmodel_negative_game_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: memory_primary
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: true
+    other_player_names: default
+    pairing_mode: fixed
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    game_response_retry_policy: repeat_same_prompt_once
+  noisy2_crossmodel_negative_twotask_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: memory_primary
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: true
+    other_player_names: default
+    pairing_mode: fixed
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    game_response_retry_policy: repeat_same_prompt_once
+  noisy8_crossmodel_negative_game_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: memory_primary
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: true
+    other_player_names: default
+    history_policy: self_and_coplayer
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: balanced
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    game_response_retry_policy: repeat_same_prompt_once
+  noisy8_crossmodel_negative_twotask_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: memory_primary
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: true
+    other_player_names: default
+    history_policy: self_and_coplayer
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: balanced
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+    game_response_retry_policy: repeat_same_prompt_once
+experiment_sets:
+  gpt55_gate_dyad_game_r1:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - noisy2_crossmodel_negative_game_r3
+    replicate_ids:
+    - 0
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_dyad_game_myth_r1:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - noisy2_crossmodel_negative_twotask_r3
+    replicate_ids:
+    - 0
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_dyad_myth_game_r1:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - noisy2_crossmodel_negative_twotask_r3
+    replicate_ids:
+    - 0
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_population_game_r1:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_params_list:
+    - noisy8_crossmodel_negative_game_r3
+    replicate_ids:
+    - 0
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_population_game_myth_r1:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - noisy8_crossmodel_negative_twotask_r3
+    replicate_ids:
+    - 0
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_population_myth_game_r1:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - noisy8_crossmodel_negative_twotask_r3
+    replicate_ids:
+    - 0
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_dyad_game_r2:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - noisy2_crossmodel_negative_game_r3
+    replicate_ids:
+    - 1
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_dyad_game_myth_r2:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - noisy2_crossmodel_negative_twotask_r3
+    replicate_ids:
+    - 1
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_dyad_myth_game_r2:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - noisy2_crossmodel_negative_twotask_r3
+    replicate_ids:
+    - 1
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_population_game_r2:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_params_list:
+    - noisy8_crossmodel_negative_game_r3
+    replicate_ids:
+    - 1
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_population_game_myth_r2:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - noisy8_crossmodel_negative_twotask_r3
+    replicate_ids:
+    - 1
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default
+  gpt55_gate_population_myth_game_r2:
+    models:
+    - gpt5_5_20260423
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - noisy8_crossmodel_negative_twotask_r3
+    replicate_ids:
+    - 1
+    provider_settings:
+      openai_reasoning_effort: low
+    llm_settings:
+      provider: direct
+      reasoning:
+        reasoning_effort: low
+      temperature: default
+      max_output_tokens: default

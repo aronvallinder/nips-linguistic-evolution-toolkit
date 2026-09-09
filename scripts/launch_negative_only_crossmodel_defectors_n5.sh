@@ -72,6 +72,7 @@ for experiment in "${EXPERIMENTS[@]}"; do
     --output-subdir "$OUTPUT_SUBDIR"
   if ! run_python scripts/run_noisy_missing.py \
     "$experiment" \
+    --allow-legacy-settings \
     --workers "$WORKERS" \
     --output-subdir "$OUTPUT_SUBDIR" \
     --log-dir "$LOG_ROOT"

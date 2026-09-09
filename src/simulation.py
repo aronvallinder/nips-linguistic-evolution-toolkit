@@ -396,6 +396,7 @@ def run_simulation(
     switch_to_game_system_before_game: bool = False,
     request_plan=None,
     run_identity=None,
+    game_response_retry_policy=None,
 ):
     """
     Run a multi-agent simulation with any game.
@@ -404,10 +405,12 @@ def run_simulation(
     task_order: List of tasks to execute in order. Options: "game", "myth"
                 Examples: ["game"], ["myth"], ["game", "myth"], ["myth", "game"]
     """
-    game_response_retry_policy = os.environ.get(
-        "GAME_RESPONSE_RETRY_POLICY",
-        GAME_RESPONSE_RETRY_REPEAT,
-    ).strip()
+    if game_response_retry_policy is None:
+        game_response_retry_policy = (
+            GAME_RESPONSE_RETRY_REPEAT if request_plan is not None
+            else os.environ.get("GAME_RESPONSE_RETRY_POLICY", GAME_RESPONSE_RETRY_REPEAT)
+        )
+    game_response_retry_policy = game_response_retry_policy.strip()
     if game_response_retry_policy not in GAME_RESPONSE_RETRY_POLICIES:
         raise ValueError(
             "Unsupported GAME_RESPONSE_RETRY_POLICY: "

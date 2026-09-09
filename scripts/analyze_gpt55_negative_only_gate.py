@@ -8,6 +8,11 @@ import csv
 import json
 from pathlib import Path
 import statistics
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from scripts.gpt55_gate_contract import HISTORICAL, verify_rerun
+from src.experiment_condition import read_final_run
 from typing import Any
 
 
@@ -97,16 +102,28 @@ def audit_run(
     replicate_id: int,
 ) -> dict[str, Any]:
     expected_agents, expected_order, expected_game_params = expected
-    run = json.loads(path.read_text(encoding="utf-8"))
+    run = read_final_run(path)
     metadata = run.get("run_metadata") or {}
     order = "_".join(run.get("task_order") or [])
+
+    experiment = next((f"{name}_r{replicate_id + 1}" for name, cell in EXPECTED_BASE.items() if cell == expected), None)
+    if replicate_id not in HISTORICAL or experiment is None:
+        raise RuntimeError("Unsupported historical gate cell")
+    pinned = "experiment_condition" in metadata
+    if pinned:
+        condition = verify_rerun(run, experiment)
+        effort = condition["llm"]["parameters"].get("reasoning_effort")
+    else:
+        if any(metadata.get(key) != value for key, value in HISTORICAL[replicate_id].items()):
+            raise RuntimeError(f"{path}: code/config do not match the historical gate")
+        effort = metadata.get("reasoning_effort")
 
     assertions = {
         "model": metadata.get("model") == MODEL,
         "provider_model": metadata.get("provider_model") == PROVIDER_MODEL,
         "provider": metadata.get("llm_provider") == "openai",
         "provider_mode": metadata.get("llm_provider_mode") == "direct",
-        "reasoning_effort": metadata.get("reasoning_effort") == "low",
+        "reasoning_effort": effort == "low",
         "configured_reasoning_effort": (
             metadata.get("configured_openai_reasoning_effort") == "low"
         ),
@@ -157,7 +174,7 @@ def audit_run(
         "path": str(path),
         "model": metadata["model"],
         "provider_model": metadata["provider_model"],
-        "reasoning_effort": metadata["reasoning_effort"],
+        "reasoning_effort": effort,
         "code_commit": metadata.get("code_commit"),
         "code_dirty": metadata.get("code_dirty"),
         "config_sha256": metadata.get("config_sha256"),
@@ -205,14 +222,10 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         writer.writerows(rows)
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--replicate-id", type=int, default=0)
-    args = parser.parse_args()
-
-    all_json = list(args.input.rglob("*.json"))
+def audit_gate(input_directory: Path, output_directory: Path, replicate_id: int):
+    if replicate_id not in HISTORICAL:
+        raise ValueError("replicate_id must be 0 or 1")
+    all_json = list(input_directory.rglob("*.json"))
     inventory = {
         kind: sum(json_kind(path) == kind for path in all_json)
         for kind in ("final", "results", "checkpoint", "error")
@@ -225,7 +238,7 @@ def main() -> None:
 
     rows = []
     seen_paths = set()
-    stage_number = args.replicate_id + 1
+    stage_number = replicate_id + 1
     expected_experiments = {
         f"{experiment}_r{stage_number}": expected
         for experiment, expected in EXPECTED_BASE.items()
@@ -234,7 +247,7 @@ def main() -> None:
         paths = [path for path in final_paths if experiment in path.parts]
         if len(paths) != 1:
             raise RuntimeError(f"{experiment}: expected one final JSON, found {len(paths)}")
-        rows.append(audit_run(paths[0], expected, args.replicate_id))
+        rows.append(audit_run(paths[0], expected, replicate_id))
         seen_paths.add(paths[0])
     if seen_paths != set(final_paths):
         raise RuntimeError("Unexpected final JSON outside the six frozen gate cells")
@@ -244,10 +257,11 @@ def main() -> None:
     if len(commits) != 1 or len(config_hashes) != 1:
         raise RuntimeError("Gate cells do not share one code commit and config hash")
 
-    args.output.mkdir(parents=True, exist_ok=True)
-    write_csv(args.output / "gate_run_metrics.csv", rows)
+    output_directory.mkdir(parents=True, exist_ok=True)
+    write_csv(output_directory / "gate_run_metrics.csv", rows)
     summary = {
-        "gate_passed": all(row["interaction_errors"] == 0 for row in rows),
+        "completion_passed": all(row["interaction_errors"] == 0 for row in rows),
+        "behavioral_headroom": "requires_review",
         "completed_final_full_state_jsons": len(rows),
         "results_only_jsons_analyzed": 0,
         "checkpoint_jsons_analyzed": 0,
@@ -257,18 +271,19 @@ def main() -> None:
         "config_sha256": next(iter(config_hashes)),
         "model": MODEL,
         "reasoning_effort": "low",
-        "replicate_id": args.replicate_id,
+        "replicate_id": replicate_id,
         "total_llm_interactions": sum(row["llm_interactions"] for row in rows),
         "total_input_tokens": sum(row["input_tokens"] for row in rows),
         "total_output_tokens": sum(row["output_tokens"] for row in rows),
         "total_reasoning_tokens": sum(row["reasoning_tokens"] for row in rows),
         "estimated_total_cost_usd": sum(row["estimated_cost_usd"] for row in rows),
         "interpretation": (
-            "This n=1-per-cell gate establishes completion and behavioral "
-            "headroom only; it does not estimate stable task-order effects."
+            "This audit checks completion and recorded conditions. Behavioral "
+            "headroom requires review of the send/return distributions; successful "
+            "completion alone does not establish it or stable task-order effects."
         ),
     }
-    (args.output / "gate_summary.json").write_text(
+    (output_directory / "gate_summary.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
@@ -278,10 +293,22 @@ def main() -> None:
             f"{row['num_agents']} agents {row['task_order']}: "
             f"send={row['mean_send_fraction']:.3f}, "
             f"max-send={row['max_send_rate']:.3f}, "
-            f"return={row['mean_return_proportion_positive']:.3f}, "
+            f"return={row['mean_return_proportion_positive']}, "
             f"cost=${row['estimated_cost_usd']:.2f}"
         )
 
+    return summary
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--input", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--replicate-id", type=int, choices=(0, 1), default=0)
+    args = parser.parse_args()
+    summary = audit_gate(args.input, args.output, args.replicate_id)
+    return 0 if summary["completion_passed"] else 1
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
