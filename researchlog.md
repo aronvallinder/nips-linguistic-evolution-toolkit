@@ -1,3 +1,18 @@
+### 2026-09-09 — Result: GPT-5.5 gate rerun completes
+
+**Time:** API interaction phase 7.0 minutes; engineering time not tracked.
+
+#### Result
+- Re-ran all twelve historical gate cells (two paired replicates across population sizes 2/8 and three task orders) at clean code `a18821b3157149a52a4eaed9b471c3d73a9caba2`. All 12 final full-state JSONs and 1,000 model interactions completed; zero errors/truncations, both condition/completion audits passed. Estimated standard-rate token cost: **$15.071095**.
+- Native OpenAI `gpt-5.5-2026-04-23`, low reasoning, temperature/output cap omitted; original prompts, histories and paired seeds preserved. Original code/config references are recorded separately from the new provenance. Replaying the new responses through original commits `f53fa6d9`/`2ece1de6` reproduced all 1,000 per-agent request message arrays exactly, without paid calls.
+
+#### Launch blocker resolved
+- Fixed the three recovered legacy wrappers, added a pinned twelve-cell rerun command and frozen-condition audit, and removed environment dependence from guarded retry/reasoning settings. Historical configs/reports and the existing baseline bytes remain unchanged by the fix. PR #22 updated; 273 tests plus 50 subtests pass and CI is green. Real resume reports `PENDING=0` and makes no additional calls.
+
+#### Evidence and scope
+- Run receipt, final JSON hashes, stage metrics/audits and original-code replay evidence: `data/json/noise_experiments/gpt55_rerun_20260909/README.md` (local outputs, not uploaded). Rerun instructions: `docs/gpt55_gate_rerun.md`.
+- These are new stochastic outputs with n=2 per cell. Several cells are near the sending ceiling; passing the completion audit does not establish behavioral headroom or stable task-order effects.
+
 ### 2026-09-08 — Result: Reasoning pilot measures costs
 
 **Time:** approximately 0.4 hours, including API waits
