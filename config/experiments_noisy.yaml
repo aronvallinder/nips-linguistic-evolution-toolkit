@@ -26,6 +26,33 @@ base_models:
   gemini_3_1_flash_lite: "google/gemini-3.1-flash-lite"
   gemini_3_1_pro: "google/gemini-3.1-pro-preview"
 
+# Explicit native request profiles measured in the 2026-09-08 reasoning-cost
+# pilot. Anchors keep the prospective per-provider experiment sets below
+# identical to the reviewed pilot policies without translating effort labels
+# across vendors.
+llm_profiles:
+  september8_claude: &september8_claude
+    provider: "anthropic"
+    reasoning:
+      thinking:
+        type: "enabled"
+        budget_tokens: 8192
+    temperature: "default"
+    max_output_tokens: 64000
+  september8_gpt: &september8_gpt
+    provider: "openai"
+    reasoning:
+      reasoning_effort: "high"
+    temperature: "default"
+    max_output_tokens: 128000
+  september8_gemini: &september8_gemini
+    provider: "google"
+    reasoning:
+      thinkingConfig:
+        thinkingLevel: "high"
+    temperature: 0.8
+    max_output_tokens: 65536
+
 # Prompt Templates
 # Note: Templates now support {investor_name} and {trustee_name} for asymmetric naming
 prompt_templates:
@@ -5161,6 +5188,149 @@ experiment_sets:
       - "noisy8_crossmodel_negative_defectors25_twotask_r3"
       - "noisy8_crossmodel_negative_defectors50_twotask_r3"
     replicate_ids: [0, 1, 2, 3, 4]
+
+  # -----------------------------------------------------------------------
+  # 2026-09-09: prospective rerun of the frozen 2026-08-25 matrix using the
+  # explicit native reasoning profiles measured in the 2026-09-08 cost pilot.
+  # The original six cross-model sets above remain unchanged. Each model has a
+  # separate set because provider-native reasoning settings are deliberately
+  # model-specific. Together these 18 sets retain the original 270-run matrix.
+  # -----------------------------------------------------------------------
+  negative_only_reasoning_rerun_dyad_game_claude_n5: &reasoning_rerun_dyad_game
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list:
+      - "noisy2_crossmodel_negative_game_r3"
+      - "noisy2_crossmodel_negative_random25_game_r3"
+      - "noisy2_crossmodel_negative_random50_game_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings: *september8_claude
+
+  negative_only_reasoning_rerun_dyad_game_gpt_n5:
+    <<: *reasoning_rerun_dyad_game
+    models: ["gpt5_nano"]
+    llm_settings: *september8_gpt
+
+  negative_only_reasoning_rerun_dyad_game_gemini_n5:
+    <<: *reasoning_rerun_dyad_game
+    models: ["gemini_3_7_flash"]
+    llm_settings: *september8_gemini
+
+  negative_only_reasoning_rerun_dyad_game_myth_claude_n5: &reasoning_rerun_dyad_game_myth
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list:
+      - "noisy2_crossmodel_negative_twotask_r3"
+      - "noisy2_crossmodel_negative_random25_twotask_r3"
+      - "noisy2_crossmodel_negative_random50_twotask_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings: *september8_claude
+
+  negative_only_reasoning_rerun_dyad_game_myth_gpt_n5:
+    <<: *reasoning_rerun_dyad_game_myth
+    models: ["gpt5_nano"]
+    llm_settings: *september8_gpt
+
+  negative_only_reasoning_rerun_dyad_game_myth_gemini_n5:
+    <<: *reasoning_rerun_dyad_game_myth
+    models: ["gemini_3_7_flash"]
+    llm_settings: *september8_gemini
+
+  negative_only_reasoning_rerun_dyad_myth_game_claude_n5: &reasoning_rerun_dyad_myth_game
+    <<: *reasoning_rerun_dyad_game_myth
+    models: ["claude_sonnet_45"]
+    task_orders: [["myth", "game"]]
+    llm_settings: *september8_claude
+
+  negative_only_reasoning_rerun_dyad_myth_game_gpt_n5:
+    <<: *reasoning_rerun_dyad_myth_game
+    models: ["gpt5_nano"]
+    llm_settings: *september8_gpt
+
+  negative_only_reasoning_rerun_dyad_myth_game_gemini_n5:
+    <<: *reasoning_rerun_dyad_myth_game
+    models: ["gemini_3_7_flash"]
+    llm_settings: *september8_gemini
+
+  negative_only_reasoning_rerun_population_game_claude_n5: &reasoning_rerun_population_game
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list:
+      - "noisy8_crossmodel_negative_game_r3"
+      - "noisy8_crossmodel_negative_defectors25_game_r3"
+      - "noisy8_crossmodel_negative_defectors50_game_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings: *september8_claude
+
+  negative_only_reasoning_rerun_population_game_gpt_n5:
+    <<: *reasoning_rerun_population_game
+    models: ["gpt5_nano"]
+    llm_settings: *september8_gpt
+
+  negative_only_reasoning_rerun_population_game_gemini_n5:
+    <<: *reasoning_rerun_population_game
+    models: ["gemini_3_7_flash"]
+    llm_settings: *september8_gemini
+
+  negative_only_reasoning_rerun_population_game_myth_claude_n5: &reasoning_rerun_population_game_myth
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list:
+      - "noisy8_crossmodel_negative_twotask_r3"
+      - "noisy8_crossmodel_negative_defectors25_twotask_r3"
+      - "noisy8_crossmodel_negative_defectors50_twotask_r3"
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings: *september8_claude
+
+  negative_only_reasoning_rerun_population_game_myth_gpt_n5:
+    <<: *reasoning_rerun_population_game_myth
+    models: ["gpt5_nano"]
+    llm_settings: *september8_gpt
+
+  negative_only_reasoning_rerun_population_game_myth_gemini_n5:
+    <<: *reasoning_rerun_population_game_myth
+    models: ["gemini_3_7_flash"]
+    llm_settings: *september8_gemini
+
+  negative_only_reasoning_rerun_population_myth_game_claude_n5: &reasoning_rerun_population_myth_game
+    <<: *reasoning_rerun_population_game_myth
+    models: ["claude_sonnet_45"]
+    task_orders: [["myth", "game"]]
+    llm_settings: *september8_claude
+
+  negative_only_reasoning_rerun_population_myth_game_gpt_n5:
+    <<: *reasoning_rerun_population_myth_game
+    models: ["gpt5_nano"]
+    llm_settings: *september8_gpt
+
+  negative_only_reasoning_rerun_population_myth_game_gemini_n5:
+    <<: *reasoning_rerun_population_myth_game
+    models: ["gemini_3_7_flash"]
+    llm_settings: *september8_gemini
 
   # -----------------------------------------------------------------------
   # 2026-09-01: GPT-5.5 negative-only completion/behavior gate.
