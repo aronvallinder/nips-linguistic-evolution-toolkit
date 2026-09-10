@@ -79,7 +79,8 @@ POP_TITLES = {
     "population": "8-agent rotating population",
 }
 
-SKIP_SUFFIXES = (".results.json", ".checkpoint.json")
+# Same non-final list the provenance loader uses (also covers *.error.json leftovers).
+from src.experiment_condition import NON_FINAL_SUFFIXES as SKIP_SUFFIXES  # noqa: E402
 
 
 def parse_condition(cond_dir: str) -> Optional[Dict[str, str]]:
