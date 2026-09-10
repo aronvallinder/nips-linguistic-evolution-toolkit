@@ -165,6 +165,13 @@ def test_each_calls_settings_are_checked():
         condition_from_run(data)
 
 
+@pytest.mark.parametrize("source", ["scripted", "forced_zero", "random_defection_forced_zero", "deduction_notification"])
+def test_non_llm_events_are_not_checked_for_request_settings(source):
+    data = saved_run()
+    data["agents"] = {"agent": {"interaction_history": [{"response": {"content": '{"send": 0}', "usage": {}, "response_source": source}}]}}
+    condition_from_run(data)
+
+
 def test_missing_call_record_cannot_bypass_validation():
     data = saved_run()
     data["agents"] = {"agent": {"interaction_history": [{"prompt": "decision"}]}}

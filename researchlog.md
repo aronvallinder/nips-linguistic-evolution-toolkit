@@ -1,3 +1,62 @@
+### 2026-09-10 — Result: GPT‑5 Nano game-only populations lock at zero; myth exchange breaks the lock
+
+**Time:** ~0.3 hours (analysis of the completed 2026‑09‑09 rerun; no API calls).
+
+#### Result
+- In the negative-only cross-model reasoning rerun, GPT‑5 Nano (reasoning high) opened round 1 with `{"send": 0}` in every game-only run — 5/5 replicates at both 2 and 8 agents, control treatment — and the population never recovered: zero-receipt rate 1.00 across all 10 rounds (`docs/figures/negative_only_crossmodel_reasoning_rerun_20260909/round_summary.csv`). Claude Sonnet 4.5 and Gemini 3.7 Flash: 0.00 in the same cells.
+- With a myth task in the sequence, GPT does send: mean zero-receipt rate 0.12 (game→myth) / 0.08 (myth→game) in dyads, 0.59 / 0.40 at 8 agents; GPT's return proportion on positive receipts is 0.31–0.33 vs Claude 0.41–0.50 and Gemini 0.45–0.47.
+- The zeros are genuine model output (each decision ~1.7–3k reasoning tokens, `finish_reason: stop`, bare JSON), not parsing defaults or transport failures.
+
+#### Interpretation and caveat
+- Mechanism is a zero-lock equilibrium seeded in round 1, not a blanket refusal: the 2026‑09‑08 cost pilot replayed archived GPT prompts that already carried cooperative history at the same high-reasoning profile and got non-zero sends (3.42, 5, 4, 2, 5). Myth exchange supplies the cooperative signal the game-only start lacks — consistent with the "founding myth" account of Myth→Game > Game→Myth.
+- Not yet verified: whether the round‑1 zero is specific to the high-reasoning profile. The earlier low-effort GPT negative-only outputs are not in this clone; compare round‑1 sends there before attributing the collapse to reasoning effort. GPT's game-only cells contribute no return-proportion data, so any cross-model comparison of returns in game-only conditions is Claude vs Gemini only.
+
+### 2026-09-10 — Result: negative-only cross-model reasoning rerun completes (270/270)
+
+**Time:** API phase 2026-09-09 11:45 → 2026-09-10 08:14 wall-clock (3 workers, two interruptions); engineering ~1 hour across the two resumes.
+
+#### Result
+- All 270 pinned runs finished and passed the runner's completion audit: 18 sets × 15 (3 models × 2 population sizes × 3 task orders × {base, random25, random50} × 5 replicates), 6,750 receiver decisions, 19,230 model interactions, no truncations. Analysis outputs in `docs/figures/negative_only_crossmodel_reasoning_rerun_20260909/` (return-proportion plots per population × task order, plus `run_manifest.csv`, `run_round_metrics.csv`, `round_summary.csv`, `receiver_decisions.csv`).
+- Standard-rate token cost from recorded usage: Claude Sonnet 4.5 **$118.37** (6,394 calls), GPT‑5 Nano **$15.36** (6,458), Gemini 3.7 Flash **$34.24** (6,378; output billed as answer + thinking tokens) — **$167.97** total, against the 2026‑09‑08 pilot's $177.94 projection. Excludes one discarded 8‑agent Claude run (below).
+- Wall-clock per set: ~25–35 min for Claude/Gemini, ~3 h for each GPT‑5 Nano two-task set (high reasoning, 128k cap). GPT was the batch's critical path: 4 of its 6 sets took >2.5 h each.
+
+#### Failure modes
+- One run discarded and resampled: `population_game_claude_n5_005` (8‑agent, defectors25). In round 10 a non-defector investor answered with a `return` key; the pinned retry policy `repeat_same_prompt_once` repeated the identical prompt and the model repeated the confusion. Two other 8‑agent Claude runs hit the same role confusion and recovered on retry; none in GPT or Gemini. The set-level runner exits non-zero on any failed job, so a supervisor loop relaunched `--resume` (one relaunch needed).
+- Two interruptions: a dropped network connection at 105/270 (15 in-flight GPT runs lost, resampled), and the resume-validator bug logged 2026‑09‑09 (fixed in `af3c9951`). Sets completed before that fix record `code_commit 893a9713`; later sets `af3c9951`.
+
+#### Scope
+- These are fresh stochastic samples under the September 8 request profiles, not replays; n=5 per cell. The role-confusion resample is a known source of selection in the 8‑agent Claude cells (1 of 90 runs). Raw outputs are local (`data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/`); HF auto-upload was disabled by the runner.
+
+### 2026-09-09 — Resume validator rejected every forced-defector run
+
+**Time:** ~0.3 hours engineering; the 270-run batch is still in progress.
+
+#### Blocker
+- The negative-only cross-model reasoning rerun (`negative_only_crossmodel_reasoning_rerun_20260909`) lost its network connection at 105/270 finals; all 15 in-flight GPT‑5 Nano myth→game runs errored and the runner exited. Relaunching with `--resume` then refused to start: `check_existing_final` rejected 70 of the 105 completed finals — exactly every `random25`/`random50` run, all three models, all task orders — as "Per-call request settings differ from the run condition".
+- Cause: `condition_from_run` exempted only `response_source == "scripted"` from the per-call settings check, but forced-defector decisions are tagged `forced_zero` / `random_defection_forced_zero` (`games/dyadic_pairing.py`) and receiver notices `deduction_notification` (`games/trust_game_noisy.py`). Those events never call a provider and carry no request settings. The runner's own end-of-run audit already skipped any source `!= "llm"`; the two checks disagreed, so an uninterrupted run would have failed at the final audit instead of ~8 hours earlier.
+
+#### Resolution
+- `af3c9951`: the condition check now skips every non-LLM source; a missing source still defaults to `llm` and is checked (existing tests pin this). Regression test added for the four scripted sources. 278 tests pass; all 105 finals validate. Run resumed at 17:04 from a clean worktree; the seven completed sets were recognised (`missing=0`) and no call was repeated.
+- The 30 `.checkpoint.json.error.json` files in the output tree (15 from the first resume, 15 from the disconnect) are leftovers, not failed finals; an earlier "zero errors" audit classified them as checkpoints.
+
+#### Caveat
+- Sets launched before the fix record `code_commit` `893a9713`; later sets record `af3c9951`. The rerun's audit and matrix validation do not compare commits across runs, but any future `output_provenance` document over these 270 runs must declare `implementation.code_commit` as an allowed difference.
+
+### 2026-09-09 — Result: GPT-5.5 gate rerun completes
+
+**Time:** API interaction phase 7.0 minutes; engineering time not tracked.
+
+#### Result
+- Re-ran all twelve historical gate cells (two paired replicates across population sizes 2/8 and three task orders) at clean code `a18821b3157149a52a4eaed9b471c3d73a9caba2`. All 12 final full-state JSONs and 1,000 model interactions completed; zero errors/truncations, both condition/completion audits passed. Estimated standard-rate token cost: **$15.071095**.
+- Native OpenAI `gpt-5.5-2026-04-23`, low reasoning, temperature/output cap omitted; original prompts, histories and paired seeds preserved. Original code/config references are recorded separately from the new provenance. Replaying the new responses through original commits `f53fa6d9`/`2ece1de6` reproduced all 1,000 per-agent request message arrays exactly, without paid calls.
+
+#### Launch blocker resolved
+- Fixed the three recovered legacy wrappers, added a pinned twelve-cell rerun command and frozen-condition audit, and removed environment dependence from guarded retry/reasoning settings. Historical configs/reports and the existing baseline bytes remain unchanged by the fix. PR #22 updated; 273 tests plus 50 subtests pass and CI is green. Real resume reports `PENDING=0` and makes no additional calls.
+
+#### Evidence and scope
+- Run receipt, final JSON hashes, stage metrics/audits and original-code replay evidence: `data/json/noise_experiments/gpt55_rerun_20260909/README.md` (local outputs, not uploaded). Rerun instructions: `docs/gpt55_gate_rerun.md`.
+- These are new stochastic outputs with n=2 per cell. Several cells are near the sending ceiling; passing the completion audit does not establish behavioral headroom or stable task-order effects.
+
 ### 2026-09-08 — Result: Reasoning pilot measures costs
 
 **Time:** approximately 0.4 hours, including API waits

@@ -14,7 +14,48 @@ from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from analyses._shared import configure_matplotlib
+from analyses._shared import configure_matplotlib, write_output_provenance
+
+# Condition fields that legitimately differ across the 3 × 2 × 3 × 3 × 5 matrix.
+# Anything else that differs must be declared through --comparison-spec.
+_MODEL_PROFILE = "Pinned per-model request profile (Claude thinking / GPT reasoning / Gemini thinking) is a design factor"
+_POPULATION = "Population size (2-agent dyad vs 8-agent rotating population) is a design factor"
+_TASK_ORDER = "Task order (game, game→myth, myth→game) is a design factor"
+_TREATMENT = "Forced-defection treatment (none, 25%, 50%) is a design factor"
+_REPLICATE = "Paired replicate identity and seeds vary by design"
+ALLOWED_DIFFERENCES = {
+    **{path: _MODEL_PROFILE for path in (
+        "llm.endpoint", "llm.model", "llm.provider", "llm.provider_model",
+        "llm.parameters.maxOutputTokens", "llm.parameters.max_completion_tokens",
+        "llm.parameters.max_tokens", "llm.parameters.reasoning_effort",
+        "llm.parameters.temperature", "llm.parameters.thinking", "llm.parameters.thinkingConfig",
+        "llm.policy.max_output_tokens", "llm.policy.provider", "llm.policy.temperature",
+        "llm.policy.reasoning.reasoning_effort", "llm.policy.reasoning.thinking",
+        "llm.policy.reasoning.thinkingConfig",
+    )},
+    **{path: _POPULATION for path in (
+        "protocol.simulation.num_agents", "protocol.simulation.memory_capacity",
+        "protocol.game.pairing_mode", "protocol.game.show_agent_names",
+        "protocol.game.history_policy", "protocol.game.self_history_window",
+        "protocol.game.coplayer_history_window", "protocol.game.later_investor_template",
+        "protocol.game.later_trustee_template",
+        *(f"protocol.game.personas.Agent_{index}" for index in range(3, 9)),
+    )},
+    **{path: _TASK_ORDER for path in (
+        "protocol.simulation.task_order", "protocol.myth.round1_template",
+        "protocol.myth.later_rounds_template",
+    )},
+    **{path: _TREATMENT for path in (
+        "protocol.game.defector_ratio", "protocol.game.defector_action_policy",
+        "protocol.game.defector_role_visible_to_self", "protocol.game.game_prompt_addition",
+        "protocol.game.random_defection_probability",
+    )},
+    **{path: _REPLICATE for path in (
+        "replicate.identity.experiment", "replicate.identity.output_path",
+        "replicate.identity.replicate_id", "replicate.run_seed", "replicate.noise_seed",
+        "replicate.pairing_seed", "replicate.defector_seed", "replicate.random_defection_seed",
+    )},
+}
 
 
 DEFAULT_INPUT = Path(
@@ -458,7 +499,15 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument(
+        "--comparison-spec",
+        type=Path,
+        help="JSON mapping of additional allowed differing condition fields to reasons",
+    )
     args = parser.parse_args()
+    allowed = dict(ALLOWED_DIFFERENCES)
+    if args.comparison_spec:
+        allowed.update(json.loads(args.comparison_spec.read_text(encoding="utf-8")))
 
     paths = final_json_paths(args.input)
     run_rows = []
@@ -485,6 +534,10 @@ def main() -> int:
         for condition in TASK_ORDER:
             for scope in scopes:
                 plot_scope(summary, num_agents, condition, scope, args.output)
+
+    # Checked input/condition manifest; the repository safeguard requires it
+    # for every committed output directory.
+    write_output_provenance(args.output, paths, allowed_differences=allowed)
 
     print(
         f"Audited {len(runs)} runs and {len(decision_frame)} receiver decisions. "
