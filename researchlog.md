@@ -1,3 +1,16 @@
+### 2026-09-10 — Result: GPT‑5 Nano game-only populations lock at zero; myth exchange breaks the lock
+
+**Time:** ~0.3 hours (analysis of the completed 2026‑09‑09 rerun; no API calls).
+
+#### Result
+- In the negative-only cross-model reasoning rerun, GPT‑5 Nano (reasoning high) opened round 1 with `{"send": 0}` in every game-only run — 5/5 replicates at both 2 and 8 agents, control treatment — and the population never recovered: zero-receipt rate 1.00 across all 10 rounds (`docs/figures/negative_only_crossmodel_reasoning_rerun_20260909/round_summary.csv`). Claude Sonnet 4.5 and Gemini 3.7 Flash: 0.00 in the same cells.
+- With a myth task in the sequence, GPT does send: mean zero-receipt rate 0.12 (game→myth) / 0.08 (myth→game) in dyads, 0.59 / 0.40 at 8 agents; GPT's return proportion on positive receipts is 0.31–0.33 vs Claude 0.41–0.50 and Gemini 0.45–0.47.
+- The zeros are genuine model output (each decision ~1.7–3k reasoning tokens, `finish_reason: stop`, bare JSON), not parsing defaults or transport failures.
+
+#### Interpretation and caveat
+- Mechanism is a zero-lock equilibrium seeded in round 1, not a blanket refusal: the 2026‑09‑08 cost pilot replayed archived GPT prompts that already carried cooperative history at the same high-reasoning profile and got non-zero sends (3.42, 5, 4, 2, 5). Myth exchange supplies the cooperative signal the game-only start lacks — consistent with the "founding myth" account of Myth→Game > Game→Myth.
+- Not yet verified: whether the round‑1 zero is specific to the high-reasoning profile. The earlier low-effort GPT negative-only outputs are not in this clone; compare round‑1 sends there before attributing the collapse to reasoning effort. GPT's game-only cells contribute no return-proportion data, so any cross-model comparison of returns in game-only conditions is Claude vs Gemini only.
+
 ### 2026-09-10 — Result: negative-only cross-model reasoning rerun completes (270/270)
 
 **Time:** API phase 2026-09-09 11:45 → 2026-09-10 08:14 wall-clock (3 workers, two interruptions); engineering ~1 hour across the two resumes.
