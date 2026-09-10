@@ -1,3 +1,19 @@
+### 2026-09-10 — Result: negative-only cross-model reasoning rerun completes (270/270)
+
+**Time:** API phase 2026-09-09 11:45 → 2026-09-10 08:14 wall-clock (3 workers, two interruptions); engineering ~1 hour across the two resumes.
+
+#### Result
+- All 270 pinned runs finished and passed the runner's completion audit: 18 sets × 15 (3 models × 2 population sizes × 3 task orders × {base, random25, random50} × 5 replicates), 6,750 receiver decisions, 19,230 model interactions, no truncations. Analysis outputs in `docs/figures/negative_only_crossmodel_reasoning_rerun_20260909/` (return-proportion plots per population × task order, plus `run_manifest.csv`, `run_round_metrics.csv`, `round_summary.csv`, `receiver_decisions.csv`).
+- Standard-rate token cost from recorded usage: Claude Sonnet 4.5 **$118.37** (6,394 calls), GPT‑5 Nano **$15.36** (6,458), Gemini 3.7 Flash **$34.24** (6,378; output billed as answer + thinking tokens) — **$167.97** total, against the 2026‑09‑08 pilot's $177.94 projection. Excludes one discarded 8‑agent Claude run (below).
+- Wall-clock per set: ~25–35 min for Claude/Gemini, ~3 h for each GPT‑5 Nano two-task set (high reasoning, 128k cap). GPT was the batch's critical path: 4 of its 6 sets took >2.5 h each.
+
+#### Failure modes
+- One run discarded and resampled: `population_game_claude_n5_005` (8‑agent, defectors25). In round 10 a non-defector investor answered with a `return` key; the pinned retry policy `repeat_same_prompt_once` repeated the identical prompt and the model repeated the confusion. Two other 8‑agent Claude runs hit the same role confusion and recovered on retry; none in GPT or Gemini. The set-level runner exits non-zero on any failed job, so a supervisor loop relaunched `--resume` (one relaunch needed).
+- Two interruptions: a dropped network connection at 105/270 (15 in-flight GPT runs lost, resampled), and the resume-validator bug logged 2026‑09‑09 (fixed in `af3c9951`). Sets completed before that fix record `code_commit 893a9713`; later sets `af3c9951`.
+
+#### Scope
+- These are fresh stochastic samples under the September 8 request profiles, not replays; n=5 per cell. The role-confusion resample is a known source of selection in the 8‑agent Claude cells (1 of 90 runs). Raw outputs are local (`data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/`); HF auto-upload was disabled by the runner.
+
 ### 2026-09-09 — Resume validator rejected every forced-defector run
 
 **Time:** ~0.3 hours engineering; the 270-run batch is still in progress.
