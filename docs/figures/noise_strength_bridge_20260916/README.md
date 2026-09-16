@@ -45,6 +45,7 @@ so this design cannot reveal a Gemini myth effect.
 - New-run successful-final cost: **$6.462147** at recorded standard token rates;
   failed-attempt cost was zero because no run failed or retried.
 - [Paired-effect plot](paired_myth_effect.png) (`PNG`, `SVG` and `PDF`).
+- [Resource boxplots](resource_boxplots.png) (`PNG`, `SVG` and `PDF`).
 - [Effect summary](effect_summary.csv), [paired replicate values](paired_effects.csv),
   [range contrasts](range_contrasts.csv) and [all run values](run_values.csv).
 - [Full recorded conditions, source hashes and output provenance](provenance.json).
