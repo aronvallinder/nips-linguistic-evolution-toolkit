@@ -1,4 +1,4 @@
-### 2026-09-16 — Result: Range-two noise restores Claude myth gap
+### 2026-09-16 — Result: Range-two bridge shows larger Claude gap
 
 **Time:** ~0.5 hours, including the paid batch and analysis.
 
@@ -11,9 +11,11 @@ the matched range-1 controls; paired effects were 17.00 (±7.50) and positive in
 
 #### Boundary and cost
 The paired range-2-minus-range-1 effect was 9.58 (±17.05), so n=5 does not
-establish a monotonic dose-response. All 20 finals passed profile, condition and
-completion audits without retries. Recorded successful-final cost: $6.462147.
-Report: `docs/figures/noise_strength_bridge_20260916/`.
+establish that changing the range caused the larger myth effect. The pattern is
+consistent with the noise-strength explanation, not proof of it. All 20 finals
+passed profile, condition and completion audits without retries. Recorded
+successful-final cost: $6.462147. Report:
+`docs/figures/noise_strength_bridge_20260916/`.
 
 ### 2026-09-16 — Result: Figure two extension completes
 
