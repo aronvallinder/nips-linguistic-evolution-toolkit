@@ -50,11 +50,11 @@ and [data audit](../research/mixed_future_data_audit.md).
   increases ordinary-agent resources for Claude and GPT in the checked setup;
   Gemini is already at the ceiling. With forced defection, differences shrink
   or become uncertain. See the [independently reproduced table](../research/mixed_future_data_audit.md#latest-figures-independently-reproduced).
-- In the current dyad protocol, Claude's range-2 informed noise bridge restored
-  the difference of medians to +20.0 from +3.5 at range 1; all five range-2
-  paired effects were positive. The five-replicate range contrast remains
-  exploratory and does not establish a monotonic dose-response. Gemini stayed
-  ceiling-locked at 75 throughout.
+- In the current dyad protocol, Claude's observed difference of medians was
+  +20.0 at range 2 versus +3.5 at range 1; all five range-2 paired effects were
+  positive. The pattern is consistent with a noise-strength explanation, but
+  the five-replicate direct range contrast is too uncertain to establish one.
+  Gemini stayed ceiling-locked at 75 throughout.
 - Historical myth-transplant results show that different injected texts can
   produce different behavior under an older apparatus. They do not yet prove
   emergent population culture in the current pipeline.

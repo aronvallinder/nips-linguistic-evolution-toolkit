@@ -48,7 +48,7 @@ BASE_GAME_PARAMS = {
     "dyad_game": "noisy2_crossmodel_negative_game_r3",
     "dyad_myth_game": "noisy2_crossmodel_negative_twotask_r3",
 }
-ESTIMATED_COST_USD = 7.65
+MAX_BATCH_ESTIMATED_COST_USD = 7.65
 RATES_PER_MILLION = {
     "anthropic": (3.0, 15.0),
     "google": (0.75, 3.75),
@@ -212,9 +212,10 @@ def main() -> int:
         "python scripts/run_noise_strength_bridge_20260916.py "
         f"--workers {args.workers} --execute"
     )
+    estimated_cost = MAX_BATCH_ESTIMATED_COST_USD * len(pending) / len(jobs)
     print(
         f"PREFLIGHT: MODEL={','.join(models)} N={len(pending)} WORKERS={args.workers} "
-        f"EST_COST=${ESTIMATED_COST_USD:.2f} CMD={command}",
+        f"EST_COST=${estimated_cost:.2f} CMD={command}",
         flush=True,
     )
 

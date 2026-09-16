@@ -11,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import statistics
+import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,6 +20,15 @@ import seaborn as sns
 
 ROOT = Path(__file__).resolve().parents[1]
 REFERENCE_ROOT = Path(os.environ.get("NLET_REFERENCE_ROOT", ROOT))
+sys.path.insert(0, str(ROOT))
+
+from src.experiment_condition import (  # noqa: E402
+    condition_from_run,
+    differences,
+    output_provenance,
+    read_final_run,
+)
+
 FIGURE2 = ROOT / "docs" / "figures" / "figure2_noise_comparison_20260916"
 BRIDGE = ROOT / "data" / "json" / "noise_experiments" / "noise_strength_bridge_20260916"
 DEFAULT_OUT = ROOT / "docs" / "figures" / "noise_strength_bridge_20260916"
@@ -221,9 +231,105 @@ def summarize_range_contrasts(paired_rows: list[dict]) -> list[dict]:
 
 def write_csv(path: Path, rows: list[dict]) -> None:
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
+
+
+def resolve_source(row: dict) -> Path:
+    relative = Path(row["source_path"])
+    for root in (ROOT, REFERENCE_ROOT):
+        candidate = root / relative
+        if candidate.is_file():
+            return candidate
+    raise FileNotFoundError(f"Cannot resolve source final: {relative}")
+
+
+def write_provenance(output: Path, rows: list[dict]) -> None:
+    source_paths = [resolve_source(row) for row in rows]
+    conditions = [condition_from_run(read_final_run(path)) for path in source_paths]
+    observed = set()
+    for condition in conditions[1:]:
+        observed.update(differences(conditions[0], condition))
+
+    previous = json.loads((FIGURE2 / "provenance.json").read_text(encoding="utf-8"))
+    allowed = {
+        key: reason
+        for key, reason in previous["allowed_differences"].items()
+        if any(path == key or path.startswith(key + ".") for path in observed)
+    }
+    allowed.update(
+        {
+            "protocol.game.noise_config": (
+                "Informed negative communication-noise range (none, 1, or 2) "
+                "is the bridge design factor."
+            ),
+            "protocol.simulation.memory_capacity": (
+                "The current protocol records its task-order-specific memory capacity; "
+                "game-only and myth-first are intentional comparison arms."
+            ),
+        }
+    )
+
+    implementation_variants = {}
+    for key in sorted(conditions[0]["implementation"]):
+        values = sorted({condition["implementation"].get(key) for condition in conditions})
+        if len(values) > 1:
+            implementation_variants[key] = values
+    expected_variants = {
+        key: values
+        for key, values in previous.get("implementation_differences", {}).items()
+        if key in implementation_variants
+    }
+    if implementation_variants != expected_variants:
+        raise RuntimeError(
+            "Recorded implementation differences exceed the reviewed validator/billing fixes"
+        )
+
+    outputs = sorted(
+        path for path in output.rglob("*")
+        if path.is_file() and path != output / "provenance.json"
+    )
+    document = output_provenance(
+        source_paths,
+        outputs,
+        allowed_differences=allowed,
+        output_root=output,
+    )
+    for run, row in zip(document["runs"], rows):
+        if run["sha256"] != row["sha256"]:
+            raise RuntimeError(f"Source hash mismatch: {row['source_path']}")
+        run["path"] = row["source_path"]
+    document.update(
+        comparison=(
+            "Current dyad protocol; game-only versus myth-first; informed negative "
+            "communication noise at ranges 1 and 2, plus the matched no-noise control."
+        ),
+        bootstrap="Exact paired empirical bootstrap over all 5^5 replicate resamples.",
+        implementation_differences=implementation_variants,
+        execution_commit={
+            "range_2": "25a2d26c02e2b4e46372bacf56b02df3e50a4c79",
+            "tree": "86dd809b7ca377763d594ae931e89eba4e8ff540",
+            "durable_tag": "noise-strength-bridge-execution-20260916",
+            "equivalent_pr_commit": "8b694c5a1e922587e18ee17c268bd2d99a93d461",
+        },
+        hugging_face={
+            "repo_id": "machine-cultural-evolution/nips-linguistic-evolution-runs",
+            "private": True,
+            "revision": "69964113834debf90da9f5b9ba5025806abbeab9",
+            "path": (
+                "uploaders/ivarfresh/data/json/noise_experiments/"
+                "noise_strength_bridge_20260916"
+            ),
+            "artifact_count": 80,
+            "final_count": 20,
+        },
+        script_sha256=sha256(Path(__file__)),
+    )
+    (output / "provenance.json").write_text(
+        json.dumps(document, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 def plot(paired_rows: list[dict], output: Path) -> None:
@@ -284,7 +390,14 @@ def plot(paired_rows: list[dict], output: Path) -> None:
     )
     figure.subplots_adjust(left=0.10, right=0.985, bottom=0.18, top=0.77, wspace=0.25)
     for suffix in ("png", "svg", "pdf"):
-        figure.savefig(output / f"paired_myth_effect.{suffix}", dpi=220, bbox_inches="tight")
+        path = output / f"paired_myth_effect.{suffix}"
+        figure.savefig(path, dpi=220, bbox_inches="tight")
+        if suffix == "svg":
+            lines = path.read_text(encoding="utf-8").splitlines()
+            path.write_text(
+                "\n".join(line.rstrip() for line in lines) + "\n",
+                encoding="utf-8",
+            )
     plt.close(figure)
 
 
@@ -313,25 +426,12 @@ def main() -> int:
     write_csv(args.out / "range_contrasts.csv", range_contrasts)
     plot(paired_rows, args.out)
 
-    source_records = [
-        {"path": row["source_path"], "sha256": row["sha256"]}
-        for row in rows
-    ]
-    provenance = {
-        "provenance_version": 1,
-        "n_runs": len(rows),
-        "sources": source_records,
-        "comparison": (
-            "Current dyad protocol; game-only versus myth-first; informed negative "
-            "communication noise at ranges 1 and 2, plus the matched no-noise control."
-        ),
-        "bootstrap": "Exact paired empirical bootstrap over all 5^5 replicate resamples.",
-        "script_sha256": sha256(Path(__file__)),
-    }
-    (args.out / "provenance.json").write_text(
-        json.dumps(provenance, indent=2) + "\n",
+    receipt = json.loads((BRIDGE / "completion_receipt.json").read_text(encoding="utf-8"))
+    (args.out / "completion_receipt.json").write_text(
+        json.dumps(receipt, indent=2) + "\n",
         encoding="utf-8",
     )
+    write_provenance(args.out, rows)
     print(f"Verified {len(rows)} finals; wrote {args.out}")
     return 0
 

@@ -24,10 +24,13 @@ Keep replacement versus additive perturbation, direction/magnitude, informed sta
 April29 accounting changes are scientifically material; they do not prove the exact fix intended in every March comment. May discussions sought comparable perturbation rather than model-specific replacement. August24 sets negative-only direction for its design. July double memory and August dyad-transfer repairs are separate boundaries. Old outputs are not migrated into a new treatment by changing current defaults.
 
 On September 16, the targeted current-protocol range-2 bridge changed only the
-informed communication-noise range relative to the range-1 controls. Claude's
+scientific protocol factor of interest—its informed communication-noise
+range—relative to the range-1 controls; recorded implementation hashes also
+reflect non-semantic validator and billing-retry fixes. Claude's observed
 difference of medians was +20.0 at range 2 versus +3.5 at range 1, with all five
-range-2 paired effects positive. Gemini remained at the 75-resource ceiling in
-all arms. This is a completed exploratory result, not a new default magnitude.
+range-2 paired effects positive. The direct range contrast remains too uncertain
+to establish a range effect. Gemini remained at the 75-resource ceiling in all
+arms. This is a completed exploratory result, not a new default magnitude.
 
 ## Unresolved / next evidence
 

@@ -5233,7 +5233,8 @@ experiment_sets:
     llm_settings: *september8_gemini
 
   # 2026-09-16 targeted bridge between the historical U(-2, 0) result and the
-  # corrected September pipeline. The runner proves that only noise range changes.
+  # corrected September pipeline. The runner fixes the planned scientific inputs;
+  # output provenance compares the actual recorded conditions across executions.
   noise_strength_bridge_dyad_game_claude_n5: &noise_strength_bridge_dyad_game
     models: ["claude_sonnet_45"]
     templates: ["trust_game_default"]
