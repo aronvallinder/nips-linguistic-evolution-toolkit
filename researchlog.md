@@ -1,3 +1,22 @@
+### 2026-09-16 — Result: Range-two bridge shows larger Claude gap
+
+**Time:** ~0.5 hours, including the paid batch and analysis.
+
+#### Result
+Twenty current-protocol dyads completed: Claude Sonnet 4.5 and Gemini 3.7 Flash,
+each with five paired game-only/myth-first replicates under informed `U(-2, 0)`
+communication noise. Claude's difference of medians was +20.0, versus +3.5 in
+the matched range-1 controls; paired effects were 17.00 (±7.50) and positive in
+5/5 range-2 blocks. Gemini remained ceiling-locked at 75 in all ten new runs.
+
+#### Boundary and cost
+The paired range-2-minus-range-1 effect was 9.58 (±17.05), so n=5 does not
+establish that changing the range caused the larger myth effect. The pattern is
+consistent with the noise-strength explanation, not proof of it. All 20 finals
+passed profile, condition and completion audits without retries. Recorded
+successful-final cost: $6.462147. Report:
+`docs/figures/noise_strength_bridge_20260916/`.
+
 ### 2026-09-16 — Result: Figure two extension completes
 
 **Time:** not tracked; batch started September 15 and completed September 16.
