@@ -938,6 +938,27 @@ game_params:
     paired_protocol_seeds: true
     protocol_seed_base: 202608250
 
+  # 2026-09-16 noise-strength bridge: preserve the corrected September dyad
+  # protocol and change only the informed communication-noise range to U(-2, 0).
+  noisy2_crossmodel_negative2_game_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 2.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    pairing_mode: "fixed"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+
   noisy2_crossmodel_negative_random25_game_r3:
     endowment: 5
     multiplier: 3
@@ -991,6 +1012,25 @@ game_params:
     noise_config:
       type: "uniform"
       range: 1.0
+      direction: "negative"
+      applies_to: "both"
+      inform_agents: true
+    other_player_names: "default"
+    pairing_mode: "fixed"
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+
+  noisy2_crossmodel_negative2_twotask_r3:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: "memory_primary"
+    noise_config:
+      type: "uniform"
+      range: 2.0
       direction: "negative"
       applies_to: "both"
       inform_agents: true
@@ -5189,6 +5229,47 @@ experiment_sets:
 
   negative_only_reasoning_rerun_dyad_myth_game_gemini_n5:
     <<: *reasoning_rerun_dyad_myth_game
+    models: ["gemini_3_7_flash"]
+    llm_settings: *september8_gemini
+
+  # 2026-09-16 targeted bridge between the historical U(-2, 0) result and the
+  # corrected September pipeline. The runner proves that only noise range changes.
+  noise_strength_bridge_dyad_game_claude_n5: &noise_strength_bridge_dyad_game
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative2_game_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings: *september8_claude
+
+  noise_strength_bridge_dyad_game_gemini_n5:
+    <<: *noise_strength_bridge_dyad_game
+    models: ["gemini_3_7_flash"]
+    llm_settings: *september8_gemini
+
+  noise_strength_bridge_dyad_myth_game_claude_n5: &noise_strength_bridge_dyad_myth_game
+    models: ["claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative2_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings: *september8_claude
+
+  noise_strength_bridge_dyad_myth_game_gemini_n5:
+    <<: *noise_strength_bridge_dyad_myth_game
     models: ["gemini_3_7_flash"]
     llm_settings: *september8_gemini
 
