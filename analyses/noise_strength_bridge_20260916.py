@@ -48,6 +48,15 @@ TASK_DOT_COLORS = {"game": "#777777", "myth_game": "#4d9f89"}
 BOOTSTRAP_INDICES = np.array(list(itertools.product(range(5), repeat=5)))
 
 
+def save_figure(figure, path: Path) -> None:
+    """Keep vector metadata and element IDs stable for reproducible hashes."""
+    metadata = {"Date": None} if path.suffix == ".svg" else (
+        {"CreationDate": None, "ModDate": None} if path.suffix == ".pdf" else {}
+    )
+    with plt.rc_context({"svg.hashsalt": "noise-strength-bridge-20260916"}):
+        figure.savefig(path, dpi=220, bbox_inches="tight", metadata=metadata)
+
+
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -395,7 +404,7 @@ def plot(paired_rows: list[dict], output: Path) -> None:
     figure.subplots_adjust(left=0.10, right=0.985, bottom=0.18, top=0.77, wspace=0.25)
     for suffix in ("png", "svg", "pdf"):
         path = output / f"paired_myth_effect.{suffix}"
-        figure.savefig(path, dpi=220, bbox_inches="tight")
+        save_figure(figure, path)
         if suffix == "svg":
             lines = path.read_text(encoding="utf-8").splitlines()
             path.write_text(
@@ -495,7 +504,7 @@ def resource_boxplot(rows: list[dict], output: Path) -> None:
     figure.subplots_adjust(left=0.10, right=0.985, bottom=0.20, top=0.78, wspace=0.25)
     for suffix in ("png", "svg", "pdf"):
         path = output / f"resource_boxplots.{suffix}"
-        figure.savefig(path, dpi=220, bbox_inches="tight")
+        save_figure(figure, path)
         if suffix == "svg":
             lines = path.read_text(encoding="utf-8").splitlines()
             path.write_text(
