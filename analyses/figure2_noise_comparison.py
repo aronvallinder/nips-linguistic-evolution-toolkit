@@ -12,7 +12,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from src.experiment_condition import read_final_run, condition_from_run
+from src.experiment_condition import read_final_run, condition_from_run, output_provenance
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -65,6 +65,33 @@ def inputs():
     varied={k:sorted(v) for k,v in implementations.items() if len(v)>1}
     assert set(varied)<= {'src/utils.py','src/experiment_condition.py'},varied
     return rows,sources,varied
+
+def write_provenance(out, sources, varied):
+    previous = json.loads((ROOT / 'docs/figures/negative_only_crossmodel_reasoning_rerun_20260909_resources_boxplots/provenance.json').read_text())
+    allowed = {key: reason for key, reason in previous['allowed_differences'].items()
+               if not reason.startswith('Forced-defection treatment')}
+    allowed.update({
+        'protocol.game.game_prompt_addition': 'Myth task orders instruct agents to take myths into account; game-only runs omit that instruction.',
+        'protocol.game.noise_config': 'Noise regime (none, uninformed, informed) is a design factor; matched comparison inputs differ only in noise_config.',
+        'implementation.src/utils.py': 'Provider billing-retry fix stops retries on exhausted credits; completed-run requests, prompts, and simulation behavior are unchanged.',
+    })
+    outputs = sorted(path for path in out.rglob('*')
+                     if path.is_file() and path != out / 'provenance.json')
+    document = output_provenance(
+        [ROOT / source['path'] for source in sources], outputs,
+        allowed_differences=allowed, output_root=out,
+    )
+    for run, source in zip(document['runs'], sources):
+        assert run['sha256'] == source['sha256'], source['path']
+        run.update(source)
+    document.update(
+        implementation_differences=varied,
+        comparison='Within each model/population/order/replicate only noise_config differs in comparison_inputs',
+        bootstrap='Exact enumeration of 3125 paired five-run resamples; percentile 95% intervals; descriptive, unadjusted',
+        script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+    )
+    (out / 'provenance.json').write_text(json.dumps(document, indent=2) + '\n')
+
 
 def style(ax):
     ax.set_axisbelow(True);ax.grid(axis='y',alpha=.22);ax.spines[['top','right']].set_visible(False)
@@ -190,7 +217,6 @@ def main():
         fig.text(.5,.015,'Round 10 · n = 5 runs per condition · Bars = difference of medians\nWhiskers = exploratory 95% paired-bootstrap intervals (not adjusted for multiple comparisons)',ha='center',fontsize=10,color='#444444')
         fig.tight_layout(rect=(0,.065,1,.93));save(fig,a.out,f'myth_effect_deltas_{n}agent')
     write_csv(a.out/'run_values.csv',rows);write_csv(a.out/'myth_effect_deltas.csv',effects)
-    (a.out/'provenance.json').write_text(json.dumps(dict(n_runs=len(rows),runs=sources,implementation_differences=varied,comparison='Within each model/population/order/replicate only noise_config differs in comparison_inputs',bootstrap='Exact enumeration of 3125 paired five-run resamples; percentile 95% intervals; descriptive, unadjusted',script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()),indent=2)+'\n')
     (a.out/'README.md').write_text('''# Figure 2 noise comparisons
 
 All 270 source hashes and final states verified. No defector conditions.
@@ -215,5 +241,6 @@ Successful finals only are plotted. See researchlog 2026-09-16 for the run histo
 
 PNG, SVG and PDF versions are supplied with source values and median deltas.
 ''')
+    write_provenance(a.out, sources, varied)
     print(f'Verified {len(rows)} finals, {len(cells)} cells, {len(effects)} effects. Output: {a.out}')
 if __name__=='__main__':main()
