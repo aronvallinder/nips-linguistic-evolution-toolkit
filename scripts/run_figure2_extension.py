@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.run_noisy_missing import load_combinations, expected_output_path, check_existing_final, run_missing_job
 from scripts.rerun_negative_only_crossmodel import EXPECTED_POLICIES, TRUNCATION_REASONS
 from experiments.run_noisy_batch import build_noisy_protocol
+from src.utils import is_exhausted_quota
 CONFIG = ROOT / 'config/figure2_no_defectors_20260915.yaml'
 OUTPUT = 'figure2_no_defectors_20260915'
 SHAPES = ('dyad_game', 'dyad_game_myth', 'dyad_myth_game', 'population_game', 'population_game_myth', 'population_myth_game')
@@ -90,19 +91,27 @@ def main():
     elif not args.execute: return
     if args.execute:
         assert not subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip(), 'Clean checkout required'
-        print(f'PREFLIGHT: MODEL=claude-sonnet-4.5(thinking8192),gpt-5-nano(high),gemini-3.7-flash(high) N={len(pending)} WORKERS={args.workers} EST_COST=$160 CMD=python scripts/run_figure2_extension.py --workers {args.workers} --execute',flush=True)
+        print(f'CONTINUATION: MODEL={sorted({j[2]["model"] for j in pending})} PENDING={len(pending)} WORKERS={args.workers} EST_COST_WITHIN_APPROVED_BUDGET=$160',flush=True)
         os.environ['HF_DATASET_AUTO_UPLOAD']='0';os.environ['TRUST_BATCH_QUIET']='1'
         logdir=str(ROOT/'data/json/noise_experiments'/OUTPUT/'worker_logs')
         workers=args.workers
         for attempt in range(1,11):
             if not pending:break
             failed=[]
+            quota_exhausted=False
             with ProcessPoolExecutor(max_workers=workers) as pool:
                 futures={pool.submit(run_missing_job,j[2],j[0],j[1],OUTPUT,logdir):j for j in pending}
                 for f in as_completed(futures):
                     j=futures[f]
+                    if f.cancelled():
+                        failed.append(j)
+                        continue
                     try:
                         result=f.result()
+                        if not result.get('success') and is_exhausted_quota(result.get('error','')):
+                            quota_exhausted=True
+                            for queued in futures: queued.cancel()
+                            print('BILLING EXHAUSTED: canceling queued jobs; no further retry passes',flush=True)
                         if not result.get('success'): raise RuntimeError(f"Worker failed; inspect {result.get('worker_log')}")
                         receipt=audit(j);receipts.append(receipt)
                         print(f'COMPLETE {len(receipts)}/180 {j[0]} index={j[1]} cost=${receipt["standard_rate_usd"]:.3f}',flush=True)
@@ -111,6 +120,8 @@ def main():
                         # Never silently resample a final that fails scientific validation.
                         if j[3].exists():raise
                         failed.append(j)
+            if quota_exhausted:
+                raise RuntimeError("Provider credits exhausted; top up before resuming. Completed finals preserved.")
             pending=failed
             if pending:
                 if attempt==10:raise RuntimeError(f'{len(pending)} runs failed after ten attempts')

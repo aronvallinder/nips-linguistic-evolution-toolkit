@@ -358,6 +358,14 @@ def _gemini_messages(messages):
     return system_instruction, contents
 
 
+def is_exhausted_quota(error):
+    """Billing exhaustion cannot recover through throttling or retries."""
+    text = str(error).lower()
+    return any(code in text for code in (
+        "credit_balance_exhausted", "insufficient_quota", "no credits remaining",
+    ))
+
+
 def call_llm(client, model, temperature, messages, max_retries=3, reasoning_effort="medium"):
     """
     Call LLM with retry logic and provider-specific message adaptation.
@@ -548,6 +556,8 @@ def _call_openai_compatible(
             }
 
         except RateLimitError as e:
+            if is_exhausted_quota(e):
+                raise
             wait_time = (2 ** attempt) + random.uniform(0, 1)
             if attempt < max_retries - 1:
                 print(f"⚠️  Rate limit hit. Waiting {wait_time:.2f}s before retry {attempt + 1}/{max_retries}...")
