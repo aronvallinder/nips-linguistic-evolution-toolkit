@@ -8953,14 +8953,17 @@
     "replicate.run_seed"
   ],
   "outputs": {
-    "README.md": "9a6a5ef550706340d1807914a9a4aea6405b14ceb24672c53ba33a86bc531602",
+    "README.md": "dc3c5bcb8b00814fc2deb8a10aad9b27aa0aa59375a5eb2d7235fc77bfbe1002",
     "completion_receipt.json": "03a246314517ac50f80723a7eb6574abf80ed8abfb84e0fd7f60d991aa460492",
     "effect_summary.csv": "9801f8f674b4b30dd826ca42a5959aa62f929a9861248dce3ae7c19e9e89b9f4",
     "paired_effects.csv": "e9b6078eddef9f414098837c6291dab5b759293ef2d95c75d66e6fbc38493871",
-    "paired_myth_effect.pdf": "571eb2eeeb7797dfe073ca81c5d61107f4fce99511848a130f1fdb06dcf1a4cc",
+    "paired_myth_effect.pdf": "6c85bed6f6a793239841487ec373e1a017545c864a8ab006c4faa3b3daf8ca53",
     "paired_myth_effect.png": "5de13d7b6714f339b51c8a7079bd317a1fd6bf1243840eee4d0b210c32f7fbad",
-    "paired_myth_effect.svg": "c3e8d6682e82063a5d3e41b8df53cdb9e75ff0976f9b617c70472f12645316b2",
+    "paired_myth_effect.svg": "6e886119456bd305578eb551cdbc0c6148019416aba8449750af799feccf68bb",
     "range_contrasts.csv": "2e318b13d790cd9908d617def8808cb6e67f49568a28e054adf6e2984181c561",
+    "resource_boxplots.pdf": "af7d0dbc1bde046298ee438df030dd1be6f1bfdb69993c4a66b23640b840ae51",
+    "resource_boxplots.png": "2edbb96df96b8eb008e57222fe88faa387a60c3684e292590e618c86b095eb41",
+    "resource_boxplots.svg": "bafa739649912c1a43218a3c3287bdabf00be597608bc7efd609e3ac67a42a29",
     "run_values.csv": "8f4967858159666b9b9a9436234cae7b921926ab5be784a240a851e4c1ff0428"
   },
   "comparison": "Current dyad protocol; game-only versus myth-first; informed negative communication noise at ranges 1 and 2, plus the matched no-noise control.",
@@ -8989,5 +8992,5 @@
     "artifact_count": 80,
     "final_count": 20
   },
-  "script_sha256": "3a15f6c6125da95f07863d82e9e9aca4f4384e6bdff772dea0ce57da9b1f9738"
+  "script_sha256": "e104475b92525f7043b18dd1a9823856e4abc1836c88754b09aff0f3c2ab647c"
 }

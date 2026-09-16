@@ -14,6 +14,7 @@ import statistics
 import sys
 
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 import numpy as np
 import seaborn as sns
 
@@ -41,7 +42,19 @@ LABELS = {
     "google/gemini-3.7-flash": "Gemini 3.7 Flash",
 }
 NOISE_LABELS = {0: "No noise", 1: "U(−1, 0)", 2: "U(−2, 0)"}
+TASK_LABELS = {"game": "Game only", "myth_game": "Myth → Game"}
+TASK_COLORS = {"game": "#999999", "myth_game": "#72b6a1"}
+TASK_DOT_COLORS = {"game": "#777777", "myth_game": "#4d9f89"}
 BOOTSTRAP_INDICES = np.array(list(itertools.product(range(5), repeat=5)))
+
+
+def save_figure(figure, path: Path) -> None:
+    """Keep vector metadata and element IDs stable for reproducible hashes."""
+    metadata = {"Date": None} if path.suffix == ".svg" else (
+        {"CreationDate": None, "ModDate": None} if path.suffix == ".pdf" else {}
+    )
+    with plt.rc_context({"svg.hashsalt": "noise-strength-bridge-20260916"}):
+        figure.savefig(path, dpi=220, bbox_inches="tight", metadata=metadata)
 
 
 def sha256(path: Path) -> str:
@@ -391,7 +404,107 @@ def plot(paired_rows: list[dict], output: Path) -> None:
     figure.subplots_adjust(left=0.10, right=0.985, bottom=0.18, top=0.77, wspace=0.25)
     for suffix in ("png", "svg", "pdf"):
         path = output / f"paired_myth_effect.{suffix}"
-        figure.savefig(path, dpi=220, bbox_inches="tight")
+        save_figure(figure, path)
+        if suffix == "svg":
+            lines = path.read_text(encoding="utf-8").splitlines()
+            path.write_text(
+                "\n".join(line.rstrip() for line in lines) + "\n",
+                encoding="utf-8",
+            )
+    plt.close(figure)
+
+
+def resource_boxplot(rows: list[dict], output: Path) -> None:
+    """Show the underlying game-only and myth-first resource distributions."""
+    sns.set_theme(style="whitegrid", context="notebook")
+    figure, axes = plt.subplots(1, 2, figsize=(10.8, 4.9), sharey=True)
+    task_orders = ("game", "myth_game")
+    offsets = {"game": -0.18, "myth_game": 0.18}
+    for axis, model in zip(axes, MODELS):
+        for noise_range in (0, 1, 2):
+            for task_order in task_orders:
+                values = np.array(
+                    [
+                        row["resources"]
+                        for row in rows
+                        if row["model"] == model
+                        and row["noise_range"] == noise_range
+                        and row["task_order"] == task_order
+                    ]
+                )
+                if len(values) != 5:
+                    raise RuntimeError(
+                        f"Expected five {model}/{noise_range}/{task_order} observations"
+                    )
+                position = noise_range + offsets[task_order]
+                axis.boxplot(
+                    values,
+                    positions=[position],
+                    widths=0.28,
+                    patch_artist=True,
+                    showfliers=False,
+                    whis=1.5,
+                    boxprops={
+                        "facecolor": TASK_COLORS[task_order],
+                        "edgecolor": "#666666",
+                    },
+                    medianprops={"color": "#222222", "linewidth": 1.6},
+                    whiskerprops={"color": "#666666"},
+                    capprops={"color": "#666666"},
+                )
+                axis.scatter(
+                    position + np.linspace(-0.055, 0.055, 5),
+                    values,
+                    s=30,
+                    color=TASK_DOT_COLORS[task_order],
+                    edgecolors="white",
+                    linewidths=0.6,
+                    zorder=3,
+                )
+        axis.set_title(LABELS[model], fontsize=13, fontweight="semibold")
+        axis.set_xticks((0, 1, 2), [NOISE_LABELS[value] for value in (0, 1, 2)])
+        axis.set_xlabel("Informed negative communication noise")
+        axis.set_xlim(-0.55, 2.55)
+        axis.set_ylim(0, 80)
+        axis.spines[["top", "right"]].set_visible(False)
+    axes[0].set_ylabel("Cumulative resources per agent")
+    axes[0].legend(
+        handles=[
+            Patch(
+                facecolor=TASK_COLORS[task_order],
+                edgecolor="#666666",
+                label=TASK_LABELS[task_order],
+            )
+            for task_order in task_orders
+        ],
+        frameon=False,
+        loc="lower left",
+    )
+    figure.suptitle(
+        "Final resources across noise strength",
+        fontsize=17,
+        fontweight="semibold",
+        y=0.98,
+    )
+    figure.text(
+        0.5,
+        0.91,
+        "Current dyad protocol · 5 runs per box · Round 10",
+        ha="center",
+        color="#666666",
+    )
+    figure.text(
+        0.5,
+        0.025,
+        "Box = middle 50% · Line = median · Each dot = one run",
+        ha="center",
+        fontsize=9,
+        color="#555555",
+    )
+    figure.subplots_adjust(left=0.10, right=0.985, bottom=0.20, top=0.78, wspace=0.25)
+    for suffix in ("png", "svg", "pdf"):
+        path = output / f"resource_boxplots.{suffix}"
+        save_figure(figure, path)
         if suffix == "svg":
             lines = path.read_text(encoding="utf-8").splitlines()
             path.write_text(
@@ -425,6 +538,7 @@ def main() -> int:
     write_csv(args.out / "effect_summary.csv", summaries)
     write_csv(args.out / "range_contrasts.csv", range_contrasts)
     plot(paired_rows, args.out)
+    resource_boxplot(rows, args.out)
 
     receipt = json.loads((BRIDGE / "completion_receipt.json").read_text(encoding="utf-8"))
     (args.out / "completion_receipt.json").write_text(

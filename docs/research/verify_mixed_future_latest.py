@@ -13,6 +13,8 @@ for r in rows:
   k=(r['model'],r['defection']);rep=m['replicate_id'];group.setdefault(k,{}).setdefault(r['task_order'],{})[rep]=val
   seed=tuple(json.dumps(m.get(x),sort_keys=True) for x in ['pairing_seed','noise_seed','defector_seed','defector_agent_ids']);seeds.setdefault((k,rep),set()).add(seed)
 print('verified',len(loaded),'unique finals;',len(rows),'values;',len(mismatches),'mismatches; seed discordance',sum(len(v)>1 for v in seeds.values()))
+if mismatches or any(len(v)>1 for v in seeds.values()):
+ raise RuntimeError('Source values or paired seeds disagree; refusing to overwrite result tables')
 lines=['| Model | Defectors | Game only | Game → Myth | Myth → Game | Paired Myth → Game minus Game (95% t CI) |','|---|---|---|---|---|---|']; records=[]
 for k,g in sorted(group.items()):
  vals=[list(g[x].values()) for x in ['game','game_myth','myth_game']];diff=[g['myth_game'][i]-g['game'][i] for i in sorted(g['game'])];mu=statistics.mean(diff);sd=statistics.stdev(diff); margin=2.776445105*sd/math.sqrt(5)

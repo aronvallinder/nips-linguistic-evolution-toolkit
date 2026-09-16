@@ -37,8 +37,7 @@ The approved matrix is three models × two populations × two new noise conditio
 and per-population memory/history settings. All 180 completed; 90 existing
 informed-noise controls supply the third noise condition.
 
-Evidence: [completion receipt](../../../data/json/noise_experiments/figure2_no_defectors_20260915/completion_receipt.json),
-[270-source figure manifest](../../figures/figure2_noise_comparison_20260916/provenance.json),
+Evidence: [270-source figure manifest](../../figures/figure2_noise_comparison_20260916/provenance.json),
 and [run history](../../../researchlog.md). Successful-final standard-rate cost
 was $128.18926695, excluding failed attempts. Two Claude runs were resampled after
 role-key failures; 24 GPT runs were rerun after exhausted credits and a billing-retry
