@@ -1,3 +1,65 @@
+### 2026-09-16 — Result: Figure two extension completes
+
+**Time:** not tracked; batch started September 15 and completed September 16.
+
+#### Result
+All 180 no-defector extension runs completed and passed the launcher's final-state,
+request-profile and completion audit: three models × two population sizes ×
+no-noise/uninformed negative-only noise × three task orders × five replicates.
+September profiles and per-population history settings were preserved; only noise
+configuration changed. The 90 existing informed-noise controls remain unchanged.
+
+#### Cost and failures
+Recorded standard-rate token cost for successful finals: **$128.18926695**;
+excludes discarded/failed attempts and is not an invoice total. Claude and Gemini
+completed 60 each; OpenAI credits exhausted at 36/60. The supervisor needlessly
+retried the same 24 missing GPT jobs ten times. After top-up, they completed.
+Two Claude population myth-first runs failed with a return key in a sender
+response and were resampled successfully; disclose this selection in analysis.
+
+#### Evidence
+Final hashes and usage: `data/json/noise_experiments/figure2_no_defectors_20260915/completion_receipt.json`.
+Isolated branch `run/figure2-no-defectors-20260915`: initial launch `7fad4313`,
+billing-retry fix/resume `f38ab438`. The fix changes error handling, not prompts.
+Figure 2 combining the 180 new and 90 existing controls has not yet been generated.
+
+### 2026-09-15 — Project decisions become agent-maintained
+
+**Time:** not tracked; documentation and provenance work only.
+
+#### What changed
+
+`docs/project-memory/` is now the repository source of truth for current
+research state and individual design decisions. Codex and Claude must read it
+at session start and update it automatically when a durable decision, semantic
+change, invalidating bug, completed result, or primary source appears.
+
+#### Boundaries
+
+Nine initial decision records separate authority, rationale, scope,
+implementation evidence, supersession, and open questions. The 180-run proposal
+remains on hold. No experiment settings changed and no runs launched.
+
+#### Evidence
+
+See `docs/project-memory/README.md`, `WORKFLOW.md`, and `CURRENT.md`. The validator
+passes all indexed decisions and local links. Legacy Claude memories remain
+search aids; slide comments, meeting transcripts, code/configuration, and final
+run metadata remain the evidence sources.
+
+### 2026-09-14 — Result: review prioritizes cultural mechanisms
+
+**Time:** not tracked; offline audit and literature review only.
+
+#### Result
+Comprehensive local JSON census covered 35,852 paths and 132 experiment families; 6,078 distinct final-shaped file hashes are not independent validated replicates. Reproduced all 405 plotted observations from 270 latest source finals. The latest myth-first effects are model-dependent, with substantial GPT/Claude no-defector gains and a saturated Gemini baseline.
+
+#### Recommended direction
+The review ranks causal content/reflection controls, archive inheritance through agent replacement, exploitation/recovery, held-out game transfer, and mixed-model coordination. A generic 270-run mixed-model sweep was considered and deprioritized because it would add descriptive coverage before identifying the mechanism. These are recommendations, not an approved experimental programme; no simulations or paid calls ran.
+
+#### Evidence
+[Full report](docs/research/next_cooperation_experiments.md) links the reproducible census, family audit, current-run verification, and 22-primary-source literature review. Independent design/citation review clarified narrative/content confounds, archive-reset timing and donor-level replication. All-agent resources algebraically cancel returns, so follow-ups should preserve resources while measuring reciprocity and exploitation separately.
+
 ### 2026-09-10 — Result: GPT‑5 Nano game-only populations lock at zero; myth exchange breaks the lock
 
 **Time:** ~0.3 hours (analysis of the completed 2026‑09‑09 rerun; no API calls).
