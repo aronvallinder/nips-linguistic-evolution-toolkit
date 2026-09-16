@@ -2,6 +2,15 @@
 
 This repository runs configuration-driven behavioral experiments with LLM agents. Preserve reproducibility, compatibility, and the distinction between experimental conditions when changing code or configuration.
 
+## Project memory — required every session
+
+At the start of every session, read `docs/project-memory/README.md` and
+`docs/project-memory/CURRENT.md` before substantive work. Follow
+`docs/project-memory/WORKFLOW.md` throughout the session. Codex maintains the
+decision records automatically when the workflow's durable-event triggers
+occur; the user is not expected to maintain them. Do not create a routine entry
+when no durable event occurred.
+
 ## Code Review Rules
 
 ### Experimental semantics and provenance
