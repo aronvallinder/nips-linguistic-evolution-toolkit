@@ -1,3 +1,139 @@
+### 2026-09-17 — Mixed games require cross-family encounters
+
+**Time:** not tracked; design decision and cost estimate only.
+
+Ivar selected cross-family-only game pairing for the mixed-model experiment:
+Sonnet/GPT and Sonnet/Gemini, with opposite-family partner rotation at eight
+agents. The 60-run planning design has five replicates per composition/task
+order/size. Applying half of each homogeneous model's measured September
+token cost gives about $56 base, $67 with 20% allowance; quote $70 API budget.
+This extrapolation assumes the existing informed-noise profiles and does not
+measure mixed-run token use. No paid runs launched. See D010.
+
+### 2026-09-17 — Result: Seed ladder persists in dyads
+
+**Time:** not tracked; 35 runs completed with 20 workers.
+
+#### Result
+
+All two-agent counterpart finals passed condition and completion validation; no
+error snapshots remain. Joint resources: late Sonnet 140.20 (±13.86), Gemini
+112.02 (±6.56), early Sonnet 110.80 (±10.12), GPT 100.36 (±8.53), filler 91.40
+(±3.80), no inherited text 90.00 (±4.74), and low-cooperation myth 83.90
+(±21.20). The dyad ceiling is $150; n=5 per cell.
+
+#### Meaning and boundary
+
+The qualitative eight-agent seed ladder largely persists in one fixed dyad.
+This shows the historical Phase-1 content null does not generalize to the current
+repeated-seed/no-history apparatus, but does not identify which old protocol
+difference caused the reversal. Donor and stochastic run variation remain combined.
+
+#### Evidence and cost
+
+The completion receipt hashes all 35 finals and records $8.486859 at standard
+token rates, excluding possible transport retries. See
+`docs/research/slide678_dyad_rerun_2026-09-17.md` and its figure directory.
+
+### 2026-09-17 — Dyad transplant counterpart starts
+
+**Time:** not tracked; 35-run batch launched with 20 workers.
+
+Ivar authorized the exact two-agent counterpart of the completed slide-678
+rerun: same seven donor contexts, five replicates, ten game-only rounds,
+myth-only repeated injection, negative-$5 communication noise, and pinned Sonnet
+host profile. Only population structure changes: one fixed dyad replaces eight
+agents in rotating dyads. The frozen plan contains 700 calls; preflight estimate
+is $10. This is not the historical M1/M2 memory factorial. No result yet; see
+`docs/research/slide678_dyad_rerun_2026-09-17.md`.
+
+### 2026-09-17 — Result: Transplant seed ladder replicates
+
+**Time:** not tracked; run completed September 16 and was verified September 17.
+
+#### Result
+
+All 35 slide-678 transplant reruns passed full-state and condition validation
+(seven contexts × five donor/run replicates; no error snapshots). Final joint
+resources: late Sonnet 600.0 (±0.00), late Gemini 573.8 (±48.98), early Sonnet
+540.0 (±37.47), late GPT 455.4 (±32.07), filler 440.2 (±7.09), no inherited
+text 424.6 (±2.07), and low-cooperation myth 384.0 (±87.12).
+
+#### Boundaries
+
+This reproduces the qualitative historical ladder under pinned September Sonnet
+settings and the historical myth-only/negative-$5 apparatus. It is descriptive
+at n=5: donor content and run variation are combined, and narrative form versus
+actionable information remains unresolved. Linguistic analysis still precedes
+content removal.
+
+#### Evidence and cost
+
+The completion receipt hashes every retained final and records $27.502824 at
+standard token rates. That excludes deliberately discarded partial attempts and
+possible transport retries, so it is not the invoice total. See
+`docs/research/slide678_rerun_2026-09-16.md`.
+
+### 2026-09-16 — Heterogeneous interactions define mixed experiments
+
+**Time:** not tracked; scope correction only.
+
+Ivar rejected homogeneous dyad runs: the intended pairs are GPT/Claude and
+Claude/Gemini, matching the two selected 4+4 population mixtures. Earlier
+assistant matrices incorrectly treated homogeneous controls as agreed scope.
+Five total replicates per composition/task order would give 60 runs across
+both sizes; that minimal interpretation removes the assistant's extra dyad
+schedule multiplier. No runs launched. See D010 for authority and open settings.
+
+### 2026-09-16 — Mixed models retain existing orders
+
+**Time:** not tracked; design correction only.
+
+Ivar clarified that the mixed-model arms are `game`, `game_myth` and
+`myth_game`. The shared-prose treatment was an assistant-introduced assumption
+and is removed from the selected design. The total remains 120 runs; the prose
+protocol mentioned in the preceding entry is not required. No simulations
+launched. See project-memory D010.
+
+### 2026-09-16 — Mixed model compositions now selected
+
+**Time:** not tracked; design selection only.
+
+Ivar selected five replicates per block, retaining the three-arm dyad matrix
+with two initial-sender schedules (90 runs). Eight-agent conditions are four
+Sonnet plus four GPT and four Sonnet plus four Gemini across three arms
+(30 runs). The resulting 120-run design supersedes the 216-run proposal and
+48-run pilot suggestion. Exact scheduling and prose protocol remain to be
+frozen; no simulations launched. See project-memory D010.
+
+### 2026-09-16 — Mixed models require both scales
+
+**Time:** not tracked; design clarification only.
+
+Ivar specified that the mixed-model experiment must include both fixed
+two-agent dyads and rotating eight-agent populations. This supersedes the
+assistant proposal to treat a 4+4 population as a later extension. The current
+planning matrix has 144 dyad runs plus 72 population runs; exact population
+allocation and encounter balancing must be frozen before launch. No simulation
+or paid call ran. See project-memory D010 and
+`docs/research/next_cooperation_experiments.md`.
+
+### 2026-09-16 — Historical transplant rerun is authorized
+
+**Time:** not tracked; preparation and initial live verification.
+
+Ivar authorized the seven-cell slide-678 rerun: five replicates per cell, existing
+donors, eight agents, ten game-only rounds, repeated identical myth injection,
+no game-message/history blocks, historical negative-$5 communication noise.
+Use the pinned September Sonnet profile; this is not an exact reproduction of
+unrecorded historical request settings. Linguistic analysis precedes any later
+content-removal intervention. Estimated $40; $60 preflight planning allowance.
+
+Frozen-plan runner validates existing finals and preserves original outputs.
+All 35 historical donor/prefix checks and nine free tests passed. Initial two
+live cells started; no completed new result claimed. Details:
+`docs/research/slide678_rerun_2026-09-16.md` and project-memory D008.
+
 ### 2026-09-16 — Result: Figure two extension completes
 
 **Time:** not tracked; batch started September 15 and completed September 16.
