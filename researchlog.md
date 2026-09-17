@@ -1,3 +1,21 @@
+### 2026-09-17 — Mixed-model dyads launched; eight-agent stage deferred
+
+**Time:** ~3 hours engineering (per-agent request plans, config, launcher, tests, smoke); batch in progress.
+
+Ivar set the dyad design to six replicates per composition/task order so each
+family sends first in three (Sonnet is Agent_1 in replicates 0/2/4, the other
+family in 1/3/5) and chose to run the two-agent stage first: 36 runs, Sonnet 4.5
+with GPT-5 Nano and Sonnet 4.5 with Gemini 3.7 Flash, game/game_myth/myth_game.
+Everything except the models is the September informed-noise dyad control
+protocol; the launcher asserts equal comparison inputs before launch.
+Implementation (commit `620ce8b3`): mixed sets declare `agent_models` plus
+`llm_settings_by_model`; each agent gets its own client and pinned native plan;
+the condition validator checks every call against its agent's plan.
+Smoke 2/2 passed audit ($0.18); full batch launched with preflight
+`N=34 WORKERS=6 EST_COST=$12.9` (about $16 with allowance). The eight-agent
+stage (30 runs, cross-family-only pairing) is deferred and its pairing mode
+is not implemented. See D010 and `docs/research/mixed_model_run_plan_2026-09-17.md`.
+
 ### 2026-09-17 — Mixed games require cross-family encounters
 
 **Time:** not tracked; design decision and cost estimate only.
