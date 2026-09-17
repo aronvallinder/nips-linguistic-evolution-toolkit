@@ -15,6 +15,7 @@ Usage:
     python experiments/run_noisy_batch.py --allow-legacy-settings
 """
 
+import json
 import os
 import sys
 import argparse
@@ -37,7 +38,7 @@ from src.simulation import run_simulation
 from src.myth_writer import MythWriter
 from games.trust_game_noisy import TrustGameNoisy
 from scripts.hf_sync_completed_runs import maybe_sync_completed_runs
-from src.llm_settings import prepare_combinations, prepared_plan
+from src.llm_settings import mixed_model_label, prepare_combinations, prepared_plan
 from src.utils import DIRECT_MODEL_ALIASES
 from src.experiment_condition import ConditionMismatchError, digest
 
@@ -92,8 +93,20 @@ class NoisyExperimentConfig:
             ),
         )
 
-        # Resolve "all" references
-        models = self._resolve_all(exp_set['models'], 'base_models')
+        # Resolve "all" references. Mixed-model sets list one base_models key
+        # per agent (Agent_1, Agent_2, ...) under ``agent_models`` instead of
+        # a ``models`` list; each combination then carries every agent's model.
+        agent_model_keys = exp_set.get("agent_models")
+        if agent_model_keys is not None:
+            if "models" in exp_set:
+                raise ValueError("Mixed-model sets use agent_models instead of models")
+            if not isinstance(agent_model_keys, list) or len(agent_model_keys) < 2:
+                raise ValueError("agent_models must list one base_models key per agent, at least two")
+            if len(set(agent_model_keys)) < 2:
+                raise ValueError("agent_models must name at least two different models")
+            models = [None]
+        else:
+            models = self._resolve_all(exp_set['models'], 'base_models')
         templates = self._resolve_all(exp_set['templates'], 'prompt_templates')
         personas = self._resolve_all(exp_set['personas'], 'personas')
 
@@ -249,9 +262,29 @@ class NoisyExperimentConfig:
                 "initial_system_template"
             )
 
+            mixed_agent_models = None
+            mixed_agent_keys = None
+            if agent_model_keys is not None:
+                if game_params["num_agents"] != len(agent_model_keys):
+                    raise ValueError(
+                        f"agent_models lists {len(agent_model_keys)} agents but "
+                        f"{game_param_name!r} has num_agents={game_params['num_agents']}"
+                    )
+                mixed_agent_keys = {
+                    f"Agent_{i+1}": key for i, key in enumerate(agent_model_keys)
+                }
+                mixed_agent_models = {
+                    agent_id: self.config["base_models"][key]
+                    for agent_id, key in mixed_agent_keys.items()
+                }
+
             for run in replicate_ids:
                 combo = {
-                    "model": self.config["base_models"][model],
+                    "model": (
+                        mixed_model_label(mixed_agent_models)
+                        if mixed_agent_models
+                        else self.config["base_models"][model]
+                    ),
                     "template_name": template,
                     "template": self.config["prompt_templates"][template],
                     "persona": self.config["personas"][persona],
@@ -313,6 +346,9 @@ class NoisyExperimentConfig:
                 }
                 if provider_settings:
                     combo["provider_settings"] = provider_settings.copy()
+                if mixed_agent_models:
+                    combo["agent_models"] = dict(mixed_agent_models)
+                    combo["agent_model_keys"] = dict(mixed_agent_keys)
                 combinations.append(combo)
 
         return combinations
@@ -473,7 +509,7 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             "provider_settings", {}
         ).get("openai_reasoning_effort")
         active_openai_reasoning_effort = (
-            request_plan.as_dict()["parameters"].get("reasoning_effort")
+            request_plan.as_dict().get("parameters", {}).get("reasoning_effort")
             if request_plan is not None else os.environ.get("OPENAI_REASONING_EFFORT")
         )
         if (
@@ -539,6 +575,8 @@ def run_single_experiment(combo: Dict[str, Any], experiment_name: str, index: in
             f.write(f"Experiment: {experiment_name}\n")
             f.write(f"Index: {index:03d}\n")
             f.write(f"Model: {combo['model']}\n")
+            if combo.get("agent_models"):
+                f.write(f"Agent Models: {json.dumps(combo['agent_models'], sort_keys=True)}\n")
             f.write(f"Persona: {combo['persona']['description']}\n")
             f.write(f"Task Order: {combo['task_order']}\n")
             f.write(f"Game Params: {game_params_name}\n")

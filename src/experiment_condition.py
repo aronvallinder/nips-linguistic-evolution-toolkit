@@ -5,7 +5,7 @@ import json
 import re
 from pathlib import Path
 
-from src.llm_settings import resolve_request_plan
+from src.llm_settings import is_mixed_plan, resolve_mixed_request_plan, resolve_request_plan
 
 
 CONDITION_VERSION = 2
@@ -68,20 +68,49 @@ def build_condition(game, myth_writer, runtime_metadata, simulation, replicate_i
     return json.loads(json.dumps(condition, allow_nan=False))
 
 
+def rebuild_request(request):
+    """Re-resolve a recorded request plan from its declared policy; mixed plans per agent."""
+    try:
+        if is_mixed_plan(request):
+            agents = request["agents"]
+            if not isinstance(agents, dict) or len(agents) < 2:
+                raise ConditionMismatchError("Mixed request plan needs one plan per agent")
+            for agent_request in agents.values():
+                if rebuild_request(agent_request) != agent_request:
+                    raise ConditionMismatchError("Agent request parameters contradict their declared policy")
+            return resolve_mixed_request_plan(
+                {agent_id: agent_request["model"] for agent_id, agent_request in agents.items()},
+                {agent_request["model"]: agent_request["policy"] for agent_request in agents.values()},
+                {agent_request["model"]: agent_request["provider_model"] for agent_request in agents.values()},
+            ).as_dict()
+        return resolve_request_plan(
+            request["model"], request["policy"],
+            {request["model"]: request["provider_model"]},
+        ).as_dict()
+    except (KeyError, TypeError, ValueError) as error:
+        if isinstance(error, ConditionMismatchError):
+            raise
+        raise ConditionMismatchError("Invalid recorded request plan") from error
+
+
+def agent_request_settings(condition, agent_id):
+    """The request settings every LLM call by ``agent_id`` must carry."""
+    request = condition["llm"]
+    if is_mixed_plan(request):
+        settings = request["agents"].get(agent_id)
+        if settings is None:
+            raise ConditionMismatchError(f"Mixed condition records no request settings for {agent_id}")
+        return settings
+    return request
+
+
 def validate_condition(condition):
     if not isinstance(condition, dict) or condition.get("version") != CONDITION_VERSION:
         raise ConditionMismatchError("Missing or unsupported experiment_condition version")
     request = condition.get("llm")
     if not isinstance(request, dict):
         raise ConditionMismatchError("Condition lacks resolved LLM request settings")
-    try:
-        rebuilt = resolve_request_plan(
-            request["model"], request["policy"],
-            {request["model"]: request["provider_model"]},
-        ).as_dict()
-    except (KeyError, TypeError, ValueError) as error:
-        raise ConditionMismatchError("Invalid recorded request plan") from error
-    if rebuilt != request:
+    if rebuild_request(request) != request:
         raise ConditionMismatchError("Request parameters contradict their declared policy")
     protocol = condition.get("protocol")
     if not isinstance(protocol, dict) or not {"game", "myth", "simulation", "game_retry", "myth_retry", "game_type"}.issubset(protocol):
@@ -107,7 +136,8 @@ def condition_from_run(data):
         metadata_key = "llm_provider" if key == "provider" else key
         if metadata.get(metadata_key) != condition["llm"][key]:
             raise ConditionMismatchError(f"Run metadata contradicts condition {key}")
-    for agent in data.get("agents", {}).values():
+    for agent_id, agent in data.get("agents", {}).items():
+        expected_settings = agent_request_settings(condition, agent_id)
         for event in agent.get("interaction_history", []):
             response = event.get("response") or {}
             # Scripted events (forced-zero defectors, deduction notices, ...) never
@@ -115,7 +145,7 @@ def condition_from_run(data):
             if response.get("response_source", "llm") != "llm":
                 continue
             usage = response.get("usage") or {}
-            if usage.get("request_settings") != condition["llm"]:
+            if usage.get("request_settings") != expected_settings:
                 raise ConditionMismatchError("Per-call request settings differ from the run condition")
             if "finish_reason" not in usage or usage.get("outcome") not in {"complete", "truncated", "blocked", "error", "unknown"}:
                 raise ConditionMismatchError("Per-call outcome/finish reason is missing")

@@ -5525,3 +5525,89 @@ experiment_sets:
     replicate_ids: [1]
     provider_settings:
       openai_reasoning_effort: "low"
+
+  # -----------------------------------------------------------------------
+  # 2026-09-17: mixed-model dyads (project-memory D010). Same September
+  # informed-noise dyad protocol, prompts and native request profiles as the
+  # negative_only_reasoning_rerun_dyad_* control cells; the two agents run
+  # different model families. Agent_1 sends in odd rounds, so the set name
+  # lists the round-1 sender's family first. Replicates 0/2/4 and 1/3/5 keep
+  # the paired protocol seeds distinct across the two first-sender blocks.
+  # -----------------------------------------------------------------------
+  mixed_dyad_game_sonnet_gpt_n3: &mixed_dyad_game
+    agent_models: ["claude_sonnet_45", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_game_r3"]
+    replicate_ids: [0, 2, 4]
+    llm_settings_by_model: &mixed_llm_settings_by_model
+      claude_sonnet_45: *september8_claude
+      gpt5_nano: *september8_gpt
+      gemini_3_7_flash: *september8_gemini
+
+  mixed_dyad_game_gpt_sonnet_n3:
+    <<: *mixed_dyad_game
+    agent_models: ["gpt5_nano", "claude_sonnet_45"]
+    replicate_ids: [1, 3, 5]
+
+  mixed_dyad_game_sonnet_gemini_n3:
+    <<: *mixed_dyad_game
+    agent_models: ["claude_sonnet_45", "gemini_3_7_flash"]
+
+  mixed_dyad_game_gemini_sonnet_n3:
+    <<: *mixed_dyad_game
+    agent_models: ["gemini_3_7_flash", "claude_sonnet_45"]
+    replicate_ids: [1, 3, 5]
+
+  mixed_dyad_game_myth_sonnet_gpt_n3: &mixed_dyad_game_myth
+    agent_models: ["claude_sonnet_45", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_prompt_keys:
+      trust_game_later_investor: "trust_game_later_investor_minimal"
+      trust_game_later_trustee: "trust_game_later_trustee_minimal"
+    game_params_list: ["noisy2_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 2, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+  mixed_dyad_game_myth_gpt_sonnet_n3:
+    <<: *mixed_dyad_game_myth
+    agent_models: ["gpt5_nano", "claude_sonnet_45"]
+    replicate_ids: [1, 3, 5]
+
+  mixed_dyad_game_myth_sonnet_gemini_n3:
+    <<: *mixed_dyad_game_myth
+    agent_models: ["claude_sonnet_45", "gemini_3_7_flash"]
+
+  mixed_dyad_game_myth_gemini_sonnet_n3:
+    <<: *mixed_dyad_game_myth
+    agent_models: ["gemini_3_7_flash", "claude_sonnet_45"]
+    replicate_ids: [1, 3, 5]
+
+  mixed_dyad_myth_game_sonnet_gpt_n3: &mixed_dyad_myth_game
+    <<: *mixed_dyad_game_myth
+    task_orders: [["myth", "game"]]
+
+  mixed_dyad_myth_game_gpt_sonnet_n3:
+    <<: *mixed_dyad_myth_game
+    agent_models: ["gpt5_nano", "claude_sonnet_45"]
+    replicate_ids: [1, 3, 5]
+
+  mixed_dyad_myth_game_sonnet_gemini_n3:
+    <<: *mixed_dyad_myth_game
+    agent_models: ["claude_sonnet_45", "gemini_3_7_flash"]
+
+  mixed_dyad_myth_game_gemini_sonnet_n3:
+    <<: *mixed_dyad_myth_game
+    agent_models: ["gemini_3_7_flash", "claude_sonnet_45"]
+    replicate_ids: [1, 3, 5]
