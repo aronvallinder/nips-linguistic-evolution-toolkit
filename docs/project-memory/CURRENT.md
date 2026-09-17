@@ -55,9 +55,12 @@ and [data audit](../research/mixed_future_data_audit.md).
   equivalent. See [D004](decisions/004-model-request-profiles.md).
 - The selected mixed-model compositions are Sonnet/GPT and Sonnet/Gemini
   dyads, and four Sonnet plus four GPT or four Sonnet plus four Gemini in
-  eight-agent populations, with five replicates. No homogeneous runs are
-  selected. Game pairings must be cross-family only, with rotating partners
-  in eight-agent runs. The exact schedule remains to be frozen. Task orders are `game`, `game_myth` and
+  eight-agent populations. No homogeneous runs are selected. The dyad stage
+  (six replicates per cell, first sender alternating by family, 36 runs)
+  was launched on 2026-09-17 under the September informed-noise protocol
+  with only the models changed; the eight-agent stage (five replicates,
+  cross-family-only rotating pairing) waits for the dyad results and its
+  pairing mode is unimplemented. Task orders are `game`, `game_myth` and
   `myth_game`; no shared-prose arm is selected. See
   [D010](decisions/010-mixed-model-population-sizes.md).
 
