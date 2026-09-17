@@ -83,12 +83,20 @@ per-decision rows in `decisions.csv`. Figures: `sends_and_returns.png`,
 
 - Descriptive, n=6 per mixed cell and n=5 per homogeneous cell. No inferential
   test is reported.
-- The 36 mixed runs and the 45 September runs are validated as two pools
-  (`provenance_mixed.json`, `provenance_september.json`): a mixed run records
-  one request plan per agent instead of a run-level policy block, so a single
-  cross-pool provenance document would need a whole-block exemption, which the
-  validator forbids. Every agent plan equals the September profile for its
-  model (asserted by the launcher before launch and audited per call after).
+- `provenance.json` validates the 36 mixed runs and the 45 September runs as
+  two named pools: a mixed run records one request plan per agent instead of a
+  run-level policy block, so the pools differ in plan shape (`pool_reason`).
+  Within each pool every difference is declared field by field; across pools
+  everything except the request-plan shape (prompts, protocol, replicate
+  identity, implementation) is checked the same way. Every agent plan equals
+  the September profile for its model (asserted by the launcher before launch
+  and audited per call after). The `implementation` exemption covers only
+  `src/` files changed by the per-agent plumbing; `games/` is byte-identical
+  between the September commit (893a9713) and the mixed-run commits.
+- Model families in the tables are read from each run's validated condition
+  (the per-agent plans), never from loose metadata; the validator also
+  requires `run_metadata.agent_models` and the saved agent set to match the
+  condition.
 - One run (`mixed_dyad_game_gpt_sonnet_n3`, replicate 1) failed on the first
   attempt: Sonnet answered a sender prompt with prose analysis instead of a
   JSON decision, twice under the pinned repeat-once retry policy. It was

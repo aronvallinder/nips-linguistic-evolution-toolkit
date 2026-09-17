@@ -6,7 +6,16 @@ from types import SimpleNamespace
 import pytest
 
 from experiments.run_noisy_batch import NoisyExperimentConfig
-from src.experiment_condition import ConditionMismatchError, build_condition, condition_from_run, digest, validate_condition
+from src.experiment_condition import (
+    ConditionMismatchError,
+    build_condition,
+    condition_from_run,
+    digest,
+    output_provenance,
+    rebuild_request,
+    validate_condition,
+    validate_output_provenance,
+)
 from src.llm_settings import (
     LLMSettingsError,
     agent_request_plans,
@@ -57,7 +66,10 @@ def test_mixed_plan_cannot_create_a_single_shared_client():
 
 def mixed_run(tamper=None):
     request = mixed_plan().as_dict()
-    metadata = {"llm_request": request, "llm_provider": "mixed", "provider_model": request["provider_model"]}
+    metadata = {
+        "llm_request": request, "llm_provider": "mixed", "provider_model": request["provider_model"],
+        "agent_models": {agent_id: agent_request["model"] for agent_id, agent_request in request["agents"].items()},
+    }
     game = SimpleNamespace(system_prompt_template="unchanged rules", noise_seed=3)
     condition = build_condition(game, None, metadata, {"memory_capacity": 3, "task_order": ["game"]}, {"replicate_id": 0})
     metadata.update(experiment_condition=condition, condition_sha256=digest(condition))
@@ -85,7 +97,7 @@ def test_mixed_condition_validates_and_checks_each_agents_calls():
     def unknown_agent(data):
         data["agents"]["Agent_3"] = data["agents"]["Agent_1"]
 
-    with pytest.raises(ConditionMismatchError, match="no request settings for Agent_3"):
+    with pytest.raises(ConditionMismatchError, match="Saved agent set differs"):
         condition_from_run(mixed_run(unknown_agent))
 
 
@@ -152,3 +164,137 @@ def test_load_state_assigns_each_saved_agent_its_own_client(tmp_path):
     path.write_text(__import__("json").dumps(state))
     with pytest.raises(ValueError, match="differs from planned"):
         SimulationData.load_state(str(path), clients)
+
+
+def test_mixed_condition_ties_agent_models_and_saved_agents_to_the_plans():
+    def swap(data):
+        models = data["run_metadata"]["agent_models"]
+        data["run_metadata"]["agent_models"] = {"Agent_1": models["Agent_2"], "Agent_2": models["Agent_1"]}
+
+    with pytest.raises(ConditionMismatchError, match="agent_models contradict"):
+        condition_from_run(mixed_run(swap))
+
+    def drop_agent(data):
+        del data["agents"]["Agent_2"]
+
+    with pytest.raises(ConditionMismatchError, match="Saved agent set"):
+        condition_from_run(mixed_run(drop_agent))
+
+    def relabel_saved_model(data):
+        data["agents"]["Agent_2"]["model"] = CLAUDE
+
+    with pytest.raises(ConditionMismatchError, match="Saved model for Agent_2"):
+        condition_from_run(mixed_run(relabel_saved_model))
+
+
+def test_mixed_label_and_rebuild_are_order_independent_beyond_nine_agents():
+    gemini = "google/gemini-3.7-flash"
+    blocks = {**BLOCKS, gemini: settings(provider="google", reasoning={"thinkingConfig": {"thinkingLevel": "high"}}, temperature=0.8, cap=65536)}
+    agent_models = {f"Agent_{i}": CLAUDE for i in range(1, 11)}
+    agent_models["Agent_2"] = GPT
+    agent_models["Agent_10"] = gemini
+    plan = resolve_mixed_request_plan(agent_models, blocks, DIRECT_MODEL_ALIASES).as_dict()
+    shuffled = resolve_mixed_request_plan(dict(reversed(list(agent_models.items()))), blocks, DIRECT_MODEL_ALIASES).as_dict()
+    assert plan == shuffled
+    assert plan["model"] == "mixed/claude-sonnet-4.5+gpt-5-nano+gemini-3.7-flash"
+    assert rebuild_request(plan) == plan
+
+
+def test_pooled_provenance_declares_plan_shape_and_still_checks_the_rest(tmp_path):
+    import json as _json
+    from test_experiment_condition import saved_run, write_run
+
+    mixed_path = write_run(tmp_path / "mixed.json", mixed_run())
+    homogeneous_path = write_run(tmp_path / "homogeneous.json", saved_run(0))
+    output = tmp_path / "table.csv"
+    output.write_text("a,b\n")
+    allowed = {
+        "llm.agents": "per-agent plans", "llm.model": "x", "llm.provider": "x", "llm.provider_model": "x", "llm.endpoint": "x",
+        "protocol.game.noise_seed": "x", "replicate.noise_seed": "x", "replicate.identity.replicate_id": "x",
+        "protocol.simulation.task_order": "x", "protocol.game.system_prompt_template": "x",
+    }
+    with pytest.raises(ConditionMismatchError, match="llm.parameters, llm.policy"):
+        output_provenance([mixed_path, homogeneous_path], [output], allowed, output_root=tmp_path)
+    document = output_provenance(
+        [mixed_path, homogeneous_path], [output], allowed, output_root=tmp_path,
+        pools={"mixed": [mixed_path], "homogeneous": [homogeneous_path]}, pool_reason="plan shape differs by design",
+    )
+    assert set(document["pools"]) == {"mixed", "homogeneous"}
+    assert "llm.policy" not in document["observed_differences"]
+    validate_output_provenance(_json.loads(_json.dumps(document)))
+    document["pool_reason"] = ""
+    with pytest.raises(ConditionMismatchError, match="pool_reason"):
+        validate_output_provenance(document)
+    # A protocol difference across pools is still caught.
+    tampered = mixed_run()
+    tampered["run_metadata"]["experiment_condition"]["protocol"]["simulation"]["memory_capacity"] = 6
+    tampered["run_metadata"]["condition_sha256"] = digest(tampered["run_metadata"]["experiment_condition"])
+    other = write_run(tmp_path / "mixed2.json", tampered)
+    with pytest.raises(ConditionMismatchError, match="memory_capacity"):
+        output_provenance(
+            [other, homogeneous_path], [output], allowed, output_root=tmp_path,
+            pools={"mixed": [other], "homogeneous": [homogeneous_path]}, pool_reason="plan shape differs by design",
+        )
+
+
+def test_run_simulation_gives_each_agent_its_own_client_and_records_a_valid_condition(tmp_path, monkeypatch):
+    import src.agents
+    import src.simulation
+    from experiments.run_noisy_batch import build_noisy_protocol
+
+    config = NoisyExperimentConfig("config/experiments_noisy.yaml")
+    combos = config.get_experiment_combinations("mixed_dyad_game_gpt_sonnet_n3")
+    prepare_combinations(combos, config.config["experiment_sets"]["mixed_dyad_game_gpt_sonnet_n3"], DIRECT_MODEL_ALIASES)
+    combo = combos[0]
+    plan = combo["request_plan"]
+    created = {}
+
+    def fake_client(model, request_plan=None, provider=None):
+        assert request_plan is not None and request_plan.as_dict()["model"] == model
+        created[model] = SimpleNamespace(request_plan=request_plan, provider=request_plan.provider)
+        return created[model]
+
+    def fake_call(client, model, temperature, messages, **kwargs):
+        assert client.request_plan.as_dict()["model"] == model
+        prompt = messages[-1]["content"]
+        content = "{'send': 3}" if "SENDER" in prompt else "{'return': 4}"
+        usage = {"input_tokens": 1, "output_tokens": 1, "reasoning_tokens": 0,
+                 "request_settings": client.request_plan.as_dict(), "finish_reason": "stop", "outcome": "complete"}
+        return {"content": content, "reasoning": None, "usage": usage}
+
+    monkeypatch.setattr(src.simulation, "create_llm_client", fake_client)
+    monkeypatch.setattr(src.agents, "call_llm", fake_call)
+    game, myth_writer = build_noisy_protocol(combo, 0)
+    params = combo["game_params"]
+    sim = src.simulation.run_simulation(
+        game, combo["model"], params.get("temperature", 0.8), 2, params["num_agents"], params["memory_capacity"], "",
+        myth_writer, task_order=combo["task_order"], results_path=str(tmp_path / "r.results.json"),
+        checkpoint_path=str(tmp_path / "r.checkpoint.json"), checkpoint_every=10, log_file=str(tmp_path / "r.log"),
+        chat_memory_mode=params.get("chat_memory_mode", "default"), request_plan=plan,
+        run_metadata_extra={"comparison_inputs": combo["comparison_inputs"]},
+        run_identity={"experiment": "test", "replicate_id": combo["replicate_id"], "output_path": "x"},
+    )
+    assert sim.agents["Agent_1"].model == GPT and sim.agents["Agent_1"].client is created[GPT]
+    assert sim.agents["Agent_2"].model == CLAUDE and sim.agents["Agent_2"].client is created[CLAUDE]
+    assert sim.run_metadata["llm_provider"] == "mixed" and sim.run_metadata["agent_models"] == combo["agent_models"]
+    assert sim.run_metadata["temperature"] == {"Agent_1": "default", "Agent_2": "default"}
+    state = sim.to_state()
+    assert len(state["conversation_history"]) == 2
+    condition = condition_from_run(state)
+    assert condition["llm"]["agents"]["Agent_1"]["provider"] == "openai"
+    calls = [e for a in state["agents"].values() for e in a["interaction_history"]]
+    assert len(calls) == 4 and all(e["response"]["usage"]["request_settings"]["model"] == e["model"] for e in calls)
+
+
+def test_launcher_plan_and_audit_hold_for_the_frozen_dyad_batch():
+    from scripts import run_mixed_model_dyads as launcher
+
+    jobs = launcher.plan()
+    assert len(jobs) == 36
+    assert {j[2]["game_params"]["num_agents"] for j in jobs} == {2}
+    existing = [j for j in jobs if j[3].exists()]
+    if not existing:
+        pytest.skip("no mixed-dyad finals on this machine")
+    receipt = launcher.audit(existing[0])
+    assert receipt["calls"] > 0 and receipt["standard_rate_usd"] > 0
+    assert set(receipt["standard_rate_usd_by_provider"]) == {"anthropic", "openai", "google"}

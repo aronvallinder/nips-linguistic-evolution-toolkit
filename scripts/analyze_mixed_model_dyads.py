@@ -5,7 +5,10 @@ Pools the 36 mixed runs (Sonnet+GPT, Sonnet+Gemini; game / game_myth /
 myth_game; six replicates, first sender alternating by family) with the 45
 September informed-noise homogeneous dyad controls (Sonnet+Sonnet, GPT+GPT,
 Gemini+Gemini; five replicates). Every run is condition-validated and the
-declared differences are recorded in provenance_mixed.json and provenance_september.json (the two pools are validated separately).
+declared differences are recorded in provenance.json, which validates the mixed
+and homogeneous runs as two pools (a mixed run pins one request plan per agent
+instead of a run-level policy block) and everything except the request-plan
+shape across pools.
 
 Outputs (docs/figures/mixed_model_dyads_20260917/):
   decisions.csv        one row per dyad-round (sender/receiver family, amounts)
@@ -27,6 +30,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from analyses._shared import configure_matplotlib, load_simulation_runs  # noqa: E402
+from src.experiment_condition import condition_agent_models, condition_from_run, output_provenance  # noqa: E402
 from scripts.analyze_negative_only_crossmodel_batch import ALLOWED_DIFFERENCES  # noqa: E402
 
 MIXED_ROOT = ROOT / "data/json/noise_experiments/mixed_model_dyads_20260917"
@@ -42,8 +46,17 @@ COMPOSITIONS = ("Sonnet+GPT", "GPT+GPT", "Sonnet+Sonnet", "Sonnet+Gemini", "Gemi
 ALLOWED = {
     **ALLOWED_DIFFERENCES,
     "llm.agents": "Mixed runs pin one request plan per agent (design factor: model composition)",
-    "implementation": "Mixed runs use later code (per-agent request plans); prompts and request bodies are unchanged by launcher audit",
+    # games/ is byte-identical between the September run commit (893a9713) and the
+    # mixed-run commits (620ce8b3, be299fee); only the src/ files that add per-agent
+    # request plans differ. Prompts and request bodies are asserted unchanged by
+    # the launcher's plan step and per-call audit.
+    "implementation": "Mixed runs use later src/ code (per-agent request plans); games/ is identical and request bodies are launcher-audited",
 }
+POOL_REASON = (
+    "Mixed runs record one request plan per agent under llm.agents instead of a run-level "
+    "llm.policy/llm.parameters block; every agent plan equals the September profile of its "
+    "model (launcher plan step and per-call audit), so the pools differ only in plan shape."
+)
 NON_FINAL = (".results.json", ".checkpoint.json", ".error.json")
 
 
@@ -57,10 +70,12 @@ def final_paths():
 
 
 def agent_families(run):
-    metadata = run["run_metadata"]
-    if metadata.get("agent_models"):
-        return {agent_id: FAMILY[model] for agent_id, model in metadata["agent_models"].items()}
-    return {agent_id: FAMILY[metadata["model"]] for agent_id in run["agents"]}
+    """Model family per agent, read from the validated condition, never from loose metadata."""
+    condition = condition_from_run(run)
+    planned = condition_agent_models(condition)
+    if planned is not None:
+        return {agent_id: FAMILY[model] for agent_id, model in planned.items()}
+    return {agent_id: FAMILY[condition["llm"]["model"]] for agent_id in run["agents"]}
 
 
 def composition_label(families):
@@ -235,12 +250,14 @@ def main():
     ).reset_index()
     round_means.to_csv(OUTPUT / "round_means.csv", index=False)
     plot(decisions, round_means)
-    from src.experiment_condition import output_provenance
-
-    outputs = [p for p in OUTPUT.rglob("*") if p.is_file() and not p.name.startswith("provenance")]
-    for label, pool in (("mixed", mixed), ("september", september)):
-        document = output_provenance(pool, outputs, ALLOWED, output_root=OUTPUT)
-        (OUTPUT / f"provenance_{label}.json").write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    for stale in ("provenance_mixed.json", "provenance_september.json"):
+        (OUTPUT / stale).unlink(missing_ok=True)
+    outputs = [p for p in OUTPUT.rglob("*") if p.is_file() and p.name != "provenance.json"]
+    document = output_provenance(
+        paths, outputs, ALLOWED, output_root=OUTPUT,
+        pools={"mixed": mixed, "september": september}, pool_reason=POOL_REASON,
+    )
+    (OUTPUT / "provenance.json").write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
     pd.set_option("display.width", 200)
     print(summary[["composition", "task_order", "n_runs", "total_resources_mean", "total_resources_sd", "zero_receipt_rate"]].to_string(index=False))
     print()

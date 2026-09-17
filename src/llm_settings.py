@@ -2,6 +2,7 @@
 
 import json
 import math
+import re
 from dataclasses import dataclass
 
 
@@ -159,9 +160,19 @@ def resolve_request_plan(model, block, aliases):
 MIXED_PROVIDER = "mixed"
 
 
+def agent_order(agent_id):
+    """Natural agent order (Agent_1, Agent_2, ..., Agent_10), independent of dict insertion."""
+    match = re.fullmatch(r"Agent_(\d+)", str(agent_id))
+    return (0, int(match.group(1)), "") if match else (1, 0, str(agent_id))
+
+
+def ordered_agents(agent_models):
+    return sorted(agent_models, key=agent_order)
+
+
 def mixed_model_label(agent_models):
-    """Stable run label for a mixed population: ``mixed/<short>+<short>`` in first-use order."""
-    short_names = list(dict.fromkeys(model.split("/", 1)[-1] for model in agent_models.values()))
+    """Stable run label for a mixed population: ``mixed/<short>+<short>`` in natural agent order."""
+    short_names = list(dict.fromkeys(agent_models[agent_id].split("/", 1)[-1] for agent_id in ordered_agents(agent_models)))
     return f"{MIXED_PROVIDER}/" + "+".join(short_names)
 
 
@@ -189,7 +200,7 @@ def resolve_mixed_request_plan(agent_models, blocks_by_model, aliases):
         if block is None:
             raise LLMSettingsError(f"Mixed-model set has no llm_settings for {model!r}")
         agents[agent_id] = resolve_request_plan(model, block, aliases).as_dict()
-    provider_models = list(dict.fromkeys(plan["provider_model"] for plan in agents.values()))
+    provider_models = list(dict.fromkeys(agents[agent_id]["provider_model"] for agent_id in ordered_agents(agents)))
     return RequestPlan(canonical({
         "version": 1,
         "model": mixed_model_label(agent_models),
