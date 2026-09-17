@@ -14,6 +14,13 @@ and [data audit](../research/mixed_future_data_audit.md).
 
 ## Current operational state
 
+- The **mixed-model dyad stage completed 36/36 validated finals** on
+  2026-09-17 (Sonnet/GPT and Sonnet/Gemini; game, game→myth, myth→game; six
+  replicates with the first sender alternating by family). Sonnet follows its
+  partner's sending level; GPT's game-only zero-lock persists against Sonnet and
+  a myth task breaks it; Sonnet+Gemini sits near the ceiling. See
+  [the results README](../figures/mixed_model_dyads_20260917/README.md) and
+  [D010](decisions/010-mixed-model-population-sizes.md).
 - The exact two-agent counterpart to the slide-678 rerun completed 35/35
   validated finals with the same seven donor contexts and pinned Sonnet host
   profile. The qualitative ladder largely persists in one fixed dyad: late

@@ -78,11 +78,15 @@ On September 17 the dyad stage was frozen and launched (36 runs) after the
 six-replicate and dyads-first instructions; the earlier "five total
 replicates, 60 runs" interpretation is superseded for dyads.
 
+The dyad stage completed 36/36 validated finals on 2026-09-17
+(`completion_receipt.json`, $12.56). Result summary and disclosures (one
+format-failure resample, four interrupted-run resamples):
+[results README](../../figures/mixed_model_dyads_20260917/README.md).
+
 ## Unresolved / next evidence
 
-Dyad results: only validated finals in
-`data/json/noise_experiments/mixed_model_dyads_20260917/` with the launcher's
-completion receipt count. For the eight-agent stage, freeze the agent-ID
+Whether to run the eight-agent stage, and in what form, is Ivar's call after
+reviewing the dyad results. For the eight-agent stage, freeze the agent-ID
 allocation, pairing seeds, opposite-family partner exposure and role balance
 before launch; the cross-family pairing mode still has to be implemented in
 `games/dyadic_pairing.py`. Use existing task-order prompt protocols.
