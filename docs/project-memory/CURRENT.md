@@ -1,6 +1,6 @@
 # Current research state
 
-Last verified: 2026-09-16.
+Last verified: 2026-09-17.
 
 ## Research question
 
@@ -14,6 +14,16 @@ and [data audit](../research/mixed_future_data_audit.md).
 
 ## Current operational state
 
+- The exact two-agent counterpart to the slide-678 rerun completed 35/35
+  validated finals with the same seven donor contexts and pinned Sonnet host
+  profile. The qualitative ladder largely persists in one fixed dyad: late
+  Sonnet is strongest, filler is near baseline, and low-cooperation myths are
+  below baseline. See [D008](decisions/008-myth-transplant-isolation.md).
+- The seven-cell slide-678 transplant rerun completed 35/35 validated finals
+  using existing donor texts, historical myth-only/negative-$5 apparatus and
+  pinned September Sonnet settings. The qualitative seed ladder reappeared;
+  late Sonnet reached the ceiling while filler and late GPT stayed near baseline.
+  Linguistic analysis still precedes later content deletion; see [D008](decisions/008-myth-transplant-isolation.md).
 - The **180 no-defector extension runs completed** after explicit user approval
   and design reconciliation. They add no-noise and uninformed negative-only noise
   at the September profiles; retain the 90 existing informed-noise controls.
@@ -40,9 +50,24 @@ and [data audit](../research/mixed_future_data_audit.md).
 - Later runs use explicit model-specific request profiles. These profiles do
   not reveal missing historical API settings or make provider reasoning labels
   equivalent. See [D004](decisions/004-model-request-profiles.md).
+- The selected mixed-model compositions are Sonnet/GPT and Sonnet/Gemini
+  dyads, and four Sonnet plus four GPT or four Sonnet plus four Gemini in
+  eight-agent populations, with five replicates. No homogeneous runs are
+  selected. Game pairings must be cross-family only, with rotating partners
+  in eight-agent runs. The exact schedule remains to be frozen. Task orders are `game`, `game_myth` and
+  `myth_game`; no shared-prose arm is selected. See
+  [D010](decisions/010-mixed-model-population-sizes.md).
 
 ## Result boundaries
 
+- The pinned-profile slide-678 rerun is descriptive at n=5 donor/run replicates
+  per cell. It shows strong context-dependent behavioral differences under the
+  historical transplant apparatus, but does not isolate narrative form from
+  actionable content or separately estimate donor and run variation.
+- The matched dyad rerun is also descriptive at n=5. It shows content-dependent
+  differences under the current repeated-seed/no-history apparatus, so the old
+  Phase-1 content null is not a general dyad result. It does not isolate which
+  historical protocol difference accounts for the reversal.
 - The audited September no-defector result is model-dependent: myth-first
   increases ordinary-agent resources for Claude and GPT in the checked setup;
   Gemini is already at the ceiling. With forced defection, differences shrink

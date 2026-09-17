@@ -42,6 +42,7 @@ across tools belongs here.
 - [D007 — Prompt regimes](decisions/007-prompt-regimes.md)
 - [D008 — Myth-transplant isolation](decisions/008-myth-transplant-isolation.md)
 - [D009 — Defector treatments](decisions/009-defector-treatments.md)
+- [D010 — Mixed-model population sizes](decisions/010-mixed-model-population-sizes.md)
 - [Decision template](decisions/TEMPLATE.md)
 
 ## Automatic maintenance
