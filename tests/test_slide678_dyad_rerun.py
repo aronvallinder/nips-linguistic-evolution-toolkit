@@ -10,6 +10,10 @@ from src.llm_settings import RequestPlan
 
 @pytest.fixture(scope="module")
 def plan():
+    # Same gitignored inputs as the population plan; skip where they are absent (CI).
+    from tests.test_slide678_rerun import require_historical_finals
+
+    require_historical_finals()
     return runner.prepare()
 
 

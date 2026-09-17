@@ -10,8 +10,19 @@ from scripts import watch_slide678_progress as progress
 from src.llm_settings import RequestPlan
 
 
+HISTORICAL_FINALS = runner.ROOT / "data/json/noise_experiments/phase3_baseline"
+SEED_MANIFEST = runner.ROOT / "data/phase3/seed_manifest.json"
+
+
+def require_historical_finals():
+    """The frozen plan is built from gitignored run data; skip where it is absent (CI)."""
+    if not SEED_MANIFEST.is_file() or not HISTORICAL_FINALS.is_dir():
+        pytest.skip("historical slide-678 finals under data/json are not in this checkout")
+
+
 @pytest.fixture(scope="module")
 def plan():
+    require_historical_finals()
     return runner.prepare()
 
 
@@ -87,8 +98,8 @@ def test_supervisor_does_not_call_provider_above_cost_gate(plan, tmp_path, monke
     assert not (tmp_path / "supervisor.lock").exists()
 
 
-def test_progress_snapshot_reports_checkpoint(tmp_path):
-    source = runner.ROOT / runner.prepare()["combos"][0]["historical_final"]
+def test_progress_snapshot_reports_checkpoint(plan, tmp_path):
+    source = runner.ROOT / plan["combos"][0]["historical_final"]
     cell = tmp_path / "baseline"
     cell.mkdir()
     data = json.loads(source.read_text())
