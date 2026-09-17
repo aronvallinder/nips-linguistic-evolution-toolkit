@@ -1,3 +1,28 @@
+### 2026-09-17 — Result: mixed-model dyads complete (36/36)
+
+**Time:** API phase 11:45 → 14:00 wall-clock (6 then 5 workers); analysis ~0.5 h.
+
+#### Result
+- All 36 mixed dyad runs finished and passed the launcher's per-agent audit;
+  standard-rate cost $12.56 (Anthropic $10.37, OpenAI $0.77, Google $1.41).
+- Sonnet follows its partner: game-only sends $2.5 to Sonnet, $4.1 to Gemini,
+  $1.1 to GPT; its return proportion stays 0.38–0.46. Sonnet+Gemini is near
+  the ceiling in every task order (140–148 of 150).
+- GPT's zero-lock survives a cooperative partner in game-only play: $0 in 28/30
+  sends, 0.03 returned; Sonnet gives up by round 5–8; dyad ends at 64 (GPT+GPT
+  floor 50, Sonnet+Sonnet 101). A myth task lifts Sonnet+GPT to 117–120, the
+  same range as both homogeneous dyads.
+
+#### Failure modes
+- One Sonnet sender answered with prose instead of JSON twice (pinned retry
+  policy) and the run was resampled; four in-flight runs were lost when the
+  batch process was stopped and were resampled. Disclosed in the README.
+
+#### Evidence
+`docs/figures/mixed_model_dyads_20260917/README.md` (tables, provenance per pool);
+finals and `completion_receipt.json` under
+`data/json/noise_experiments/mixed_model_dyads_20260917/`. Eight-agent stage still deferred (D010).
+
 ### 2026-09-17 — Mixed-model dyads launched; eight-agent stage deferred
 
 **Time:** ~3 hours engineering (per-agent request plans, config, launcher, tests, smoke); batch in progress.
