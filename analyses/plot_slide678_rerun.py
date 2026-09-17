@@ -17,7 +17,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from analyses._shared import configure_matplotlib
+from analyses._shared import configure_matplotlib, write_output_provenance
 from src.experiment_condition import read_final_run
 
 
@@ -34,9 +34,17 @@ CELLS = [
     ("s_end_plus", "S-end+ Sonnet\n(Sonnet round-10)", "#2ca02c"),
 ]
 CEILING = 600.0
+# The seven cells differ only in the injected seed text; replicates differ only
+# in identity. Everything else (host profile, noise, rounds, memory) is pinned.
+ALLOWED_DIFFERENCES = {
+    "protocol.simulation.seed_myth": "Design factor: each cell injects a different donor text (or none for the baseline).",
+    "protocol.simulation.seed_reinject": "Design factor: seeded cells re-inject the same text every round; the baseline injects nothing.",
+    "protocol.simulation.seed_user_prompt": "Design factor: seeded cells carry the historical myth-writing user prompt; the baseline has none.",
+    "replicate.identity": "Five donor/run replicates per cell.",
+}
 
 
-def load_verified_values(run_root=RUN_ROOT, receipt_path=RECEIPT) -> tuple[dict[str, list[float]], dict]:
+def load_verified_values(run_root=RUN_ROOT, receipt_path=RECEIPT) -> tuple[dict[str, list[float]], dict, list[Path]]:
     receipt = json.loads(receipt_path.read_text())
     if receipt.get("completed") != 35 or receipt.get("planned") != 35:
         raise ValueError("Completion receipt does not certify all 35 planned runs")
@@ -46,11 +54,13 @@ def load_verified_values(run_root=RUN_ROOT, receipt_path=RECEIPT) -> tuple[dict[
 
     values = {cell: [] for cell, _, _ in CELLS}
     seen = set()
+    sources: list[Path] = []
     for entry in entries:
         path = run_root / entry["path"]
         if path in seen:
             raise ValueError(f"Duplicate final in receipt: {path}")
         seen.add(path)
+        sources.append(path)
         if hashlib.sha256(path.read_bytes()).hexdigest() != entry["sha256"]:
             raise ValueError(f"Final hash changed since completion: {path}")
         data = read_final_run(path)
@@ -67,7 +77,7 @@ def load_verified_values(run_root=RUN_ROOT, receipt_path=RECEIPT) -> tuple[dict[
         recorded = sorted(receipt["cells"][cell]["values"])
         if len(values[cell]) != 5 or not np.allclose(values[cell], recorded):
             raise ValueError(f"Cell {cell} does not contain five receipt-matched finals")
-    return values, receipt
+    return values, receipt, sources
 
 
 def main() -> None:
@@ -79,7 +89,7 @@ def main() -> None:
     parser.add_argument("--output-stem", default="slide678_cell_means")
     args = parser.parse_args()
     receipt_path = args.run_root / "completion_receipt.json"
-    values, receipt = load_verified_values(args.run_root, receipt_path)
+    values, receipt, sources = load_verified_values(args.run_root, receipt_path)
     configure_matplotlib()
     fig, ax = plt.subplots(figsize=(15, 7))
     positions = np.arange(len(CELLS))
@@ -160,6 +170,9 @@ def main() -> None:
         "outputs": [png.name, pdf.name],
     }
     (args.out_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    # Hash every source final and every file in the output directory so the
+    # safeguards repository check can tie the figure to its inputs.
+    write_output_provenance(args.out_dir, sources, allowed_differences=ALLOWED_DIFFERENCES)
     print(f"Wrote {png}")
     print(f"Wrote {pdf}")
 

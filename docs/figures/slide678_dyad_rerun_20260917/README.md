@@ -18,3 +18,5 @@ python analyses/plot_slide678_rerun.py \
 
 The script verifies all final hashes against the completion receipt and derives
 the plotted values independently from each final-round balance state.
+`provenance.json` hashes the 35 source finals and every file in this directory;
+the safeguards repository check (`scripts/check_safeguards.py`) verifies it.

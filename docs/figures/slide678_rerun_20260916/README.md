@@ -17,6 +17,8 @@ The script verifies all final-file hashes against
 requires five complete ten-round finals per cell, and independently derives each
 plotted value from the last-round balances. `summary.json` records the receipt
 hash, plan hash, values, means, and sample SDs used in the figure.
+`provenance.json` hashes the 35 source finals and every file in this directory;
+the safeguards repository check (`scripts/check_safeguards.py`) verifies it.
 
 Interpretation remains descriptive at n=5. Donor identity and stochastic run
 variation are combined, and this ablation does not isolate narrative form from
