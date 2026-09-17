@@ -13254,10 +13254,13 @@
   },
   "legacy_reason": null,
   "outputs": {
+    "resources_boxplots.png": "c0e50f973f277b22d6484913776126d3cc873eebf1430705b72ff3d51e7a8853",
     "cell_summary.csv": "2e6e4c35dadd0b163c7aa4226e367e8f01c468db2e6a05947e61ac03b3008959",
+    "resources_boxplots.pdf": "629e5a19947f564c3dca97824e44a04ff46c048ddce59573e843bb6afdaab3df",
     "decisions.csv": "3e2e671ba74da47dac62c3104e59dcc8ffed8ea74bba96057ec631ac6fd2d2c9",
+    "resources_boxplots.svg": "0648ffb163b4f4dfe8d032a6dfc773b7b8c0bccd0300d27a0023800839ede285",
     "sends_and_returns.png": "ce9daf9b238af4caec89a9285b35cffc527d860d836c4daa96e5d5d5d77282e0",
-    "README.md": "60af0d1fccff45da92d49b8e3a6e0609bd4e7b7ca0262f65c6f22ad2729a7753",
+    "README.md": "d9b612a68f41796f4b9024cc7723d205cf802ba62dddb8b112165ce8f0c5233c",
     "round_means.csv": "8cfcfe8a0a096ea2f69b0143a32c733fc8390315707f20baee2339b8a8ba2905",
     "resources.png": "b8142d066a633f7614f6624abe9091a9e16fd0b7e0bf99d03150f9ef58a560b8",
     "family_behaviour.csv": "de8d8bff0f5bde658356822040fe797ab24d77fe04ef16e5bf53da16b84a9949"

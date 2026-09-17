@@ -15,7 +15,7 @@ Outputs (docs/figures/mixed_model_dyads_20260917/):
   cell_summary.csv     per composition x task order: resources, sends, returns
   family_behaviour.csv per family x task order x partner family: send / return
   round_means.csv      per composition x task order x round
-  sends_and_returns.png, resources.png
+  sends_and_returns.png, resources.png, resources_boxplots.{png,svg,pdf}
 """
 from __future__ import annotations
 
@@ -223,6 +223,55 @@ def plot(decisions, round_means):
     plt.close(fig)
 
 
+BOX_COLORS = ["#999999", "#e99675", "#72b6a1"]
+DOT_COLORS = ["#777777", "#fc8d62", "#66c2a5"]
+ORDER_LABELS = ["Game only", "Game → Myth", "Myth → Game"]
+
+
+def plot_boxplot_grid(decisions):
+    """Same grid layout as the figure-2 resource boxplots: one panel per composition,
+    three task-order boxes per panel, cumulative resources per agent at round 10."""
+    import matplotlib.pyplot as plt
+
+    configure_matplotlib()
+    finals = decisions[decisions["round"] == 10]
+    rows = [
+        ("GPT-5 Nano", ["Sonnet+GPT", "GPT+GPT", "Sonnet+Sonnet"]),
+        ("Gemini 3.7 Flash", ["Sonnet+Gemini", "Gemini+Gemini", "Sonnet+Sonnet"]),
+    ]
+    fig, axes = plt.subplots(2, 3, figsize=(13.5, 8), sharey=True, squeeze=False)
+    for (partner, compositions), axrow in zip(rows, axes):
+        for ax, composition in zip(axrow, compositions):
+            counts = []
+            for pos, task_order in enumerate(TASK_ORDERS, 1):
+                v = np.sort(finals[(finals["composition"] == composition) & (finals["task_order"] == task_order)]["total_balance"].to_numpy() / 2)
+                counts.append(len(v))
+                ax.boxplot(v, positions=[pos], widths=.52, patch_artist=True, showfliers=False, whis=1.5,
+                           boxprops=dict(facecolor=BOX_COLORS[pos - 1], edgecolor="#666666"),
+                           medianprops=dict(color="#222222", linewidth=1.6),
+                           whiskerprops=dict(color="#666666"), capprops=dict(color="#666666"))
+                ax.scatter(pos + np.linspace(-.1, .1, len(v)), v, s=30, c=DOT_COLORS[pos - 1], edgecolors="white", linewidths=.6, zorder=3)
+            ax.set_xticks([1, 2, 3], ORDER_LABELS)
+            ax.set_xlim(.5, 3.5)
+            ax.set_ylim(0, 80)
+            ax.set_axisbelow(True)
+            ax.grid(axis="y", alpha=.22)
+            ax.spines[["top", "right"]].set_visible(False)
+            kind = "mixed" if "+" in composition and composition.split("+")[0] != composition.split("+")[1] else "homogeneous"
+            ax.set_title(f"{composition.replace('+', ' + ')}\n{kind} · n = {counts[0]} per box", fontsize=12, fontweight="bold", pad=8)
+        axrow[0].set_ylabel(f"Sonnet 4.5 with {partner}", fontsize=12, fontweight="bold", labelpad=14)
+    fig.suptitle("Final cumulative resources\nMixed-model dyads vs homogeneous dyads · Informed negative-only noise · No defectors · Round 10",
+                 fontsize=15, fontweight="bold")
+    fig.text(.5, .012, "Each dot = one run (n = 6 per mixed box, 5 per homogeneous box; September controls)\n"
+             "Box = middle 50% · Line = median · Whiskers = up to 1.5 × IQR",
+             ha="center", fontsize=9, color="#444444")
+    fig.supylabel("Cumulative resources per agent", fontsize=12, x=.006)
+    fig.tight_layout(rect=(.045, .06, 1, .91), h_pad=2.2, w_pad=2.4)
+    for ext in ("png", "svg", "pdf"):
+        fig.savefig(OUTPUT / f"resources_boxplots.{ext}", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--expect-mixed", type=int, default=36)
@@ -250,6 +299,7 @@ def main():
     ).reset_index()
     round_means.to_csv(OUTPUT / "round_means.csv", index=False)
     plot(decisions, round_means)
+    plot_boxplot_grid(decisions)
     for stale in ("provenance_mixed.json", "provenance_september.json"):
         (OUTPUT / stale).unlink(missing_ok=True)
     outputs = [p for p in OUTPUT.rglob("*") if p.is_file() and p.name != "provenance.json"]

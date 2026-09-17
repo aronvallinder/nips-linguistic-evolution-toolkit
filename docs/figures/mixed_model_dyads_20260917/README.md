@@ -57,7 +57,7 @@ Return proportion when the family is the receiver (undefined when nothing arrive
 | Gemini ← Sonnet | 0.42 | 0.45 | 0.45 |
 
 Full tables: `cell_summary.csv`, `family_behaviour.csv`, `round_means.csv`;
-per-decision rows in `decisions.csv`. Figures: `sends_and_returns.png`,
+per-decision rows in `decisions.csv`. Figures: `resources_boxplots.png` (the figure-2 boxplot grid: resources per agent, one panel per composition), `sends_and_returns.png`,
 `resources.png`.
 
 ## Reading
