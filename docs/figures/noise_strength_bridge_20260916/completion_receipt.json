@@ -1,0 +1,126 @@
+{
+  "runs": 20,
+  "standard_rate_usd": 6.462147000000001,
+  "finals": [
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_claude_n5_000_neutral_rep00.json",
+      "sha256": "027081c39927cee5eaa3783c15b8105b953fd135ad1b54ad4cb15f58f230d1b6",
+      "calls": 20,
+      "standard_rate_usd": 0.23003700000000002
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_claude_n5_001_neutral_rep01.json",
+      "sha256": "9d2d856bc8c67d1401f9461b6683a50581abe92d5617cd9c11f3cf22008a61df",
+      "calls": 20,
+      "standard_rate_usd": 0.184833
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_claude_n5_002_neutral_rep02.json",
+      "sha256": "0b3165541124b257b3d3697f4da033c1ce6d6c9b801c310a06eb1cc35065431e",
+      "calls": 21,
+      "standard_rate_usd": 0.17999700000000002
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_claude_n5_003_neutral_rep03.json",
+      "sha256": "4679cb5080909f3d2a1a233f92aad4ba2773a929391f694f9e428667f6440e0d",
+      "calls": 20,
+      "standard_rate_usd": 0.228936
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_claude_n5_004_neutral_rep04.json",
+      "sha256": "caf46d2e7ca66ee9cf00f2a8154fafae4177567b6186ef416d0b61f13225fbc0",
+      "calls": 20,
+      "standard_rate_usd": 0.233889
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_gemini_n5_000_neutral_rep00.json",
+      "sha256": "ce3e2bf5dec8b30723eb270b9fb591180c1f3509aaa12a87be060f08d42a28fc",
+      "calls": 20,
+      "standard_rate_usd": 0.034969499999999994
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_gemini_n5_001_neutral_rep01.json",
+      "sha256": "0ad626985307b7f031829105d6d60f88c4717f84ddf7a62ded6fec96367beaab",
+      "calls": 20,
+      "standard_rate_usd": 0.03861074999999999
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_gemini_n5_002_neutral_rep02.json",
+      "sha256": "7d8149100a5fdd46da4bce33fdd7d7a2288b86f128dbe85cf0ebf67537ea07b6",
+      "calls": 20,
+      "standard_rate_usd": 0.036034500000000004
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_gemini_n5_003_neutral_rep03.json",
+      "sha256": "50d20ad4fa704dd73d698877b61c6cf38f6e2e2b353827eeb6e0464138a84e3a",
+      "calls": 20,
+      "standard_rate_usd": 0.036447
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative2_game_r3/noise_strength_bridge_dyad_game_gemini_n5_004_neutral_rep04.json",
+      "sha256": "1bf8a7120d6a3299ea6d51d34ff3bc67b9bd1c3c6655be84317a20acbb02d6c6",
+      "calls": 20,
+      "standard_rate_usd": 0.046009499999999995
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "sha256": "9266b31f9216c27fe5ee40eb0930a4fa62b30f925784557ede9c305ad9b67895",
+      "calls": 40,
+      "standard_rate_usd": 0.8704469999999999
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_claude_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "sha256": "dbf782b66ebce9aaf33df0848cf050f53b0a966513887ad3bdf4513862a76c18",
+      "calls": 40,
+      "standard_rate_usd": 0.8618070000000002
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_claude_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "sha256": "1acf60e12cc6ee51bf154868a669fd86ba335de25ac799f3b6f73d0b67e90240",
+      "calls": 40,
+      "standard_rate_usd": 0.8017980000000002
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_claude_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "sha256": "bd0bb1801d9e175de2d690a69a29d3e8c2db26afc9acb6068a7cee1a355384ea",
+      "calls": 40,
+      "standard_rate_usd": 0.7351260000000001
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_claude_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "sha256": "49daffee86047b689f22667f243361b3a547e25c97d7d0444cd56417bbe65c6f",
+      "calls": 40,
+      "standard_rate_usd": 0.8333880000000002
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_gemini_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "sha256": "3db45aa6a0c7f390283c94e90e28c9be4f78583560b51f0b13aba3dc64a8e575",
+      "calls": 40,
+      "standard_rate_usd": 0.22225950000000003
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_gemini_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "sha256": "d17c241ed77dac47bc12abaa63e89cb9bcf998fe254aa629167d7a56490ed952",
+      "calls": 40,
+      "standard_rate_usd": 0.2213445
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_gemini_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "sha256": "fc44a47a1e4e9c6f0bc90517317b8363a1e467a1e75ef77bb837be4469497766",
+      "calls": 40,
+      "standard_rate_usd": 0.22290974999999988
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_gemini_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "sha256": "5ebbc360bb6209e39d32fe2fd4ca64e1e9aae17d9a8d687af9e1016a40deaddb",
+      "calls": 40,
+      "standard_rate_usd": 0.21848325
+    },
+    {
+      "path": "data/json/noise_experiments/noise_strength_bridge_20260916/noise_strength_bridge_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative2_twotask_r3/noise_strength_bridge_dyad_myth_game_gemini_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "sha256": "a5a76e9e65668be91b6bab0d6bc8c81b6303d80af110a58209f8345e40522057",
+      "calls": 40,
+      "standard_rate_usd": 0.22482075
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+model,contrast,n,paired_contrast_mean,paired_contrast_std,paired_contrast_mean_ci_low,paired_contrast_mean_ci_high,paired_contrast_median
+anthropic/claude-sonnet-4.5,range_1_minus_range_0,5,-2.580000000000001,3.609986149557919,-5.580000000000001,0.0,0.0
+anthropic/claude-sonnet-4.5,range_2_minus_range_1,5,9.580000000000002,17.05361398648392,-3.919999999999999,22.310000000000002,18.25
+anthropic/claude-sonnet-4.5,range_2_minus_range_0,5,7.0,15.733125881400682,-5.0,18.65,10.75
+google/gemini-3.7-flash,range_1_minus_range_0,5,0.0,0.0,0.0,0.0,0.0
+google/gemini-3.7-flash,range_2_minus_range_1,5,0.0,0.0,0.0,0.0,0.0
+google/gemini-3.7-flash,range_2_minus_range_0,5,0.0,0.0,0.0,0.0,0.0

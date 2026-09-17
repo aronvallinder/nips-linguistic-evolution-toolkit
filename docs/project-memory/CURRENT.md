@@ -32,6 +32,9 @@ and [data audit](../research/mixed_future_data_audit.md).
   [the resource and delta figures](../figures/figure2_noise_comparison_20260916/README.md).
   Two Claude runs were resampled after role-key errors; GPT unfinished runs
   were rerun after credits were replenished. Preserve those caveats.
+- The targeted informed `U(-2, 0)` dyad bridge completed 20/20 clean finals:
+  five paired game-only/myth-first replicates for Claude and Gemini. See the
+  [range-2 bridge report](../figures/noise_strength_bridge_20260916/README.md).
 - No-defector comparisons are fixed dyads versus rotating populations with
   partner history, not a pure manipulation of agent count.
 
@@ -72,6 +75,11 @@ and [data audit](../research/mixed_future_data_audit.md).
   increases ordinary-agent resources for Claude and GPT in the checked setup;
   Gemini is already at the ceiling. With forced defection, differences shrink
   or become uncertain. See the [independently reproduced table](../research/mixed_future_data_audit.md#latest-figures-independently-reproduced).
+- In the current dyad protocol, Claude's observed difference of medians was
+  +20.0 at range 2 versus +3.5 at range 1; all five range-2 paired effects were
+  positive. The pattern is consistent with a noise-strength explanation, but
+  the five-replicate direct range contrast is too uncertain to establish one.
+  Gemini stayed ceiling-locked at 75 throughout.
 - Historical myth-transplant results show that different injected texts can
   produce different behavior under an older apparatus. They do not yet prove
   emergent population culture in the current pipeline.
