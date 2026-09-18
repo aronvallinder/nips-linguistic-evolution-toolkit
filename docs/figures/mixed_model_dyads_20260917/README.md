@@ -6,18 +6,19 @@ September homogeneous dyad controls; the launcher proved every other input equal
 before launch (`scripts/run_mixed_model_dyads.py`, plan step). Design authority:
 project-memory D010; run plan: `docs/research/mixed_model_run_plan_2026-09-17.md`.
 
-- Compositions: Sonnet 4.5 + GPT-5 Nano, Sonnet 4.5 + Gemini 3.7 Flash.
+- Compositions: Sonnet 4.5 + GPT-5 Nano, Sonnet 4.5 + Gemini 3.7 Flash, and
+  (added 2026-09-18) Gemini 3.7 Flash + GPT-5 Nano.
 - Task orders: game, game→myth, myth→game. Ten rounds, endowment $5, multiplier 3.
-- Six replicates per cell: Sonnet sends first in replicates 0/2/4, the other
-  family in 1/3/5 (Agent_1 sends in odd rounds).
+- Six replicates per cell: the first-named family sends first in replicates
+  0/2/4, the other family in 1/3/5 (Agent_1 sends in odd rounds).
 - Request profiles: the September 8 native profiles per model (Claude thinking
   8192, GPT reasoning high, Gemini thinking high).
 - Comparators: the 45 September homogeneous dyad controls
   (`negative_only_crossmodel_reasoning_rerun_20260909`, five replicates per cell).
 
 Source finals: `data/json/noise_experiments/mixed_model_dyads_20260917/`
-(36 validated finals, `completion_receipt.json`; standard-rate cost $12.56:
-Anthropic $10.37, OpenAI $0.77, Google $1.41). Regenerate with
+(54 validated finals, `completion_receipt.json`; standard-rate cost $14.70:
+Anthropic $10.37, OpenAI $1.50, Google $2.82). Regenerate with
 `python scripts/analyze_mixed_model_dyads.py`.
 
 ## Result: total resources after ten rounds (max 150), mean (±sd over runs)
@@ -28,6 +29,7 @@ Anthropic $10.37, OpenAI $0.77, Google $1.41). Regenerate with
 | GPT + GPT (n=5) | 50.0 (±0.0) | 107.4 (±20.9) | 119.3 (±23.6) |
 | Sonnet + Sonnet (n=5) | 100.8 (±8.0) | 111.2 (±9.3) | 115.6 (±16.4) |
 | Sonnet + Gemini (n=6) | 140.2 (±6.2) | 146.0 (±1.3) | 148.4 (±1.4) |
+| Gemini + GPT (n=6) | 63.3 (±8.2) | 141.3 (±5.9) | 147.2 (±2.9) |
 | Gemini + Gemini (n=5) | 150.0 (±0.0) | 150.0 (±0.0) | 150.0 (±0.0) |
 
 ## Result: what each family does, by partner (mean over decisions)
@@ -41,8 +43,10 @@ Amount sent (of $5) when the family is the sender:
 | Sonnet → Gemini | 4.12 | 4.60 | 4.84 |
 | GPT → GPT | 0.00 | 2.87 | 3.46 |
 | GPT → Sonnet | 0.33 | 3.25 | 3.60 |
+| GPT → Gemini | 0.17 | 4.13 | 4.72 |
 | Gemini → Gemini | 5.00 | 5.00 | 5.00 |
 | Gemini → Sonnet | 4.90 | 5.00 | 5.00 |
+| Gemini → GPT | 1.17 | 5.00 | 5.00 |
 
 Return proportion when the family is the receiver (undefined when nothing arrived):
 
@@ -53,8 +57,10 @@ Return proportion when the family is the receiver (undefined when nothing arrive
 | Sonnet ← Gemini | 0.44 | 0.50 | 0.50 |
 | GPT ← GPT | undefined | 0.31 | 0.33 |
 | GPT ← Sonnet | 0.03 (n=13) | 0.40 | 0.38 |
+| GPT ← Gemini | 0.09 (n=7) | 0.38 | 0.44 |
 | Gemini ← Gemini | 0.45 | 0.46 | 0.47 |
 | Gemini ← Sonnet | 0.42 | 0.45 | 0.45 |
+| Gemini ← GPT | 0.45 (n=1) | 0.44 | 0.45 |
 
 Full tables: `cell_summary.csv`, `family_behaviour.csv`, `round_means.csv`;
 per-decision rows in `decisions.csv`. Figures: `resources_boxplots.png` (the figure-2 boxplot grid: resources per agent, one panel per composition), `sends_and_returns.png`,
@@ -76,14 +82,22 @@ per-decision rows in `decisions.csv`. Figures: `resources_boxplots.png` (the fig
   than to another GPT (0.31, 0.33); n is small.
 - **Sonnet+Gemini is near the ceiling in every task order** (140 to 148), so
   the myth effect there is at most a few dollars. Gemini keeps sending $5.
+- **Gemini is conditional after all (added 2026-09-18).** Against GPT in
+  game-only play Gemini sends $5 in rounds 1 and 2, receives nothing back, and
+  sends $0 from round 3 on (mean $1.17; GPT sent $0 in 29 of 30 decisions and
+  returned 0.09). The pair ends at 63, the same floor as Sonnet+GPT. Gemini's
+  unconditional $5 in the homogeneous runs was therefore sustained by
+  reciprocation, not fixed. With a myth task Gemini+GPT reaches 141 to 147, and
+  GPT sends $4.1 to $4.7 to Gemini against $3.3 to $3.6 to Sonnet and $2.9 to
+  $3.5 to another GPT, so GPT is also partner-sensitive once unlocked.
 - **First-sender family** did not change these conclusions at n=3 per block;
   per-run values are in `decisions.csv` (`first_sender_family`).
 
 ## Boundaries and disclosures
 
-- Descriptive, n=6 per mixed cell and n=5 per homogeneous cell. No inferential
+- Descriptive, n=6 per mixed cell (three compositions) and n=5 per homogeneous cell. No inferential
   test is reported.
-- `provenance.json` validates the 36 mixed runs and the 45 September runs as
+- `provenance.json` validates the 54 mixed runs and the 45 September runs as
   two named pools: a mixed run records one request plan per agent instead of a
   run-level policy block, so the pools differ in plan shape (`pool_reason`).
   Within each pool every difference is declared field by field; across pools

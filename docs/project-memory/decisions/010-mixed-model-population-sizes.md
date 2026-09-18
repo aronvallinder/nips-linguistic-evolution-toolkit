@@ -1,8 +1,8 @@
 # D010 — Test mixed models in dyads and populations
 
-- Recorded / last verified: 2026-09-16 / 2026-09-17
+- Recorded / last verified: 2026-09-16 / 2026-09-18
 - Decision status: dyad stage agreed and launched (six replicates per cell, first sender alternating by family); eight-agent stage agreed in scope but deferred until the dyad results are seen; exact eight-agent schedule unresolved.
-- Scope: heterogeneous interactions at both population sizes; Sonnet/GPT and Sonnet/Gemini. Dyad execution started 2026-09-17; eight-agent execution has not started.
+- Scope: heterogeneous interactions at both population sizes; Sonnet/GPT, Sonnet/Gemini and (dyads only, added 2026-09-18) Gemini/GPT. Dyad stage complete; eight-agent execution has not started.
 - Decision authority: Ivar, authored instructions in the 2026-09-16 Codex session and the 2026-09-17 Claude session.
 - Implementation status: dyads implemented in commit `620ce8b3` (per-agent pinned request plans, `agent_models` sets, launcher `scripts/run_mixed_model_dyads.py`); the eight-agent cross-family pairing mode is not implemented.
 
@@ -78,8 +78,10 @@ On September 17 the dyad stage was frozen and launched (36 runs) after the
 six-replicate and dyads-first instructions; the earlier "five total
 replicates, 60 runs" interpretation is superseded for dyads.
 
-The dyad stage completed 36/36 validated finals on 2026-09-17
-(`completion_receipt.json`, $12.56). Result summary and disclosures (one
+On 2026-09-18 Ivar added a third dyad composition, Gemini/GPT (18 runs,
+same protocol), completed the same day. The dyad stage completed 54/54
+validated finals on 2026-09-17/18
+(`completion_receipt.json`, $14.70). Result summary and disclosures (one
 format-failure resample, four interrupted-run resamples):
 [results README](../../figures/mixed_model_dyads_20260917/README.md).
 
