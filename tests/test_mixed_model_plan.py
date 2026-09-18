@@ -298,3 +298,14 @@ def test_launcher_plan_and_audit_hold_for_the_frozen_dyad_batch():
     receipt = launcher.audit(existing[0])
     assert receipt["calls"] > 0 and receipt["standard_rate_usd"] > 0
     assert set(receipt["standard_rate_usd_by_provider"]) == {"anthropic", "openai", "google"}
+
+
+def test_population_launcher_plan_holds_for_the_frozen_ladder():
+    from scripts import run_mixed_model_populations as launcher
+
+    jobs = launcher.plan()
+    assert len(jobs) == 90
+    minority_counts = {sum(m != launcher.FAMILY["sonnet"] and m != launcher.FAMILY["gpt"] or m == launcher.FAMILY["gpt"] for m in j[2]["agent_models"].values()) for j in jobs}
+    assert all(j[2]["game_params"]["num_agents"] == 8 for j in jobs)
+    first = jobs[0][2]["agent_models"]
+    assert list(first) == [f"Agent_{i}" for i in range(1, 9)]

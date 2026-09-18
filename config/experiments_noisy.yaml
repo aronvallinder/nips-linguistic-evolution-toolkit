@@ -5641,3 +5641,252 @@ experiment_sets:
     <<: *mixed_dyad_myth_game
     agent_models: ["gpt5_nano", "gemini_3_7_flash"]
     replicate_ids: [1, 3, 5]
+
+  # -----------------------------------------------------------------------
+  # 2026-09-18: mixed-model eight-agent contagion ladder (project-memory D010).
+  # Same September informed-noise population protocol as the
+  # negative_only_reasoning_rerun_population_* control cells (balanced rotating
+  # pairing, hidden names, co-player history 3, no defectors); only the models
+  # change. The minority family occupies the lowest agent ids. Six compositions
+  # (1+7, 2+6, 4+4 for Gemini-in-GPT and GPT-in-Sonnet) x three task orders x
+  # five replicates = 90 runs.
+  # -----------------------------------------------------------------------
+
+  mixed_pop_game_gemini1_gpt7_n5:
+    agent_models: ["gemini_3_7_flash", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_myth_gemini1_gpt7_n5:
+    agent_models: ["gemini_3_7_flash", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_myth_game_gemini1_gpt7_n5:
+    agent_models: ["gemini_3_7_flash", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_gpt1_sonnet7_n5:
+    agent_models: ["gpt5_nano", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_myth_gpt1_sonnet7_n5:
+    agent_models: ["gpt5_nano", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_myth_game_gpt1_sonnet7_n5:
+    agent_models: ["gpt5_nano", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_gemini2_gpt6_n5:
+    agent_models: ["gemini_3_7_flash", "gemini_3_7_flash", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_myth_gemini2_gpt6_n5:
+    agent_models: ["gemini_3_7_flash", "gemini_3_7_flash", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_myth_game_gemini2_gpt6_n5:
+    agent_models: ["gemini_3_7_flash", "gemini_3_7_flash", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_gpt2_sonnet6_n5:
+    agent_models: ["gpt5_nano", "gpt5_nano", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_myth_gpt2_sonnet6_n5:
+    agent_models: ["gpt5_nano", "gpt5_nano", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_myth_game_gpt2_sonnet6_n5:
+    agent_models: ["gpt5_nano", "gpt5_nano", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_gemini4_gpt4_n5:
+    agent_models: ["gemini_3_7_flash", "gemini_3_7_flash", "gemini_3_7_flash", "gemini_3_7_flash", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_myth_gemini4_gpt4_n5:
+    agent_models: ["gemini_3_7_flash", "gemini_3_7_flash", "gemini_3_7_flash", "gemini_3_7_flash", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_myth_game_gemini4_gpt4_n5:
+    agent_models: ["gemini_3_7_flash", "gemini_3_7_flash", "gemini_3_7_flash", "gemini_3_7_flash", "gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_gpt4_sonnet4_n5:
+    agent_models: ["gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game"]]
+    game_params_list: ["noisy8_crossmodel_negative_game_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_game_myth_gpt4_sonnet4_n5:
+    agent_models: ["gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["game", "myth"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
+
+
+  mixed_pop_myth_game_gpt4_sonnet4_n5:
+    agent_models: ["gpt5_nano", "gpt5_nano", "gpt5_nano", "gpt5_nano", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45", "claude_sonnet_45"]
+    templates: ["trust_game_default"]
+    personas: ["neutral"]
+    task_orders: [["myth", "game"]]
+    myth_topics: ["anything"]
+    myth_prompt_arms:
+      - id: "memtest_memory_primary"
+        default: "myth_writing_default_game_directive"
+        later: "myth_writing_later_rounds_directive_memory_primary"
+    game_params_list: ["noisy8_crossmodel_negative_twotask_r3"]
+    replicate_ids: [0, 1, 2, 3, 4]
+    llm_settings_by_model: *mixed_llm_settings_by_model
