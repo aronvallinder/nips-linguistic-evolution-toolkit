@@ -25,6 +25,31 @@
 `docs/figures/mixed_model_populations_20260918/README.md` (tables, ladder and
 boxplot-grid figures, pooled provenance); finals and `completion_receipt.json`
 under `data/json/noise_experiments/mixed_model_populations_20260918/`.
+### 2026-09-18 — Result: frontier-model rerun complete (Opus 5, Gemini 3.1 Pro, GPT-5.6 Sol; 90/90)
+
+**Time:** ~5 hours (plan, three-agent cost review, config, launcher, smoke, pilot, main, figure).
+
+Result: the September no-defector matrix (2 and 8 agents × three task orders × 5
+replicates) rerun on each provider's current flagship with reasoning on, 90/90
+launcher-audited finals, $142.55 at standard rates (smoke $0.34 extra). Final
+resources per agent, mean over five runs, game / game→myth / myth→game: Opus 5
+67.8 / 73.5 / 75.0 (dyads) and 68.4 / 73.0 / 74.7 (populations), 13–19 points
+above Sonnet 4.5 in five of six cells (6 points in 8-agent myth→game, Sonnet already
+at 68.7); Opus 5 shows game < game→myth < myth→game at both sizes, which Sonnet showed
+in dyads only. Gemini 3.1 Pro at the 75 ceiling everywhere like 3.7 Flash. Sol
+(effort high) 57.0 / 57.1 / 70.5 and 63.1 / 67.0 / 73.6, replacing Nano's game-only
+zero-lock (25.0 in 10/10) with a partial collapse in 2/10 game-only runs that the
+myth task removes. Myth-first advantage persists on Opus 5 (+6 to +7) and Sol (+11
+to +14); nothing to gain for Gemini.
+
+Decisions and rejected cost levers (Batch API, prompt caching, reasoning off, Luna,
+Sol-none) are in D011; the first cost table was 5–7× too high and was corrected
+against the receipt method before launch. Caveats: Claude 4.7+ rejects
+`budget_tokens`, so model and thinking regime change together (D004); two Gemini
+finals quarantined and resampled after transient connection drops; all three
+providers' prepaid credits ran out mid-batch and were topped up. Figure, tables and
+disclosures: `docs/figures/frontier_rerun_20260918/README.md`; plan:
+`docs/research/frontier_model_run_plan_2026-09-18.md`.
 
 ### 2026-09-18 — Mixed-model eight-agent contagion ladder launched
 
