@@ -170,7 +170,7 @@ def main():
     p.add_argument("--audit-only", action="store_true")
     p.add_argument("--smoke", action="store_true", help="one game-only replicate of the cheapest cell (1 run)")
     args = p.parse_args()
-    assert 1 <= args.workers <= 12
+    assert 1 <= args.workers <= 20
     jobs = plan()
     if args.smoke:
         jobs = [j for j in jobs if j[0] == "mixed_pop_game_gemini1_gpt7_n5" and j[1] == 0]
