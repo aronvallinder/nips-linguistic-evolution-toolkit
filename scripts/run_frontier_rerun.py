@@ -25,15 +25,17 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.run_noisy_missing import load_combinations, expected_output_path, check_existing_final, run_missing_job
 from scripts.rerun_negative_only_crossmodel import TRUNCATION_REASONS
-from scripts.build_frontier_rerun_config import ARMS, PROFILES, SHAPES, NEW_MODELS
+from scripts.build_frontier_rerun_config import ARMS, PROFILES, SHAPES
 from experiments.run_noisy_batch import build_noisy_protocol
 from src.utils import is_exhausted_quota
+import yaml
 
 CONFIG = ROOT / 'config/frontier_rerun_20260918.yaml'
 SEPTEMBER = ROOT / 'config/experiments_noisy.yaml'
 OUTPUT = 'frontier_rerun_20260918'
-MODEL_SLUG = {'opus5': NEW_MODELS['claude_opus_5'], 'gemini31pro': 'google/gemini-3.1-pro-preview',
-              'sol_high': NEW_MODELS['gpt56_sol'], 'sol_none': NEW_MODELS['gpt56_sol']}
+_BASE_MODELS = yaml.safe_load(CONFIG.read_text())['base_models']
+MODEL_SLUG = {arm: _BASE_MODELS[model_key] for arm, (model_key, _) in ARMS.items()}
+REASONING_ON = tuple(arm for arm in ARMS if arm != 'sol_none')
 EXPECTED_POLICIES = {arm: PROFILES[profile] for arm, (_, profile) in ARMS.items()}
 RATES = {'anthropic': (5.0, 25.0), 'openai': (4.0, 20.0), 'google': (2.0, 12.0)}  # USD per MTok, verified 2026-09-18
 # Per-run estimates (USD): measured in the 2026-09-18 pilot (pilot_receipt.json) for the three
@@ -59,7 +61,7 @@ def _september_reference(shape, game_params_name):
     with contextlib.redirect_stdout(io.StringIO()):
         old = load_combinations(name, str(SEPTEMBER))
     old = {c['replicate_id']: c for c in old if c['game_params_name'] == game_params_name}
-    assert len(old) == 5, (name, game_params_name, len(old))
+    require(len(old) == 5, (name, game_params_name, len(old)), 'len(old) == 5, (name, game_params_name, len(old))')
     return old
 
 
@@ -72,24 +74,24 @@ def plan():
             name = f'frontier_{shape}_{arm}_n5'
             with contextlib.redirect_stdout(io.StringIO()):
                 combos = load_combinations(name, str(CONFIG))
-            assert len(combos) == 5, (name, len(combos))
+            require(len(combos) == 5, (name, len(combos)), 'len(combos) == 5, (name, len(combos))')
             for i, c in enumerate(combos):
                 base = references[shape][c['replicate_id']]
-                assert c['model'] == MODEL_SLUG[arm], (name, c['model'])
-                assert c['game_params_name'] == game_params_name
+                require(c['model'] == MODEL_SLUG[arm], (name, c['model']), "c['model'] == MODEL_SLUG[arm], (name, c['model'])")
+                require(c['game_params_name'] == game_params_name, "c['game_params_name'] == game_params_name")
                 actual, expected = c['comparison_inputs'], base['comparison_inputs']
                 changed = {k for k in set(actual) | set(expected) if actual.get(k) != expected.get(k)}
-                assert changed <= {'model', 'llm_request'}, (name, 'non-model input changed', sorted(changed))
-                assert c['request_plan'].as_dict()['policy'] == EXPECTED_POLICIES[arm], (name, 'request profile drifted')
-                assert c['game_params'].get('defector_ratio', 0) == 0
-                assert c['game_params'].get('random_defection_probability', 0) == 0
-                assert c['game_params']['noise_config']['inform_agents'] is True
+                require(changed <= {'model', 'llm_request'}, (name, 'non-model input changed', sorted(changed)), "changed <= {'model', 'llm_request'}, (name, 'non-model input changed', sorted(changed))")
+                require(c['request_plan'].as_dict()['policy'] == EXPECTED_POLICIES[arm], (name, 'request profile drifted'))
+                require(c['game_params'].get('defector_ratio', 0) == 0, "c['game_params'].get('defector_ratio', 0) == 0")
+                require(c['game_params'].get('random_defection_probability', 0) == 0, "c['game_params'].get('random_defection_probability', 0) == 0")
+                require(c['game_params']['noise_config']['inform_agents'] is True, "c['game_params']['noise_config']['inform_agents'] is True")
                 game, _ = build_noisy_protocol(c, i)
-                assert len(game.defector_agent_ids) == 0 and game.random_defection_probability == 0
-                assert not game.punishment_enabled
+                require(len(game.defector_agent_ids) == 0 and game.random_defection_probability == 0, 'len(game.defector_agent_ids) == 0 and game.random_defection_probability == 0')
+                require(not game.punishment_enabled, 'not game.punishment_enabled')
                 jobs.append({'name': name, 'index': i, 'combo': c, 'path': expected_output_path(c, name, i, OUTPUT),
                              'arm': arm, 'shape': shape, 'replicate': c['replicate_id']})
-    assert len(jobs) == 120 and len({str(j['path']) for j in jobs}) == 120
+    require(len(jobs) == 120 and len({str(j['path']) for j in jobs}) == 120, "len(jobs) == 120 and len({str(j['path']) for j in jobs}) == 120")
     # Longer two-task and 8-agent jobs first; interleave arms.
     jobs.sort(key=lambda j: (j['replicate'], 0 if 'myth' in j['shape'] else 1, 0 if 'population' in j['shape'] else 1, list(ARMS).index(j['arm'])))
     return jobs
@@ -99,11 +101,11 @@ def audit(job):
     c, path, arm = job['combo'], job['path'], job['arm']
     check_existing_final(path, c)
     d = json.loads(path.read_text()); m = d['run_metadata']
-    assert m['defector_count'] == 0 and m['random_defection_probability'] == 0
-    assert not m['code_dirty'], f'{path} was produced from a dirty checkout'
-    assert m['llm_request'] == c['request_plan'].as_dict()
-    assert m['llm_request']['policy'] == EXPECTED_POLICIES[arm]
-    assert m['noise_config'] == c['game_params']['noise_config']
+    require(m['defector_count'] == 0 and m['random_defection_probability'] == 0, "m['defector_count'] == 0 and m['random_defection_probability'] == 0")
+    require(not m['code_dirty'], f'{path} was produced from a dirty checkout')
+    require(m['llm_request'] == c['request_plan'].as_dict(), "m['llm_request'] == c['request_plan'].as_dict()")
+    require(m['llm_request']['policy'] == EXPECTED_POLICIES[arm], "m['llm_request']['policy'] == EXPECTED_POLICIES[arm]")
+    require(m['noise_config'] == c['game_params']['noise_config'], "m['noise_config'] == c['game_params']['noise_config']")
     provider = m['llm_request']['provider']; ir, orr = RATES[provider]
     calls = 0; cost = 0.0; inp = 0; out = 0; reas = 0
     for a in d['agents'].values():
@@ -112,14 +114,14 @@ def audit(job):
             if r.get('response_source', 'llm') != 'llm':
                 continue
             u = r.get('usage') or {}
-            assert u.get('request_settings') == c['request_plan'].as_dict(), f'{path}: per-call request settings differ from the plan'
-            assert u.get('outcome') == 'complete' and u.get('finish_reason') not in TRUNCATION_REASONS, f'{path}: truncated or incomplete call'
+            require(u.get('request_settings') == c['request_plan'].as_dict(), f'{path}: per-call request settings differ from the plan')
+            require(u.get('outcome') == 'complete' and u.get('finish_reason') not in TRUNCATION_REASONS, f'{path}: truncated or incomplete call')
             calls += 1
             i_tok = u.get('input_tokens') or 0; o_tok = u.get('output_tokens') or 0; r_tok = u.get('reasoning_tokens') or 0
             billed_out = o_tok + (r_tok if provider == 'google' else 0)
             inp += i_tok; out += billed_out; reas += r_tok
             cost += (i_tok * ir + billed_out * orr) / 1e6
-    assert calls > 0, f'{path}: no LLM calls recorded'
+    require(calls > 0, f'{path}: no LLM calls recorded')
     return {'path': str(path.relative_to(ROOT)), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'arm': arm, 'shape': job['shape'],
             'replicate': job['replicate'], 'calls': calls, 'input_tokens': inp, 'billed_output_tokens': out, 'reasoning_tokens': reas,
             'provider_model': m['llm_request']['provider_model'], 'standard_rate_usd': cost}
@@ -133,13 +135,13 @@ def main():
     p.add_argument('--execute', action='store_true')
     p.add_argument('--audit-only', action='store_true')
     args = p.parse_args()
-    assert 1 <= args.workers <= 20
+    require(1 <= args.workers <= 20, '1 <= args.workers <= 20')
     selected = [j for j in plan() if STAGES[args.stage](j['shape'], j['arm'], j['replicate'])]
-    assert len(selected) == STAGE_SIZES[args.stage], (args.stage, len(selected))
     if args.arms:
         arms = set(args.arms.split(','))
-        assert arms <= set(ARMS), f'unknown arm in {sorted(arms)}'
+        require(arms <= set(ARMS), f'unknown arm in {sorted(arms)}')
         selected = [j for j in selected if j['arm'] in arms]
+    require(selected, f'stage {args.stage} selects no runs')
     pending = []; receipts = []
     for j in selected:
         if j['path'].exists():
@@ -151,11 +153,11 @@ def main():
     print(f'VALIDATED STAGE={args.stage} N={len(selected)} EXISTING={len(receipts)} PENDING={len(pending)} ARMS={arms}', flush=True)
     print(f'MODEL={",".join(sorted({MODEL_SLUG[a] for a in arms}))} N={len(pending)} WORKERS={args.workers} EST_COST=${est:.2f} (mid scenario, standard rates)', flush=True)
     if args.audit_only:
-        assert not pending, f'{len(pending)} runs missing'
+        require(not pending, f'{len(pending)} runs missing')
     elif not args.execute:
         print('DRY RUN: pass --execute to launch', flush=True)
     if args.execute and pending:
-        assert not subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True).strip(), 'Clean checkout required'
+        require(not subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True).strip(), 'Clean checkout required')
         os.environ['HF_DATASET_AUTO_UPLOAD'] = '0'; os.environ['TRUST_BATCH_QUIET'] = '1'
         logdir = str(ROOT / 'data/json/noise_experiments' / OUTPUT / 'worker_logs')
         workers = min(args.workers, len(pending))
