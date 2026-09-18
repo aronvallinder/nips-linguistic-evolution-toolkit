@@ -62,12 +62,14 @@ and [data audit](../research/mixed_future_data_audit.md).
 - Later runs use explicit model-specific request profiles. These profiles do
   not reveal missing historical API settings or make provider reasoning labels
   equivalent. See [D004](decisions/004-model-request-profiles.md).
-- The mixed-model dyad stage (Sonnet/GPT, Sonnet/Gemini, Gemini/GPT; 54
-  runs) is complete. The eight-agent stage is a contagion ladder launched
-  2026-09-18 (90 runs, running): 1/2/4 Gemini among GPT and 1/2/4 GPT among
-  Sonnet under the unchanged September population protocol, replacing the
-  4+4 cross-family-only plan. Task orders are `game`, `game_myth` and
-  `myth_game`; no shared-prose arm is selected. See
+- The mixed-model dyad stage (54 runs) and the eight-agent contagion ladder
+  (90 runs, 1/2/4 Gemini among GPT and 1/2/4 GPT among Sonnet, unchanged
+  September population protocol) are both complete. In game-only play a lone
+  Gemini is exploited by a GPT population and a lone GPT cooperates among
+  Sonnets, while two or more GPTs drag Sonnet populations down; contagion of
+  cooperation needs four Geminis, or a myth channel, where one Gemini suffices.
+  See [the ladder README](../figures/mixed_model_populations_20260918/README.md).
+  Task orders are `game`, `game_myth` and `myth_game`; no shared-prose arm. See
   [D010](decisions/010-mixed-model-population-sizes.md).
 
 ## Result boundaries
