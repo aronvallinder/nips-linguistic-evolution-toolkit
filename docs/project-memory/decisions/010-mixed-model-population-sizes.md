@@ -1,10 +1,10 @@
 # D010 — Test mixed models in dyads and populations
 
 - Recorded / last verified: 2026-09-16 / 2026-09-18
-- Decision status: dyad stage agreed and launched (six replicates per cell, first sender alternating by family); eight-agent stage agreed in scope but deferred until the dyad results are seen; exact eight-agent schedule unresolved.
-- Scope: heterogeneous interactions at both population sizes; Sonnet/GPT, Sonnet/Gemini and (dyads only, added 2026-09-18) Gemini/GPT. Dyad stage complete; eight-agent execution has not started.
+- Decision status: dyad stage complete (three compositions, six replicates per cell); eight-agent stage redesigned as a contagion ladder after the dyad results and launched 2026-09-18.
+- Scope: heterogeneous interactions at both population sizes; dyads Sonnet/GPT, Sonnet/Gemini, Gemini/GPT (complete); eight-agent ladder 1/2/4 Gemini among GPT and 1/2/4 GPT among Sonnet (running).
 - Decision authority: Ivar, authored instructions in the 2026-09-16 Codex session and the 2026-09-17 Claude session.
-- Implementation status: dyads implemented in commit `620ce8b3` (per-agent pinned request plans, `agent_models` sets, launcher `scripts/run_mixed_model_dyads.py`); the eight-agent cross-family pairing mode is not implemented.
+- Implementation status: per-agent pinned request plans and `agent_models` sets (commit `620ce8b3`); dyad launcher `scripts/run_mixed_model_dyads.py`; population launcher `scripts/run_mixed_model_populations.py` using the existing balanced rotation, so no cross-family pairing mode was built.
 
 ## Decision and rationale
 
@@ -85,13 +85,27 @@ validated finals on 2026-09-17/18
 format-failure resample, four interrupted-run resamples):
 [results README](../../figures/mixed_model_dyads_20260917/README.md).
 
+On 2026-09-18, after reviewing the dyad results, Ivar approved the assistant's
+proposed eight-agent contagion ladder in place of the 4+4 cross-family-only
+design ("just run this"). Six compositions under the unchanged September
+population protocol (balanced rotating pairing, hidden names, co-player history
+3, no defectors): 1, 2 or 4 Gemini agents among GPT agents and 1, 2 or 4 GPT
+agents among Sonnet agents, the minority family in the lowest agent ids; task
+orders game, game→myth, myth→game; five replicates; 90 runs. Preflight estimate
+$103 at standard rates ($124 with allowance). **Explicit rationale (assistant,
+accepted):** the dyads showed every family's sending tracks its partner, so the
+population question is whether one agent's behaviour spreads through rotation;
+1+7 isolates a single seed, the ladder shows scaling, and the unchanged
+scheduler keeps models the only change from the September populations. This
+supersedes the 4+4 cross-family-only plan of 2026-09-17; that design was never
+implemented or run.
+
 ## Unresolved / next evidence
 
-Whether to run the eight-agent stage, and in what form, is Ivar's call after
-reviewing the dyad results. For the eight-agent stage, freeze the agent-ID
-allocation, pairing seeds, opposite-family partner exposure and role balance
-before launch; the cross-family pairing mode still has to be implemented in
-`games/dyadic_pairing.py`. Use existing task-order prompt protocols.
+Population results: only validated finals under
+`data/json/noise_experiments/mixed_model_populations_20260918/` with the
+launcher's completion receipt count. Same-family encounters occur by design
+(balanced scheduler); the analysis must record each game's family pairing.
 Any use of existing homogeneous
 population controls requires explicit compatibility checks; the selected
 population arms alone do not isolate a mixing effect from model composition.
