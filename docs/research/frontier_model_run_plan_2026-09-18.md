@@ -1,6 +1,6 @@
 # Frontier-model rerun plan (for explicit go) — 2026-09-18
 
-Status: proposed, not approved, not implemented, no paid calls made.
+Status: EXECUTED 2026-09-18 for arms A, B, C (90/90 finals, $142.55); arm C0 skipped after its smoke run. Results: `docs/figures/frontier_rerun_20260918/README.md`; decision record D011. The text below is the plan as approved.
 Origin: Ed's 18 August request to rerun on current frontier models ("once the model is
 three or four months old people stop believing your results"). Supersedes the earlier
 Opus 5 + GPT-5.6 Luna draft of the same day: Luna is OpenAI's nano tier and does not

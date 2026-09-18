@@ -42,7 +42,7 @@ DOT_COLORS = ("#6f6f6f", "#f07f3c", "#3fae8b")
 
 def finals(root, keep_dirs=None):
     for p in sorted(root.rglob("*.json")):
-        if p.name.endswith(NON_FINAL) or "receipt" in p.name or "worker_logs" in p.parts:
+        if p.name.endswith(NON_FINAL) or "receipt" in p.name or "worker_logs" in p.parts or "quarantine" in p.parts:
             continue
         if keep_dirs is not None and p.parent.name not in keep_dirs:
             continue
