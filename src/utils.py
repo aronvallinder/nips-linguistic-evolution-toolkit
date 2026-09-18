@@ -365,6 +365,9 @@ def is_exhausted_quota(error):
     text = str(error).lower()
     return any(code in text for code in (
         "credit_balance_exhausted", "insufficient_quota", "no credits remaining",
+        # Anthropic's current wording (seen 2026-09-18): "Your credit balance is too low
+        # to access the Anthropic API."
+        "credit balance is too low",
     ))
 
 
