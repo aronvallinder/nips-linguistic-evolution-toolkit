@@ -52,7 +52,7 @@ Mean sending per run (endowment 5), round 1 / last three rounds:
 ## Reading, five replicates per cell, descriptive
 
 - **Opus 5 is far more cooperative than Sonnet 4.5 and keeps the task-order ordering.**
-  Every Opus cell is 13 to 19 points above its Sonnet counterpart. Game-only stays
+  Opus is 13 to 19 points above its Sonnet counterpart in five of six cells and 6 points above in 8-agent myth→game, where Sonnet was already at 69. Game-only stays
   lowest (about 68), game→myth is higher (about 73) and myth→game reaches the ceiling
   (about 75), at both sizes. Opus 5 opens more cautiously than it ends: round-1 sends
   of 3 to 4 in game-first cells, 5 in myth-first cells, and near 5 by the last rounds

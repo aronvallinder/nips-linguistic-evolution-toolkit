@@ -7,7 +7,7 @@ replicates) rerun on each provider's current flagship with reasoning on, 90/90
 launcher-audited finals, $142.55 at standard rates (smoke $0.34 extra). Final
 resources per agent, mean over five runs: Opus 5 68 / 73 / 75 (dyads) and 68 / 73 /
 75 (populations) for game / game→myth / myth→game, 13–19 points above Sonnet 4.5 in
-every cell with the same ordering; Gemini 3.1 Pro at the 75 ceiling everywhere like
+five of six cells (6 points in 8-agent myth→game, Sonnet already at 69) with the same ordering; Gemini 3.1 Pro at the 75 ceiling everywhere like
 3.7 Flash; Sol (effort high) 57 / 57 / 71 and 63 / 67 / 74, replacing Nano's
 game-only zero-lock (25.0 in 10/10) with a partial collapse in 2/10 game-only runs
 that the myth task removes. Myth-first advantage persists on Opus 5 (+6 to +7) and
