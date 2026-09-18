@@ -1,0 +1,181 @@
+arm,fam,src,n,order,rep,mean_resources,identity,mean_send,last3_send,collapsed
+Gemini 3.1 Pro,gemini,frontier,2,game,0,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,game,1,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,game,2,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,game,3,68.99999999999999,69.0,4.4,4.666666666666667,False
+Gemini 3.1 Pro,gemini,frontier,2,game,4,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,game_myth,0,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,game_myth,1,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,game_myth,2,73.0,73.0,4.8,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,game_myth,3,71.0,71.0,4.6,4.5,False
+Gemini 3.1 Pro,gemini,frontier,2,game_myth,4,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,2,game_myth,0,74.0,74.0,4.9,5.0,False
+Opus 5,claude,frontier,2,game_myth,1,74.0,74.0,4.9,5.0,False
+Opus 5,claude,frontier,2,game_myth,2,74.0,74.0,4.9,5.0,False
+Opus 5,claude,frontier,2,game_myth,3,74.0,74.0,4.9,5.0,False
+Opus 5,claude,frontier,2,game_myth,4,71.5,71.5,4.65,5.0,False
+Sol high,gpt,frontier,2,game_myth,0,53.0,53.0,2.8,3.0,False
+Sol high,gpt,frontier,2,game_myth,1,60.25,60.25,3.525,4.25,False
+Sol high,gpt,frontier,2,game_myth,2,62.25,62.25,3.725,4.25,False
+Sol high,gpt,frontier,2,game_myth,3,46.0,46.0,2.1,1.6666666666666667,False
+Sol high,gpt,frontier,2,game_myth,4,64.25,64.25,3.925,4.683333333333334,False
+Opus 5,claude,frontier,2,game,0,69.0,69.0,4.4,5.0,False
+Opus 5,claude,frontier,2,game,1,70.5,70.5,4.55,5.0,False
+Opus 5,claude,frontier,2,game,2,68.0,68.0,4.3,4.666666666666667,False
+Opus 5,claude,frontier,2,game,3,63.5,63.5,3.85,4.166666666666667,False
+Opus 5,claude,frontier,2,game,4,68.0,68.0,4.3,5.0,False
+Sol high,gpt,frontier,2,game,0,75.0,75.0,5.0,5.0,False
+Sol high,gpt,frontier,2,game,1,47.5,47.5,2.25,1.6666666666666667,False
+Sol high,gpt,frontier,2,game,2,52.0,52.0,2.7,2.6666666666666665,False
+Sol high,gpt,frontier,2,game,3,35.54,35.54,1.0539999999999998,0.0,True
+Sol high,gpt,frontier,2,game,4,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,myth_game,0,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,myth_game,1,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,myth_game,2,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,myth_game,3,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,2,myth_game,4,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,2,myth_game,0,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,2,myth_game,1,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,2,myth_game,2,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,2,myth_game,3,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,2,myth_game,4,75.0,75.0,5.0,5.0,False
+Sol high,gpt,frontier,2,myth_game,0,75.0,75.0,5.0,5.0,False
+Sol high,gpt,frontier,2,myth_game,1,62.27,62.269999999999996,3.7269999999999994,4.5,False
+Sol high,gpt,frontier,2,myth_game,2,75.0,75.0,5.0,5.0,False
+Sol high,gpt,frontier,2,myth_game,3,65.0,65.0,4.0,4.0,False
+Sol high,gpt,frontier,2,myth_game,4,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game,0,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game,1,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game,2,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game,3,73.625,73.625,4.8625,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game,4,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game_myth,0,73.4175,73.4175,4.84175,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game_myth,1,74.25,74.25,4.925,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game_myth,2,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game_myth,3,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,game_myth,4,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,8,game_myth,0,71.875,71.875,4.6875,5.0,False
+Opus 5,claude,frontier,8,game_myth,1,73.375,73.375,4.8375,5.0,False
+Opus 5,claude,frontier,8,game_myth,2,73.25,73.25,4.825,5.0,False
+Opus 5,claude,frontier,8,game_myth,3,73.125,73.125,4.8125,5.0,False
+Opus 5,claude,frontier,8,game_myth,4,73.25,73.25,4.825,5.0,False
+Sol high,gpt,frontier,8,game_myth,0,68.75,68.75,4.375,5.0,False
+Sol high,gpt,frontier,8,game_myth,1,73.125,73.125,4.8125,5.0,False
+Sol high,gpt,frontier,8,game_myth,2,51.74999999999999,51.75,2.675,2.9583333333333335,False
+Sol high,gpt,frontier,8,game_myth,3,72.25,72.25,4.725,5.0,False
+Sol high,gpt,frontier,8,game_myth,4,69.3125,69.3125,4.43125,5.0,False
+Opus 5,claude,frontier,8,game,0,68.625,68.625,4.3625,5.0,False
+Opus 5,claude,frontier,8,game,1,70.875,70.875,4.5875,5.0,False
+Opus 5,claude,frontier,8,game,2,66.125,66.125,4.1125,4.75,False
+Opus 5,claude,frontier,8,game,3,67.5,67.5,4.25,4.875,False
+Opus 5,claude,frontier,8,game,4,68.75,68.75,4.375,4.958333333333333,False
+Sol high,gpt,frontier,8,game,0,36.625,36.625,1.1625,0.041666666666666664,True
+Sol high,gpt,frontier,8,game,1,73.25,73.25,4.825,5.0,False
+Sol high,gpt,frontier,8,game,2,69.75,69.75,4.475,5.0,False
+Sol high,gpt,frontier,8,game,3,66.125,66.125,4.1125,5.0,False
+Sol high,gpt,frontier,8,game,4,69.75,69.75,4.475,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,myth_game,0,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,myth_game,1,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,myth_game,2,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,myth_game,3,75.0,75.0,5.0,5.0,False
+Gemini 3.1 Pro,gemini,frontier,8,myth_game,4,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,8,myth_game,0,74.625,74.625,4.9625,5.0,False
+Opus 5,claude,frontier,8,myth_game,1,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,8,myth_game,2,74.25,74.25,4.925,5.0,False
+Opus 5,claude,frontier,8,myth_game,3,75.0,75.0,5.0,5.0,False
+Opus 5,claude,frontier,8,myth_game,4,74.75,74.75,4.975,5.0,False
+Sol high,gpt,frontier,8,myth_game,0,74.0,74.0,4.9,5.0,False
+Sol high,gpt,frontier,8,myth_game,1,72.25,72.25,4.725,5.0,False
+Sol high,gpt,frontier,8,myth_game,2,74.125,74.125,4.9125,5.0,False
+Sol high,gpt,frontier,8,myth_game,3,72.875,72.875,4.7875,5.0,False
+Sol high,gpt,frontier,8,myth_game,4,74.75,74.75,4.975,5.0,False
+Sonnet 4.5,claude,september,2,game,0,53.0,53.0,2.8,2.5,False
+Sonnet 4.5,claude,september,2,game,1,51.5,51.5,2.65,2.5,False
+Sonnet 4.5,claude,september,2,game,2,55.0,55.0,3.0,3.0,False
+Sonnet 4.5,claude,september,2,game,3,46.0,46.0,2.1,2.0,False
+Sonnet 4.5,claude,september,2,game,4,46.5,46.5,2.15,1.75,False
+Gemini 3.7 Flash,gemini,september,2,game,0,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,game,1,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,game,2,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,game,3,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,game,4,75.0,75.0,5.0,5.0,False
+GPT-5 Nano,gpt,september,2,game,0,25.0,25.0,0.0,0.0,True
+GPT-5 Nano,gpt,september,2,game,1,25.0,25.0,0.0,0.0,True
+GPT-5 Nano,gpt,september,2,game,2,25.0,25.0,0.0,0.0,True
+GPT-5 Nano,gpt,september,2,game,3,25.0,25.0,0.0,0.0,True
+GPT-5 Nano,gpt,september,2,game,4,25.0,25.0,0.0,0.0,True
+Sonnet 4.5,claude,september,2,game_myth,0,62.5,62.5,3.75,3.6666666666666665,False
+Sonnet 4.5,claude,september,2,game_myth,1,55.5,55.5,3.05,3.0,False
+Sonnet 4.5,claude,september,2,game_myth,2,56.75,56.75,3.175,3.1666666666666665,False
+Sonnet 4.5,claude,september,2,game_myth,3,53.15,53.15,2.815,2.716666666666667,False
+Sonnet 4.5,claude,september,2,game_myth,4,50.0,50.0,2.5,2.5,False
+Gemini 3.7 Flash,gemini,september,2,game_myth,0,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,game_myth,1,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,game_myth,2,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,game_myth,3,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,game_myth,4,75.0,75.0,5.0,5.0,False
+GPT-5 Nano,gpt,september,2,game_myth,0,54.0,54.0,2.9,4.666666666666667,False
+GPT-5 Nano,gpt,september,2,game_myth,1,40.0,40.0,1.5,2.8333333333333335,False
+GPT-5 Nano,gpt,september,2,game_myth,2,58.0,58.0,3.3,4.333333333333333,False
+GPT-5 Nano,gpt,september,2,game_myth,3,48.5,48.5,2.35,2.6666666666666665,False
+GPT-5 Nano,gpt,september,2,game_myth,4,68.0,68.0,4.3,5.0,False
+Sonnet 4.5,claude,september,2,myth_game,0,47.599999999999994,47.6,2.2600000000000002,2.2466666666666666,False
+Sonnet 4.5,claude,september,2,myth_game,1,54.0,54.0,2.9,2.8333333333333335,False
+Sonnet 4.5,claude,september,2,myth_game,2,55.0,55.0,3.0,3.0,False
+Sonnet 4.5,claude,september,2,myth_game,3,66.0,66.0,4.1,4.0,False
+Sonnet 4.5,claude,september,2,myth_game,4,66.5,66.5,4.15,4.0,False
+Gemini 3.7 Flash,gemini,september,2,myth_game,0,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,myth_game,1,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,myth_game,2,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,myth_game,3,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,2,myth_game,4,75.0,75.0,5.0,5.0,False
+GPT-5 Nano,gpt,september,2,myth_game,0,52.620000000000005,52.620000000000005,2.762,2.6666666666666665,False
+GPT-5 Nano,gpt,september,2,myth_game,1,72.75,72.75,4.7749999999999995,4.726666666666667,False
+GPT-5 Nano,gpt,september,2,myth_game,2,66.75999999999999,66.76,4.176,5.0,False
+GPT-5 Nano,gpt,september,2,myth_game,3,43.06,43.06,1.8059999999999998,0.8333333333333334,False
+GPT-5 Nano,gpt,september,2,myth_game,4,63.0,63.0,3.8,5.0,False
+Sonnet 4.5,claude,september,8,game,0,56.625,56.625,3.1625,3.1666666666666665,False
+Sonnet 4.5,claude,september,8,game,1,54.5,54.5,2.95,3.0,False
+Sonnet 4.5,claude,september,8,game,2,54.125,54.125,2.9125,3.0,False
+Sonnet 4.5,claude,september,8,game,3,54.875,54.875,2.9875,3.0,False
+Sonnet 4.5,claude,september,8,game,4,55.75,55.75,3.075,3.0,False
+Gemini 3.7 Flash,gemini,september,8,game,0,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,game,1,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,game,2,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,game,3,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,game,4,75.0,75.0,5.0,5.0,False
+GPT-5 Nano,gpt,september,8,game,0,25.0,25.0,0.0,0.0,True
+GPT-5 Nano,gpt,september,8,game,1,25.0,25.0,0.0,0.0,True
+GPT-5 Nano,gpt,september,8,game,2,25.0,25.0,0.0,0.0,True
+GPT-5 Nano,gpt,september,8,game,3,25.0,25.0,0.0,0.0,True
+GPT-5 Nano,gpt,september,8,game,4,25.0,25.0,0.0,0.0,True
+Sonnet 4.5,claude,september,8,game_myth,0,54.375,54.375,2.9375,2.9166666666666665,False
+Sonnet 4.5,claude,september,8,game_myth,1,53.6875,53.6875,2.86875,2.9166666666666665,False
+Sonnet 4.5,claude,september,8,game_myth,2,54.25,54.25,2.925,2.9583333333333335,False
+Sonnet 4.5,claude,september,8,game_myth,3,52.875,52.875,2.7875,2.75,False
+Sonnet 4.5,claude,september,8,game_myth,4,55.375,55.375,3.0375,3.0416666666666665,False
+Gemini 3.7 Flash,gemini,september,8,game_myth,0,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,game_myth,1,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,game_myth,2,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,game_myth,3,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,game_myth,4,75.0,75.0,5.0,5.0,False
+GPT-5 Nano,gpt,september,8,game_myth,0,48.0,48.0,2.3,3.9166666666666665,False
+GPT-5 Nano,gpt,september,8,game_myth,1,29.75,29.75,0.475,0.08333333333333333,True
+GPT-5 Nano,gpt,september,8,game_myth,2,32.635000000000005,32.635,0.7635,0.16666666666666666,True
+GPT-5 Nano,gpt,september,8,game_myth,3,39.5,39.5,1.45,0.8333333333333334,False
+GPT-5 Nano,gpt,september,8,game_myth,4,40.0,40.0,1.5,1.7291666666666667,False
+Sonnet 4.5,claude,september,8,myth_game,0,73.375,73.375,4.8375,5.0,False
+Sonnet 4.5,claude,september,8,myth_game,1,63.0,63.0,3.8,4.0,False
+Sonnet 4.5,claude,september,8,myth_game,2,67.375,67.375,4.2375,4.375,False
+Sonnet 4.5,claude,september,8,myth_game,3,66.875,66.875,4.1875,4.333333333333333,False
+Sonnet 4.5,claude,september,8,myth_game,4,73.05000000000001,73.05000000000001,4.805000000000001,4.983333333333333,False
+Gemini 3.7 Flash,gemini,september,8,myth_game,0,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,myth_game,1,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,myth_game,2,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,myth_game,3,75.0,75.0,5.0,5.0,False
+Gemini 3.7 Flash,gemini,september,8,myth_game,4,75.0,75.0,5.0,5.0,False
+GPT-5 Nano,gpt,september,8,myth_game,0,50.25,50.25,2.525,3.1666666666666665,False
+GPT-5 Nano,gpt,september,8,myth_game,1,30.565,30.564999999999998,0.5565,0.0,True
+GPT-5 Nano,gpt,september,8,myth_game,2,47.5,47.5,2.25,1.25,False
+GPT-5 Nano,gpt,september,8,myth_game,3,45.875,45.875,2.0875,1.25,False
+GPT-5 Nano,gpt,september,8,myth_game,4,50.8425,50.8425,2.58425,2.5,False
