@@ -290,7 +290,7 @@ def test_launcher_plan_and_audit_hold_for_the_frozen_dyad_batch():
     from scripts import run_mixed_model_dyads as launcher
 
     jobs = launcher.plan()
-    assert len(jobs) == 36
+    assert len(jobs) == 54
     assert {j[2]["game_params"]["num_agents"] for j in jobs} == {2}
     existing = [j for j in jobs if j[3].exists()]
     if not existing:
