@@ -1,6 +1,6 @@
 # Current research state
 
-Last verified: 2026-09-16.
+Last verified: 2026-09-18.
 
 ## Research question
 
@@ -14,6 +14,35 @@ and [data audit](../research/mixed_future_data_audit.md).
 
 ## Current operational state
 
+- The **frontier-model rerun completed 90/90 validated finals** on 2026-09-18:
+  the September no-defector matrix on Claude Opus 5 (adaptive thinking, effort
+  high), Gemini 3.1 Pro Preview (thinking high) and GPT-5.6 Sol (effort high),
+  five replicates per cell, $142.55. Opus 5 sits 13–19 points above Sonnet 4.5
+  in five of six cells (6 points in 8-agent myth→game, where Sonnet was already at 69) and shows game < game→myth < myth→game at both sizes (Sonnet showed it in dyads only); Gemini 3.1
+  Pro is ceiling-locked like 3.7 Flash; Sol replaces Nano's game-only zero-lock
+  with a partial collapse in 2 of 10 game-only runs that the myth task removes.
+  Thinking regime changed with the model (Claude 4.7+ rejects the fixed budget).
+  See [D011](decisions/011-frontier-model-rerun.md) and
+  [the results README](../figures/frontier_rerun_20260918/README.md).
+- The **mixed-model dyad stage completed 54/54 validated finals** on
+  2026-09-17/18 (Sonnet/GPT, Sonnet/Gemini and Gemini/GPT; game, game→myth,
+  myth→game; six replicates with the first sender alternating by family).
+  Every family's sending tracks its partner: Sonnet follows Gemini up and GPT
+  down, GPT's game-only zero-lock persists against both partners, and Gemini
+  stops sending after two unreciprocated rounds against GPT. A myth task breaks
+  the lock in every composition. See
+  [the results README](../figures/mixed_model_dyads_20260917/README.md) and
+  [D010](decisions/010-mixed-model-population-sizes.md).
+- The exact two-agent counterpart to the slide-678 rerun completed 35/35
+  validated finals with the same seven donor contexts and pinned Sonnet host
+  profile. The qualitative ladder largely persists in one fixed dyad: late
+  Sonnet is strongest, filler is near baseline, and low-cooperation myths are
+  below baseline. See [D008](decisions/008-myth-transplant-isolation.md).
+- The seven-cell slide-678 transplant rerun completed 35/35 validated finals
+  using existing donor texts, historical myth-only/negative-$5 apparatus and
+  pinned September Sonnet settings. The qualitative seed ladder reappeared;
+  late Sonnet reached the ceiling while filler and late GPT stayed near baseline.
+  Linguistic analysis still precedes later content deletion; see [D008](decisions/008-myth-transplant-isolation.md).
 - The **180 no-defector extension runs completed** after explicit user approval
   and design reconciliation. They add no-noise and uninformed negative-only noise
   at the September profiles; retain the 90 existing informed-noise controls.
@@ -43,9 +72,24 @@ and [data audit](../research/mixed_future_data_audit.md).
 - Later runs use explicit model-specific request profiles. These profiles do
   not reveal missing historical API settings or make provider reasoning labels
   equivalent. See [D004](decisions/004-model-request-profiles.md).
+- The mixed-model dyad stage (Sonnet/GPT, Sonnet/Gemini, Gemini/GPT; 54
+  runs) is complete. The eight-agent stage is a contagion ladder launched
+  2026-09-18 (90 runs, running): 1/2/4 Gemini among GPT and 1/2/4 GPT among
+  Sonnet under the unchanged September population protocol, replacing the
+  4+4 cross-family-only plan. Task orders are `game`, `game_myth` and
+  `myth_game`; no shared-prose arm is selected. See
+  [D010](decisions/010-mixed-model-population-sizes.md).
 
 ## Result boundaries
 
+- The pinned-profile slide-678 rerun is descriptive at n=5 donor/run replicates
+  per cell. It shows strong context-dependent behavioral differences under the
+  historical transplant apparatus, but does not isolate narrative form from
+  actionable content or separately estimate donor and run variation.
+- The matched dyad rerun is also descriptive at n=5. It shows content-dependent
+  differences under the current repeated-seed/no-history apparatus, so the old
+  Phase-1 content null is not a general dyad result. It does not isolate which
+  historical protocol difference accounts for the reversal.
 - The audited September no-defector result is model-dependent: myth-first
   increases ordinary-agent resources for Claude and GPT in the checked setup;
   Gemini is already at the ceiling. With forced defection, differences shrink
