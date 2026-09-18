@@ -36,12 +36,12 @@ MODEL_SLUG = {'opus5': NEW_MODELS['claude_opus_5'], 'gemini31pro': 'google/gemin
               'sol_high': NEW_MODELS['gpt56_sol'], 'sol_none': NEW_MODELS['gpt56_sol']}
 EXPECTED_POLICIES = {arm: PROFILES[profile] for arm, (_, profile) in ARMS.items()}
 RATES = {'anthropic': (5.0, 25.0), 'openai': (4.0, 20.0), 'google': (2.0, 12.0)}  # USD per MTok, verified 2026-09-18
-# Mid-scenario per-run estimates (USD) from the September token profile; see
-# docs/research/frontier_model_run_plan_2026-09-18.md section 5.
+# Per-run estimates (USD): measured in the 2026-09-18 pilot (pilot_receipt.json) for the three
+# reasoning-on arms; Sol-none is the September-profile estimate (plan doc section 5).
 EST_PER_RUN = {
-    'opus5': {'dyad_game': 0.47, 'dyad_game_myth': 1.75, 'dyad_myth_game': 1.71, 'population_game': 2.06, 'population_game_myth': 7.08, 'population_myth_game': 7.35},
-    'gemini31pro': {'dyad_game': 0.11, 'dyad_game_myth': 0.68, 'dyad_myth_game': 0.71, 'population_game': 0.46, 'population_game_myth': 2.55, 'population_myth_game': 2.63},
-    'sol_high': {'dyad_game': 0.72, 'dyad_game_myth': 5.78, 'dyad_myth_game': 5.83, 'population_game': 2.93, 'population_game_myth': 22.80, 'population_myth_game': 23.12},
+    'opus5': {'dyad_game': 0.1, 'dyad_game_myth': 0.83, 'dyad_myth_game': 0.91, 'population_game': 0.64, 'population_game_myth': 3.82, 'population_myth_game': 4.01},
+    'gemini31pro': {'dyad_game': 0.11, 'population_game': 0.45, 'dyad_game_myth': 0.93, 'dyad_myth_game': 1.1, 'population_game_myth': 3.04, 'population_myth_game': 3.37},
+    'sol_high': {'dyad_game': 0.08, 'population_game': 0.46, 'dyad_myth_game': 0.78, 'dyad_game_myth': 0.83, 'population_myth_game': 3.43, 'population_game_myth': 3.47},
     'sol_none': {'dyad_game': 0.04, 'dyad_game_myth': 0.43, 'dyad_myth_game': 0.45, 'population_game': 0.32, 'population_game_myth': 2.01, 'population_myth_game': 2.05},
 }
 STAGES = {
