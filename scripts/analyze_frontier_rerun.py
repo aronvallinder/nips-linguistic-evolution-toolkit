@@ -22,6 +22,8 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from analyses._shared import configure_matplotlib  # noqa: E402
+from src.experiment_condition import output_provenance  # noqa: E402
+from scripts.analyze_negative_only_crossmodel_batch import ALLOWED_DIFFERENCES  # noqa: E402
 
 FRONTIER_ROOT = ROOT / "data/json/noise_experiments/frontier_rerun_20260918"
 SEPTEMBER_ROOT = ROOT / "data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909"
@@ -70,6 +72,16 @@ def rows_for(path, source):
             for agent, value in balances.items()]
 
 
+_MODEL_SWAP = "Frontier rerun: the model and its pinned request profile are the design factor (D011)"
+ALLOWED = {
+    **ALLOWED_DIFFERENCES,
+    # Opus 5 declares output_config.effort, which no September profile has.
+    "llm.parameters.output_config": _MODEL_SWAP,
+    "llm.policy.reasoning.output_config": _MODEL_SWAP,
+    "implementation": "Frontier runs use the run/frontier-rerun-20260918 launcher commits; games/ and prompts are unchanged and the launcher asserts every non-model input equals the September combination",
+}
+
+
 def load():
     rows = []
     for p in finals(FRONTIER_ROOT):
@@ -77,6 +89,15 @@ def load():
     for p in finals(SEPTEMBER_ROOT, NO_DEFECTOR_PARAMS):
         rows += rows_for(p, "september")
     return pd.DataFrame(rows)
+
+
+def write_provenance(df):
+    """Hash every output and validate all run conditions against the declared differences."""
+    paths = sorted({ROOT / p for p in df["path"].unique()})
+    outputs = [p for p in OUTPUT.rglob("*") if p.is_file() and p.name != "provenance.json"]
+    document = output_provenance(paths, outputs, allowed_differences=ALLOWED, output_root=OUTPUT)
+    (OUTPUT / "provenance.json").write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+    return document
 
 
 def cell_summary(df):
@@ -142,8 +163,10 @@ def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     summary.to_csv(OUTPUT / "cell_summary.csv", index=False)
     plot(df)
+    document = write_provenance(df)
     print(summary[["source", "arm", "num_agents", "task_order", "runs", "resources"]].to_string(index=False))
-    print(f"figure: {OUTPUT / 'resources_boxplots.png'}")
+    print(f"figure: {OUTPUT / 'resources_boxplots.png'}; provenance: {document['n_runs']} runs, "
+          f"{len(document['observed_differences'])} declared differences observed")
 
 
 if __name__ == "__main__":

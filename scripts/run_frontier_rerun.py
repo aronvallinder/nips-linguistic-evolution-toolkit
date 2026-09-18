@@ -48,12 +48,17 @@ EST_PER_RUN = {
 }
 STAGES = {
     'smoke': lambda shape, arm, rep: shape == 'dyad_game' and rep == 0,
-    'pilot': lambda shape, arm, rep: rep == 0 and arm in ('opus5', 'gemini31pro', 'sol_high'),
-    'pilot_myth_game': lambda shape, arm, rep: rep == 0 and shape in ('dyad_myth_game', 'population_myth_game') and arm in ('opus5', 'gemini31pro', 'sol_high'),
-    'main_reasoning_on': lambda shape, arm, rep: arm in ('opus5', 'gemini31pro', 'sol_high'),
+    'pilot_myth_game': lambda shape, arm, rep: rep == 0 and shape in ('dyad_myth_game', 'population_myth_game') and arm in REASONING_ON,
+    'pilot': lambda shape, arm, rep: rep == 0 and arm in REASONING_ON,
+    'main_reasoning_on': lambda shape, arm, rep: arm in REASONING_ON,
     'main': lambda shape, arm, rep: True,
 }
-STAGE_SIZES = {'smoke': 4, 'pilot_myth_game': 6, 'pilot': 18, 'main_reasoning_on': 90, 'main': 120}
+
+
+def require(condition, *message):
+    """Validation that survives ``python -O`` (a bare assert would not)."""
+    if not condition:
+        raise RuntimeError(" ".join(str(part) for part in message))
 
 
 def _september_reference(shape, game_params_name):
