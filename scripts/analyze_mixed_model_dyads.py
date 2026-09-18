@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Summarize the 2026-09-17 mixed-model dyads against the September homogeneous dyads.
 
-Pools the 36 mixed runs (Sonnet+GPT, Sonnet+Gemini; game / game_myth /
-myth_game; six replicates, first sender alternating by family) with the 45
+Pools the 54 mixed runs (Sonnet+GPT, Sonnet+Gemini, Gemini+GPT; game /
+game_myth / myth_game; six replicates, first sender alternating by family) with the 45
 September informed-noise homogeneous dyad controls (Sonnet+Sonnet, GPT+GPT,
 Gemini+Gemini; five replicates). Every run is condition-validated and the
 declared differences are recorded in provenance.json, which validates the mixed
@@ -42,7 +42,8 @@ FAMILY = {
     "google/gemini-3.7-flash": "Gemini",
 }
 TASK_ORDERS = ("game", "game_myth", "myth_game")
-COMPOSITIONS = ("Sonnet+GPT", "GPT+GPT", "Sonnet+Sonnet", "Sonnet+Gemini", "Gemini+Gemini")
+FAMILY_RANK = {"Sonnet": 0, "Gemini": 1, "GPT": 2}
+COMPOSITIONS = ("Sonnet+GPT", "GPT+GPT", "Sonnet+Sonnet", "Sonnet+Gemini", "Gemini+Gemini", "Gemini+GPT")
 ALLOWED = {
     **ALLOWED_DIFFERENCES,
     "llm.agents": "Mixed runs pin one request plan per agent (design factor: model composition)",
@@ -79,10 +80,7 @@ def agent_families(run):
 
 
 def composition_label(families):
-    first, second = families["Agent_1"], families["Agent_2"]
-    if first == second:
-        return f"{first}+{first}"
-    return "Sonnet+" + (second if first == "Sonnet" else first)
+    return "+".join(sorted((families["Agent_1"], families["Agent_2"]), key=FAMILY_RANK.__getitem__))
 
 
 def extract(path, run):
@@ -116,8 +114,10 @@ def extract(path, run):
             "zero_receipt": float(received <= 0),
             "sender_payoff": float(dyad["investor_payoff"]),
             "receiver_payoff": float(dyad["trustee_payoff"]),
-            "balance_sonnet": float(sum(v for k, v in dyad["balances"].items() if families[k] == "Sonnet") / max(1, sum(f == "Sonnet" for f in families.values()))),
-            "balance_partner": float(sum(v for k, v in dyad["balances"].items() if families[k] != "Sonnet") / max(1, sum(f != "Sonnet" for f in families.values()))),
+            "balance_Agent_1": float(dyad["balances"]["Agent_1"]),
+            "balance_Agent_2": float(dyad["balances"]["Agent_2"]),
+            "family_Agent_1": families["Agent_1"],
+            "family_Agent_2": families["Agent_2"],
             "total_balance": float(sum(dyad["balances"].values())),
         })
     return rows
@@ -172,7 +172,7 @@ def plot(decisions, round_means):
     import matplotlib.pyplot as plt
 
     configure_matplotlib()
-    colors = {"Sonnet+GPT": "#d62728", "GPT+GPT": "#ff9896", "Sonnet+Sonnet": "#7f7f7f", "Sonnet+Gemini": "#1f77b4", "Gemini+Gemini": "#aec7e8"}
+    colors = {"Sonnet+GPT": "#d62728", "GPT+GPT": "#ff9896", "Sonnet+Sonnet": "#7f7f7f", "Sonnet+Gemini": "#1f77b4", "Gemini+Gemini": "#aec7e8", "Gemini+GPT": "#2ca02c"}
     fig, axes = plt.subplots(2, 3, figsize=(13, 7), sharex=True)
     for col, task_order in enumerate(TASK_ORDERS):
         for composition in COMPOSITIONS:
@@ -192,7 +192,7 @@ def plot(decisions, round_means):
         for handle, label in zip(*ax.get_legend_handles_labels()):
             handles.setdefault(label, handle)
     fig.legend([handles[c] for c in COMPOSITIONS if c in handles], [c for c in COMPOSITIONS if c in handles],
-               loc="lower center", ncol=5, fontsize=9, frameon=False)
+               loc="lower center", ncol=6, fontsize=9, frameon=False)
     fig.suptitle("Fixed dyads, informed negative-only noise: mixed vs homogeneous compositions (means over runs)")
     fig.tight_layout(rect=(0, 0.05, 1, 1))
     fig.savefig(OUTPUT / "sends_and_returns.png", dpi=150)
@@ -236,10 +236,11 @@ def plot_boxplot_grid(decisions):
     configure_matplotlib()
     finals = decisions[decisions["round"] == 10]
     rows = [
-        ("GPT-5 Nano", ["Sonnet+GPT", "GPT+GPT", "Sonnet+Sonnet"]),
-        ("Gemini 3.7 Flash", ["Sonnet+Gemini", "Gemini+Gemini", "Sonnet+Sonnet"]),
+        ("Sonnet 4.5 with GPT-5 Nano", ["Sonnet+GPT", "GPT+GPT", "Sonnet+Sonnet"]),
+        ("Sonnet 4.5 with Gemini 3.7 Flash", ["Sonnet+Gemini", "Gemini+Gemini", "Sonnet+Sonnet"]),
+        ("Gemini 3.7 Flash with GPT-5 Nano", ["Gemini+GPT", "GPT+GPT", "Gemini+Gemini"]),
     ]
-    fig, axes = plt.subplots(2, 3, figsize=(13.5, 8), sharey=True, squeeze=False)
+    fig, axes = plt.subplots(3, 3, figsize=(13.5, 11.5), sharey=True, squeeze=False)
     for (partner, compositions), axrow in zip(rows, axes):
         for ax, composition in zip(axrow, compositions):
             counts = []
@@ -259,14 +260,14 @@ def plot_boxplot_grid(decisions):
             ax.spines[["top", "right"]].set_visible(False)
             kind = "mixed" if "+" in composition and composition.split("+")[0] != composition.split("+")[1] else "homogeneous"
             ax.set_title(f"{composition.replace('+', ' + ')}\n{kind} · n = {counts[0]} per box", fontsize=12, fontweight="bold", pad=8)
-        axrow[0].set_ylabel(f"Sonnet 4.5 with {partner}", fontsize=12, fontweight="bold", labelpad=14)
+        axrow[0].set_ylabel(partner, fontsize=12, fontweight="bold", labelpad=14)
     fig.suptitle("Final cumulative resources\nMixed-model dyads vs homogeneous dyads · Informed negative-only noise · No defectors · Round 10",
                  fontsize=15, fontweight="bold")
     fig.text(.5, .012, "Each dot = one run (n = 6 per mixed box, 5 per homogeneous box; September controls)\n"
              "Box = middle 50% · Line = median · Whiskers = up to 1.5 × IQR",
              ha="center", fontsize=9, color="#444444")
     fig.supylabel("Cumulative resources per agent", fontsize=12, x=.006)
-    fig.tight_layout(rect=(.045, .06, 1, .91), h_pad=2.2, w_pad=2.4)
+    fig.tight_layout(rect=(.045, .045, 1, .935), h_pad=2.2, w_pad=2.4)
     for ext in ("png", "svg", "pdf"):
         fig.savefig(OUTPUT / f"resources_boxplots.{ext}", dpi=200, bbox_inches="tight")
     plt.close(fig)
@@ -274,7 +275,7 @@ def plot_boxplot_grid(decisions):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--expect-mixed", type=int, default=36)
+    parser.add_argument("--expect-mixed", type=int, default=54)
     args = parser.parse_args()
     mixed, september = final_paths()
     if len(mixed) != args.expect_mixed:

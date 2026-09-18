@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Frozen 36-run mixed-model dyad batch (project-memory D010); dry-run by default.
+"""Frozen 54-run mixed-model dyad batch (project-memory D010); dry-run by default.
 
 Two model families share one fixed dyad under the September informed-noise
-protocol: Sonnet 4.5 with GPT-5 Nano, and Sonnet 4.5 with Gemini 3.7 Flash,
-across the task orders game, game_myth and myth_game. Six replicates per cell:
-three where Sonnet sends first (Agent_1, replicates 0/2/4) and three where the
+protocol: Sonnet 4.5 with GPT-5 Nano, Sonnet 4.5 with Gemini 3.7 Flash, and
+(added 2026-09-18) Gemini 3.7 Flash with GPT-5 Nano, across the task orders
+game, game_myth and myth_game. Six replicates per cell: three where the pair's
+first-named family sends first (Agent_1, replicates 0/2/4) and three where the
 other family sends first (replicates 1/3/5).
 
 The plan step proves, before any paid call, that every non-model input equals
@@ -38,9 +39,15 @@ from src.utils import is_exhausted_quota  # noqa: E402
 CONFIG = ROOT / "config/experiments_noisy.yaml"
 OUTPUT = "mixed_model_dyads_20260917"
 SHAPES = ("game", "game_myth", "myth_game")
-PAIRS = ("sonnet_gpt", "gpt_sonnet", "sonnet_gemini", "gemini_sonnet")
-SONNET = "anthropic/claude-sonnet-4.5"
-FAMILY = {"gpt": "openai/gpt-5-nano", "gemini": "google/gemini-3.7-flash"}
+# Set-name suffix -> (Agent_1 family, Agent_2 family, replicate ids). The first
+# family of each composition takes replicates 0/2/4; its reversal takes 1/3/5.
+PAIRS = {
+    "sonnet_gpt": ("sonnet", "gpt", [0, 2, 4]), "gpt_sonnet": ("gpt", "sonnet", [1, 3, 5]),
+    "sonnet_gemini": ("sonnet", "gemini", [0, 2, 4]), "gemini_sonnet": ("gemini", "sonnet", [1, 3, 5]),
+    "gemini_gpt": ("gemini", "gpt", [0, 2, 4]), "gpt_gemini": ("gpt", "gemini", [1, 3, 5]),
+}
+PAIR_ORDER = list(PAIRS)
+FAMILY = {"sonnet": "anthropic/claude-sonnet-4.5", "gpt": "openai/gpt-5-nano", "gemini": "google/gemini-3.7-flash"}
 RATES = {"anthropic": (3, 15), "openai": (0.05, 0.4), "google": (0.75, 3.75)}
 # Mean standard-rate cost per agent in the September informed-noise control
 # dyads (recorded usage, negative_only_crossmodel_reasoning_rerun_20260909).
@@ -67,16 +74,11 @@ def plan():
         ]
         assert len(reference) == 1, shape
         reference_inputs = {k: v for k, v in reference[0]["comparison_inputs"].items() if k not in MODEL_ONLY_KEYS}
-        for pair in PAIRS:
+        for pair, (first, second, expected_replicates) in PAIRS.items():
             name = f"mixed_dyad_{shape}_{pair}_n3"
             combos = _quiet_combinations(name)
             assert len(combos) == 3, name
-            first, second = pair.split("_")
-            expected_models = {
-                "Agent_1": SONNET if first == "sonnet" else FAMILY[first],
-                "Agent_2": SONNET if second == "sonnet" else FAMILY[second],
-            }
-            expected_replicates = [0, 2, 4] if first == "sonnet" else [1, 3, 5]
+            expected_models = {"Agent_1": FAMILY[first], "Agent_2": FAMILY[second]}
             assert [c["replicate_id"] for c in combos] == expected_replicates, name
             for i, c in enumerate(combos):
                 assert c["agent_models"] == expected_models, (name, c["agent_models"])
@@ -96,9 +98,9 @@ def plan():
                 assert len(game.defector_agent_ids) == 0 and game.random_defection_probability == 0
                 assert not game.punishment_enabled
                 jobs.append((name, i, c, expected_output_path(c, name, i, OUTPUT)))
-    assert len(jobs) == 36 and len({str(j[3]) for j in jobs}) == 36
+    assert len(jobs) == 54 and len({str(j[3]) for j in jobs}) == 54
     # Longer two-task jobs first; interleave compositions.
-    jobs.sort(key=lambda j: (0 if "myth" in j[2]["task_order"] else 1, j[1], PAIRS.index(pair_of(j[0]))))
+    jobs.sort(key=lambda j: (0 if "myth" in j[2]["task_order"] else 1, j[1], PAIR_ORDER.index(pair_of(j[0]))))
     return jobs
 
 
@@ -180,9 +182,9 @@ def main():
         else:
             pending.append(j)
     est = estimate(pending)
-    print(f"VALIDATED N={len(jobs)} DYADS_ONLY CROSS_FAMILY=1 NO_DEFECTORS=1 EXISTING={len(receipts)} PENDING={len(pending)}", flush=True)
+    print(f"VALIDATED N={len(jobs)} COMPOSITIONS=3 DYADS_ONLY CROSS_FAMILY=1 NO_DEFECTORS=1 EXISTING={len(receipts)} PENDING={len(pending)}", flush=True)
     print(
-        f"MODEL=mixed(sonnet+gpt,sonnet+gemini) N={len(pending)} WORKERS={args.workers} "
+        f"MODEL=mixed(sonnet+gpt,sonnet+gemini,gemini+gpt) N={len(pending)} WORKERS={args.workers} "
         f"EST_COST=${sum(est.values()):.2f} (anthropic ${est['anthropic']:.2f}, openai ${est['openai']:.2f}, google ${est['google']:.2f}; +20% allowance ${1.2*sum(est.values()):.2f})",
         flush=True,
     )
