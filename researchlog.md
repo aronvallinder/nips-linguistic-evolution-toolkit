@@ -1,3 +1,37 @@
+### 2026-09-18 — Result: frontier-model rerun complete (Opus 5, Gemini 3.1 Pro, GPT-5.6 Sol; 90/90)
+
+**Time:** ~5 hours (plan, three-agent cost review, config, launcher, smoke, pilot, main, figure).
+
+Result: the September no-defector matrix (2 and 8 agents × three task orders × 5
+replicates) rerun on each provider's current flagship with reasoning on, 90/90
+launcher-audited finals, $142.55 at standard rates (smoke $0.34 extra). Final
+resources per agent, mean over five runs: Opus 5 68 / 73 / 75 (dyads) and 68 / 73 /
+75 (populations) for game / game→myth / myth→game, 13–19 points above Sonnet 4.5 in
+every cell with the same ordering; Gemini 3.1 Pro at the 75 ceiling everywhere like
+3.7 Flash; Sol (effort high) 57 / 57 / 71 and 63 / 67 / 74, replacing Nano's
+game-only zero-lock (25.0 in 10/10) with a partial collapse in 2/10 game-only runs
+that the myth task removes. Myth-first advantage persists on Opus 5 (+6 to +7) and
+Sol (+11 to +14); nothing to gain for Gemini.
+
+Decisions on the way: Codex's 17 September table priced Opus 5 at $2/$10 (real:
+$5/$25); an agent review measured Batch API (halves Anthropic, 600–800 lines of
+coordinator, 6–33 h wall clock) and prompt caching (4–7%: the sliding memory window
+leaves only the system prompt as a stable prefix, below Opus 5's 512-token minimum
+for dyads) and both were rejected; reasoning stays on for the headline cells (visible
+reasoning moved Claude sending ~21 points in the September format study; Opus 5 with
+thinking off writes reasoning into the visible answer); GPT-5.6 Luna dropped as
+OpenAI's nano tier; Sol-none arm skipped after its smoke run. Measured Opus 5
+adaptive thinking is ~30 tokens/call vs Sonnet's 8192 budget, so the arm costs less
+than Sonnet did; a first cost table was 5–7× too high (recursive usage aggregation)
+and was corrected against the receipt method before launch.
+
+Caveats: Claude 4.7+ rejects `budget_tokens`, so model and thinking regime change
+together (D004). Two Gemini finals quarantined and resampled after transient
+connection drops; all three providers' prepaid credits ran out mid-batch and were
+topped up; `is_exhausted_quota` now recognises Anthropic's "credit balance is too
+low". Figure, tables and disclosures: `docs/figures/frontier_rerun_20260918/README.md`;
+plan: `docs/research/frontier_model_run_plan_2026-09-18.md`. See D011.
+
 ### 2026-09-18 — Mixed-model eight-agent contagion ladder launched
 
 **Time:** ~1 hour engineering (config, launcher, plan checks); batch in progress.
