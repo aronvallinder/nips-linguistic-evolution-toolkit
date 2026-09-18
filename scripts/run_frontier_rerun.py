@@ -3,8 +3,9 @@
 Arms: Claude Opus 5 (adaptive thinking, effort high), Gemini 3.1 Pro Preview (thinking high),
 GPT-5.6 Sol (effort high) and GPT-5.6 Sol (effort none). Each arm repeats the September
 no-defector matrix (2 and 8 agents x game / game_myth / myth_game x 5 replicates).
-Stages: smoke = replicate 0 of the 2-agent game cell, all arms (4 runs); pilot = replicate 0
-of every cell for the three reasoning-on arms (18 runs); main = all 120 runs.
+Stages: smoke = replicate 0 of the 2-agent game cell, all arms (4 runs); pilot_myth_game =
+replicate 0 of the 2- and 8-agent myth->game cells for the three reasoning-on arms (6 runs);
+pilot = replicate 0 of every cell for those arms (18 runs); main = all 120 runs.
 """
 from __future__ import annotations
 import argparse
@@ -45,9 +46,10 @@ EST_PER_RUN = {
 STAGES = {
     'smoke': lambda shape, arm, rep: shape == 'dyad_game' and rep == 0,
     'pilot': lambda shape, arm, rep: rep == 0 and arm in ('opus5', 'gemini31pro', 'sol_high'),
+    'pilot_myth_game': lambda shape, arm, rep: rep == 0 and shape in ('dyad_myth_game', 'population_myth_game') and arm in ('opus5', 'gemini31pro', 'sol_high'),
     'main': lambda shape, arm, rep: True,
 }
-STAGE_SIZES = {'smoke': 4, 'pilot': 18, 'main': 120}
+STAGE_SIZES = {'smoke': 4, 'pilot_myth_game': 6, 'pilot': 18, 'main': 120}
 
 
 def _september_reference(shape, game_params_name):
