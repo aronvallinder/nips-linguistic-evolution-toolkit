@@ -36,16 +36,16 @@ was skipped for the matrix by decision of 2026-09-18.
 Figure: `resources_boxplots.png` (each dot = one agent at round 10; frontier arm left,
 September reference right, hatched). Per-cell table: `cell_summary.csv`.
 
-Mean sending per run (endowment 5), round 1 / last three rounds:
+Mean sending per run (endowment 5), round 1 / last three rounds, mean (±sd over the five runs):
 
 | Cell | Opus 5 | Gemini 3.1 Pro | Sol high |
 |---|---|---|---|
-| 2 agents, game | 4.00 / 4.77 | 5.00 / 4.93 | 3.60 / 2.87 (1 of 5 runs collapsed) |
-| 2 agents, game→myth | 4.00 / 5.00 | 4.60 / 4.90 | 2.60 / 3.57 |
-| 2 agents, myth→game | 5.00 / 5.00 | 5.00 / 5.00 | 4.40 / 4.70 |
-| 8 agents, game | 3.15 / 4.92 | 4.85 / 5.00 | 3.33 / 4.01 (1 of 5 runs collapsed) |
-| 8 agents, game→myth | 3.70 / 5.00 | 4.70 / 5.00 | 3.30 / 4.59 |
-| 8 agents, myth→game | 4.80 / 5.00 | 5.00 / 5.00 | 4.20 / 5.00 |
+| 2 agents, game | 4.00 (±0.00) / 4.77 (±0.37) | 5.00 (±0.00) / 4.93 (±0.15) | 3.60 (±1.29) / 2.87 (±2.17) (1 of 5 runs collapsed) |
+| 2 agents, game→myth | 4.00 (±0.00) / 5.00 (±0.00) | 4.60 (±0.89) / 4.90 (±0.22) | 2.60 (±0.22) / 3.57 (±1.24) |
+| 2 agents, myth→game | 5.00 (±0.00) / 5.00 (±0.00) | 5.00 (±0.00) / 5.00 (±0.00) | 4.40 (±0.89) / 4.70 (±0.45) |
+| 8 agents, game | 3.15 (±0.22) / 4.92 (±0.11) | 4.85 (±0.34) / 5.00 (±0.00) | 3.33 (±0.63) / 4.01 (±2.22) (1 of 5 runs collapsed) |
+| 8 agents, game→myth | 3.70 (±0.33) / 5.00 (±0.00) | 4.70 (±0.41) / 5.00 (±0.00) | 3.30 (±0.55) / 4.59 (±0.91) |
+| 8 agents, myth→game | 4.80 (±0.21) / 5.00 (±0.00) | 5.00 (±0.00) / 5.00 (±0.00) | 4.20 (±0.45) / 5.00 (±0.00) |
 
 "Collapsed" = mean sending below 0.5 in the last three rounds.
 
@@ -54,7 +54,8 @@ Mean sending per run (endowment 5), round 1 / last three rounds:
 - **Opus 5 is far more cooperative than Sonnet 4.5 and keeps the task-order ordering.**
   Opus is 13 to 19 points above its Sonnet counterpart in five of six cells and 6 points above in 8-agent myth→game, where Sonnet was already at 69. Game-only stays
   lowest (about 68), game→myth is higher (about 73) and myth→game reaches the ceiling
-  (about 75), at both sizes. Opus 5 opens more cautiously than it ends: round-1 sends
+  (about 75), at both sizes. Sonnet showed that ordering only in dyads; its 8-agent
+  game→myth cell (54.1) sat below game-only (55.2). Opus 5 opens more cautiously than it ends: round-1 sends
   of 3 to 4 in game-first cells, 5 in myth-first cells, and near 5 by the last rounds
   everywhere.
 - **Gemini 3.1 Pro is ceiling-locked like 3.7 Flash.** Every cell is at or within

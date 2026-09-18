@@ -18,7 +18,7 @@ and [data audit](../research/mixed_future_data_audit.md).
   the September no-defector matrix on Claude Opus 5 (adaptive thinking, effort
   high), Gemini 3.1 Pro Preview (thinking high) and GPT-5.6 Sol (effort high),
   five replicates per cell, $142.55. Opus 5 sits 13–19 points above Sonnet 4.5
-  in five of six cells (6 points in 8-agent myth→game, where Sonnet was already at 69) with the same game < game→myth < myth→game ordering; Gemini 3.1
+  in five of six cells (6 points in 8-agent myth→game, where Sonnet was already at 69) and shows game < game→myth < myth→game at both sizes (Sonnet showed it in dyads only); Gemini 3.1
   Pro is ceiling-locked like 3.7 Flash; Sol replaces Nano's game-only zero-lock
   with a partial collapse in 2 of 10 game-only runs that the myth task removes.
   Thinking regime changed with the model (Claude 4.7+ rejects the fixed budget).
