@@ -85,9 +85,23 @@ ALLOWED = {
 PLOTTED_ARMS = ("Opus 5", "Gemini 3.1 Pro", "Sol (high)", "Sonnet 4.5", "Gemini 3.7 Flash", "GPT-5 Nano")
 
 
+def audited_frontier_finals():
+    """Frontier finals are pooled only if a launcher receipt lists their sha256."""
+    import hashlib
+    receipts = sorted(FRONTIER_ROOT.glob("*_receipt.json"))
+    if not receipts:
+        raise RuntimeError(f"no launcher receipts under {FRONTIER_ROOT}")
+    audited = {f["sha256"] for r in receipts for f in json.loads(r.read_text())["finals"]}
+    for p in finals(FRONTIER_ROOT):
+        if hashlib.sha256(p.read_bytes()).hexdigest() in audited:
+            yield p
+        else:
+            print(f"skipping unaudited final (not in any receipt): {p.relative_to(ROOT)}")
+
+
 def load():
     rows = []
-    for p in finals(FRONTIER_ROOT):
+    for p in audited_frontier_finals():
         rows += rows_for(p, "frontier")
     for p in finals(SEPTEMBER_ROOT, NO_DEFECTOR_PARAMS):
         rows += rows_for(p, "september")
