@@ -5,7 +5,7 @@ import json
 import re
 from pathlib import Path
 
-from src.llm_settings import resolve_request_plan
+from src.llm_settings import is_mixed_plan, ordered_agents, resolve_mixed_request_plan, resolve_request_plan
 
 
 CONDITION_VERSION = 2
@@ -68,20 +68,57 @@ def build_condition(game, myth_writer, runtime_metadata, simulation, replicate_i
     return json.loads(json.dumps(condition, allow_nan=False))
 
 
+def rebuild_request(request):
+    """Re-resolve a recorded request plan from its declared policy; mixed plans per agent."""
+    try:
+        if is_mixed_plan(request):
+            agents = request["agents"]
+            if not isinstance(agents, dict) or len(agents) < 2:
+                raise ConditionMismatchError("Mixed request plan needs one plan per agent")
+            for agent_request in agents.values():
+                if rebuild_request(agent_request) != agent_request:
+                    raise ConditionMismatchError("Agent request parameters contradict their declared policy")
+            return resolve_mixed_request_plan(
+                {agent_id: agents[agent_id]["model"] for agent_id in ordered_agents(agents)},
+                {agent_request["model"]: agent_request["policy"] for agent_request in agents.values()},
+                {agent_request["model"]: agent_request["provider_model"] for agent_request in agents.values()},
+            ).as_dict()
+        return resolve_request_plan(
+            request["model"], request["policy"],
+            {request["model"]: request["provider_model"]},
+        ).as_dict()
+    except (KeyError, TypeError, ValueError) as error:
+        if isinstance(error, ConditionMismatchError):
+            raise
+        raise ConditionMismatchError("Invalid recorded request plan") from error
+
+
+def condition_agent_models(condition):
+    """Agent id -> model pinned by the condition; None for a homogeneous run."""
+    request = condition["llm"]
+    if not is_mixed_plan(request):
+        return None
+    return {agent_id: agent_request["model"] for agent_id, agent_request in request["agents"].items()}
+
+
+def agent_request_settings(condition, agent_id):
+    """The request settings every LLM call by ``agent_id`` must carry."""
+    request = condition["llm"]
+    if is_mixed_plan(request):
+        settings = request["agents"].get(agent_id)
+        if settings is None:
+            raise ConditionMismatchError(f"Mixed condition records no request settings for {agent_id}")
+        return settings
+    return request
+
+
 def validate_condition(condition):
     if not isinstance(condition, dict) or condition.get("version") != CONDITION_VERSION:
         raise ConditionMismatchError("Missing or unsupported experiment_condition version")
     request = condition.get("llm")
     if not isinstance(request, dict):
         raise ConditionMismatchError("Condition lacks resolved LLM request settings")
-    try:
-        rebuilt = resolve_request_plan(
-            request["model"], request["policy"],
-            {request["model"]: request["provider_model"]},
-        ).as_dict()
-    except (KeyError, TypeError, ValueError) as error:
-        raise ConditionMismatchError("Invalid recorded request plan") from error
-    if rebuilt != request:
+    if rebuild_request(request) != request:
         raise ConditionMismatchError("Request parameters contradict their declared policy")
     protocol = condition.get("protocol")
     if not isinstance(protocol, dict) or not {"game", "myth", "simulation", "game_retry", "myth_retry", "game_type"}.issubset(protocol):
@@ -107,7 +144,18 @@ def condition_from_run(data):
         metadata_key = "llm_provider" if key == "provider" else key
         if metadata.get(metadata_key) != condition["llm"][key]:
             raise ConditionMismatchError(f"Run metadata contradicts condition {key}")
-    for agent in data.get("agents", {}).values():
+    planned_models = condition_agent_models(condition)
+    if planned_models is not None:
+        saved_agents = data.get("agents") or {}
+        if metadata.get("agent_models") != planned_models:
+            raise ConditionMismatchError("Run metadata agent_models contradict the condition's per-agent plans")
+        if set(saved_agents) != set(planned_models):
+            raise ConditionMismatchError("Saved agent set differs from the condition's per-agent plans")
+        for agent_id, agent in saved_agents.items():
+            if agent.get("model") != planned_models[agent_id]:
+                raise ConditionMismatchError(f"Saved model for {agent_id} contradicts the condition")
+    for agent_id, agent in data.get("agents", {}).items():
+        expected_settings = agent_request_settings(condition, agent_id)
         for event in agent.get("interaction_history", []):
             response = event.get("response") or {}
             # Scripted events (forced-zero defectors, deduction notices, ...) never
@@ -115,7 +163,7 @@ def condition_from_run(data):
             if response.get("response_source", "llm") != "llm":
                 continue
             usage = response.get("usage") or {}
-            if usage.get("request_settings") != condition["llm"]:
+            if usage.get("request_settings") != expected_settings:
                 raise ConditionMismatchError("Per-call request settings differ from the run condition")
             if "finish_reason" not in usage or usage.get("outcome") not in {"complete", "truncated", "blocked", "error", "unknown"}:
                 raise ConditionMismatchError("Per-call outcome/finish reason is missing")
@@ -206,6 +254,32 @@ def comparison_condition(data, legacy_reason=None):
     }
 
 
+def without_llm(condition):
+    return {key: value for key, value in condition.items() if key != "llm"}
+
+
+def check_pooled_conditions(conditions_by_path, pools, allowed_differences=None):
+    """Compare runs whose request plans differ in shape (mixed vs homogeneous).
+
+    Every pool is checked in full against ``allowed_differences``; across pools
+    everything except the ``llm`` block is checked the same way, so prompts,
+    protocol, replicate identity and implementation still need declarations.
+    The llm-shape difference itself is what ``pool_reason`` documents.
+    """
+    if not isinstance(pools, dict) or len(pools) < 2:
+        raise ConditionMismatchError("Pooled provenance needs at least two named pools")
+    assigned = [path for paths in pools.values() for path in paths]
+    if sorted(assigned) != sorted(conditions_by_path) or len(assigned) != len(set(assigned)):
+        raise ConditionMismatchError("Every run must belong to exactly one pool")
+    per_pool = {}
+    for name, paths in pools.items():
+        if not isinstance(name, str) or not name or not paths:
+            raise ConditionMismatchError("Pools need a name and at least one run")
+        per_pool[name] = check_conditions([conditions_by_path[path] for path in paths], allowed_differences)
+    cross = check_conditions([without_llm(condition) for condition in conditions_by_path.values()], allowed_differences)
+    return per_pool, cross
+
+
 def validate_output_provenance(document):
     if not isinstance(document, dict) or document.get("provenance_version") != 2:
         raise ConditionMismatchError("Output provenance must use version 2")
@@ -226,12 +300,37 @@ def validate_output_provenance(document):
                 raise ConditionMismatchError("Historical input lacks its recorded condition fields")
         else:
             validate_condition(run.get("condition"))
+    if "pools" in document:
+        if not isinstance(document.get("pool_reason"), str) or not document["pool_reason"].strip():
+            raise ConditionMismatchError("Pooled provenance needs a written pool_reason")
+        pools = document["pools"]
+        if not isinstance(pools, dict):
+            raise ConditionMismatchError("Pooled provenance pools must be a mapping")
+        conditions_by_path = {run["path"]: run["condition"] for run in runs}
+        if len(conditions_by_path) != len(runs):
+            raise ConditionMismatchError("Duplicate run path in output provenance")
+        per_pool, cross = check_pooled_conditions(
+            conditions_by_path, {name: pool.get("paths") for name, pool in pools.items()}, document.get("allowed_differences")
+        )
+        for name, observed in per_pool.items():
+            if pools[name].get("observed_differences") != observed:
+                raise ConditionMismatchError(f"Output provenance misstates the observed differences of pool {name}")
+        if document.get("observed_differences") != cross:
+            raise ConditionMismatchError("Output provenance misstates its cross-pool observed differences")
+        return
     observed = check_conditions([run["condition"] for run in runs], document.get("allowed_differences"))
     if document.get("observed_differences") != observed:
         raise ConditionMismatchError("Output provenance misstates its observed differences")
 
 
-def output_provenance(filepaths, outputs, allowed_differences=None, legacy_reason=None, *, output_root=None):
+def output_provenance(filepaths, outputs, allowed_differences=None, legacy_reason=None, *, output_root=None, pools=None, pool_reason=None):
+    """Provenance document for analysis outputs.
+
+    ``pools`` (name -> list of run paths) declares groups whose request plans
+    differ in shape, e.g. mixed-model runs (one plan per agent) beside
+    homogeneous runs; ``pool_reason`` says why. ``filepaths`` must then be the
+    union of the pools.
+    """
     runs = []
     for filepath in filepaths:
         path = Path(filepath)
@@ -243,8 +342,15 @@ def output_provenance(filepaths, outputs, allowed_differences=None, legacy_reaso
     document = {
         "provenance_version": 2, "n_runs": len(runs), "runs": runs,
         "allowed_differences": allowed_differences or {}, "legacy_reason": legacy_reason,
-        "observed_differences": check_conditions([run["condition"] for run in runs], allowed_differences),
         "outputs": {str(Path(path).relative_to(output_root)) if output_root is not None else Path(path).name: hashlib.sha256(Path(path).read_bytes()).hexdigest() for path in outputs},
     }
+    if pools is not None:
+        normalized = {name: [str(Path(path)) for path in paths] for name, paths in pools.items()}
+        per_pool, cross = check_pooled_conditions({run["path"]: run["condition"] for run in runs}, normalized, allowed_differences)
+        document["pools"] = {name: {"paths": normalized[name], "observed_differences": per_pool[name]} for name in normalized}
+        document["pool_reason"] = pool_reason
+        document["observed_differences"] = cross
+    else:
+        document["observed_differences"] = check_conditions([run["condition"] for run in runs], allowed_differences)
     validate_output_provenance(document)
     return document

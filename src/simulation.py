@@ -7,7 +7,7 @@ from src.agents import Agent
 from src.utils import create_llm_client, llm_runtime_metadata, print_simulation_header
 from concurrent.futures import ThreadPoolExecutor
 from src.experiment_condition import build_condition, check_conditions, condition_from_run, digest
-from src.llm_settings import LLMSettingsError
+from src.llm_settings import LLMSettingsError, agent_request_plans, is_mixed_plan
 
 
 DEFAULT_AGENT_NAMES = [
@@ -302,6 +302,7 @@ class SimulationData:
         """
         Load simulation state from a JSON file.
         Loads the full state of the simulation, including the message history of each agent.
+        ``client`` is one shared client, or a dict of agent id -> client for mixed populations.
         """
         with open(filepath, "r") as f:
             state = json.load(f)
@@ -313,11 +314,20 @@ class SimulationData:
 
         agents_state = state.get("agents", {}) or {}
         for agent_id, a in agents_state.items():
+            if isinstance(client, dict):
+                if agent_id not in client:
+                    raise ValueError(f"No client for saved agent {agent_id!r} in the mixed request plan")
+                agent_client = client[agent_id]
+                plan_model = agent_client.request_plan.as_dict()["model"]
+                if a["model"] != plan_model:
+                    raise ValueError(f"Saved model {a['model']!r} for {agent_id!r} differs from planned {plan_model!r}")
+            else:
+                agent_client = client
             agent = Agent(
                 a["agent_id"],
                 a["model"],
                 a.get("temperature", sim_data.run_metadata.get("temperature", 0.8)),
-                client,
+                agent_client,
                 memory_capacity=a["memory_capacity"],
                 initial_bias=a.get("initial_bias"),
                 system_prompt=a.get("system_prompt"),
@@ -423,8 +433,35 @@ def run_simulation(
     protected = {"llm_request", "llm_provider", "provider_model", "experiment_condition", "condition_sha256"}
     if request_plan is not None and protected.intersection(run_metadata_extra or {}):
         raise LLMSettingsError("Extra run metadata cannot override protected request/condition fields")
-    client = create_llm_client(model, request_plan=request_plan) if request_plan is not None else create_llm_client(model)
-    runtime_metadata = llm_runtime_metadata(client, model)
+    # Mixed populations pin one request plan per agent. Each agent then owns its
+    # client and model; the run-level plan only aggregates them for provenance.
+    agent_models = None
+    if request_plan is not None and is_mixed_plan(request_plan):
+        agent_plans = agent_request_plans(request_plan)
+        expected_ids = {f"Agent_{i+1}" for i in range(num_agents)}
+        if set(agent_plans) != expected_ids:
+            raise LLMSettingsError(
+                f"Mixed request plan covers {sorted(agent_plans)}, but the run has agents {sorted(expected_ids)}"
+            )
+        agent_models = {agent_id: plan.as_dict()["model"] for agent_id, plan in agent_plans.items()}
+        client = {
+            agent_id: create_llm_client(agent_models[agent_id], request_plan=plan)
+            for agent_id, plan in agent_plans.items()
+        }
+        runtime_metadata = {
+            "llm_provider": request_plan.provider,
+            "provider_model": request_plan.provider_model,
+            "llm_provider_mode": "pinned_mixed",
+            "llm_request": request_plan.as_dict(),
+            "agent_models": agent_models,
+            "agent_llm": {
+                agent_id: llm_runtime_metadata(client[agent_id], agent_models[agent_id])
+                for agent_id in agent_plans
+            },
+        }
+    else:
+        client = create_llm_client(model, request_plan=request_plan) if request_plan is not None else create_llm_client(model)
+        runtime_metadata = llm_runtime_metadata(client, model)
     condition = None
     original_metadata = None
     if request_plan is not None:
@@ -473,7 +510,15 @@ def run_simulation(
         # Initialize agents
         for i, agent_id in enumerate(agent_ids):
             bias = agent_biases[i] if agent_biases and i < len(agent_biases) else None
-            agent = Agent(agent_id, model, temperature, client, memory_capacity=memory_capacity, initial_bias=bias, log_file=log_file)
+            agent = Agent(
+                agent_id,
+                agent_models[agent_id] if agent_models else model,
+                temperature,
+                client[agent_id] if isinstance(client, dict) else client,
+                memory_capacity=memory_capacity,
+                initial_bias=bias,
+                log_file=log_file,
+            )
             agent.display_name = resolved_agent_names[agent_id]
             if initial_system_prompt_template:
                 system_prompt = _format_initial_system_prompt(
@@ -532,7 +577,11 @@ def run_simulation(
     )
 
     if condition is not None:
-        sim_data.run_metadata["temperature"] = request_plan.as_dict()["policy"]["temperature"]
+        sim_data.run_metadata["temperature"] = (
+            {agent_id: plan["policy"]["temperature"] for agent_id, plan in request_plan.as_dict()["agents"].items()}
+            if agent_models
+            else request_plan.as_dict()["policy"]["temperature"]
+        )
         sim_data.run_metadata["experiment_condition"] = condition
         sim_data.run_metadata["condition_sha256"] = digest(condition)
         if original_metadata is not None:
