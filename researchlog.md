@@ -1,3 +1,15 @@
+### 2026-09-18 — Mixed-model eight-agent contagion ladder launched
+
+**Time:** ~1 hour engineering (config, launcher, plan checks); batch in progress.
+
+Ivar approved the contagion ladder in place of the 4+4 cross-family-only
+design: 1/2/4 Gemini among GPT and 1/2/4 GPT among Sonnet, eight agents,
+unchanged September population protocol (balanced rotation, hidden names,
+co-player history 3, no defectors), three task orders, five replicates, 90
+runs. The launcher proves equality of all non-model inputs with the September
+population controls before launch. Preflight `N=90 WORKERS=8 EST_COST=$103`
+($124 with allowance). No cross-family pairing mode was built. See D010.
+
 ### 2026-09-18 — Result: Gemini+GPT dyads complete; Gemini is conditional
 
 **Time:** ~0.4 hours engineering; batch ~1.3 h wall-clock (6 workers).
