@@ -129,12 +129,17 @@ def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument('--stage', choices=sorted(STAGES), required=True)
     p.add_argument('--workers', type=int, default=4)
+    p.add_argument('--arms', default=None, help='comma-separated subset of arms to run, e.g. opus5 (default: all arms of the stage)')
     p.add_argument('--execute', action='store_true')
     p.add_argument('--audit-only', action='store_true')
     args = p.parse_args()
     assert 1 <= args.workers <= 20
     selected = [j for j in plan() if STAGES[args.stage](j['shape'], j['arm'], j['replicate'])]
     assert len(selected) == STAGE_SIZES[args.stage], (args.stage, len(selected))
+    if args.arms:
+        arms = set(args.arms.split(','))
+        assert arms <= set(ARMS), f'unknown arm in {sorted(arms)}'
+        selected = [j for j in selected if j['arm'] in arms]
     pending = []; receipts = []
     for j in selected:
         if j['path'].exists():
@@ -189,7 +194,8 @@ def main():
                 print(f'CONTINUATION PENDING={len(pending)} WORKERS=1 ATTEMPT={attempt + 1}', flush=True)
                 time.sleep(min(60, 2 ** attempt))
     if receipts and (args.execute or args.audit_only):
-        target = ROOT / 'data/json/noise_experiments' / OUTPUT / f'{args.stage}_receipt.json'
+        suffix = f"_{args.arms.replace(',', '+')}" if args.arms else ''
+        target = ROOT / 'data/json/noise_experiments' / OUTPUT / f'{args.stage}{suffix}_receipt.json'
         target.parent.mkdir(parents=True, exist_ok=True)
         by_arm = {}
         for r in receipts:
