@@ -1,3 +1,23 @@
+### 2026-09-18 — Result: Gemini+GPT dyads complete; Gemini is conditional
+
+**Time:** ~0.4 hours engineering; batch ~1.3 h wall-clock (6 workers).
+
+#### Result
+- Third mixed composition (Gemini 3.7 Flash + GPT-5 Nano, 18 runs, six
+  replicates per task order) completed 18/18 and passed the per-agent audit;
+  mixed dyad total now 54/54, standard-rate cost $14.70.
+- Game-only: Gemini sends $5 in rounds 1–2, receives nothing, then $0 for the
+  rest (GPT sent $0 in 29/30 decisions); the pair ends at 63.3 (±8.2) of 150,
+  level with Sonnet+GPT. Gemini's ceiling-locked $5 in homogeneous runs was
+  sustained by reciprocation, not unconditional.
+- With a myth task Gemini+GPT reaches 141.3 (±5.9) / 147.2 (±2.9), and GPT
+  sends more to Gemini ($4.1–4.7) than to Sonnet ($3.3–3.6) or GPT ($2.9–3.5).
+
+#### Evidence
+`docs/figures/mixed_model_dyads_20260917/README.md` (tables, three-row boxplot
+grid, pooled provenance); receipt under
+`data/json/noise_experiments/mixed_model_dyads_20260917/`. No failures or resamples.
+
 ### 2026-09-17 — Result: mixed-model dyads complete (36/36)
 
 **Time:** API phase 11:45 → 14:00 wall-clock (6 then 5 workers); analysis ~0.5 h.
