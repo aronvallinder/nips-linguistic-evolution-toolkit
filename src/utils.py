@@ -368,6 +368,9 @@ def is_exhausted_quota(error):
         # Anthropic's current wording (seen 2026-09-18): "Your credit balance is too low
         # to access the Anthropic API."
         "credit balance is too low",
+        # Google's wording (429 RESOURCE_EXHAUSTED, seen 2026-09-18): "Your prepayment
+        # credits are depleted."
+        "prepayment credits are depleted",
     ))
 
 

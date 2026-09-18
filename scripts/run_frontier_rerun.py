@@ -17,6 +17,7 @@ import io
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import time
@@ -132,7 +133,23 @@ def audit(job):
             'provider_model': m['llm_request']['provider_model'], 'standard_rate_usd': cost}
 
 
+def quarantine(job, reason):
+    """Move an invalid final (and its sidecars) out of the way so the relaunch resamples it."""
+    path = job['path']
+    target = ROOT / 'data/json/noise_experiments' / OUTPUT / 'quarantine' / f"{path.stem}_{time.strftime('%Y%m%dT%H%M%S')}"
+    target.mkdir(parents=True, exist_ok=True)
+    stem = path.name[:-len('.json')]
+    for sidecar in path.parent.glob(stem + '*'):
+        shutil.move(str(sidecar), str(target / sidecar.name))
+    (target / 'reason.json').write_text(json.dumps({
+        'quarantined': time.strftime('%Y-%m-%d %H:%M:%S'), 'run': f"{job['name']} index {job['index']} (replicate {job['replicate']})",
+        'reason': reason, 'policy': 'the audit rejects any final containing a non-complete LLM call or drifted settings; resampled under the same replicate seed by the next launch',
+    }, indent=2) + '\n')
+    return target
+
+
 def main():
+    os.chdir(ROOT)  # workers write finals relative to the cwd; the audit reads ROOT-relative paths
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument('--stage', choices=sorted(STAGES), required=True)
     p.add_argument('--workers', type=int, default=4)
@@ -147,12 +164,18 @@ def main():
         require(arms <= set(ARMS), f'unknown arm in {sorted(arms)}')
         selected = [j for j in selected if j['arm'] in arms]
     require(selected, f'stage {args.stage} selects no runs')
-    pending = []; receipts = []
+    pending = []; receipts = []; invalid = []
     for j in selected:
-        if j['path'].exists():
+        if not j['path'].exists():
+            pending.append(j); continue
+        try:
             receipts.append(audit(j))
-        else:
-            pending.append(j)
+        except (AssertionError, RuntimeError) as e:
+            invalid.append((j, str(e)))
+    for j, reason in invalid:
+        target = quarantine(j, reason)
+        print(f"QUARANTINED {j['name']} index={j['index']}: {reason.split(': ')[-1]} -> {target.relative_to(ROOT)}", flush=True)
+        pending.append(j)
     est = sum(EST_PER_RUN[j['arm']][j['shape']] for j in pending)
     arms = sorted({j['arm'] for j in pending})
     print(f'VALIDATED STAGE={args.stage} N={len(selected)} EXISTING={len(receipts)} PENDING={len(pending)} ARMS={arms}', flush=True)
@@ -169,7 +192,7 @@ def main():
         for attempt in range(1, 11):
             if not pending:
                 break
-            failed = []; quota_exhausted = False
+            failed = []; quota_exhausted = False; invalid_final = None
             with ProcessPoolExecutor(max_workers=workers) as pool:
                 futures = {pool.submit(run_missing_job, j['combo'], j['name'], j['index'], OUTPUT, logdir): j for j in pending}
                 for f in as_completed(futures):
@@ -189,16 +212,24 @@ def main():
                     except Exception as e:
                         print(f"FAILED {j['name']} index={j['index']} {type(e).__name__}: {e}", flush=True)
                         if j['path'].exists():
-                            raise  # never silently resample a final that fails validation
+                            # Never silently resample a final that fails validation: stop submitting,
+                            # let running jobs finish and be audited, then abort after the pool exits.
+                            invalid_final = (j, e)
+                            for queued in futures: queued.cancel()
+                            continue
                         failed.append(j)
+            if invalid_final is not None:
+                j, e = invalid_final
+                raise RuntimeError(f"Final failed validation and was left in place for inspection: {j['path']} ({e}). "
+                                   "Relaunching quarantines it automatically and resamples the run.")
             if quota_exhausted:
                 raise RuntimeError('Provider credits exhausted; top up before resuming. Completed finals preserved.')
             pending = failed
             if pending:
                 if attempt == 10:
                     raise RuntimeError(f'{len(pending)} runs failed after ten attempts')
-                workers = 1
-                print(f'CONTINUATION PENDING={len(pending)} WORKERS=1 ATTEMPT={attempt + 1}', flush=True)
+                workers = max(1, min(workers, len(pending)) // 2)
+                print(f'CONTINUATION PENDING={len(pending)} WORKERS={workers} ATTEMPT={attempt + 1}', flush=True)
                 time.sleep(min(60, 2 ** attempt))
     if receipts and (args.execute or args.audit_only):
         suffix = f"_{args.arms.replace(',', '+')}" if args.arms else ''

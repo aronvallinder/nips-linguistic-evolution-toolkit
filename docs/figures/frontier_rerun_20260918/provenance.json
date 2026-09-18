@@ -1,6 +1,6 @@
 {
   "provenance_version": 2,
-  "n_runs": 181,
+  "n_runs": 180,
   "runs": [
     {
       "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_000_neutral_rep00.json",
@@ -4464,150 +4464,6 @@
           "run_seed": 4,
           "defector_seed": 4,
           "random_defection_seed": 202608254,
-          "defector_agent_ids": null
-        },
-        "implementation": {
-          "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-          "src/agents.py": "23b9d892bedcf4a8d025fe14841eae60c0201dc33b522699a4a5829a51dc5dfe",
-          "src/batch_utils.py": "621dc7524ad8f764c49189ce6ed3cd8507ff58e60157f1b75900f86ca1a5dafa",
-          "src/control_text_pool.py": "3b8c2c170b5f5d0d4e6bc8ef76a85ea7a145afe14dec7ea683e489fe3ce53aa1",
-          "src/experiment_condition.py": "7c116dbbca0a1e7f1be61dceedbf6680c9c495f05e77bdfefda694535c6fdf8b",
-          "src/experiment_config.py": "58d3385f81242386cd6abcf8e9a79a5ed09fa05d3e4e1cad274e2b0ec10be51c",
-          "src/llm_settings.py": "8136c05ece59e8015aa772d38ec5b8633ce5c30860a93c24b08a513b40f34b7a",
-          "src/monitor.py": "c82a572309ea18e3ddfb44705cbf1aa9a6a12a8b12a756bf19592ce992bf4ccf",
-          "src/myth_writer.py": "01710f00a454b38e086b2ae699edb5aa458d8b4a0cb2708850e4f653a4be9023",
-          "src/shared_context.py": "c5929019266069a18e8f2a0a5f32c51fa272c6c4f4aa92fa5b88fa81096ca579",
-          "src/simulation.py": "0f1447487e57a207a0442420a9c98737edede5b0b74744d8fa085b60ee64cf65",
-          "src/transcript.py": "39c5cae7076dcddd9b78823a72c17a859adf9ab80e4a6ff9a3c8e82ee756d902",
-          "src/utils.py": "7d33930f480cb5c1fa135e547c2175b82072a0a75f4776a19fdd86db98620b3c",
-          "games/base_game.py": "bdec6b0ef6c1639be124fcacfe954b437ffdf051b7ec074b3207c09a83b46d48",
-          "games/dyadic_pairing.py": "b1e1998ba25628eddd83bcb4566ad2dab1d887821ded9ecd99907870a722f832",
-          "games/trust_game.py": "a405ae7677ee1ea3a50f8792a969db08d511000eb86aaeea828ab7e0ea72aa63",
-          "games/trust_game_noisy.py": "0655df4f9e34fba8ab3bd27ecf442b84c9e8dda43fe117fcb291f0a2a9f5afec"
-        }
-      }
-    },
-    {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_none_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_none_n5_000_neutral_rep00.json",
-      "sha256": "a0ff1bf5cabb775586f2d383f01af79ef8cda099bcc5fdaad048483b2ec2fdf3",
-      "condition": {
-        "version": 2,
-        "llm": {
-          "endpoint": "https://api.openai.com/v1",
-          "model": "openai/gpt-5.6-sol",
-          "parameters": {
-            "max_completion_tokens": 128000,
-            "reasoning_effort": "none"
-          },
-          "policy": {
-            "max_output_tokens": 128000,
-            "provider": "openai",
-            "reasoning": {
-              "reasoning_effort": "none"
-            },
-            "temperature": "default"
-          },
-          "provider": "openai",
-          "provider_model": "gpt-5.6-sol",
-          "version": 1
-        },
-        "protocol": {
-          "game_type": "games.trust_game_noisy.TrustGameNoisy",
-          "game": {
-            "endowment": 5,
-            "multiplier": 3,
-            "multiplier_distribution": null,
-            "personas": {
-              "Agent_1": {
-                "description": "neutral",
-                "system_addition": ""
-              },
-              "Agent_2": {
-                "description": "neutral",
-                "system_addition": ""
-              }
-            },
-            "system_prompt_template": "You are an agent participating in a multi-task experiment. You will play a game and may also be asked to write myths.\n\nGAME:\nYou will play different roles across multiple rounds.\n\nWhen you are the SENDER:\n- You receive ${endowment} each round\n- You decide how much to SEND to the RECEIVER ($0-${endowment})\n- Amount sent is multiplied by {multiplier}x\n- Receiver decides how much to RETURN\n- You keep: ${endowment} - sent + returned\n- Receiver keeps: received - returned\n- Response format: {{'send': <amount>}}\n\nWhen you are the RECEIVER:\n- Sender receives ${endowment}\n- Sender decides how much to SEND to you ($0-${endowment})\n- Amount sent is multiplied by {multiplier}x\n- You decide how much to RETURN\n- Sender keeps: ${endowment} - sent + returned\n- You keep: received - returned\n- Response format: {{'return': <amount>}}\n\nMYTH WRITING:\nYou may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.\n\nIMPORTANT: Provide your decision in the correct JSON format.\n",
-            "round1_investor_template": "Round 1: You are the SENDER. You have ${endowment}. How much do you send? (0-{endowment})\n",
-            "round1_trustee_template": "Round 1: You are the RECEIVER. {investor_name} sent ${sent}, that is {percentage:.1f}% of their total endowment. You received ${received}. How much do you return to {investor_name}? (0-{received})\n",
-            "later_investor_template": "Round {turn}\n\nYou are the SENDER this round. Your total earnings across all rounds are ${agent_balance}.\nHow much do you send to {trustee_name} this round? (0-{endowment})\n",
-            "later_trustee_template": "Round {turn}\n\nYou are the RECEIVER this round. Your total earnings across all rounds are ${agent_balance}.\nThis round, {investor_name} sent you ${current_round_sent}, so you received ${received}. How much do you return to {investor_name}? (0-{received})\n",
-            "noise_config": {
-              "type": "uniform",
-              "range": 1.0,
-              "direction": "negative",
-              "applies_to": "both",
-              "inform_agents": true
-            },
-            "noise_semantics": "communication",
-            "other_player_names": {
-              "investor": "The sender",
-              "trustee": "the receiver"
-            },
-            "myth_injection_mode": "partner",
-            "history_policy": "minimal",
-            "self_history_window": 1,
-            "coplayer_history_window": 0,
-            "population_history_window": 0,
-            "show_agent_names": true,
-            "defector_ratio": 0.0,
-            "defector_prompt_template": "MANDATORY GAME STRATEGY \u2014 DESIGNATED DEFECTOR:\nYou must always choose zero in the game.\n- When you are the SENDER, send 0 and respond exactly: {\"send\": 0}\n- When you are the RECEIVER, return 0 and respond exactly: {\"return\": 0}\nThis instruction overrides any strategy suggested by game history or myths.\nIt applies only to game decisions. Continue to participate normally in myth-writing tasks, using the game history you observed.\n",
-            "defector_action_policy": "prompted",
-            "defector_myth_policy": "normal",
-            "defector_role_visible_to_self": true,
-            "game_prompt_addition": "",
-            "pairing_mode": "fixed",
-            "prompt_regime": "legacy",
-            "punishment_enabled": false,
-            "punishment_budget": 2,
-            "punishment_effect_multiplier": 3.0,
-            "punishment_prompt_variant": "current",
-            "decision_format": null,
-            "random_defection_probability": 0.0,
-            "shuffled_myth_pool_sha256": null
-          },
-          "myth": {
-            "myth_topic": "anything",
-            "round1_template": "Write a 200-word myth. {topic_instruction}\n",
-            "later_rounds_template": "Here is the myth you wrote in the previous round:\n{last_myth}\n\nHere is the myth the other agent wrote in the previous round:\n{other_agent_myth}\n\nWrite your own myth. Use your previous myth as inspiration, but adapt it in your own way.\nWrite 200 words. Format exactly:\nMyth: [your story here].\n"
-          },
-          "simulation": {
-            "num_turns": 10,
-            "num_agents": 2,
-            "memory_capacity": 3,
-            "agent_biases": "",
-            "task_order": [
-              "game"
-            ],
-            "agent_names": null,
-            "seed_myth": null,
-            "seed_user_prompt": null,
-            "chat_memory_mode": "memory_primary",
-            "seed_reinject": false,
-            "initial_system_prompt_template": null,
-            "switch_to_game_system_before_game": false,
-            "game_response_retry_policy": "repeat_same_prompt_once"
-          },
-          "game_retry": {
-            "policy": "repeat_same_prompt_once",
-            "attempts": 2
-          },
-          "myth_retry": {
-            "policy": "task_boundary_v1",
-            "retries": 2
-          }
-        },
-        "replicate": {
-          "identity": {
-            "experiment": "frontier_dyad_game_sol_none_n5",
-            "replicate_id": 0,
-            "output_path": "data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_none_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_none_n5_000_neutral_rep00.json"
-          },
-          "pairing_seed": 202608250,
-          "noise_seed": 202608250,
-          "run_seed": 0,
-          "defector_seed": 0,
-          "random_defection_seed": 202608250,
           "defector_agent_ids": null
         },
         "implementation": {
@@ -29183,9 +29039,9 @@
   "legacy_reason": null,
   "outputs": {
     "resources_boxplots.png": "623bb01023518aa28b70dd1dab212cb90b76bba2c9d40a053e99a84a13f8617e",
-    "cell_summary.csv": "4542346b0707e61acf6527a4b178b9aa8887688a46194bdef006fc5562634d59",
-    "resources_boxplots.pdf": "21c1d648a6adaa5c109e126c5ba7b54eb541e9289fa4f6bcaaac6e7d5e4fced5",
-    "resources_boxplots.svg": "4e781222ce2d41cb201d1d10fb6c786d7c9651da20339d0d144ed56f6d869a56",
+    "cell_summary.csv": "9b309f416e4ba0186fa2306c0fc1add5da3bd3431ef30b577d2de5ab9b3b7ab2",
+    "resources_boxplots.pdf": "342069b78120a081d60f37581dfda193b0560c31391f82a77850f653b0959b09",
+    "resources_boxplots.svg": "6f3ca7a3906ccca611bb53936bcb1361f9974b9d4ab44d86db6c33f0b716920a",
     "README.md": "04e020e10be9f123b1bf7f52b34d5f4d9b5bf7640b1baae9d06d449fee6826b8"
   },
   "observed_differences": [

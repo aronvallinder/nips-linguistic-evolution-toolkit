@@ -82,13 +82,22 @@ ALLOWED = {
 }
 
 
+PLOTTED_ARMS = ("Opus 5", "Gemini 3.1 Pro", "Sol (high)", "Sonnet 4.5", "Gemini 3.7 Flash", "GPT-5 Nano")
+
+
 def load():
     rows = []
     for p in finals(FRONTIER_ROOT):
         rows += rows_for(p, "frontier")
     for p in finals(SEPTEMBER_ROOT, NO_DEFECTOR_PARAMS):
         rows += rows_for(p, "september")
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+    df = df[df["arm"].isin(PLOTTED_ARMS)].copy()  # the Sol-none smoke run is not part of any comparison
+    runs = df.drop_duplicates("path")
+    dupes = runs[runs.duplicated(["source", "arm", "num_agents", "task_order", "replicate_id"], keep=False)]
+    if not dupes.empty:
+        raise RuntimeError("More than one final for a cell/replicate:\n" + "\n".join(dupes["path"]))
+    return df
 
 
 def write_provenance(df):
