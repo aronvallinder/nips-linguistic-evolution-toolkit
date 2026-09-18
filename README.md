@@ -17,6 +17,18 @@ cp .env.example .env                     # then fill in OPENROUTER_API_KEY
 
 API keys load from `.env` at the repo root (`src/utils.py` calls `load_dotenv()` at import time). `OPENROUTER_API_KEY` covers most experiments; direct-provider keys (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `TOGETHER_API_KEY`, `GEMINI_API_KEY`) are optional.
 
+## Experiment-design history
+
+Start with the [project memory](docs/project-memory/README.md) for the current
+research state, source-linked decisions, meeting-source register, and the
+automatic Codex/Claude maintenance workflow.
+
+Read the [source-linked design reference](docs/experiment_design_reference.md)
+for the reasons behind experimental settings, dated supervisor comments,
+superseded choices, bug boundaries and unresolved questions. It covers the
+full slide deck and checks selected saved runs against code; it is not a new
+launch protocol.
+
 ## Running experiments
 
 Experiment sets are defined in `config/experiments.yaml` and expand to full factorial designs over models, personas, task orders, and myth topics.

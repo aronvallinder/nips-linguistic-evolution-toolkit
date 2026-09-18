@@ -1,3 +1,320 @@
+### 2026-09-18 — Result: frontier-model rerun complete (Opus 5, Gemini 3.1 Pro, GPT-5.6 Sol; 90/90)
+
+**Time:** ~5 hours (plan, three-agent cost review, config, launcher, smoke, pilot, main, figure).
+
+Result: the September no-defector matrix (2 and 8 agents × three task orders × 5
+replicates) rerun on each provider's current flagship with reasoning on, 90/90
+launcher-audited finals, $142.55 at standard rates (smoke $0.34 extra). Final
+resources per agent, mean over five runs, game / game→myth / myth→game: Opus 5
+67.8 / 73.5 / 75.0 (dyads) and 68.4 / 73.0 / 74.7 (populations), 13–19 points
+above Sonnet 4.5 in five of six cells (6 points in 8-agent myth→game, Sonnet already
+at 68.7); Opus 5 shows game < game→myth < myth→game at both sizes, which Sonnet showed
+in dyads only. Gemini 3.1 Pro at the 75 ceiling everywhere like 3.7 Flash. Sol
+(effort high) 57.0 / 57.1 / 70.5 and 63.1 / 67.0 / 73.6, replacing Nano's game-only
+zero-lock (25.0 in 10/10) with a partial collapse in 2/10 game-only runs that the
+myth task removes. Myth-first advantage persists on Opus 5 (+6 to +7) and Sol (+11
+to +14); nothing to gain for Gemini.
+
+Decisions and rejected cost levers (Batch API, prompt caching, reasoning off, Luna,
+Sol-none) are in D011; the first cost table was 5–7× too high and was corrected
+against the receipt method before launch. Caveats: Claude 4.7+ rejects
+`budget_tokens`, so model and thinking regime change together (D004); two Gemini
+finals quarantined and resampled after transient connection drops; all three
+providers' prepaid credits ran out mid-batch and were topped up. Figure, tables and
+disclosures: `docs/figures/frontier_rerun_20260918/README.md`; plan:
+`docs/research/frontier_model_run_plan_2026-09-18.md`.
+
+### 2026-09-18 — Mixed-model eight-agent contagion ladder launched
+
+**Time:** ~1 hour engineering (config, launcher, plan checks); batch in progress.
+
+Ivar approved the contagion ladder in place of the 4+4 cross-family-only
+design: 1/2/4 Gemini among GPT and 1/2/4 GPT among Sonnet, eight agents,
+unchanged September population protocol (balanced rotation, hidden names,
+co-player history 3, no defectors), three task orders, five replicates, 90
+runs. The launcher proves equality of all non-model inputs with the September
+population controls before launch. Preflight `N=90 WORKERS=8 EST_COST=$103`
+($124 with allowance). No cross-family pairing mode was built. See D010.
+
+### 2026-09-18 — Result: Gemini+GPT dyads complete; Gemini is conditional
+
+**Time:** ~0.4 hours engineering; batch ~1.3 h wall-clock (6 workers).
+
+#### Result
+- Third mixed composition (Gemini 3.7 Flash + GPT-5 Nano, 18 runs, six
+  replicates per task order) completed 18/18 and passed the per-agent audit;
+  mixed dyad total now 54/54, standard-rate cost $14.70.
+- Game-only: Gemini sends $5 in rounds 1–2, receives nothing, then $0 for the
+  rest (GPT sent $0 in 29/30 decisions); the pair ends at 63.3 (±8.2) of 150,
+  level with Sonnet+GPT. Gemini's ceiling-locked $5 in homogeneous runs was
+  sustained by reciprocation, not unconditional.
+- With a myth task Gemini+GPT reaches 141.3 (±5.9) / 147.2 (±2.9), and GPT
+  sends more to Gemini ($4.1–4.7) than to Sonnet ($3.3–3.6) or GPT ($2.9–3.5).
+
+#### Evidence
+`docs/figures/mixed_model_dyads_20260917/README.md` (tables, three-row boxplot
+grid, pooled provenance); receipt under
+`data/json/noise_experiments/mixed_model_dyads_20260917/`. No failures or resamples.
+
+### 2026-09-17 — Result: mixed-model dyads complete (36/36)
+
+**Time:** API phase 11:45 → 14:00 wall-clock (6 then 5 workers); analysis ~0.5 h.
+
+#### Result
+- All 36 mixed dyad runs finished and passed the launcher's per-agent audit;
+  standard-rate cost $12.56 (Anthropic $10.37, OpenAI $0.77, Google $1.41).
+- Sonnet follows its partner: game-only sends $2.5 to Sonnet, $4.1 to Gemini,
+  $1.1 to GPT; its return proportion stays 0.38–0.46. Sonnet+Gemini is near
+  the ceiling in every task order (140–148 of 150).
+- GPT's zero-lock survives a cooperative partner in game-only play: $0 in 28/30
+  sends, 0.03 returned; Sonnet gives up by round 5–8; dyad ends at 64 (GPT+GPT
+  floor 50, Sonnet+Sonnet 101). A myth task lifts Sonnet+GPT to 117–120, the
+  same range as both homogeneous dyads.
+
+#### Failure modes
+- One Sonnet sender answered with prose instead of JSON twice (pinned retry
+  policy) and the run was resampled; four in-flight runs were lost when the
+  batch process was stopped and were resampled. Disclosed in the README.
+
+#### Evidence
+`docs/figures/mixed_model_dyads_20260917/README.md` (tables, provenance per pool);
+finals and `completion_receipt.json` under
+`data/json/noise_experiments/mixed_model_dyads_20260917/`. Eight-agent stage still deferred (D010).
+
+### 2026-09-17 — Mixed-model dyads launched; eight-agent stage deferred
+
+**Time:** ~3 hours engineering (per-agent request plans, config, launcher, tests, smoke); batch in progress.
+
+Ivar set the dyad design to six replicates per composition/task order so each
+family sends first in three (Sonnet is Agent_1 in replicates 0/2/4, the other
+family in 1/3/5) and chose to run the two-agent stage first: 36 runs, Sonnet 4.5
+with GPT-5 Nano and Sonnet 4.5 with Gemini 3.7 Flash, game/game_myth/myth_game.
+Everything except the models is the September informed-noise dyad control
+protocol; the launcher asserts equal comparison inputs before launch.
+Implementation (commit `620ce8b3`): mixed sets declare `agent_models` plus
+`llm_settings_by_model`; each agent gets its own client and pinned native plan;
+the condition validator checks every call against its agent's plan.
+Smoke 2/2 passed audit ($0.18); full batch launched with preflight
+`N=34 WORKERS=6 EST_COST=$12.9` (about $16 with allowance). The eight-agent
+stage (30 runs, cross-family-only pairing) is deferred and its pairing mode
+is not implemented. See D010 and `docs/research/mixed_model_run_plan_2026-09-17.md`.
+
+### 2026-09-17 — Mixed games require cross-family encounters
+
+**Time:** not tracked; design decision and cost estimate only.
+
+Ivar selected cross-family-only game pairing for the mixed-model experiment:
+Sonnet/GPT and Sonnet/Gemini, with opposite-family partner rotation at eight
+agents. The 60-run planning design has five replicates per composition/task
+order/size. Applying half of each homogeneous model's measured September
+token cost gives about $56 base, $67 with 20% allowance; quote $70 API budget.
+This extrapolation assumes the existing informed-noise profiles and does not
+measure mixed-run token use. No paid runs launched. See D010.
+
+### 2026-09-17 — Result: Seed ladder persists in dyads
+
+**Time:** not tracked; 35 runs completed with 20 workers.
+
+#### Result
+
+All two-agent counterpart finals passed condition and completion validation; no
+error snapshots remain. Joint resources: late Sonnet 140.20 (±13.86), Gemini
+112.02 (±6.56), early Sonnet 110.80 (±10.12), GPT 100.36 (±8.53), filler 91.40
+(±3.80), no inherited text 90.00 (±4.74), and low-cooperation myth 83.90
+(±21.20). The dyad ceiling is $150; n=5 per cell.
+
+#### Meaning and boundary
+
+The qualitative eight-agent seed ladder largely persists in one fixed dyad.
+This shows the historical Phase-1 content null does not generalize to the current
+repeated-seed/no-history apparatus, but does not identify which old protocol
+difference caused the reversal. Donor and stochastic run variation remain combined.
+
+#### Evidence and cost
+
+The completion receipt hashes all 35 finals and records $8.486859 at standard
+token rates, excluding possible transport retries. See
+`docs/research/slide678_dyad_rerun_2026-09-17.md` and its figure directory.
+
+### 2026-09-17 — Dyad transplant counterpart starts
+
+**Time:** not tracked; 35-run batch launched with 20 workers.
+
+Ivar authorized the exact two-agent counterpart of the completed slide-678
+rerun: same seven donor contexts, five replicates, ten game-only rounds,
+myth-only repeated injection, negative-$5 communication noise, and pinned Sonnet
+host profile. Only population structure changes: one fixed dyad replaces eight
+agents in rotating dyads. The frozen plan contains 700 calls; preflight estimate
+is $10. This is not the historical M1/M2 memory factorial. No result yet; see
+`docs/research/slide678_dyad_rerun_2026-09-17.md`.
+
+### 2026-09-17 — Result: Transplant seed ladder replicates
+
+**Time:** not tracked; run completed September 16 and was verified September 17.
+
+#### Result
+
+All 35 slide-678 transplant reruns passed full-state and condition validation
+(seven contexts × five donor/run replicates; no error snapshots). Final joint
+resources: late Sonnet 600.0 (±0.00), late Gemini 573.8 (±48.98), early Sonnet
+540.0 (±37.47), late GPT 455.4 (±32.07), filler 440.2 (±7.09), no inherited
+text 424.6 (±2.07), and low-cooperation myth 384.0 (±87.12).
+
+#### Boundaries
+
+This reproduces the qualitative historical ladder under pinned September Sonnet
+settings and the historical myth-only/negative-$5 apparatus. It is descriptive
+at n=5: donor content and run variation are combined, and narrative form versus
+actionable information remains unresolved. Linguistic analysis still precedes
+content removal.
+
+#### Evidence and cost
+
+The completion receipt hashes every retained final and records $27.502824 at
+standard token rates. That excludes deliberately discarded partial attempts and
+possible transport retries, so it is not the invoice total. See
+`docs/research/slide678_rerun_2026-09-16.md`.
+
+### 2026-09-16 — Heterogeneous interactions define mixed experiments
+
+**Time:** not tracked; scope correction only.
+
+Ivar rejected homogeneous dyad runs: the intended pairs are GPT/Claude and
+Claude/Gemini, matching the two selected 4+4 population mixtures. Earlier
+assistant matrices incorrectly treated homogeneous controls as agreed scope.
+Five total replicates per composition/task order would give 60 runs across
+both sizes; that minimal interpretation removes the assistant's extra dyad
+schedule multiplier. No runs launched. See D010 for authority and open settings.
+
+### 2026-09-16 — Mixed models retain existing orders
+
+**Time:** not tracked; design correction only.
+
+Ivar clarified that the mixed-model arms are `game`, `game_myth` and
+`myth_game`. The shared-prose treatment was an assistant-introduced assumption
+and is removed from the selected design. The total remains 120 runs; the prose
+protocol mentioned in the preceding entry is not required. No simulations
+launched. See project-memory D010.
+
+### 2026-09-16 — Mixed model compositions now selected
+
+**Time:** not tracked; design selection only.
+
+Ivar selected five replicates per block, retaining the three-arm dyad matrix
+with two initial-sender schedules (90 runs). Eight-agent conditions are four
+Sonnet plus four GPT and four Sonnet plus four Gemini across three arms
+(30 runs). The resulting 120-run design supersedes the 216-run proposal and
+48-run pilot suggestion. Exact scheduling and prose protocol remain to be
+frozen; no simulations launched. See project-memory D010.
+
+### 2026-09-16 — Mixed models require both scales
+
+**Time:** not tracked; design clarification only.
+
+Ivar specified that the mixed-model experiment must include both fixed
+two-agent dyads and rotating eight-agent populations. This supersedes the
+assistant proposal to treat a 4+4 population as a later extension. The current
+planning matrix has 144 dyad runs plus 72 population runs; exact population
+allocation and encounter balancing must be frozen before launch. No simulation
+or paid call ran. See project-memory D010 and
+`docs/research/next_cooperation_experiments.md`.
+
+### 2026-09-16 — Historical transplant rerun is authorized
+
+**Time:** not tracked; preparation and initial live verification.
+
+Ivar authorized the seven-cell slide-678 rerun: five replicates per cell, existing
+donors, eight agents, ten game-only rounds, repeated identical myth injection,
+no game-message/history blocks, historical negative-$5 communication noise.
+Use the pinned September Sonnet profile; this is not an exact reproduction of
+unrecorded historical request settings. Linguistic analysis precedes any later
+content-removal intervention. Estimated $40; $60 preflight planning allowance.
+
+Frozen-plan runner validates existing finals and preserves original outputs.
+All 35 historical donor/prefix checks and nine free tests passed. Initial two
+live cells started; no completed new result claimed. Details:
+`docs/research/slide678_rerun_2026-09-16.md` and project-memory D008.
+### 2026-09-16 — Result: Range-two bridge shows larger Claude gap
+
+**Time:** ~0.5 hours, including the paid batch and analysis.
+
+#### Result
+Twenty current-protocol dyads completed: Claude Sonnet 4.5 and Gemini 3.7 Flash,
+each with five paired game-only/myth-first replicates under informed `U(-2, 0)`
+communication noise. Claude's difference of medians was +20.0, versus +3.5 in
+the matched range-1 controls; paired effects were 17.00 (±7.50) and positive in
+5/5 range-2 blocks. Gemini remained ceiling-locked at 75 in all ten new runs.
+
+#### Boundary and cost
+The paired range-2-minus-range-1 effect was 9.58 (±17.05), so n=5 does not
+establish that changing the range caused the larger myth effect. The pattern is
+consistent with the noise-strength explanation, not proof of it. All 20 finals
+passed profile, condition and completion audits without retries. Recorded
+successful-final cost: $6.462147. Report:
+`docs/figures/noise_strength_bridge_20260916/`.
+
+### 2026-09-16 — Result: Figure two extension completes
+
+**Time:** not tracked; batch started September 15 and completed September 16.
+
+#### Result
+All 180 no-defector extension runs completed and passed the launcher's final-state,
+request-profile and completion audit: three models × two population sizes ×
+no-noise/uninformed negative-only noise × three task orders × five replicates.
+September profiles and per-population history settings were preserved; only noise
+configuration changed. The 90 existing informed-noise controls remain unchanged.
+
+#### Cost and failures
+Recorded standard-rate token cost for successful finals: **$128.18926695**;
+excludes discarded/failed attempts and is not an invoice total. Claude and Gemini
+completed 60 each; OpenAI credits exhausted at 36/60. The supervisor needlessly
+retried the same 24 missing GPT jobs ten times. After top-up, they completed.
+Two Claude population myth-first runs failed with a return key in a sender
+response and were resampled successfully; disclose this selection in analysis.
+
+#### Evidence
+Final hashes and usage: `data/json/noise_experiments/figure2_no_defectors_20260915/completion_receipt.json`.
+Isolated branch `run/figure2-no-defectors-20260915`: initial launch `7fad4313`,
+billing-retry fix/resume `f38ab438`. The fix changes error handling, not prompts.
+Figure 2 combining the 180 new and 90 existing controls has not yet been generated.
+
+### 2026-09-15 — Project decisions become agent-maintained
+
+**Time:** not tracked; documentation and provenance work only.
+
+#### What changed
+
+`docs/project-memory/` is now the repository source of truth for current
+research state and individual design decisions. Codex and Claude must read it
+at session start and update it automatically when a durable decision, semantic
+change, invalidating bug, completed result, or primary source appears.
+
+#### Boundaries
+
+Nine initial decision records separate authority, rationale, scope,
+implementation evidence, supersession, and open questions. The 180-run proposal
+remains on hold. No experiment settings changed and no runs launched.
+
+#### Evidence
+
+See `docs/project-memory/README.md`, `WORKFLOW.md`, and `CURRENT.md`. The validator
+passes all indexed decisions and local links. Legacy Claude memories remain
+search aids; slide comments, meeting transcripts, code/configuration, and final
+run metadata remain the evidence sources.
+
+### 2026-09-14 — Result: review prioritizes cultural mechanisms
+
+**Time:** not tracked; offline audit and literature review only.
+
+#### Result
+Comprehensive local JSON census covered 35,852 paths and 132 experiment families; 6,078 distinct final-shaped file hashes are not independent validated replicates. Reproduced all 405 plotted observations from 270 latest source finals. The latest myth-first effects are model-dependent, with substantial GPT/Claude no-defector gains and a saturated Gemini baseline.
+
+#### Recommended direction
+The review ranks causal content/reflection controls, archive inheritance through agent replacement, exploitation/recovery, held-out game transfer, and mixed-model coordination. A generic 270-run mixed-model sweep was considered and deprioritized because it would add descriptive coverage before identifying the mechanism. These are recommendations, not an approved experimental programme; no simulations or paid calls ran.
+
+#### Evidence
+[Full report](docs/research/next_cooperation_experiments.md) links the reproducible census, family audit, current-run verification, and 22-primary-source literature review. Independent design/citation review clarified narrative/content confounds, archive-reset timing and donor-level replication. All-agent resources algebraically cancel returns, so follow-ups should preserve resources while measuring reciprocity and exploitation separately.
+
 ### 2026-09-10 — Result: GPT‑5 Nano game-only populations lock at zero; myth exchange breaks the lock
 
 **Time:** ~0.3 hours (analysis of the completed 2026‑09‑09 rerun; no API calls).

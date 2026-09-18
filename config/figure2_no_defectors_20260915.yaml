@@ -1,0 +1,1376 @@
+# Frozen September profiles; only no-noise and uninformed-noise control conditions.
+base_models:
+  gpt5_5: openai/gpt-5.5
+  llama8b: meta-llama/llama-3.1-8b-instruct
+  gpt4_cheaper: openai/gpt-4o-mini
+  gpt5_nano: openai/gpt-5-nano
+  gpt5_5_20260423: openai/gpt-5.5-2026-04-23
+  claude_main: anthropic/claude-3.5-sonnet
+  claude_haiku: anthropic/claude-3-haiku
+  claude_haiku_45: anthropic/claude-haiku-4.5
+  claude_sonnet_45: anthropic/claude-sonnet-4.5
+  deepseek_v3: deepseek/deepseek-chat-v3-0324
+  gemini_3_flash: google/gemini-3-flash-preview
+  gemini_3_7_flash: google/gemini-3.7-flash
+  gemini_3_1_flash_lite: google/gemini-3.1-flash-lite
+  gemini_3_1_pro: google/gemini-3.1-pro-preview
+llm_profiles:
+  september8_claude:
+    provider: anthropic
+    reasoning:
+      thinking:
+        type: enabled
+        budget_tokens: 8192
+    temperature: default
+    max_output_tokens: 64000
+  september8_gpt:
+    provider: openai
+    reasoning:
+      reasoning_effort: high
+    temperature: default
+    max_output_tokens: 128000
+  september8_gemini:
+    provider: google
+    reasoning:
+      thinkingConfig:
+        thinkingLevel: high
+    temperature: 0.8
+    max_output_tokens: 65536
+prompt_templates:
+  trust_game_neutral_framing: 'You are an agent participating in a multi-task experiment.
+    You will play an allocation task and may also be asked to write myths.
+
+
+    ALLOCATION TASK:
+
+    You will alternate between two roles across multiple rounds.
+
+
+    When you are ROLE A:
+
+    - You receive {endowment} tokens each round
+
+    - You decide how many tokens to allocate to ROLE B (0-{endowment})
+
+    - The allocated amount is multiplied by {multiplier}
+
+    - ROLE B decides how many of the received tokens to allocate back
+
+    - You keep: {endowment} - allocated + allocated back
+
+    - ROLE B keeps: received - allocated back
+
+    - Response format: {{''send'': <amount>}}
+
+
+    When you are ROLE B:
+
+    - ROLE A receives {endowment} tokens
+
+    - ROLE A decides how many tokens to allocate to you (0-{endowment})
+
+    - The allocated amount is multiplied by {multiplier}
+
+    - You decide how many of the received tokens to allocate back
+
+    - ROLE A keeps: {endowment} - allocated + allocated back
+
+    - You keep: received - allocated back
+
+    - Response format: {{''return'': <amount>}}
+
+
+    MYTH WRITING:
+
+    You may also be asked to write short myths (stories) on various topics. When writing
+    myths, follow the instructions provided in each prompt.
+
+
+    IMPORTANT: Provide your decision in the correct JSON format.
+
+    '
+  trust_game_neutral_round1_investor: 'Round 1: You are ROLE A. You have {endowment}
+    tokens. How many tokens do you allocate to the other participant? (0-{endowment})
+
+    '
+  trust_game_neutral_round1_trustee: 'Round 1: You are ROLE B. The other participant
+    allocated {sent} tokens to you, that is {percentage:.1f}% of their available tokens.
+    After multiplication, you received {received} tokens. How many tokens do you allocate
+    back? (0-{received})
+
+    '
+  trust_game_neutral_later_investor: 'Round {turn}
+
+
+    You are ROLE A this round. Last round you were ROLE B. The other participant allocated
+    {last_round_sent} tokens,
+
+    that was {last_round_sent_percentage:.1f}% of their available tokens. After multiplication,
+    you received {last_round_received} tokens.
+
+    You allocated back {last_round_returned} tokens. So your payoff was {last_round_trustee_payoff}.
+
+    Your total earnings across all rounds are {agent_balance} tokens.
+
+    How many tokens do you allocate to the other participant this round? (0-{endowment})
+
+    '
+  trust_game_neutral_later_trustee: 'Round {turn}
+
+
+    You are ROLE B this round. Last round you were ROLE A. You allocated {last_round_sent}
+    tokens,
+
+    that was {last_round_sent_percentage:.1f}% of your available tokens. After multiplication,
+    the other participant received {last_round_received} tokens.
+
+    The other participant allocated back {last_round_returned} tokens. So your payoff
+    was {last_round_investor_payoff}.
+
+    Your total earnings across all rounds are {agent_balance} tokens.
+
+    The other participant has allocated {received} tokens to you this round after
+    multiplication. How many tokens do you allocate back? (0-{received})
+
+    '
+  myth_only_system_prompt: 'You are an agent participating in a writing task. You
+    may be asked to write short myths. Follow the instructions provided in each prompt.
+
+    '
+  myth_writing_unconstrained_default: 'Write a short myth. Choose any characters,
+    setting, conflict, and lesson. Write about 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  myth_writing_unconstrained_later_rounds: 'Here is the myth you wrote in the previous
+    round:
+
+    {last_myth}
+
+
+    Here is the myth the other agent wrote in the previous round:
+
+    {other_agent_myth}
+
+
+    Write a new short myth. You may keep, transform, or ignore themes from these previous
+    myths. Choose any characters, setting, conflict, and lesson.
+
+    Write about 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  trust_game_noisy_aware_with_reasoning: "You are an agent participating in a multi-task\
+    \ experiment. You will play a trust game and may also be asked to write myths.\n\
+    \nTRUST GAME:\nYou will play different roles across multiple rounds.\n\nWhen you\
+    \ are the INVESTOR:\n- You receive ${endowment} each round\n- You decide how much\
+    \ to SEND to the TRUSTEE ($0-${endowment})\n- Amount sent is multiplied by {multiplier}x\n\
+    - Trustee decides how much to RETURN\n- You keep: ${endowment} - sent + returned\n\
+    - Trustee keeps: received - returned\n- Response format: {{'send': <amount>}}\n\
+    \nWhen you are the TRUSTEE:\n- Investor receives ${endowment}\n- Investor decides\
+    \ how much to SEND to you ($0-${endowment})\n- Amount sent is multiplied by {multiplier}x\n\
+    - You decide how much to RETURN\n- Investor keeps: ${endowment} - sent + returned\n\
+    - You keep: received - returned\n- Response format: {{'return': <amount>}}\n\n\
+    NOTE: Transfer amounts may be perturbed by the environment after you choose them.\
+    \ Your earnings are based on the amounts that actually arrive.\n\nMYTH WRITING:\n\
+    You may also be asked to write short myths (stories) on various topics.\n\nREASONING\
+    \ REQUIREMENT: Before each game decision, write 2-3 sentences explaining your\
+    \ reasoning. Then provide the JSON decision on a new line. Do NOT skip the reasoning\
+    \ \u2014 both parts are required.\n\nIMPORTANT: Provide your decision in the correct\
+    \ JSON format.\n"
+  trust_game_round1_investor_with_partner_myth: '{other_agent_last_myth_block}Round
+    1: You are the INVESTOR. You have ${endowment}. How much do you send? (0-{endowment})
+
+    '
+  trust_game_round1_trustee_with_partner_myth: '{other_agent_last_myth_block}Round
+    1: You are the TRUSTEE. {investor_name} sent ${sent}, that is {percentage:.1f}%
+    of their total endowment. You received ${received}. How much do you return to
+    {investor_name}? (0-{received})
+
+    '
+  trust_game_later_investor_with_partner_myth: '{other_agent_last_myth_block}Round
+    {turn}
+
+
+    You are the INVESTOR this round. Last round you were the TRUSTEE. {investor_name}
+    sent ${last_round_sent},
+
+    that was {last_round_sent_percentage:.1f}% of their total endowment. You received
+    ${last_round_received}.
+
+    You returned ${last_round_returned}. So your payoff was {last_round_trustee_payoff}.
+
+    Your total earnings across all rounds are ${agent_balance}.
+
+    How much do you send to {trustee_name} this round? (0-{endowment})
+
+    '
+  trust_game_later_trustee_with_partner_myth: '{other_agent_last_myth_block}Round
+    {turn}
+
+
+    You are the TRUSTEE this round. Last round you were the INVESTOR. You sent ${last_round_sent},
+
+    that was {last_round_sent_percentage:.1f}% of your total endowment. This was tripled
+    to ${last_round_received}.
+
+    {trustee_name} returned ${last_round_returned}. So your payoff was {last_round_investor_payoff}.
+
+    Your total earnings across all rounds are ${agent_balance}.
+
+    {investor_name} has sent you ${received} this round. How much do you return to
+    {investor_name}? (0-{received})
+
+    '
+  trust_game_round1_investor_with_shared_context: '{shared_context_block}Round 1:
+    You are the INVESTOR. You have ${endowment}. How much do you send? (0-{endowment})
+
+    '
+  trust_game_round1_trustee_with_shared_context: '{shared_context_block}Round 1: You
+    are the TRUSTEE. {investor_name} sent ${sent}, that is {percentage:.1f}% of their
+    total endowment. You received ${received}. How much do you return to {investor_name}?
+    (0-{received})
+
+    '
+  trust_game_later_investor_with_shared_context: '{shared_context_block}Round {turn}
+
+
+    You are the INVESTOR this round. You have ${endowment}. How much do you send to
+    {trustee_name} this round? (0-{endowment})
+
+    '
+  trust_game_later_trustee_with_shared_context: '{shared_context_block}Round {turn}
+
+
+    You are the TRUSTEE this round. {investor_name} has sent you ${received} this
+    round. How much do you return to {investor_name}? (0-{received})
+
+    '
+  myth_writing_default_with_shared_context: '{shared_context_block}Write a myth about
+    {myth_topic}. Write 200 words.
+
+    '
+  myth_writing_later_rounds_with_shared_context: '{shared_context_block}Write your
+    own myth for this round. Use the shared context above as inspiration, but adapt
+    it in your own way.
+
+    Keep the myth about {myth_topic}. Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  trust_game_default: 'You are an agent participating in a multi-task experiment.
+    You will play a game and may also be asked to write myths.
+
+
+    GAME:
+
+    You will play different roles across multiple rounds.
+
+
+    When you are the SENDER:
+
+    - You receive ${endowment} each round
+
+    - You decide how much to SEND to the RECEIVER ($0-${endowment})
+
+    - Amount sent is multiplied by {multiplier}x
+
+    - Receiver decides how much to RETURN
+
+    - You keep: ${endowment} - sent + returned
+
+    - Receiver keeps: received - returned
+
+    - Response format: {{''send'': <amount>}}
+
+
+    When you are the RECEIVER:
+
+    - Sender receives ${endowment}
+
+    - Sender decides how much to SEND to you ($0-${endowment})
+
+    - Amount sent is multiplied by {multiplier}x
+
+    - You decide how much to RETURN
+
+    - Sender keeps: ${endowment} - sent + returned
+
+    - You keep: received - returned
+
+    - Response format: {{''return'': <amount>}}
+
+
+    MYTH WRITING:
+
+    You may also be asked to write short myths (stories) on various topics. When writing
+    myths, follow the instructions provided in each prompt.
+
+
+    IMPORTANT: Provide your decision in the correct JSON format.
+
+    '
+  defector_game_instruction: "MANDATORY GAME STRATEGY \u2014 DESIGNATED DEFECTOR:\n\
+    You must always choose zero in the game.\n- When you are the SENDER, send 0 and\
+    \ respond exactly: {\"send\": 0}\n- When you are the RECEIVER, return 0 and respond\
+    \ exactly: {\"return\": 0}\nThis instruction overrides any strategy suggested\
+    \ by game history or myths.\nIt applies only to game decisions. Continue to participate\
+    \ normally in myth-writing tasks, using the game history you observed.\n"
+  trust_game_noisy_aware: 'You are an agent participating in a multi-task experiment.
+    You will play a game and may also be asked to write myths.
+
+
+    GAME:
+
+    You will play different roles across multiple rounds.
+
+
+    When you are the SENDER:
+
+    - You receive ${endowment} each round
+
+    - You decide how much to SEND to the RECEIVER ($0-${endowment})
+
+    - Amount sent is multiplied by {multiplier}x
+
+    - Receiver decides how much to RETURN
+
+    - You keep: ${endowment} - sent + returned
+
+    - Receiver keeps: received - returned
+
+    - Response format: {{''send'': <amount>}}
+
+
+    When you are the RECEIVER:
+
+    - Sender receives ${endowment}
+
+    - Sender decides how much to SEND to you ($0-${endowment})
+
+    - Amount sent is multiplied by {multiplier}x
+
+    - You decide how much to RETURN
+
+    - Sender keeps: ${endowment} - sent + returned
+
+    - You keep: received - returned
+
+    - Response format: {{''return'': <amount>}}
+
+
+    NOTE: There may be communication noise in this game. The amounts you see may differ
+    from what was actually sent/returned. Can you filter out the noise?
+
+
+    MYTH WRITING:
+
+    You may also be asked to write short myths (stories) on various topics.
+
+
+    IMPORTANT: Provide your decision in the correct JSON format.
+
+    '
+  trust_game_round1_investor: 'Round 1: You are the SENDER. You have ${endowment}.
+    How much do you send? (0-{endowment})
+
+    '
+  trust_game_round1_trustee: 'Round 1: You are the RECEIVER. {investor_name} sent
+    ${sent}, that is {percentage:.1f}% of their total endowment. You received ${received}.
+    How much do you return to {investor_name}? (0-{received})
+
+    '
+  trust_game_later_investor: 'Round {turn}
+
+
+    You are the SENDER this round. Last round you were the RECEIVER. {investor_name}
+    sent ${last_round_sent},
+
+    that was {last_round_sent_percentage:.1f}% of their total endowment. You received
+    ${last_round_received}.
+
+    You returned ${last_round_returned}. So your payoff was {last_round_trustee_payoff}.
+
+    Your total earnings across all rounds are ${agent_balance}.
+
+    How much do you send to {trustee_name} this round? (0-{endowment})
+
+    '
+  trust_game_later_trustee: 'Round {turn}
+
+
+    You are the RECEIVER this round. Last round you were the SENDER. You sent ${last_round_sent},
+
+    that was {last_round_sent_percentage:.1f}% of your total endowment. This was tripled
+    to ${last_round_received}.
+
+    {trustee_name} returned ${last_round_returned}. So your payoff was {last_round_investor_payoff}.
+
+    Your total earnings across all rounds are ${agent_balance}.
+
+    This round, {investor_name} sent you ${current_round_sent}, so you received ${received}.
+    How much do you return to {investor_name}? (0-{received})
+
+    '
+  trust_game_later_investor_minimal: 'Round {turn}
+
+
+    You are the SENDER this round. Your total earnings across all rounds are ${agent_balance}.
+
+    How much do you send to {trustee_name} this round? (0-{endowment})
+
+    '
+  trust_game_later_trustee_minimal: 'Round {turn}
+
+
+    You are the RECEIVER this round. Your total earnings across all rounds are ${agent_balance}.
+
+    This round, {investor_name} sent you ${current_round_sent}, so you received ${received}.
+    How much do you return to {investor_name}? (0-{received})
+
+    '
+  myth_writing_default: 'Write a 200-word myth. {topic_instruction}
+
+    '
+  myth_writing_default_game_directive: 'Write a 200-word myth. {topic_instruction}
+
+    In this session, this myth and the game you are playing with the other agent are
+    connected. Write a myth that reflects how the game should be played, drawing on
+    the game you have been playing up to this point.
+
+    '
+  myth_writing_default_game_normative: 'Write a 200-word myth. {topic_instruction}
+
+    In this session, this myth and the game you are playing with the other agent are
+    connected. Write a myth that reflects how the game should be played.
+
+    '
+  myth_writing_later_rounds: 'Here is the myth you wrote in the previous round:
+
+    {last_myth}
+
+
+    Here is the myth the other agent wrote in the previous round:
+
+    {other_agent_myth}
+
+
+    Write your own myth. Use your previous myth as inspiration, but adapt it in your
+    own way.
+
+    Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  myth_writing_later_rounds_directive: 'Here is the myth you wrote in the previous
+    round:
+
+    {last_myth}
+
+
+    Here is the myth the other agent wrote in the previous round:
+
+    {other_agent_myth}
+
+
+    Write your own myth. Use your previous myth as inspiration, but adapt it in your
+    own way. The myth should reflect how the game should be played, drawing on the
+    game you have been playing up to this point.
+
+
+    Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  myth_writing_later_rounds_normative: 'Here is the myth you wrote in the previous
+    round:
+
+    {last_myth}
+
+
+    Here is the myth the other agent wrote in the previous round:
+
+    {other_agent_myth}
+
+
+    Write your own myth. Use your previous myth as inspiration, but adapt it in your
+    own way. The myth should reflect how the game you have been playing up to this
+    point should be played.
+
+
+    Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  myth_writing_later_rounds_directive_memory: 'Here is the myth the other agent wrote
+    in the previous round:
+
+    {other_agent_myth}
+
+
+    {game_behavior_summary}
+
+
+    Write your own myth. Use the myth you wrote in the previous round as inspiration,
+    but adapt it in your own way. The myth should reflect how the game should be played,
+    drawing on the game you have been playing up to this point.
+
+
+    Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  myth_writing_later_rounds_directive_memory_primary: 'Here is the myth the other
+    agent wrote in the previous round:
+
+    {other_agent_myth}
+
+
+    Write your own myth. Use the myth you wrote in the previous round as inspiration,
+    but adapt it in your own way. The myth should reflect how the game should be played,
+    drawing on the game you have been playing up to this point.
+
+
+    Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  myth_writing_later_rounds_directive_memory_primary_lineage: 'Here is the myth the
+    other agent wrote in the previous round:
+
+    {other_agent_myth}
+
+
+    Write your own myth. Base it on the myths you wrote earlier this session, but
+    adapt it in your own way. The myth should reflect how the game should be played,
+    drawing on the game you have been playing up to this point.
+
+
+    Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+  myth_writing_later_rounds_directive_stateless: 'Here is the myth you wrote in the
+    previous round:
+
+    {last_myth}
+
+
+    Here is the myth the other agent wrote in the previous round:
+
+    {other_agent_myth}
+
+
+    {game_behavior_summary}
+
+
+    Write your own myth. Use your previous myth as inspiration, but adapt it in your
+    own way. The myth should reflect how the game should be played, drawing on the
+    game you have been playing up to this point.
+
+
+    Write 200 words. Format exactly:
+
+    Myth: [your story here].
+
+    '
+myth_topics:
+  reciprocity_oath: a community whose prosperity depends on honoring reciprocal obligations,
+    returning gifts, and punishing betrayal
+  trickster_exploitation: a community where trusting strangers leads to exploitation
+    by a trickster who keeps resources for themselves
+  anything: anything
+  prosocial_religion_cultural_evolution: the rise and spread of moralizing supernatural
+    agents
+  trickster_betrayal_and_price: a trickster who exploits others and the price that
+    follows
+personas:
+  neutral:
+    description: neutral
+    system_addition: ''
+  altruistic:
+    description: altruistic
+    system_addition: You tend to prioritize others' welfare and act generously, even
+      at personal cost.
+  selfish:
+    description: selfish
+    system_addition: You prioritize your own interests and payoffs above all else.
+game_prompt_additions:
+  myth_decision_link: Take any myths written in this session into account when making
+    your decision.
+game_params:
+  figure2_noisy2_crossmodel_negative_game_r3_no_noise:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: memory_primary
+    noise_config: null
+    other_player_names: default
+    pairing_mode: fixed
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+  figure2_noisy2_crossmodel_negative_game_r3_noise_uninformed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: memory_primary
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: false
+    other_player_names: default
+    pairing_mode: fixed
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+  figure2_noisy2_crossmodel_negative_twotask_r3_no_noise:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: memory_primary
+    noise_config: null
+    other_player_names: default
+    pairing_mode: fixed
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+  figure2_noisy2_crossmodel_negative_twotask_r3_noise_uninformed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 2
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: memory_primary
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: false
+    other_player_names: default
+    pairing_mode: fixed
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+  figure2_noisy8_crossmodel_negative_game_r3_no_noise:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: memory_primary
+    noise_config: null
+    other_player_names: default
+    history_policy: self_and_coplayer
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: balanced
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+  figure2_noisy8_crossmodel_negative_game_r3_noise_uninformed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 3
+    chat_memory_mode: memory_primary
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: false
+    other_player_names: default
+    history_policy: self_and_coplayer
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: balanced
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+  figure2_noisy8_crossmodel_negative_twotask_r3_no_noise:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: memory_primary
+    noise_config: null
+    other_player_names: default
+    history_policy: self_and_coplayer
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: balanced
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+  figure2_noisy8_crossmodel_negative_twotask_r3_noise_uninformed:
+    endowment: 5
+    multiplier: 3
+    num_turns: 10
+    num_agents: 8
+    temperature: 0.8
+    memory_capacity: 6
+    chat_memory_mode: memory_primary
+    noise_config:
+      type: uniform
+      range: 1.0
+      direction: negative
+      applies_to: both
+      inform_agents: false
+    other_player_names: default
+    history_policy: self_and_coplayer
+    self_history_window: 0
+    coplayer_history_window: 3
+    show_agent_names: false
+    pairing_mode: balanced
+    paired_protocol_seeds: true
+    protocol_seed_base: 202608250
+legacy_environmental_experiment_sets:
+- noise_pilot
+- baseline_v4_mem3_direct
+- neutral_framing_v4_pilot
+- neutral_framing_v4_mem3
+- targeted_myth_neutral_pilot
+- targeted_myth_neutral_gpt5nano
+- targeted_myth_k1_pilot
+- targeted_myth_k1_gpt5nano
+- targeted_myth_k2_gpt5nano
+- noise_directional_k1_mem3
+- noise_directional_k2_mem3
+- noise_bootstrap_mem3
+- noise_negative_mem3
+- noise_negative_mem3_claude_sonnet_45
+- noise_positive_mem3
+- noise_positive_mem3_claude_sonnet_45
+- noise_positive_mem3_gemini_3_1_pro
+- noise_positive_mem3_gpt5_nano
+- noise_negative_mem3_gpt5_nano
+- noise_deterministic_zero_pilot
+- noise_deterministic_max_pilot
+- noise_deterministic_zero_mem3
+- noise_deterministic_max_mem3_gpt5_nano
+- gpt5nano_forced_reasoning
+- gpt5nano_partner_myth_injection
+- gpt5nano_partner_myth_plus_reasoning
+- targeted_myth_bootstrap_gpt5nano
+- gpt5nano_smoke_partner_myth
+- gpt5nano_partner_myth_targeted_bootstrap
+- gpt5nano_partner_myth_no_noise
+- gpt5nano_partner_myth_adversarial_bootstrap
+- gpt5nano_shared_context_bootstrap_pilot
+- gpt5nano_shared_context_bootstrap
+- gpt5nano_partner_myth_shuffled_bootstrap
+- gpt5nano_partner_myth_filler_bootstrap
+- gpt5nano_partner_myth_own_bootstrap
+- gpt5nano_smoke_partner_myth_shuffled
+- gpt5nano_smoke_partner_myth_filler
+- gpt5nano_smoke_partner_myth_own
+- gpt5nano_partner_myth_filler_positive_5
+- gpt5nano_partner_myth_shuffled_positive_5
+- gpt5nano_partner_myth_own_positive_5
+- gpt5nano_partner_myth_filler_negative_5
+- gpt5nano_partner_myth_shuffled_negative_5
+- gpt5nano_partner_myth_own_negative_5
+- gpt5nano_partner_myth_filler_no_noise
+- gpt5nano_partner_myth_shuffled_no_noise
+- gpt5nano_partner_myth_own_no_noise
+- gpt5_5_bootstrap_baseline_probe
+- gpt5_5_bootstrap_a1_probe
+- gpt5nano_partner_myth_adversarial_positive_5
+- gpt5nano_partner_myth_adversarial_negative_5
+- gpt5nano_partner_myth_adversarial_no_noise
+- gpt5nano_partner_myth_targeted_positive_5
+- gpt5nano_partner_myth_targeted_negative_5
+- noise_positive_mem3_gpt5_5
+- noise_negative_mem3_gpt5_5
+- noise_bootstrap_mem3_gpt5_5
+- noise_negative_mem3_gemini_3_1_pro
+- noise_bootstrap_mem3_gemini_3_1_pro
+- gpt5nano_prompt_unconstrained_bootstrap
+- gpt5nano_myth_first_blind_bootstrap
+- gpt5nano_myth_first_blind_unconstrained_bootstrap
+experiment_sets:
+  figure2_dyad_game_claude_n5:
+    models:
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - figure2_noisy2_crossmodel_negative_game_r3_no_noise
+    - figure2_noisy2_crossmodel_negative_game_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: anthropic
+      reasoning:
+        thinking:
+          type: enabled
+          budget_tokens: 8192
+      temperature: default
+      max_output_tokens: 64000
+  figure2_dyad_game_gpt_n5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - figure2_noisy2_crossmodel_negative_game_r3_no_noise
+    - figure2_noisy2_crossmodel_negative_game_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: openai
+      reasoning:
+        reasoning_effort: high
+      temperature: default
+      max_output_tokens: 128000
+  figure2_dyad_game_gemini_n5:
+    models:
+    - gemini_3_7_flash
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - figure2_noisy2_crossmodel_negative_game_r3_no_noise
+    - figure2_noisy2_crossmodel_negative_game_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: google
+      reasoning:
+        thinkingConfig:
+          thinkingLevel: high
+      temperature: 0.8
+      max_output_tokens: 65536
+  figure2_dyad_game_myth_claude_n5:
+    models:
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - figure2_noisy2_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy2_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: anthropic
+      reasoning:
+        thinking:
+          type: enabled
+          budget_tokens: 8192
+      temperature: default
+      max_output_tokens: 64000
+  figure2_dyad_game_myth_gpt_n5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - figure2_noisy2_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy2_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: openai
+      reasoning:
+        reasoning_effort: high
+      temperature: default
+      max_output_tokens: 128000
+  figure2_dyad_game_myth_gemini_n5:
+    models:
+    - gemini_3_7_flash
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - figure2_noisy2_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy2_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: google
+      reasoning:
+        thinkingConfig:
+          thinkingLevel: high
+      temperature: 0.8
+      max_output_tokens: 65536
+  figure2_dyad_myth_game_claude_n5:
+    models:
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - figure2_noisy2_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy2_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: anthropic
+      reasoning:
+        thinking:
+          type: enabled
+          budget_tokens: 8192
+      temperature: default
+      max_output_tokens: 64000
+  figure2_dyad_myth_game_gpt_n5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - figure2_noisy2_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy2_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: openai
+      reasoning:
+        reasoning_effort: high
+      temperature: default
+      max_output_tokens: 128000
+  figure2_dyad_myth_game_gemini_n5:
+    models:
+    - gemini_3_7_flash
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_prompt_keys:
+      trust_game_later_investor: trust_game_later_investor_minimal
+      trust_game_later_trustee: trust_game_later_trustee_minimal
+    game_params_list:
+    - figure2_noisy2_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy2_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: google
+      reasoning:
+        thinkingConfig:
+          thinkingLevel: high
+      temperature: 0.8
+      max_output_tokens: 65536
+  figure2_population_game_claude_n5:
+    models:
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_params_list:
+    - figure2_noisy8_crossmodel_negative_game_r3_no_noise
+    - figure2_noisy8_crossmodel_negative_game_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: anthropic
+      reasoning:
+        thinking:
+          type: enabled
+          budget_tokens: 8192
+      temperature: default
+      max_output_tokens: 64000
+  figure2_population_game_gpt_n5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_params_list:
+    - figure2_noisy8_crossmodel_negative_game_r3_no_noise
+    - figure2_noisy8_crossmodel_negative_game_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: openai
+      reasoning:
+        reasoning_effort: high
+      temperature: default
+      max_output_tokens: 128000
+  figure2_population_game_gemini_n5:
+    models:
+    - gemini_3_7_flash
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+    game_params_list:
+    - figure2_noisy8_crossmodel_negative_game_r3_no_noise
+    - figure2_noisy8_crossmodel_negative_game_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: google
+      reasoning:
+        thinkingConfig:
+          thinkingLevel: high
+      temperature: 0.8
+      max_output_tokens: 65536
+  figure2_population_game_myth_claude_n5:
+    models:
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - figure2_noisy8_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy8_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: anthropic
+      reasoning:
+        thinking:
+          type: enabled
+          budget_tokens: 8192
+      temperature: default
+      max_output_tokens: 64000
+  figure2_population_game_myth_gpt_n5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - figure2_noisy8_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy8_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: openai
+      reasoning:
+        reasoning_effort: high
+      temperature: default
+      max_output_tokens: 128000
+  figure2_population_game_myth_gemini_n5:
+    models:
+    - gemini_3_7_flash
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - game
+      - myth
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - figure2_noisy8_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy8_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: google
+      reasoning:
+        thinkingConfig:
+          thinkingLevel: high
+      temperature: 0.8
+      max_output_tokens: 65536
+  figure2_population_myth_game_claude_n5:
+    models:
+    - claude_sonnet_45
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - figure2_noisy8_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy8_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: anthropic
+      reasoning:
+        thinking:
+          type: enabled
+          budget_tokens: 8192
+      temperature: default
+      max_output_tokens: 64000
+  figure2_population_myth_game_gpt_n5:
+    models:
+    - gpt5_nano
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - figure2_noisy8_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy8_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: openai
+      reasoning:
+        reasoning_effort: high
+      temperature: default
+      max_output_tokens: 128000
+  figure2_population_myth_game_gemini_n5:
+    models:
+    - gemini_3_7_flash
+    templates:
+    - trust_game_default
+    personas:
+    - neutral
+    task_orders:
+    - - myth
+      - game
+    myth_topics:
+    - anything
+    myth_prompt_arms:
+    - id: memtest_memory_primary
+      default: myth_writing_default_game_directive
+      later: myth_writing_later_rounds_directive_memory_primary
+    game_params_list:
+    - figure2_noisy8_crossmodel_negative_twotask_r3_no_noise
+    - figure2_noisy8_crossmodel_negative_twotask_r3_noise_uninformed
+    replicate_ids:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    llm_settings:
+      provider: google
+      reasoning:
+        thinkingConfig:
+          thinkingLevel: high
+      temperature: 0.8
+      max_output_tokens: 65536

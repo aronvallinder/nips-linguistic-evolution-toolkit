@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project memory — required every session
+
+At the start of every session, read `docs/project-memory/README.md` and
+`docs/project-memory/CURRENT.md` before substantive work. Follow
+`docs/project-memory/WORKFLOW.md` throughout the session. Claude maintains the
+decision records automatically when the workflow's durable-event triggers
+occur; the user is not expected to maintain them. Do not create a routine entry
+when no durable event occurred.
+
 ## Project Overview
 
 A configuration-driven framework for running behavioral experiments with multiple LLM models, studying agent interactions through economic games (trust game) and creative tasks (collaborative myth writing). The framework uses YAML-based configuration to enable systematic, reproducible experiments comparing different models, personas, and task sequences.
