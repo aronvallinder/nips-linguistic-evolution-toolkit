@@ -13,17 +13,16 @@ Inputs (already validated by the scripts that produced them):
   docs/figures/mixed_model_dyads_20260917/decisions.csv      (54 mixed + 45 homogeneous dyads)
   docs/figures/mixed_model_populations_20260918/games.csv    (90 ladder + 45 homogeneous 8-agent runs)
 
-Outputs (docs/figures/mixed_model_family_split_20260922/):
-  dyad_family_split.png        per mixed pairing x task order: each family's per-run mean
+Outputs (docs/figures/mixed_model_family_split_20260922/, PNG only):
+  2-agent-mixed-model-simulation-split.png
+                               per mixed pairing x task order: each family's per-run mean
                                amount sent / return proportion, with its homogeneous value
   dyad_family_round_traces_{sent,return}.png
                                per mixed pairing x task order: each family's round-by-round
                                mean, dashed = the same family in a homogeneous dyad
-  population_family_split_{sent,return}.png
+  mixed-model-simulation-8-agent-split.png (sending), population_family_split_return.png
                                per ladder x task order: minority and majority family
                                per-run means against the minority count (0 and 8 = homogeneous)
-  dyad_family_runs.csv, population_family_runs.csv   per-run per-family means
-  family_split_summary.csv     mixed vs homogeneous mean (±sd) per family, composition, task order
 
 No API calls; pure re-aggregation of the two existing tables.
 """
@@ -144,8 +143,7 @@ def plot_dyad_split(run_means: pd.DataFrame) -> None:
              "5 homogeneous runs). Return proportion is undefined when nothing arrived; such runs are dropped for that family.",
              ha="center", fontsize=8.5, color="#444444")
     fig.tight_layout(rect=(0, 0.07, 1, 0.955))
-    for ext in ("png", "svg", "pdf"):
-        fig.savefig(OUTPUT / f"dyad_family_split.{ext}", dpi=200, bbox_inches="tight")
+    fig.savefig(OUTPUT / "2-agent-mixed-model-simulation-split.png", dpi=200, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -192,8 +190,7 @@ def plot_dyad_traces(decisions: pd.DataFrame, metric: str) -> None:
         note += " Rounds where nothing arrived contribute no return proportion."
     fig.text(0.5, 0.035, note, ha="center", fontsize=8.5, color="#444444")
     fig.tight_layout(rect=(0, 0.06, 1, 0.955))
-    for ext in ("png", "svg", "pdf"):
-        fig.savefig(OUTPUT / f"dyad_family_round_traces_{metric}.{ext}", dpi=200, bbox_inches="tight")
+    fig.savefig(OUTPUT / f"dyad_family_round_traces_{metric}.png", dpi=200, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -280,8 +277,8 @@ def plot_population_split(run_means: pd.DataFrame, metric: str) -> None:
              "0 and 8 on the x-axis are the homogeneous September populations of the majority and minority family.",
              ha="center", fontsize=8.5, color="#444444")
     fig.tight_layout(rect=(0, 0.07, 1, 0.95))
-    for ext in ("png", "svg", "pdf"):
-        fig.savefig(OUTPUT / f"population_family_split_{metric}.{ext}", dpi=200, bbox_inches="tight")
+    name = "mixed-model-simulation-8-agent-split.png" if metric == "sent" else f"population_family_split_{metric}.png"
+    fig.savefig(OUTPUT / name, dpi=200, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -331,11 +328,8 @@ def main() -> None:
         raise SystemExit(f"Expected 135 population runs in {POPULATIONS}, found {games['path'].nunique()}")
 
     dyad_runs = dyad_run_means(decisions)
-    dyad_runs.to_csv(OUTPUT / "dyad_family_runs.csv", index=False)
     population_runs = population_run_means(games)
-    population_runs.to_csv(OUTPUT / "population_family_runs.csv", index=False)
     summary = summary_table(dyad_runs, population_runs)
-    summary.to_csv(OUTPUT / "family_split_summary.csv", index=False)
 
     plot_dyad_split(dyad_runs)
     for metric in METRICS:

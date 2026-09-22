@@ -17,23 +17,21 @@ those folders. No new runs and no API calls. Regenerate with
 
 Figures:
 
-- `dyad_family_split.png`: per mixed pairing and task order, each family's
-  per-run mean amount sent (top) and return proportion (bottom) as boxes, with
-  a hollow diamond for the same family in its homogeneous dyad (mean ± sd).
+- `2-agent-mixed-model-simulation-split.png`: per mixed pairing and task
+  order, each family's per-run mean amount sent (top) and return proportion
+  (bottom) as boxes, with a hollow diamond for the same family in its
+  homogeneous dyad (mean ± sd).
 - `dyad_family_round_traces_sent.png`, `dyad_family_round_traces_return.png`:
   the same split round by round (solid = in the mixed dyad, dashed = among its
   own kind).
-- `population_family_split_sent.png`, `population_family_split_return.png`:
-  the eight-agent ladder with the minority and the majority family drawn
-  separately against the minority count; 0 and 8 are the homogeneous
-  populations.
-- Tables: `family_split_summary.csv` (mixed vs homogeneous mean ± sd and the
-  shift, per family, composition, task order, metric), `dyad_family_runs.csv`
-  and `population_family_runs.csv` (per-run per-family means).
+- `mixed-model-simulation-8-agent-split.png` (sending) and
+  `population_family_split_return.png`: the eight-agent ladder with the
+  minority and the majority family drawn separately against the minority
+  count; 0 and 8 are the homogeneous populations.
 
 ## How to read the two main figures
 
-**`dyad_family_split.png`.** Each panel is one mixed pairing; the x-axis is the
+**`2-agent-mixed-model-simulation-split.png`.** Each panel is one mixed pairing; the x-axis is the
 task order. At each x position there are two filled boxes, one per model in
 the pair, coloured by model. A box shows what that model did *inside the mixed
 pair*: its mean amount sent per round (top row) or its return proportion
@@ -50,7 +48,7 @@ $4.1 against the same $2.5 diamond, so Sonnet sent more with Gemini. Gemini's
 box and diamond both sit at $5. In the bottom row nearly every box sits on its
 diamond: return behaviour does not adapt.
 
-**`population_family_split_sent.png`.** Each row is one ladder (Gemini agents
+**`mixed-model-simulation-8-agent-split.png`.** Each row is one ladder (Gemini agents
 added to a GPT group, GPT agents added to a Sonnet group); each column is a
 task order. The x-axis is how many agents of the added family are in the group
 of eight. The two lines are the two families drawn separately, so the plot

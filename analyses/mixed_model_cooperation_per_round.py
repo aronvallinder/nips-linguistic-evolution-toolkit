@@ -17,11 +17,9 @@ Inputs (validated by the scripts that produced them):
   docs/figures/mixed_model_dyads_20260917/decisions.csv
   docs/figures/mixed_model_populations_20260918/games.csv
 
-Outputs (docs/figures/mixed_model_cooperation_per_round_20260922/):
-  fig7_dyads_send_per_round.{png,svg,pdf}      fig7_dyads_return_per_round.*
-  fig8_populations_send_per_round.*            fig8_populations_return_per_round.*
-  per_round_stats.csv   mean, sd, n_runs per setting x composition x task order x round x metric
-  run_round_ratios.csv  one row per run x round
+Outputs (docs/figures/mixed_model_cooperation_per_round_20260922/, PNG only):
+  fig7_dyads_send_per_round.png            fig7_dyads_return_per_round.png
+  fig8_populations_send_per_round.png      fig8_populations_return_per_round.png
 
 No API calls.
 """
@@ -135,8 +133,7 @@ def plot_grid(stats: pd.DataFrame, setting: str, rows, metric: str, filename: st
     fig.supylabel(ylabel, fontsize=12, x=0.004)
     fig.text(0.5, 0.035, note, ha="center", fontsize=8.8, color="#444444")
     fig.tight_layout(rect=(0.02, 0.07, 1, 0.93), h_pad=1.8, w_pad=1.2)
-    for ext in ("png", "svg", "pdf"):
-        fig.savefig(OUTPUT / f"{filename}.{ext}", dpi=200, bbox_inches="tight")
+    fig.savefig(OUTPUT / f"{filename}.png", dpi=200, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -148,9 +145,7 @@ def main() -> None:
     if dyads["path"].nunique() != 99 or populations["path"].nunique() != 135:
         raise SystemExit("Unexpected run counts in the input tables")
     runs = pd.concat([run_round_ratios(dyads, "dyad"), run_round_ratios(populations, "population")], ignore_index=True)
-    runs.to_csv(OUTPUT / "run_round_ratios.csv", index=False)
     stats = per_round_stats(runs)
-    stats.to_csv(OUTPUT / "per_round_stats.csv", index=False)
 
     band = "Line = mean over runs, band = ± 1 sd over runs."
     blank = " Return ratio is undefined in a round where nothing was received; such rounds are left out of the mean, and lines break where no run has a value."

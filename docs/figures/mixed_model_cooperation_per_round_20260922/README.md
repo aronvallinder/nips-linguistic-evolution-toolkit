@@ -22,9 +22,6 @@ Figures:
 - `fig7_dyads_send_per_round.png`, `fig7_dyads_return_per_round.png`
 - `fig8_populations_send_per_round.png`, `fig8_populations_return_per_round.png`
 
-Tables: `per_round_stats.csv` (mean, sd and run counts for every panel, task
-order and round) and `run_round_ratios.csv` (one row per run and round).
-
 ## Reading
 
 - **Sending is where the conditions separate.** After the first two rounds,
