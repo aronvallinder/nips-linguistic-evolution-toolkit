@@ -173,8 +173,12 @@ def main():
         except (AssertionError, RuntimeError) as e:
             invalid.append((j, str(e)))
     for j, reason in invalid:
-        target = quarantine(j, reason)
-        print(f"QUARANTINED {j['name']} index={j['index']}: {reason.split(': ')[-1]} -> {target.relative_to(ROOT)}", flush=True)
+        # Only an explicit launch may move artifacts; dry runs and --audit-only report and leave them in place.
+        if args.execute and not args.audit_only:
+            target = quarantine(j, reason)
+            print(f"QUARANTINED {j['name']} index={j['index']}: {reason.split(': ')[-1]} -> {target.relative_to(ROOT)}", flush=True)
+        else:
+            print(f"INVALID {j['name']} index={j['index']}: {reason.split(': ')[-1]} (left in place; --execute quarantines and resamples it)", flush=True)
         pending.append(j)
     est = sum(EST_PER_RUN[j['arm']][j['shape']] for j in pending)
     arms = sorted({j['arm'] for j in pending})
