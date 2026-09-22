@@ -1,3 +1,22 @@
+### 2026-09-22 — Correction: mixed-dyad timing was read from cohort-pooled traces
+
+**Time:** ~1 h (review fix, no runs).
+
+Supersedes the timing wording in the entries below dated 2026-09-22
+("Gemini … $5 twice, then $0") and 2026-09-17/18 ("Sonnet gives up by round
+5–8"). In a dyad each agent sends every other round and the first sender
+alternates across replicates, so a trace by global round places different
+replicates' first and second turns side by side (found by the PR #32 review).
+Re-read by each agent's own turn:
+
+- Gemini vs GPT, game only: $5 on its first turn, nothing back, then $0 in
+  five of six runs; one run sent $5 twice. It stops after one unreciprocated
+  send, not two.
+- Sonnet vs GPT, game only: opens with $2–4 and stops after its first to
+  fourth own turn (first $0 in global rounds 4–9).
+- Means, pair totals and the adaptation result are unchanged. Traces are now
+  plotted by own turn (`dyad_family_turn_traces_*.png`).
+
 ### 2026-09-22 — Result: mixed-model scores are adaptation, not an average of fixed styles
 
 **Time:** ~2 h (figure relayout + family-split analysis, no runs).
