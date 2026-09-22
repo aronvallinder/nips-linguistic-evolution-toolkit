@@ -17,6 +17,7 @@ def invalid_final(tmp_path, monkeypatch):
     sidecar.write_text("log\n")
     job = {"path": final, "arm": arm, "shape": shape, "replicate": 0, "name": "run", "index": 0}
     monkeypatch.setattr(launcher, "ROOT", tmp_path)
+    monkeypatch.chdir(tmp_path)  # main() chdirs to ROOT; this restores the original cwd after the test
     monkeypatch.setattr(launcher, "plan", lambda: [job])
     monkeypatch.setattr(launcher, "STAGES", {"smoke": lambda *_: True})
 
