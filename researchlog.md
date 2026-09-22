@@ -21,6 +21,33 @@ Report `docs/research/frontier_gap_investigation_2026-09-18.md`; tables from
 `scripts/analyze_frontier_gap.py` under `docs/figures/frontier_rerun_20260918/gap_decomposition/`.
 Descriptive at n=5 per cell; tier vs generation and thinking-off remain untested.
 
+### 2026-09-18 — Result: eight-agent contagion ladder complete (90/90)
+
+**Time:** batch 12:38 → 17:05 wall-clock with 20 workers, interrupted once by credit exhaustion at 48/90; analysis ~1 h.
+
+#### Result
+- All 90 runs passed the per-agent audit; standard-rate cost $104.51
+  (Anthropic $81.35, OpenAI $14.38, Google $8.77). Per-agent resources (max 75):
+- Gemini among GPT, game-only: 1 Gemini leaves the population at 26.1 (8 GPT:
+  25.0) and the Gemini agent itself at 20.6, exploited; 2 → 34.1, 4 → 53.7. GPT
+  only starts sending to Gemini at four ($2.69). With a myth task one Gemini
+  lifts the population to 52.2 / 58.9 (8 GPT: 38.0 / 45.0) and out-earns GPT.
+- GPT among Sonnet, game-only: one GPT cooperates (sends $3.21) and the
+  population holds at 53.5 (8 Sonnet: 55.2); two GPTs pull it to 43.7 and four
+  to 40.0, with Sonnet-to-Sonnet sends falling from $3.02 to $2.22. With myths
+  every mixture stays flat (55–57 game→myth, 63–69 myth→game).
+- Return proportions are unchanged across compositions; effects run through
+  sending.
+
+#### Failure modes
+- Two Sonnet prose-instead-of-JSON failures resampled; an 8-worker false start
+  and a three-provider credit exhaustion at 48/90 discarded in-flight runs,
+  which were rerun. Disclosed in the README.
+
+#### Evidence
+`docs/figures/mixed_model_populations_20260918/README.md` (tables, ladder and
+boxplot-grid figures, pooled provenance); finals and `completion_receipt.json`
+under `data/json/noise_experiments/mixed_model_populations_20260918/`.
 ### 2026-09-18 — Result: frontier-model rerun complete (Opus 5, Gemini 3.1 Pro, GPT-5.6 Sol; 90/90)
 
 **Time:** ~5 hours (plan, three-agent cost review, config, launcher, smoke, pilot, main, figure).

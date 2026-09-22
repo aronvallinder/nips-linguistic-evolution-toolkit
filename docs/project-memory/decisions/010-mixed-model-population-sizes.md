@@ -1,8 +1,8 @@
 # D010 — Test mixed models in dyads and populations
 
 - Recorded / last verified: 2026-09-16 / 2026-09-18
-- Decision status: dyad stage complete (three compositions, six replicates per cell); eight-agent stage redesigned as a contagion ladder after the dyad results and launched 2026-09-18.
-- Scope: heterogeneous interactions at both population sizes; dyads Sonnet/GPT, Sonnet/Gemini, Gemini/GPT (complete); eight-agent ladder 1/2/4 Gemini among GPT and 1/2/4 GPT among Sonnet (running).
+- Decision status: dyad stage complete (three compositions, six replicates per cell); eight-agent contagion ladder complete (90/90, 2026-09-18).
+- Scope: heterogeneous interactions at both population sizes; dyads Sonnet/GPT, Sonnet/Gemini, Gemini/GPT (complete); eight-agent ladder 1/2/4 Gemini among GPT and 1/2/4 GPT among Sonnet (complete).
 - Decision authority: Ivar, authored instructions in the 2026-09-16 Codex session and the 2026-09-17 Claude session.
 - Implementation status: per-agent pinned request plans and `agent_models` sets (commit `620ce8b3`); dyad launcher `scripts/run_mixed_model_dyads.py`; population launcher `scripts/run_mixed_model_populations.py` using the existing balanced rotation, so no cross-family pairing mode was built.
 
@@ -100,12 +100,16 @@ scheduler keeps models the only change from the September populations. This
 supersedes the 4+4 cross-family-only plan of 2026-09-17; that design was never
 implemented or run.
 
+The ladder completed 90/90 validated finals on 2026-09-18 ($104.51; two
+format-failure resamples, one 8-worker false start and one credit-exhaustion
+interruption disclosed): [ladder README](../../figures/mixed_model_populations_20260918/README.md).
+
 ## Unresolved / next evidence
 
-Population results: only validated finals under
-`data/json/noise_experiments/mixed_model_populations_20260918/` with the
-launcher's completion receipt count. Same-family encounters occur by design
-(balanced scheduler); the analysis must record each game's family pairing.
+Which family's myth text moved which agent in the mixed myth conditions is
+not separated; the lone-GPT-among-Sonnets cooperation (game-only) and the
+dose threshold for Gemini seeding are n=5 descriptive results. Same-family
+encounters occur by design (balanced scheduler) and are recorded per game.
 Any use of existing homogeneous
 population controls requires explicit compatibility checks; the selected
 population arms alone do not isolate a mixing effect from model composition.
