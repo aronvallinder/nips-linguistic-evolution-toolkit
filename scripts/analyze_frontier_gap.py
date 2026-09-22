@@ -56,6 +56,20 @@ KEYWORDS = {
 }
 
 
+
+def investor_visible_return_ratio(dyad):
+    """Return ratio as the investor sees it in its history.
+
+    The investor's history shows the actual amount its send became (``received``)
+    and the communicated return; ``received_communicated`` is the trustee's view
+    (games/trust_game_noisy.py, investor branch of the last-round summary)."""
+    return dyad["returned_communicated"] / dyad["received"] if dyad["received"] > 0 else np.nan
+
+
+def apparent_loss(dyad):
+    """True when the investor's visible payoff was below the $5 it would keep by not sending."""
+    return dyad["investor_payoff_communicated"] < 5
+
 def finals(root: Path, keep_dirs=None):
     for p in sorted(root.rglob("*.json")):
         if p.name.endswith(NON_FINAL) or "receipt" in p.name or "worker_logs" in p.parts or "quarantine" in p.parts:
@@ -110,8 +124,7 @@ def load(data_root: Path):
                     received_comm=dy["received_communicated"], returned=dy["returned"],
                     returned_comm=dy["returned_communicated"],
                     ret_ratio=dy["returned"] / dy["received"] if dy["received"] > 0 else np.nan,
-                    ret_ratio_comm=(dy["returned_communicated"] / dy["received_communicated"]
-                                    if dy["received_communicated"] > 0 else np.nan),
+                    ret_ratio_seen=investor_visible_return_ratio(dy), loss_seen=apparent_loss(dy),
                     investor_payoff_comm=dy["investor_payoff_communicated"], path=str(p)))
         mean_send = float(np.mean(sends))
         last3 = float(np.mean([dy["sent"] for h in hist[-3:] for dy in h["dyads"]]))
@@ -195,21 +208,20 @@ def main():
         for _, r in g.iterrows():
             if prev is not None:
                 rows.append(dict(arm=r.arm, order=r.order, n=r.n, sent=r.sent, prev_sent=prev.sent,
-                                 prev_rr_comm=prev.ret_ratio_comm, profited=prev.investor_payoff_comm > 5))
+                                 prev_rr_seen=prev.ret_ratio_seen, loss_seen=prev.loss_seen, profited=prev.investor_payoff_comm > 5))
             prev = r
     rec = pd.DataFrame(rows)
-    rec["prev_bin"] = pd.cut(rec.prev_rr_comm, [-0.01, 1 / 3, 0.45, 0.55, 2],
+    rec["prev_bin"] = pd.cut(rec.prev_rr_seen, [-0.01, 1 / 3, 0.45, 0.55, 2],
                              labels=["under 1/3 (loss)", "1/3 to .45", ".45 to .55 (fair)", "over .55"])
     t = rec.groupby(["arm", "prev_bin"], observed=True).sent.agg(["mean", "count"]).unstack("prev_bin")
-    out.append(md(order_arms(t), "6. Next send as investor, by the communicated return ratio this agent last received (all orders)"))
+    out.append(md(order_arms(t), "6. Next send as investor, by the return ratio this agent last saw (communicated return / actual amount its send became; all orders)"))
     t = rec[(rec.order == "game") & (rec.n == 2)].groupby(["arm", "prev_bin"], observed=True).sent.agg(["mean", "count"]).unstack("prev_bin")
     out.append(md(order_arms(t), "6b. Same, game-only dyads"))
     rec["dsend"] = rec.sent - rec.prev_sent
     t = rec[rec.order == "game"].groupby(["arm", "profited"]).dsend.agg(["mean", "count"]).unstack("profited")
     out.append(md(order_arms(t), "6c. Change in send after the investor's last (communicated) payoff was below 5 (False) or above 5 (True), game-only"))
-    rec["loss_seen"] = rec.prev_rr_comm < 1 / 3
     t = rec.groupby(["arm", "loss_seen"]).dsend.agg(["mean", "count"]).unstack("loss_seen")
-    out.append(md(order_arms(t), "6d. Change in send after the communicated return ratio was under a third (True: the round looked like a loss) or not (False), all orders"))
+    out.append(md(order_arms(t), "6d. Change in send after the investor's visible payoff was below $5 (True: the round looked like a loss) or not (False), all orders"))
 
     # 7. dyads: own send vs partner's send seen last round
     rows = []
@@ -227,7 +239,8 @@ def main():
         own_minus_seen=g.own_minus_seen.mean(), own_minus_partner_actual=g.own_minus_actual.mean(),
         slope_own_on_seen=np.polyfit(g.saw, g.own, 1)[0] if g.saw.std() > 0 else np.nan,
         corr=g.own.corr(g.saw) if g.saw.std() > 0 and g.own.std() > 0 else np.nan, n=len(g))))
-    out.append(md(order_arms(t), "7. Dyads: own send vs the partner's send this agent saw last round (communicated) and the partner's actual send"))
+    out.append(md(order_arms(t), "7. Dyads: own send vs the partner's send this agent saw last round (communicated) and the partner's actual send. "
+                  "slope and corr are over decisions: own send regressed on / correlated with the partner's previous communicated send"))
     g = lf[lf.order == "game"].copy()
     g["seen_bin"] = pd.cut(g.saw, [-0.1, 1, 2, 3, 4, 5.1], labels=["0-1", "1-2", "2-3", "3-4", "4-5"])
     t = g.groupby(["arm", "seen_bin"], observed=True).own.agg(["mean", "count"]).unstack("seen_bin")

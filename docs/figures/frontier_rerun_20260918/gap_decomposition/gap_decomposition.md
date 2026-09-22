@@ -145,27 +145,27 @@ max |mean final resources - (25 + 10 x mean send)| over 180 runs = 1.4e-14. Retu
 | ('gpt', 'Sol high')            | 0.32 | 0.30 | 0.36 | 0.32 | 0.37 | 0.40 | 0.42 | 0.39 | 0.44 | 0.40 |
 
 
-### 6. Next send as investor, by the communicated return ratio this agent last received (all orders)
+### 6. Next send as investor, by the return ratio this agent last saw (communicated return / actual amount its send became; all orders)
 
 | arm              |   ('mean', 'under 1/3 (loss)') |   ('mean', '1/3 to .45') |   ('mean', '.45 to .55 (fair)') |   ('mean', 'over .55') |   ('count', 'under 1/3 (loss)') |   ('count', '1/3 to .45') |   ('count', '.45 to .55 (fair)') |   ('count', 'over .55') |
 |:-----------------|-------------------------------:|-------------------------:|--------------------------------:|-----------------------:|--------------------------------:|--------------------------:|---------------------------------:|------------------------:|
-| Opus 5           |                           4.60 |                     4.57 |                            4.89 |                   4.99 |                            5.00 |                    109.00 |                           328.00 |                  158.00 |
-| Sonnet 4.5       |                           2.78 |                     3.04 |                            3.54 |                   4.22 |                           39.00 |                    259.00 |                           230.00 |                   72.00 |
-| Gemini 3.1 Pro   |                           5.00 |                     4.99 |                            4.99 |                   5.00 |                            4.00 |                    203.00 |                           390.00 |                    3.00 |
-| Gemini 3.7 Flash |                         nan    |                     5.00 |                            5.00 |                   5.00 |                          nan    |                    189.00 |                           407.00 |                    4.00 |
-| Sol high         |                           3.28 |                     4.82 |                            4.95 |                   4.85 |                          173.00 |                    224.00 |                           173.00 |                   13.00 |
-| GPT-5 Nano       |                           2.41 |                     2.42 |                            2.82 |                   1.67 |                          160.00 |                     51.00 |                            33.00 |                    3.00 |
+| Opus 5           |                           4.49 |                     4.76 |                            4.97 |                   5.00 |                           34.00 |                    254.00 |                           272.00 |                   40.00 |
+| Sonnet 4.5       |                           2.89 |                     3.32 |                            4.16 |                   4.32 |                          190.00 |                    292.00 |                            93.00 |                   25.00 |
+| Gemini 3.1 Pro   |                           5.00 |                     4.99 |                            5.00 |                   5.00 |                           10.00 |                    484.00 |                           104.00 |                    2.00 |
+| Gemini 3.7 Flash |                           5.00 |                     5.00 |                            5.00 |                 nan    |                            2.00 |                    473.00 |                           125.00 |                  nan    |
+| Sol high         |                           3.55 |                     4.93 |                            4.88 |                   4.78 |                          220.00 |                    312.00 |                            42.00 |                    9.00 |
+| GPT-5 Nano       |                           2.39 |                     2.72 |                            2.62 |                   0.00 |                          190.00 |                     48.00 |                             8.00 |                    1.00 |
 
 
 ### 6b. Same, game-only dyads
 
 | arm              |   ('mean', 'under 1/3 (loss)') |   ('mean', '1/3 to .45') |   ('mean', '.45 to .55 (fair)') |   ('mean', 'over .55') |   ('count', 'under 1/3 (loss)') |   ('count', '1/3 to .45') |   ('count', '.45 to .55 (fair)') |   ('count', 'over .55') |
 |:-----------------|-------------------------------:|-------------------------:|--------------------------------:|-----------------------:|--------------------------------:|--------------------------:|---------------------------------:|------------------------:|
-| Opus 5           |                         nan    |                     4.34 |                            4.46 |                 nan    |                          nan    |                     16.00 |                            24.00 |                  nan    |
-| Sonnet 4.5       |                           2.22 |                     2.57 |                            2.50 |                   3.00 |                            9.00 |                     18.00 |                            12.00 |                    1.00 |
-| Gemini 3.1 Pro   |                         nan    |                     4.93 |                            4.88 |                 nan    |                          nan    |                     14.00 |                            26.00 |                  nan    |
-| Gemini 3.7 Flash |                         nan    |                     5.00 |                            5.00 |                 nan    |                          nan    |                     13.00 |                            27.00 |                  nan    |
-| Sol high         |                           2.06 |                     4.33 |                            4.60 |                   5.00 |                           16.00 |                      6.00 |                            10.00 |                    4.00 |
+| Opus 5           |                           4.12 |                     4.42 |                            4.58 |                 nan    |                            4.00 |                     30.00 |                             6.00 |                  nan    |
+| Sonnet 4.5       |                           2.35 |                     2.59 |                            3.00 |                 nan    |                           20.00 |                     19.00 |                             1.00 |                  nan    |
+| Gemini 3.1 Pro   |                           5.00 |                     4.88 |                            5.00 |                 nan    |                            2.00 |                     32.00 |                             6.00 |                  nan    |
+| Gemini 3.7 Flash |                           5.00 |                     5.00 |                            5.00 |                 nan    |                            1.00 |                     31.00 |                             8.00 |                  nan    |
+| Sol high         |                           2.12 |                     4.50 |                            5.00 |                   5.00 |                           17.00 |                     12.00 |                             4.00 |                    3.00 |
 
 
 ### 6c. Change in send after the investor's last (communicated) payoff was below 5 (False) or above 5 (True), game-only
@@ -180,19 +180,19 @@ max |mean final resources - (25 + 10 x mean send)| over 180 runs = 1.4e-14. Retu
 | GPT-5 Nano       |              0.00 |           nan    |             200.00 |            nan    |
 
 
-### 6d. Change in send after the communicated return ratio was under a third (True: the round looked like a loss) or not (False), all orders
+### 6d. Change in send after the investor's visible payoff was below $5 (True: the round looked like a loss) or not (False), all orders
 
 | arm              |   ('mean', False) |   ('mean', True) |   ('count', False) |   ('count', True) |
 |:-----------------|------------------:|-----------------:|-------------------:|------------------:|
-| Opus 5           |              0.21 |             1.60 |             595.00 |              5.00 |
-| Sonnet 4.5       |              0.02 |             0.05 |             562.00 |             38.00 |
-| Gemini 3.1 Pro   |              0.01 |             3.08 |             596.00 |              4.00 |
-| Gemini 3.7 Flash |              0.00 |           nan    |             600.00 |            nan    |
-| Sol high         |              0.09 |             0.44 |             429.00 |            171.00 |
-| GPT-5 Nano       |              0.32 |            -0.58 |             441.00 |            159.00 |
+| Opus 5           |              0.17 |             1.07 |             566.00 |             34.00 |
+| Sonnet 4.5       |              0.03 |             0.01 |             412.00 |            188.00 |
+| Gemini 3.1 Pro   |              0.01 |             1.33 |             590.00 |             10.00 |
+| Gemini 3.7 Flash |              0.00 |             0.00 |             598.00 |              2.00 |
+| Sol high         |              0.07 |             0.39 |             380.00 |            220.00 |
+| GPT-5 Nano       |              0.35 |            -0.51 |             411.00 |            189.00 |
 
 
-### 7. Dyads: own send vs the partner's send this agent saw last round (communicated) and the partner's actual send
+### 7. Dyads: own send vs the partner's send this agent saw last round (communicated) and the partner's actual send. slope and corr are over decisions: own send regressed on / correlated with the partner's previous communicated send
 
 |                                   |   own_minus_seen |   own_minus_partner_actual |   slope_own_on_seen |   corr |     n |
 |:----------------------------------|-----------------:|---------------------------:|--------------------:|-------:|------:|

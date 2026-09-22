@@ -54,6 +54,20 @@ is a recorded protocol difference, not a pure model swap (see D004).
   arms), 18-run pilot, 90-run main stage; Sol-none skipped.
 - Does not supersede D004 (September profiles remain the September regime) or D010.
 
+On 2026-09-18 (corrected 2026-09-22 after review on PR #30) the frontier gap
+was decomposed without new runs (`scripts/analyze_frontier_gap.py`,
+[report](../../research/frontier_gap_investigation_2026-09-18.md)). **Result
+(descriptive, n = 5 per cell):** final resources equal 25 + 10 × mean send in
+all 180 runs, so the gap is a sending gap. Opus 5 opens higher than Sonnet 4.5
+and raises its send after a profitable round; Sol opens at 2.5 to 3 where Nano
+opens at 0, and after an apparent loss (visible payoff below $5) Sol raises
+its next send by 0.39 while Nano lowers it by 0.51. Opus used a median of 0
+thinking tokens per game call, so reasoning depth is not the driver. The
+review correction changed the loss denominator (actual transfer, as the
+investor sees it) and the description of the 0.95 figure (decision-level
+correlation of own send with the partner's previous communicated send); it did
+not change the conclusions. This is an analysis result, not a design change.
+
 ## Unresolved / next evidence
 
 - Five replicates per cell: descriptive only. Sol's game-only collapse (2 of 10 runs)

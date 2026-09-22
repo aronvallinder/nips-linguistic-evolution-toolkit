@@ -51,8 +51,10 @@ reason to send more; Sonnet treats it as a reason to stay put.
 
 **Same input, different output.** Partner behaviour does not explain this. In
 game-only dyads, given a partner just seen to send 2 to 3, Sonnet sends 2.70 and Opus
-4.25; given 3 to 4, Sonnet sends 3.00 and Opus 4.04 (table 7b). Given a fair
-communicated return (45 to 55%), Sonnet sends 2.50 and Opus 4.46 (table 6b). Both
+4.25; given 3 to 4, Sonnet sends 3.00 and Opus 4.04 (table 7b). Given a return
+seen of a third to 45% (the returned amount the investor saw, over what its send
+actually became), Sonnet sends 2.59 and Opus 4.42 (table 6b; fair-looking returns
+are rare in game-only dyads). Both
 models track the partner's send (own send moves 0.5 to 0.6 per point of partner send
 seen), so Sonnet is not unresponsive; its response curve just sits about 1.5 points
 lower. The mixed-model dyads show the same thing from the other side: paired with a
@@ -98,14 +100,15 @@ matches its partner (Nano's own send tracks the partner's send with slope 0.7 to
 in the two-task orders) and opens at zero against a copy of itself has nothing to
 match but zero.
 
-**Forgiveness.** After a communicated return below a third (the investor lost money on
-the round as it appeared to them), Sol raises its next send by 0.44; Nano lowers it
-by 0.58 (table 6d). Sol also returns more (36 to 40%
+**Forgiveness.** After a round whose visible payoff was below $5 (the investor lost
+money on the round as it appeared to them), Sol raises its next send by 0.39; Nano
+lowers it by 0.51 (table 6d). Sol also returns more (36 to 40%
 versus 31 to 32%) and leaves the investor at a loss in 26% of returns versus 63%.
 
 **Sol's own weakness.** Sol is the most partner-dependent model in the set: its send
-moves 1.04 per point of partner send seen, and the run-level correlation between
-partner return ratio and mean send is 0.95. In 2 of 10 game-only runs its trustee
+moves 1.04 per point of partner send seen, and across its 45 game-only dyad
+decisions its send correlates 0.95 with the partner's previous communicated send
+(table 7). In 2 of 10 game-only runs its trustee
 returned 15 to 28% for three rounds and the pair collapsed to zero by round 5. Sol's
 gain over Nano is a higher opening and forgiveness, not a stable disposition.
 
@@ -177,3 +180,17 @@ I verified the three load-bearing papers on arXiv myself.
 4. Sonnet 4.5 with a system line that reframes the baseline ("sending the full amount
    is the cooperative default"). If Sonnet's 50% anchor is a prompt-level prior, this
    moves it; if it is post-training, it will not.
+
+## Correction, 2026-09-22
+
+The first version (PR #30 review) classified apparent losses by the returned
+amount over the trustee's noised view of the transfer. The investor's history
+shows the actual amount its send became, so tables 6, 6b and 6d now use that
+denominator, and an apparent loss is a visible payoff below $5. Sol's change
+after an apparent loss moved from +0.44 to +0.39 and Nano's from −0.58 to
+−0.51; Opus's from +1.60 (n=5) to +1.07 (n=34). The fair-return comparison in
+table 6b is now reported at the one-third-to-45% bin, because fair-looking
+returns are rare once the correct denominator is used. The 0.95 figure was
+described as a run-level correlation with partner return ratio; it is the
+decision-level correlation of own send with the partner's previous
+communicated send. The conclusions are unchanged.

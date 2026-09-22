@@ -24,6 +24,10 @@ and [data audit](../research/mixed_future_data_audit.md).
   Thinking regime changed with the model (Claude 4.7+ rejects the fixed budget).
   See [D011](decisions/011-frontier-model-rerun.md) and
   [the results README](../figures/frontier_rerun_20260918/README.md).
+  The gap is a sending gap (resources = 25 + 10 × mean send): higher openings
+  and forgiveness of apparent losses (Sol +0.39 vs Nano −0.51 after a visible
+  payoff below $5), not reasoning depth; see the
+  [gap report](../research/frontier_gap_investigation_2026-09-18.md).
 - The **mixed-model dyad stage completed 54/54 validated finals** on
   2026-09-17/18 (Sonnet/GPT, Sonnet/Gemini and Gemini/GPT; game, game→myth,
   myth→game; six replicates with the first sender alternating by family).

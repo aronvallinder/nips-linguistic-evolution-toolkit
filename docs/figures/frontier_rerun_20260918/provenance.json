@@ -29038,11 +29038,14 @@
   },
   "legacy_reason": null,
   "outputs": {
-    "resources_boxplots.png": "623bb01023518aa28b70dd1dab212cb90b76bba2c9d40a053e99a84a13f8617e",
+    "README.md": "04e020e10be9f123b1bf7f52b34d5f4d9b5bf7640b1baae9d06d449fee6826b8",
     "cell_summary.csv": "9b309f416e4ba0186fa2306c0fc1add5da3bd3431ef30b577d2de5ab9b3b7ab2",
+    "gap_decomposition/decisions.csv": "38003334783160133d87a3f6c42b7ba2a3d943807ecef9ad85e5ec80304d4c42",
+    "gap_decomposition/gap_decomposition.md": "43f3c21c7293b65a2bb288e2b9fda822b598ccfa2a485c7e8618a75de567dfb7",
+    "gap_decomposition/runs.csv": "b3d05900a280a6c53af0450dfb34059b47a789efa06c78120bc18191e62d3551",
     "resources_boxplots.pdf": "4364bfe15756cbf4c8b92a3ea62b7b5df3d3173b6be9bd0a910ef76c8a342378",
-    "resources_boxplots.svg": "d72b45aa588f24d5cfd490ba2a1748d02ccbb0572058b68a936caf3d523b2470",
-    "README.md": "04e020e10be9f123b1bf7f52b34d5f4d9b5bf7640b1baae9d06d449fee6826b8"
+    "resources_boxplots.png": "623bb01023518aa28b70dd1dab212cb90b76bba2c9d40a053e99a84a13f8617e",
+    "resources_boxplots.svg": "d72b45aa588f24d5cfd490ba2a1748d02ccbb0572058b68a936caf3d523b2470"
   },
   "observed_differences": [
     "implementation.src/experiment_condition.py",
