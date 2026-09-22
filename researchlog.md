@@ -1,3 +1,31 @@
+### 2026-09-22 — Result: mixed-model scores are adaptation, not an average of fixed styles
+
+**Time:** ~2 h (figure relayout + family-split analysis, no runs).
+
+Arabella asked (meeting 2026-09-22) whether a mixed dyad's score is just the
+average of two fixed per-model styles or whether each model moves toward its
+partner. `analyses/mixed_dyad_family_split.py` re-aggregates the validated
+mixed-dyad and ladder tables per family; outputs in
+`docs/figures/mixed_model_family_split_20260922/`.
+
+#### Result
+- Adaptation, family-specific. Sonnet sends $2.5 alone, $1.1 vs GPT and $4.1
+  vs Gemini (game-only dyads; $4.6–4.8 vs Gemini with a myth task); its return
+  proportion stays 0.38–0.50. GPT sends ~$0 in game-only dyads whatever the
+  partner, but once a myth task unlocks it sends $4.1–4.7 to Gemini vs $2.9–3.5
+  to another GPT and returns ~0.40 vs ~0.32. Gemini sends $5 everywhere except
+  game-only vs GPT ($5 twice, then $0; mean $1.2).
+- Ladder: Sonnet's game-only sending falls $3.0 → $1.8 as GPTs are added but
+  is unchanged with a myth task; GPT's sending rises with every Gemini added;
+  a lone GPT among seven Sonnets sends $3.2 in game-only play (two or four:
+  ~$1.2). Return proportions of Sonnet and Gemini never move; only GPT's does.
+- Descriptive, n = 5–6 per cell.
+
+#### Figure fix
+- The mixed-dyad resource boxplot (Overleaf Fig. 7) repeated the homogeneous
+  panels in its 3×3 layout (Ed, meeting 2026-09-22). Now a 2×3 grid: homogeneous
+  row, mixed row, each of the six pairings once.
+
 ### 2026-09-18 — Result: eight-agent contagion ladder complete (90/90)
 
 **Time:** batch 12:38 → 17:05 wall-clock with 20 workers, interrupted once by credit exhaustion at 48/90; analysis ~1 h.
