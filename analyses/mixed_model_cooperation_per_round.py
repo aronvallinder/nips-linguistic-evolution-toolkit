@@ -34,6 +34,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from analyses._shared import configure_matplotlib  # noqa: E402
+from analyses._mixed_model_provenance import write_provenance  # noqa: E402
 
 DYADS = ROOT / "docs/figures/mixed_model_dyads_20260917/decisions.csv"
 POPULATIONS = ROOT / "docs/figures/mixed_model_populations_20260918/games.csv"
@@ -161,6 +162,7 @@ def main() -> None:
     plot_grid(stats, "population", POPULATION_ROWS, "return", "fig8_populations_return_per_round",
               "How much receivers give back, round by round (Figure 8, eight-agent ladder)\nInformed negative-only noise · No defectors · all 8 agents",
               band + " Per run and round: total returned / total received over the games where something arrived." + blank)
+    write_provenance(OUTPUT, set(dyads["path"]) | set(populations["path"]))
 
 
 if __name__ == "__main__":

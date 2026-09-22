@@ -17,9 +17,9 @@ Outputs (docs/figures/mixed_model_family_split_20260922/, PNG only):
   2-agent-mixed-model-simulation-split.png
                                per mixed pairing x task order: each family's per-run mean
                                amount sent / return proportion, with its homogeneous value
-  dyad_family_round_traces_{sent,return}.png
-                               per mixed pairing x task order: each family's round-by-round
-                               mean, dashed = the same family in a homogeneous dyad
+  dyad_family_turn_traces_{sent,return}.png
+                               per mixed pairing x task order: each family's mean on its own
+                               turns 1-5, dashed = the same family in a homogeneous dyad
   mixed-model-simulation-8-agent-split.png (sending), population_family_split_return.png
                                per ladder x task order: minority and majority family
                                per-run means against the minority count (0 and 8 = homogeneous)
@@ -37,6 +37,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from analyses._shared import configure_matplotlib  # noqa: E402
+from analyses._mixed_model_provenance import write_provenance  # noqa: E402
 
 DYADS = ROOT / "docs/figures/mixed_model_dyads_20260917/decisions.csv"
 POPULATIONS = ROOT / "docs/figures/mixed_model_populations_20260918/games.csv"
@@ -82,9 +83,16 @@ def dyad_run_means(decisions: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def dyad_round_means(decisions: pd.DataFrame, metric: str) -> pd.DataFrame:
+def dyad_turn_means(decisions: pd.DataFrame, metric: str) -> pd.DataFrame:
+    """Mean per family and own turn (1-5).
+
+    Senders alternate each round and the first sender alternates across
+    replicates, so global round r is a family's first turn in some runs and its
+    second in others. Grouping by round would pool different turns at adjacent
+    points; ceil(round / 2) is the agent's own turn number in every run."""
     column, family_column, _, _ = METRICS[metric]
-    return (decisions.groupby(["composition", "task_order", family_column, "round"])[column]
+    d = decisions.assign(turn=(decisions["round"] + 1) // 2)
+    return (d.groupby(["composition", "task_order", family_column, "turn"])[column]
             .agg(["mean", "count"]).reset_index().rename(columns={family_column: "family"}))
 
 
@@ -152,7 +160,7 @@ def plot_dyad_traces(decisions: pd.DataFrame, metric: str) -> None:
     from matplotlib.lines import Line2D
 
     _, _, ylabel, ylim = METRICS[metric]
-    rounds = dyad_round_means(decisions, metric)
+    turns = dyad_turn_means(decisions, metric)
     fig, axes = plt.subplots(len(PAIRINGS), 3, figsize=(13.5, 10), sharex=True, sharey=True, squeeze=False)
     for row, (fam_a, fam_b) in enumerate(PAIRINGS):
         mixed_label = composition_of(fam_a, fam_b)
@@ -160,13 +168,13 @@ def plot_dyad_traces(decisions: pd.DataFrame, metric: str) -> None:
             ax = axes[row, col]
             for family in (fam_a, fam_b):
                 color = FAMILY_COLORS[family]
-                homog = rounds[(rounds["composition"] == homogeneous_label(family)) & (rounds["task_order"] == task_order)
-                               & (rounds["family"] == family)].sort_values("round")
-                mixed = rounds[(rounds["composition"] == mixed_label) & (rounds["task_order"] == task_order)
-                               & (rounds["family"] == family)].sort_values("round")
-                ax.plot(homog["round"], homog["mean"], color=color, linestyle="--", linewidth=1.4, alpha=0.7, zorder=2)
-                ax.plot(mixed["round"], mixed["mean"], color=color, linestyle="-", linewidth=2.2, marker="o", ms=4.5, zorder=3)
-            ax.set_xticks(range(1, 11))
+                homog = turns[(turns["composition"] == homogeneous_label(family)) & (turns["task_order"] == task_order)
+                              & (turns["family"] == family)].sort_values("turn")
+                mixed = turns[(turns["composition"] == mixed_label) & (turns["task_order"] == task_order)
+                              & (turns["family"] == family)].sort_values("turn")
+                ax.plot(homog["turn"], homog["mean"], color=color, linestyle="--", linewidth=1.4, alpha=0.7, zorder=2)
+                ax.plot(mixed["turn"], mixed["mean"], color=color, linestyle="-", linewidth=2.2, marker="o", ms=4.5, zorder=3)
+            ax.set_xticks(range(1, 6))
             ax.set_ylim(*ylim)
             if metric == "return":
                 ax.axhline(0.5, color="#999999", linewidth=0.8, linestyle=":", zorder=1)
@@ -177,20 +185,20 @@ def plot_dyad_traces(decisions: pd.DataFrame, metric: str) -> None:
             if col == 0:
                 ax.set_ylabel(f"{FAMILY_LONG[fam_a]} + {FAMILY_LONG[fam_b]}\n{ylabel}", fontsize=10.5)
             if row == len(PAIRINGS) - 1:
-                ax.set_xlabel("Round")
+                ax.set_xlabel("Own turn (each agent sends or returns every other round)")
     handles = [Line2D([], [], color=FAMILY_COLORS[f], linewidth=2.2, marker="o", label=f"{FAMILY_LONG[f]} in the mixed dyad") for f in FAMILY_COLORS]
     handles.append(Line2D([], [], color="#333333", linestyle="--", linewidth=1.4, label="Same family in its homogeneous dyad"))
     fig.legend(handles=handles, loc="lower center", ncol=4, frameon=False, fontsize=9.5)
-    title = {"sent": "Amount sent per round, by family", "return": "Return proportion per round, by family"}[metric]
+    title = {"sent": "Amount sent on each own turn, by family", "return": "Return proportion on each own turn, by family"}[metric]
     fig.suptitle(f"{title}\nMixed dyads (solid) vs the same family among its own kind (dashed) · Informed negative-only noise · No defectors",
                  fontsize=13.5, fontweight="bold")
-    note = ("In a mixed dyad each family sends in alternate rounds; the first sender alternates across replicates, "
-            "so every round averages 3 runs per family (5 runs per round for homogeneous dyads).")
+    note = ("Each agent sends in every other round (turns 1-5) and receives in the others. Turn k pools the family's k-th decision "
+            "across runs: 6 mixed runs per family, and both agents of 5 homogeneous runs (10 decisions).")
     if metric == "return":
-        note += " Rounds where nothing arrived contribute no return proportion."
+        note += " Turns where nothing arrived contribute no return proportion."
     fig.text(0.5, 0.035, note, ha="center", fontsize=8.5, color="#444444")
     fig.tight_layout(rect=(0, 0.06, 1, 0.955))
-    fig.savefig(OUTPUT / f"dyad_family_round_traces_{metric}.png", dpi=200, bbox_inches="tight")
+    fig.savefig(OUTPUT / f"dyad_family_turn_traces_{metric}.png", dpi=200, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -335,6 +343,7 @@ def main() -> None:
     for metric in METRICS:
         plot_dyad_traces(decisions, metric)
         plot_population_split(population_runs, metric)
+    write_provenance(OUTPUT, set(decisions["path"]) | set(games["path"]))
 
     pd.set_option("display.width", 220)
     show = summary[summary["setting"] == "dyad"].copy()

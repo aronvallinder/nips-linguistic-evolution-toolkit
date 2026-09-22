@@ -37,7 +37,9 @@ and [data audit](../research/mixed_future_data_audit.md).
   myth→game; six replicates with the first sender alternating by family).
   Every family's sending tracks its partner: Sonnet follows Gemini up and GPT
   down, GPT's game-only zero-lock persists against both partners, and Gemini
-  stops sending after two unreciprocated rounds against GPT. A myth task breaks
+  stops sending after its first unreciprocated send against GPT (five of six
+  runs; one sends twice; corrected 2026-09-22 from a reading that pooled
+  replicate cohorts by global round). A myth task breaks
   the lock in every composition. See
   [the results README](../figures/mixed_model_dyads_20260917/README.md) and
   [D010](decisions/010-mixed-model-population-sizes.md).

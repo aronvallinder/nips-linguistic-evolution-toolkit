@@ -16452,18 +16452,17 @@
   },
   "legacy_reason": null,
   "outputs": {
-    "resources_boxplots.png": "0c833dc171558dc1f22bac8ea3e17692cc9fdd2c4ba92e9b46f11af87e3f8d35",
+    "README.md": "99d85d865a13fd52ea1ce682f9a3742acf6af0aa2001ad960ab7af4bd40ec783",
     "cell_summary.csv": "d4a556133683c9388f3951eaa9198b265c91a66421ab26c9ebb4a3ca0ce7a423",
-    "resources_boxplots.pdf": "78dcfa0dea6a9905e1ff8576564d53ced8259a11410d9952d16698bd4d002ca9",
-    ".DS_Store": "a8f8716404cf2839bd68008386396e2331ec59a43977247cb608cd44946528f4",
     "decisions.csv": "d63b2813b3315a09df03ca91e8506d2f1a2fe312a2bcbeb5fa69fa6b84bbc9f7",
-    "resources_boxplots.svg": "91e80fc21f33fb9e3f95d288b3e05753b525508fdee6cd1c93394e4acf4d72b0",
-    "sends_and_returns.png": "978c8fff1293e734d73d7f5263c4200b3613bd9746139b72ab3884ab205eb480",
-    "README.md": "fa47e827d22de6fcced8d8db886701a3f2addfac38cbd9841b8a67d9822c9531",
+    "family_behaviour.csv": "cc3d212a4c49748abb5b7d886411b76f8509fca0f06bc91699c5fccb48889290",
     "mixed-model-simulation-2-agent.png": "c0e50f973f277b22d6484913776126d3cc873eebf1430705b72ff3d51e7a8853",
-    "round_means.csv": "b6d268dccf3d70083c9c2f9643abc6a051c2c9859abc98a7dd9de4263aa9136c",
     "resources.png": "a7f9950bcbcf75c4ba4acba1264571a9e992f0774a594c7178baffa7d274bb22",
-    "family_behaviour.csv": "cc3d212a4c49748abb5b7d886411b76f8509fca0f06bc91699c5fccb48889290"
+    "resources_boxplots.pdf": "78dcfa0dea6a9905e1ff8576564d53ced8259a11410d9952d16698bd4d002ca9",
+    "resources_boxplots.png": "0c833dc171558dc1f22bac8ea3e17692cc9fdd2c4ba92e9b46f11af87e3f8d35",
+    "resources_boxplots.svg": "91e80fc21f33fb9e3f95d288b3e05753b525508fdee6cd1c93394e4acf4d72b0",
+    "round_means.csv": "b6d268dccf3d70083c9c2f9643abc6a051c2c9859abc98a7dd9de4263aa9136c",
+    "sends_and_returns.png": "978c8fff1293e734d73d7f5263c4200b3613bd9746139b72ab3884ab205eb480"
   },
   "pools": {
     "mixed": {

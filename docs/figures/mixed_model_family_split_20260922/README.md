@@ -21,9 +21,12 @@ Figures:
   order, each family's per-run mean amount sent (top) and return proportion
   (bottom) as boxes, with a hollow diamond for the same family in its
   homogeneous dyad (mean ± sd).
-- `dyad_family_round_traces_sent.png`, `dyad_family_round_traces_return.png`:
-  the same split round by round (solid = in the mixed dyad, dashed = among its
-  own kind).
+- `dyad_family_turn_traces_sent.png`, `dyad_family_turn_traces_return.png`:
+  the same split over each agent's own turns 1–5 (solid = in the mixed dyad,
+  dashed = among its own kind). Each agent sends every other round and the
+  first sender alternates across replicates, so the x-axis is the agent's own
+  turn, not the global round; plotting by global round would place different
+  replicates' first and second turns side by side.
 - `mixed-model-simulation-8-agent-split.png` (sending) and
   `population_family_split_return.png`: the eight-agent ladder with the
   minority and the majority family drawn separately against the minority
@@ -124,12 +127,18 @@ GPT among Sonnet (GPT count 0 → 1 → 2 → 4 → 8):
   The one game-only exception is the lone GPT among seven Sonnets, which sends
   $3.2 (sd 1.1); two or four GPTs fall back to about $1.2.
 - **Gemini is unconditional only while reciprocated.** It sends $5 in every
-  composition except game-only play against GPT, where it sends $5 twice, gets
-  nothing back, and then sends $0 (dyad mean $1.2; ladder means $0.9 to $3.7
-  rising with the Gemini count). Its return proportion never changes.
-- The round traces show when this happens: Sonnet's game-only sending against
-  GPT decays over five to eight rounds, Gemini's drops at round 3, and GPT's
-  climb against Gemini with a myth task is complete by round 6.
+  composition except game-only play against GPT. There it sends $5 on its
+  first turn, gets nothing back, and sends $0 from its second turn on in five
+  of six dyads; in the sixth it sends $5 twice before stopping (dyad mean
+  $1.2; ladder means $0.9 to $3.7 rising with the Gemini count). Its return
+  proportion never changes.
+- The turn traces show when this happens: Sonnet's game-only sending against
+  GPT falls from $2.8 on its first turn to about $0.6 on its third and $0 by
+  its fifth; Gemini's falls to $0.8 on its second turn (the one run that sent
+  twice); and GPT's climb against Gemini with a myth task reaches $5 by its
+  third (myth→game) or fourth (game→myth) turn. An earlier version of this
+  README read these from global-round traces ("Gemini drops at round 3"),
+  which mixed replicate cohorts; corrected 2026-09-22.
 
 ## Boundaries
 
