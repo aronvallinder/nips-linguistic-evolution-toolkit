@@ -31,6 +31,40 @@ Figures:
   shift, per family, composition, task order, metric), `dyad_family_runs.csv`
   and `population_family_runs.csv` (per-run per-family means).
 
+## How to read the two main figures
+
+**`dyad_family_split.png`.** Each panel is one mixed pairing; the x-axis is the
+task order. At each x position there are two filled boxes, one per model in
+the pair, coloured by model. A box shows what that model did *inside the mixed
+pair*: its mean amount sent per round (top row) or its return proportion
+(bottom row), one dot per run. Just outside each box is a hollow diamond in
+the same colour. The diamond is what the *same model does among its own kind*
+(the homogeneous September dyads, mean ± sd). Compare each box with its own
+diamond: if the box sits on the diamond, the model kept its usual behaviour and
+the pair's score is just the average of two fixed styles; if the box is away
+from the diamond, the partner changed the model's behaviour. Example, top-left
+panel, "Game only": Sonnet's diamond is at $2.5 and its box at about $1, so
+Sonnet sent much less when paired with GPT; GPT's diamond and box are both at
+$0, so GPT did not change. Middle panel, same position: Sonnet's box is at
+$4.1 against the same $2.5 diamond, so Sonnet sent more with Gemini. Gemini's
+box and diamond both sit at $5. In the bottom row nearly every box sits on its
+diamond: return behaviour does not adapt.
+
+**`population_family_split_sent.png`.** Each row is one ladder (Gemini agents
+added to a GPT group, GPT agents added to a Sonnet group); each column is a
+task order. The x-axis is how many agents of the added family are in the group
+of eight. The two lines are the two families drawn separately, so the plot
+shows what each family sends rather than the group total. The end points are
+the pure groups: x = 0 is the majority family on its own and x = 8 is the
+minority family on its own, so they are the "among its own kind" reference. A
+flat line means the family keeps its behaviour whatever the mix; a sloping line
+means it changes with the mix. Example, top-left panel: Gemini's line runs from
+$0.9 when it is alone among seven GPTs up to $5 in a pure Gemini group, so
+Gemini is pulled down by GPT partners; GPT's line stays at $0 until four
+Geminis are present and then reaches $2, so GPT is pulled up only when the
+group is half Gemini. With a myth task (middle and right panels) Gemini's line
+is flat at $5 and GPT's line rises with every Gemini added.
+
 ## Result: amount sent per decision (of $5), dyads, mean (±sd over runs)
 
 Homogeneous n = 5, mixed n = 6. "Alone" = the family's homogeneous dyad.
