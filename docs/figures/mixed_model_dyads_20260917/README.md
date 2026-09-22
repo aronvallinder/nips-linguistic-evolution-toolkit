@@ -63,8 +63,9 @@ Return proportion when the family is the receiver (undefined when nothing arrive
 | Gemini ← GPT | 0.45 (n=1) | 0.44 | 0.45 |
 
 Full tables: `cell_summary.csv`, `family_behaviour.csv`, `round_means.csv`;
-per-decision rows in `decisions.csv`. Figures: `resources_boxplots.png` (the figure-2 boxplot grid: resources per agent, one panel per composition), `sends_and_returns.png`,
-`resources.png`.
+per-decision rows in `decisions.csv`. Figures: `resources_boxplots.png` (the figure-2 boxplot grid: resources per agent, six unique pairings drawn once each, homogeneous controls on the top row and mixed pairings on the bottom row; relaid out 2026-09-22 after the earlier 3×3 version repeated the homogeneous panels), `sends_and_returns.png`,
+`resources.png`. Each family's own behaviour inside the mixed dyads, against its homogeneous value, is in
+[`../mixed_model_family_split_20260922/`](../mixed_model_family_split_20260922/README.md).
 
 ## Reading
 
