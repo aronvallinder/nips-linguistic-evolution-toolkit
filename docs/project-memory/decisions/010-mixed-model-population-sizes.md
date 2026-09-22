@@ -104,6 +104,17 @@ The ladder completed 90/90 validated finals on 2026-09-18 ($104.51; two
 format-failure resamples, one 8-worker false start and one credit-exhaustion
 interruption disclosed): [ladder README](../../figures/mixed_model_populations_20260918/README.md).
 
+On 2026-09-22 the team meeting (Edward Hughes, Arabella Sinclair, Ivar;
+computer-generated transcript, 00:29:11–00:32:09) reviewed the dyad and
+ladder results. **Proposed (Edward), not launched:** repeat the mixed-model
+dyads on the frontier models of D011, budget permitting, because the mixed
+condition showed the strongest effect and has more headroom; an old-plus-new
+mixture (Ivar's suggestion) was set aside. **Agreed:** the mixed-model figures
+lead the paper; the current dyad figure duplicates Sonnet/Gemini and is to be
+rebuilt as the six unique pairings; a per-model behaviour split of each dyad
+(Arabella) and a linguistic/norm-alignment analysis of the mixed runs are the
+next analyses. Source register: [sources/README.md](../sources/README.md).
+
 ## Unresolved / next evidence
 
 Which family's myth text moved which agent in the mixed myth conditions is

@@ -1,6 +1,6 @@
 # Current research state
 
-Last verified: 2026-09-18.
+Last verified: 2026-09-22.
 
 ## Research question
 
@@ -14,6 +14,14 @@ and [data audit](../research/mixed_future_data_audit.md).
 
 ## Current operational state
 
+- **Submission target (team meeting 2026-09-22):** AAMAS, abstract 1 October
+  2026, full paper 8 October 2026. The mixed-model dyad and eight-agent figures
+  lead the paper; frontier results, cooperation round traces and a linguistic
+  analysis of the mixed runs follow; noise strength, defector count and a
+  possible message-board variant are ablations. Open figure fix: the dyad
+  figure duplicates Sonnet/Gemini and must show six unique pairings. A frontier
+  mixed-model rerun is proposed, not launched (see
+  [D010](decisions/010-mixed-model-population-sizes.md)).
 - The **frontier-model rerun completed 90/90 validated finals** on 2026-09-18:
   the September no-defector matrix on Claude Opus 5 (adaptive thinking, effort
   high), Gemini 3.1 Pro Preview (thinking high) and GPT-5.6 Sol (effort high),
