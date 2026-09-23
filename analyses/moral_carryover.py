@@ -161,7 +161,7 @@ def summary_measures(myths: pd.DataFrame, emb: np.ndarray) -> tuple[pd.DataFrame
         lab_i, lab_p = myths.at[i, "label"], myths.at[p, "label"]
         up.append({"run_id": myths.at[i, "run_id"], "setting": myths.at[i, "setting"],
                    "family": myths.at[i, "family"], "parent_family": myths.at[p, "family"],
-                   "round": myths.at[i, "round"],
+                   "round": myths.at[i, "round"], "task_order": myths.at[i, "task_order"],
                    "moral_cos_shown": float(emb[i] @ emb[p]), "moral_cos_unseen": float(np.mean(emb[nulls] @ emb[i])),
                    "same_label_shown": float(lab_i == lab_p) if isinstance(lab_i, str) and isinstance(lab_p, str) else np.nan,
                    "same_label_unseen": np.nanmean([float(lab_i == myths.at[j, "label"]) for j in nulls
@@ -454,6 +454,12 @@ def main() -> None:
                          ["setting", "exposure"], ["moral_cos_shown", "moral_cos_unseen", "moral_cos_excess",
                                                    "same_label_shown", "same_label_unseen", "same_label_excess"])
         up.to_csv(FIGS / "moral_uptake.csv", index=False)
+        # by task order: in 8-agent myth->game the shown myth was written before its author and the
+        # child ever played, so shared game history cannot explain a match (dyads always share it)
+        run_summary(uptake.assign(exposure=np.where(uptake["family"] == uptake["parent_family"],
+                                                    "same family", "other family")),
+                    ["setting", "exposure", "task_order"],
+                    ["moral_cos_excess", "same_label_excess"]).to_csv(FIGS / "moral_uptake_by_task_order.csv", index=False)
         run_summary(dist, ["setting", "pair_type"], ["moral_distance", "same_label"]).to_csv(
             FIGS / "moral_partner_distance.csv", index=False)
         plot_summary_measures(per_myth, dist)

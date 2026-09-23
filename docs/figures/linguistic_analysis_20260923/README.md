@@ -215,13 +215,23 @@ took cosines on a 2-D PCA projection, which distorts them):
 - Game partners' morals are closest in homogeneous dyads (distance 0.235
   ±0.044) and furthest between families in populations (0.286 ±0.032).
 
-**Moral uptake** (`moral_uptake.csv`). An agent's moral moves toward the moral
-of the myth it was shown, beyond an unseen myth. Its label matches the shown
-myth's label more often: +7.8 points (±10.4) in homogeneous dyads, +12.9
-(±15.2) in mixed dyads, +5.0 (±6.1) in homogeneous populations, +4.4 (±8.7)
-for same-family exposure in mixed populations. All p < 0.001 over runs.
-**Across families in populations there is no moral uptake** (−0.2 points,
-p = 0.74), although the words transfer (item 1).
+**Moral uptake** (`moral_uptake.csv`, `moral_uptake_by_task_order.csv`). Does
+an agent's moral move toward the moral of the myth it was shown, beyond an
+unseen myth? The clean test is 8-agent myth→game: there the shown myth was
+written before its author and the child ever played together, so a match
+cannot come from a shared game.
+
+- **In populations, morals spread within a family, not across.** In 8-agent
+  myth→game, the child's label matches the shown myth's label +4.8 points more
+  often than an unseen myth's in homogeneous runs (p = 0.005) and +5.9 points
+  for same-family exposure in mixed runs (p = 0.001). Across families: +0.7
+  points (p = 0.37); in game→myth −1.0 (p = 0.79). The words cross families
+  (item 1); the moral stance does not.
+- **Dyads show the largest matches, including across families** (+6 to +9
+  points homogeneous, +10 to +15 mixed), but both partners lived the same
+  games, and a moral describes the game just played (see the reverse link
+  below). Dyad matches are therefore not evidence of transmission. The same
+  shared-history caveat applies to the 8-agent game→myth rows.
 
 **Carryover into play** (`moral_carryover.png`, `moral_carryover_models.csv`,
 `moral_reverse_models.csv`, `moral_behaviour_by_label.png`). For each decision:
@@ -258,8 +268,9 @@ CSV also holds the run fixed-effect version.
   receivers shown a `be cautious` myth, −0.13) rests on 19 cautious myths and
   should not be read.
 
-Reading: myths spread words and, within a family, their moral stance. But a
-myth's moral does not steer an agent's next decision.
+Reading: myths spread words across families and, in populations, their moral
+stance within a family. But a myth's moral does not steer an agent's next
+decision.
 Morals follow play more than they lead it. This fits the August null on norm
 transmission and the earlier counter-current finding. A causal test still
 needs the seeding design (plant a moral, compare with a placebo).

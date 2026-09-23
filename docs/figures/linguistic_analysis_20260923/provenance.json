@@ -36219,7 +36219,7 @@
   },
   "legacy_reason": null,
   "outputs": {
-    "README.md": "fd7e1a74ce5dd19658722ac10d068f77c5ab58ddcc7a1d1ef4795a4eb5047729",
+    "README.md": "6e349765cb6976c3af9b808dddf518c2640195ec5dcf71fefa1cc3f767bfe56f",
     "alignment_pair_level.csv": "bc8461f75690437caabd32975ded52f345840f89898967a9b70ca8f88a5253e1",
     "alignment_run_level.csv": "4ed86141e017f77ac698f967fa42bc6804fd27bfa789fd41050e5f59d97e3a2f",
     "alignment_vs_cooperation.png": "f366e9e48cea2ad29379c533b81fdf5ad841c09b9d105bb5e4001d11d198a022",
@@ -36243,6 +36243,7 @@
     "moral_reverse_models_deepseek__deepseek-v4-flash.csv": "300568429f0dda41ceb1e3a0ab21f1a5df0b54098b01370082010cb1ccdc9fe1",
     "moral_summary_drift_stability_distance.png": "3cf6e4568c51eb66305998dce1f59306a39256e72aaf91c16cf7e36aa4791a37",
     "moral_uptake.csv": "854b9a292bbb272b32b4e0af8f81a298a84f5af2f3edc0e373e7904dff7ab6a5",
+    "moral_uptake_by_task_order.csv": "4cb1f5bab300f23959efa9c445558ba5f81cfd65481b52d339edb89de2efc776",
     "reuse_by_family_pair.csv": "6d767167e512a4260b15931f330250de7ccdaecbe0016bbe6eacda8084e90a66",
     "reuse_by_task_order.csv": "4a622ee293f0c391b107b4f6bdf54144fab90bef3fe97acca874387f5dbd411a",
     "reuse_summary.csv": "b4a82e0e58efb2466343f4437abb9686bfa382de6f28a025cfabd9024cfba742",
