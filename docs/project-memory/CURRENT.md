@@ -26,7 +26,8 @@ and [data audit](../research/mixed_future_data_audit.md).
   (156 myth-bearing homogeneous and mixed runs, 8,519 myths; no new runs,
   $8.18 judge labelling). Agents take up words from the myth they are shown,
   across model families too (signature-word uptake beats a permutation null in
-  all 10 family × size cells). Morals spread only within a family. Myth
+  all 10 family × size cells). In populations, moral stances spread only
+  within a family (dyad matches are confounded by shared games). Myth
   alignment does not predict cooperation, and with agent-within-run fixed
   effects neither an agent's own moral nor the shown myth's moral predicts its
   next move; generous games are followed by generous myths. The human
