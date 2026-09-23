@@ -1,6 +1,6 @@
 # Current research state
 
-Last verified: 2026-09-22.
+Last verified: 2026-09-23.
 
 ## Research question
 
@@ -22,6 +22,16 @@ and [data audit](../research/mixed_future_data_audit.md).
   figure duplicates Sonnet/Gemini and must show six unique pairings. A frontier
   mixed-model rerun is proposed, not launched (see
   [D010](decisions/010-mixed-model-population-sizes.md)).
+- The **linguistic analysis of the September runs completed** on 2026-09-23
+  (156 myth-bearing homogeneous and mixed runs, 8,519 myths; no new runs,
+  $8.18 judge labelling). Agents take up words from the myth they are shown,
+  across model families too (signature-word uptake beats a permutation null in
+  all 10 family × size cells). Morals spread only within a family. Myth
+  alignment does not predict cooperation, and with agent-within-run fixed
+  effects neither an agent's own moral nor the shown myth's moral predicts its
+  next move; generous games are followed by generous myths. The human
+  validation of the moral labels is not yet done. See
+  [the results README](../figures/linguistic_analysis_20260923/README.md).
 - The **frontier-model rerun completed 90/90 validated finals** on 2026-09-18:
   the September no-defector matrix on Claude Opus 5 (adaptive thinking, effort
   high), Gemini 3.1 Pro Preview (thinking high) and GPT-5.6 Sol (effort high),
