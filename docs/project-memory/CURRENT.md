@@ -1,6 +1,6 @@
 # Current research state
 
-Last verified: 2026-09-18.
+Last verified: 2026-09-22.
 
 ## Research question
 
@@ -14,6 +14,14 @@ and [data audit](../research/mixed_future_data_audit.md).
 
 ## Current operational state
 
+- **Submission target (team meeting 2026-09-22):** AAMAS, abstract 1 October
+  2026, full paper 8 October 2026. The mixed-model dyad and eight-agent figures
+  lead the paper; frontier results, cooperation round traces and a linguistic
+  analysis of the mixed runs follow; noise strength, defector count and a
+  possible message-board variant are ablations. Open figure fix: the dyad
+  figure duplicates Sonnet/Gemini and must show six unique pairings. A frontier
+  mixed-model rerun is proposed, not launched (see
+  [D010](decisions/010-mixed-model-population-sizes.md)).
 - The **frontier-model rerun completed 90/90 validated finals** on 2026-09-18:
   the September no-defector matrix on Claude Opus 5 (adaptive thinking, effort
   high), Gemini 3.1 Pro Preview (thinking high) and GPT-5.6 Sol (effort high),
@@ -29,7 +37,9 @@ and [data audit](../research/mixed_future_data_audit.md).
   myth→game; six replicates with the first sender alternating by family).
   Every family's sending tracks its partner: Sonnet follows Gemini up and GPT
   down, GPT's game-only zero-lock persists against both partners, and Gemini
-  stops sending after two unreciprocated rounds against GPT. A myth task breaks
+  stops sending after its first unreciprocated send against GPT (five of six
+  runs; one sends twice; corrected 2026-09-22 from a reading that pooled
+  replicate cohorts by global round). A myth task breaks
   the lock in every composition. See
   [the results README](../figures/mixed_model_dyads_20260917/README.md) and
   [D010](decisions/010-mixed-model-population-sizes.md).

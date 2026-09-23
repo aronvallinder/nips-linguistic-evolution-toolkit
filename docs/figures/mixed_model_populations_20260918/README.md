@@ -109,3 +109,6 @@ proportions by family are in `cell_summary.csv`.
   homogeneous per-agent cost.
 - Mixed runs in the myth conditions transmit myths across families by
   construction; which family's text moved which agent is not separated here.
+
+The ladder split by the minority and majority family's own sending and returning is in
+[`../mixed_model_family_split_20260922/`](../mixed_model_family_split_20260922/README.md).

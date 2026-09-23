@@ -13,6 +13,7 @@ underlying transcript or authored comment.
 | 2026-09-01 | [Legacy Claude summary](</Users/ivar/.claude/projects/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/memory/project_meeting_2026_09_01.md>) | User-supplied notes summarized by an assistant | Saturation, cooperation ratios, API checks, paper scaffold |
 | 2026-09-07 | [Saved Ed-meeting note](</Users/ivar/agent-memory/facts/LLM evolution — Edward Hughes meeting 2026-09-07.md>) | Assistant summary of a user-provided transcript | Model-specific profiles and limits on invalidating historical work |
 | 2026-09-14 | [Google Doc transcript](https://docs.google.com/document/d/16j8WmWvdEb8Jv3ji36j79xK_fTtg7SryZlc4-481bVM/edit) | Computer-generated/editable transcript | Headline-figure priority and later publication discussion |
+| 2026-09-22 | [Legacy Claude summary](</Users/ivar/.claude/projects/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/memory/project_meeting_2026_09_22.md>) | User-supplied notes and computer-generated transcript (header dated Sep 21) summarized by an assistant | AAMAS target (abstract 1 Oct, paper 8 Oct), mixed-model figures lead, Figure 7 duplication fix, per-model split plot, linguistic/norm analysis priority, frontier mixed-model runs proposed |
 
 The [design reference](../../experiment_design_reference.md) quotes authored
 slide comments directly and links transcript timestamps for decisions already
@@ -32,6 +33,8 @@ personal discussion. Stable source locators:
   `2026-08-24T10:33:45.423Z`.
 - September 1 notes: session `e0c84bbd-c9ac-45f1-9485-e95745dc836c`, user
   message `2026-09-02T14:18:54.458Z`.
+- September 22 notes and transcript: session `996eaa9b-33c4-439b-971a-f7188797095d`,
+  first user message of 2026-09-22.
 
 For portable repository evidence, prefer the linked Google Docs or add only
 the relevant attributed excerpt with its timestamp. Do not silently promote a
