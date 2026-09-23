@@ -30,6 +30,7 @@ python3 analyses/myth_moral_judge.py             # item 3 labels (paid; cached)
 python3 analyses/myth_moral_judge.py --model deepseek/deepseek-v4-flash --task label
 python3 analyses/moral_carryover.py              # item 3 analysis
 python3 analyses/moral_validation.py             # item 4
+python3 analyses/linguistic_provenance.py        # provenance.json (run last)
 ```
 
 Large per-myth tables and embeddings go to `data/analysis/linguistic_20260923/`
