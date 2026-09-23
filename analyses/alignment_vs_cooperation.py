@@ -12,8 +12,9 @@ Pair level (main result). For every game, the similarity of the two players'
 latest myths written before it (myth->game: that round's myths; game->myth:
 the previous round's) is related to the game's cooperation: amount sent / 5,
 return proportion, and Arabella Sinclair's giving gap (|sent / 5 - return
-proportion|, 0 = both gave the same share). OLS with run and round fixed
-effects, standard errors clustered by run. "After" repeats this with the two
+proportion|, 0 = both gave the same share). OLS with run x pair-family and
+round fixed effects (a mixed population holds games between different family
+pairs in the same run), standard errors clustered by run. "After" repeats this with the two
 players' next myths, written after the game.
 
 Run level (context). Per run, mean similarity of playing pairs against mean
@@ -67,6 +68,7 @@ def games_table() -> pd.DataFrame:
                  "return_proportion"]].copy()
     games["sent_frac"] = games["sent"] / 5.0
     games["giving_gap"] = (games["sent_frac"] - games["return_proportion"]).abs()
+    games["pair_family"] = ["-".join(sorted(p)) for p in zip(games["investor_family"], games["trustee_family"])]
     games["pair_type"] = np.where(games["investor_family"] == games["trustee_family"], "same family", "cross family")
 
     def pair_sim(run, rnd, a, b):
@@ -89,14 +91,17 @@ def games_table() -> pd.DataFrame:
 
 
 def fe_slope(df: pd.DataFrame, y: str, x: str) -> dict:
-    """Slope of y on x with run and round fixed effects, SE clustered by run."""
+    """Slope of y on x with run x pair-family and round fixed effects, SE clustered by run."""
     import statsmodels.formula.api as smf
-    d = df[[y, x, "run_id", "round"]].dropna()
+    d = df[[y, x, "run_id", "round", "pair_family"]].dropna()
     if d["run_id"].nunique() < 5 or len(d) < 30:
         return {"n_games": len(d), "n_runs": d["run_id"].nunique()}
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        fit = smf.ols(f"{y} ~ {x} + C(run_id) + C(round)", data=d).fit(
+        # run x pair-family cells: a mixed population holds GPT-GPT and Sonnet-Sonnet
+        # games in the same run; elsewhere this reduces to run fixed effects
+        d = d.assign(cell=d["run_id"] + "|" + d["pair_family"])
+        fit = smf.ols(f"{y} ~ {x} + C(cell) + C(round)", data=d).fit(
             cov_type="cluster", cov_kwds={"groups": pd.factorize(d["run_id"])[0]})
     # report per 0.1 cosine, roughly the gap between shown and unseen myths
     return {"n_games": len(d), "n_runs": d["run_id"].nunique(), "slope_per_0.1": 0.1 * fit.params[x],

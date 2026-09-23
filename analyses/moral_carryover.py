@@ -18,14 +18,16 @@ B. Moral-summary measures (all-mpnet-base-v2 embeddings of the one-sentence
    shown myth versus an unseen one), and distance between game partners'
    morals per round.
 C. Giving gap (|sent/5 - return proportion|) and behaviour by moral label.
-D. Carryover. For each decision, OLS with run and round fixed effects and
-   SE clustered by run:
+D. Carryover. For each decision, OLS with SE clustered by run:
      coop_t ~ own latest moral label + label of the myth shown most recently
               + own most recent cooperation in the same role
    coop is sent / 5 for senders and return proportion for receivers, fitted
-   separately. Placebo (8-agent investors): the current co-player's own latest
-   label, which the investor never saw. Reverse check: does cooperation in a
-   game predict the label of the myth written right after it?
+   separately, under run + round fixed effects and (main) agent-within-run +
+   round fixed effects, which remove each agent's family and disposition.
+   Placebo (8-agent investors): the current co-player's own latest label,
+   which the investor never saw, controlling for the co-player's family.
+   Reverse check: does cooperation in a game predict the label of the myth
+   written right after it?
 
 Outputs: docs/figures/linguistic_analysis_20260923/moral_*.{csv,png}.
 No API calls; --labels picks the judge file (default GLM-5.2; pass the DeepSeek
@@ -233,10 +235,11 @@ def plot_summary_measures(per_myth: pd.DataFrame, dist: pd.DataFrame) -> None:
         ax.grid(alpha=0.3)
     axes[0].set_ylabel("cosine similarity of one-sentence morals")
     axes[2].set_ylabel("1 - cosine similarity")
-    axes[1].legend(fontsize=6.5, ncol=2, loc="lower right")
+    handles, labels = axes[1].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", ncol=6, fontsize=7, frameon=False)
     axes[2].legend(fontsize=7)
     fig.suptitle("How morals settle over the run (lines: mean over myths; thick = 2-agent, thin = 8-agent, dashed = mixed)")
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.1, 1, 1))
     fig.savefig(FIGS / "moral_summary_drift_stability_distance.png", dpi=200)
     plt.close(fig)
 
@@ -268,47 +271,60 @@ def decision_table(myths: pd.DataFrame, dec: pd.DataFrame) -> pd.DataFrame:
 
 
 def carryover_models(d: pd.DataFrame) -> pd.DataFrame:
+    """Carryover regressions under two fixed-effect choices.
+
+    fe = "run":   run + round fixed effects (families differ inside a mixed run,
+                  so a label can stand in for the author's family).
+    fe = "agent": agent-within-run + round fixed effects: does an agent
+                  cooperate more in the rounds when its own moral is more
+                  generous than usual? This is the carryover question proper.
+    The placebo adds the co-player's family, so a co-player label cannot act
+    as a family marker."""
     import statsmodels.formula.api as smf
     rows = []
     specs = {
         "own + shown label, own lag": "coop ~ C(own_label, Treatment('be fair')) + C(shown_label, Treatment('be fair')) + coop_lag_same_role",
         "own + shown label, no lag": "coop ~ C(own_label, Treatment('be fair')) + C(shown_label, Treatment('be fair'))",
-        "placebo: co-player's unseen label": "coop ~ C(coplayer_label, Treatment('be fair')) + C(own_label, Treatment('be fair')) + coop_lag_same_role",
+        "placebo: co-player's unseen label": "coop ~ C(coplayer_label, Treatment('be fair')) + C(own_label, Treatment('be fair')) + coop_lag_same_role + C(partner_family)",
     }
+    fes = {"run": " + C(run_id) + C(round)", "agent": " + C(run_agent) + C(round)"}
+    d = d.assign(run_agent=d["run_id"] + "|" + d["agent"])
     groups = [(st, g) for st, g in d.groupby("setting")] + [("all settings", d)]
-    for st, g in groups:
-        for role in ("investor", "trustee"):
-            base = g[g["role"] == role]
-            for name, formula in specs.items():
-                if name.startswith("placebo") and not (role == "investor" and ("8-agent" in st)):
-                    continue  # only 8-agent investors choose before seeing anything from an unshown co-player
-                cols = ["coop", "own_label", "run_id", "round"] + \
-                       (["shown_label"] if "shown_label" in formula else []) + \
-                       (["coplayer_label"] if "coplayer_label" in formula else []) + \
-                       (["coop_lag_same_role"] if "lag" in formula else [])
-                sub = base[cols].dropna()
-                if name.startswith("placebo"):
-                    # drop cases where the co-player's myth is the one the investor was shown
-                    sub = sub[base.loc[sub.index, "partner"] != base.loc[sub.index, "shown_author"]]
-                if sub["run_id"].nunique() < 8:
-                    continue
-                with warnings.catch_warnings():
-                    warnings.simplefilter("ignore")
-                    try:
-                        fit = smf.ols(formula + " + C(run_id) + C(round)", data=sub).fit(
-                            cov_type="cluster", cov_kwds={"groups": pd.factorize(sub["run_id"])[0]})
-                    except Exception as err:  # noqa: BLE001 - e.g. a label level absent in a subgroup
-                        rows.append({"setting": st, "role": role, "model": name, "error": str(err)})
+    for fe, fe_terms in fes.items():
+        for st, g in groups:
+            for role in ("investor", "trustee"):
+                base = g[g["role"] == role]
+                for name, formula in specs.items():
+                    if name.startswith("placebo") and not (role == "investor" and ("8-agent" in st)):
+                        continue  # only 8-agent investors choose before seeing anything from an unshown co-player
+                    cols = ["coop", "own_label", "run_id", "run_agent", "round", "partner_family"] + \
+                           (["shown_label"] if "shown_label" in formula else []) + \
+                           (["coplayer_label"] if "coplayer_label" in formula else []) + \
+                           (["coop_lag_same_role"] if "lag" in formula else [])
+                    sub = base[cols].dropna()
+                    if name.startswith("placebo"):
+                        # drop cases where the co-player's myth is the one the investor was shown
+                        sub = sub[base.loc[sub.index, "partner"] != base.loc[sub.index, "shown_author"]]
+                    if sub["run_id"].nunique() < 8:
                         continue
-                for term in fit.params.index:
-                    if "label" not in term and term != "coop_lag_same_role":
-                        continue
-                    var = term.split(",")[0].replace("C(", "") if "label" in term else term
-                    level = term.split("[T.")[-1].rstrip("]") if "[T." in term else ""
-                    ci = fit.conf_int().loc[term]
-                    rows.append({"setting": st, "role": role, "model": name, "predictor": var, "level": level,
-                                 "coef": fit.params[term], "ci_low": ci[0], "ci_high": ci[1], "p": fit.pvalues[term],
-                                 "n_decisions": int(fit.nobs), "n_runs": sub["run_id"].nunique()})
+                    with warnings.catch_warnings():
+                        warnings.simplefilter("ignore")
+                        try:
+                            fit = smf.ols(formula + fe_terms, data=sub).fit(
+                                cov_type="cluster", cov_kwds={"groups": pd.factorize(sub["run_id"])[0]})
+                        except Exception as err:  # noqa: BLE001 - e.g. a label level absent in a subgroup
+                            rows.append({"fe": fe, "setting": st, "role": role, "model": name, "error": str(err)})
+                            continue
+                    for term in fit.params.index:
+                        if "label" not in term and term != "coop_lag_same_role":
+                            continue
+                        var = term.split(",")[0].replace("C(", "") if "label" in term else term
+                        level = term.split("[T.")[-1].rstrip("]") if "[T." in term else ""
+                        ci = fit.conf_int().loc[term]
+                        rows.append({"fe": fe, "setting": st, "role": role, "model": name, "predictor": var,
+                                     "level": level, "coef": fit.params[term], "ci_low": ci[0], "ci_high": ci[1],
+                                     "p": fit.pvalues[term], "n_decisions": int(fit.nobs),
+                                     "n_runs": sub["run_id"].nunique()})
     return pd.DataFrame(rows)
 
 
@@ -336,7 +352,8 @@ def reverse_models(d: pd.DataFrame) -> pd.DataFrame:
 def plot_carryover(models: pd.DataFrame) -> None:
     import matplotlib.pyplot as plt
     configure_matplotlib()
-    m = models[(models["model"] == "own + shown label, own lag") & models["level"].isin(["be generous", "be cautious"])]
+    m = models[(models["fe"] == "agent") & (models["model"] == "own + shown label, own lag")
+               & models["level"].isin(["be generous", "be cautious"])]
     settings = ["2-agent homogeneous", "2-agent mixed", "8-agent homogeneous", "8-agent mixed", "all settings"]
     fig, axes = plt.subplots(1, 2, figsize=(14, 4.8), sharey=True)
     for ax, role, xlabel in ((axes[0], "investor", "change in amount sent / 5"),
@@ -357,14 +374,15 @@ def plot_carryover(models: pd.DataFrame) -> None:
                 ticks.append(f"{st}: {name}")
                 k += 1
         ax.axvline(0, color="#666666", lw=1)
-        ax.set_xlabel(xlabel + "\n(run + round fixed effects, controls for own last move in that role; 95% CI)")
+        ax.set_xlabel(xlabel + "\n(agent-within-run + round fixed effects, own last move in that role; 95% CI)")
         ax.set_title("Senders" if role == "investor" else "Receivers")
         ax.grid(axis="x", alpha=0.3)
         ax.set_yticks(range(len(ticks)), ticks, fontsize=8)
     axes[0].invert_yaxis()
-    axes[0].legend(fontsize=8, loc="lower right")
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", ncol=2, fontsize=9, frameon=False)
     fig.suptitle("Does a myth's moral predict the next move beyond the player's own last move?")
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
     fig.savefig(FIGS / "moral_carryover.png", dpi=200)
     plt.close(fig)
 
@@ -409,8 +427,9 @@ def main() -> None:
     rev = reverse_models(d)
     rev.to_csv(FIGS / f"moral_reverse_models{tag}.csv", index=False)
     show = ["setting", "role", "model", "predictor", "level", "coef", "ci_low", "ci_high", "p", "n_decisions"]
-    print(models[models["setting"].isin(["all settings"]) | (models["model"] == "own + shown label, own lag")]
-          [show].round(4).to_string(index=False))
+    key = models[models["predictor"].astype(str).str.contains("label") & (
+        (models["setting"] == "all settings") | models["model"].str.startswith("placebo"))]
+    print(key[["fe"] + show].round(4).to_string(index=False))
     print(rev.round(4).to_string(index=False))
     if tag:  # robustness rerun: carryover tables only
         return

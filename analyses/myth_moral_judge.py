@@ -71,6 +71,9 @@ def parse(task: str, raw: str) -> tuple[str | None, str]:
         val = val.strip().lower() if isinstance(val, str) else None
         return (val, "ok") if val in LABELS else (None, "bad_label")
     val = (obj or {}).get("moral_summary") if isinstance(obj, dict) else None
+    if not val and isinstance(obj, dict):  # wrong or blank key, e.g. {": ": "..."}
+        strings = [v for v in obj.values() if isinstance(v, str) and len(v.split()) >= 4]
+        val = strings[0] if len(strings) == 1 else None
     if val is None:  # her prompt shows the key unquoted, so models sometimes echo that
         m = re.search(r"moral_summary\"?\s*:\s*\"?(.+?)\"?\s*}?\s*$", s, re.S)
         val = m.group(1).strip() if m else None
@@ -195,7 +198,8 @@ def main() -> None:
             out[col] = res[col].to_numpy()
         bad = (res[f"{task}_status"] != "ok").sum()
         print(f"{task}: {len(res) - bad} ok, {bad} unparsed/errored, "
-              f"${res[f'{task}_cost'].sum():.2f} billed (this run, uncached calls)")
+              f"${res.loc[~res[f'{task}_cached'].astype(bool), f'{task}_cost'].sum():.2f} billed this run "
+              f"(${res[f'{task}_cost'].sum():.2f} including cached calls)")
     out.drop(columns=["text"]).to_csv(out_path, index=False)
     print(f"-> {out_path}")
     if args.arabella_check:

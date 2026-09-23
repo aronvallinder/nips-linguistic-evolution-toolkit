@@ -13,10 +13,12 @@
    label whose GLM precision is below 80% should not carry a headline claim
    (the threshold used in the earlier meme-transmission validation).
 
-Outputs: docs/figures/linguistic_analysis_20260923/validation/
+Outputs: docs/figures/linguistic_analysis_20260923/moral_labels.csv (both
+judges' labels and the one-sentence moral for every myth), and
+docs/figures/linguistic_analysis_20260923/validation/
   judge_agreement.csv, judge_confusion.csv
   human_coding_sheet.csv   (give this to the coder; blinded)
-  human_coding_key.csv     (do not share with the coder)
+  (key: data/analysis/linguistic_20260923/human_coding_key.csv, gitignored)
   CODING_INSTRUCTIONS.md
 
   python3 analyses/moral_validation.py
@@ -38,6 +40,8 @@ PRIMARY = "moral_labels_z-ai__glm-5.2.csv"
 SECOND = "moral_labels_deepseek__deepseek-v4-flash.csv"
 KEY = ["run_id", "round", "agent"]
 PER_LABEL = 30
+# the key stays out of git so a coder with repo access stays blind
+KEY_PATH = DATA / "human_coding_key.csv"
 
 
 def kappa(a: pd.Series, b: pd.Series) -> float:
@@ -97,7 +101,7 @@ the receiver chooses how much to send back). For each myth, write in the
 The full rubric, with examples and tie-breaking rules, is Arabella Sinclair's
 `arabella_analyses/data/rubrics/3moral_rubric.txt`. Classify the rule the myth
 presents as wise, not the actions of a single character. Always pick one label.
-Use `notes` for anything unclear. Please don't open `human_coding_key.csv`.
+Use `notes` for anything unclear. The answer key is not in the repository.
 
 When done, run:
 `python3 analyses/moral_validation.py --score <path to your filled sheet>`
@@ -106,7 +110,7 @@ When done, run:
 
 def score(path: Path) -> None:
     filled = pd.read_csv(path)
-    key = pd.read_csv(OUT / "human_coding_key.csv")
+    key = pd.read_csv(KEY_PATH)
     d = filled[["item_id", "human_label"]].merge(key, on="item_id")
     d["human_label"] = d["human_label"].astype(str).str.strip().str.lower()
     d = d[d["human_label"].isin(LABELS)]
@@ -136,6 +140,10 @@ def main() -> None:
     second = pd.read_csv(DATA / SECOND)[KEY + ["label"]]
     both = glm.rename(columns={"label": "label_glm"}).merge(second.rename(columns={"label": "label_second"}),
                                                             on=KEY, how="left")
+    summaries = pd.read_csv(DATA / PRIMARY)[KEY + ["summary"]]
+    both.merge(summaries, on=KEY).rename(columns={"label_glm": "label_glm_5_2", "label_second": "label_deepseek_v4_flash",
+                                                 "summary": "moral_summary_glm_5_2"}).to_csv(
+        OUT.parent / "moral_labels.csv", index=False)  # one row per myth, for coauthors
     agree, confusion = agreement(both)
     agree.to_csv(OUT / "judge_agreement.csv", index=False)
     confusion.to_csv(OUT / "judge_confusion.csv")
@@ -144,7 +152,7 @@ def main() -> None:
 
     s = sample(both, myths, np.random.default_rng(args.seed))
     s[["item_id", "text"]].assign(human_label="", notes="").to_csv(OUT / "human_coding_sheet.csv", index=False)
-    s.drop(columns=["text"]).to_csv(OUT / "human_coding_key.csv", index=False)
+    s.drop(columns=["text"]).to_csv(KEY_PATH, index=False)
     (OUT / "CODING_INSTRUCTIONS.md").write_text(INSTRUCTIONS.format(n=len(s)))
     print(f"\nblinded sheet: {len(s)} myths -> {OUT / 'human_coding_sheet.csv'}")
     print(s.groupby(["label_glm", "family"]).size().unstack(fill_value=0).to_string())
