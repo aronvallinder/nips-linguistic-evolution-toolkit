@@ -1,3 +1,35 @@
+### 2026-09-23 — Result: myths spread words across families, morals only within a family, and morals follow play
+
+**Time:** ~5 h (analysis + $8.18 judge labelling incl. the $0.11 reproduction check, no simulation runs).
+
+Linguistic analysis (Edward's priority A) on all 156 myth-bearing September
+informed negative-only runs: homogeneous controls and mixed dyads/populations,
+8,519 myths. Every test compares the myth an agent was shown with a comparable
+unseen myth. Write-up: `docs/figures/linguistic_analysis_20260923/README.md`.
+
+#### Result
+- Language uptake: agents start using new words from the shown myth 1.3–2.5x
+  the unseen rate in every setting. Across families it is causal-grade: a
+  partner-family signature word is adopted more when the shown myth used it
+  (p ≤ 0.006 in all 10 family × size cells, permutation null).
+- Style: families keep their voice (classifier 100% on held-out runs), except
+  an outnumbered GPT, which writes 0.26 (±0.16) Sonnet-like as 1 of 8 (all 10
+  runs above baseline), 0.16 as 2 of 8, 0.04 as 4 of 8.
+- Alignment does not predict cooperation within runs (one marginal p = 0.03 of
+  30 tests). The negative across-run correlation was a family artefact.
+- Morals (Arabella's 3-label rubric, GLM-5.2; 93% agreement with her June
+  labels): Gemini's generous morals turn to fairness among GPTs (79% → 30%),
+  Sonnet's with GPTs (40% → 15%); both judges show the direction. Morals move
+  toward the shown myth within a family but not across families in populations.
+- No carryover: with agent-within-run fixed effects, neither the agent's own
+  moral nor the shown myth's moral predicts its next move (both judges).
+  Generous games are followed by generous myths (+0.16 per unit send).
+- Judges agree 74.6% (κ 0.54); a blinded 90-myth human sheet is ready, not yet coded.
+
+#### Caveat
+The August null on observational norm transmission stands for morals; a causal
+claim still needs the seeding design.
+
 ### 2026-09-22 — Correction: mixed-dyad timing was read from cohort-pooled traces
 
 **Time:** ~1 h (review fix, no runs).
