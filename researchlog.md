@@ -1,3 +1,17 @@
+### 2026-09-23 — Correction: scope of the moral-uptake and transmission wording
+
+**Time:** ~0.5 h (review follow-up, no runs).
+
+Narrows three phrases in the entry below. (1) "Morals move toward the shown
+myth within a family": this holds in 8-agent myth→game runs, where the shown
+myth was written before its author and the child played (+4.8 points
+homogeneous, +5.9 mixed same-family; cross-family +0.7, p = 0.37). Dyads show
+larger matches, cross-family included, but partners share their game history,
+so dyads are not evidence of moral transmission
+(`moral_uptake_by_task_order.csv`). (2) Cross-family word uptake is strong
+observational evidence, not "causal-grade". (3) The marginal alignment result
+is 1 of 15 before-the-game tests, not 30.
+
 ### 2026-09-23 — Result: myths spread words across families, morals only within a family, and morals follow play
 
 **Time:** ~5 h (analysis + $8.18 judge labelling incl. the $0.11 reproduction check, no simulation runs).
