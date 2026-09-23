@@ -42,6 +42,14 @@ another run of the same cell). Shared prompts, shared model habits and drift
 over the run hit both sides equally, so the difference is what the exposure
 added. Means are over runs, ± sd across runs.
 
+One selection follows from this: an 8-agent child is scored only if its run
+holds another myth from the parent's family that neither child nor parent
+wrote. In the "1 minority + 7 majority" runs, a majority agent shown the lone
+minority's myth therefore has no comparison and drops out (half of the
+cross-family exposures in those runs). There, the "shown other family" row
+measures the minority agent picking up majority words, and the 8-agent marker
+test for GPT shown Gemini draws on the 2- and 4-Gemini runs only.
+
 ## 1. Partners take up each other's language
 
 `language_reuse_shown_vs_unseen.png`, `reuse_summary.csv`,
@@ -85,7 +93,11 @@ contained that word than when it did not. The excess is 1.0–3.6 percentage
 points against 0.4–1.5 under a null that swaps in an unseen same-family myth;
 p ≤ 0.006 in all 10 family-by-size combinations (1,000 permutations). In
 mixed runs the rate of partner-family words climbs over the run, well above the
-same family's homogeneous rate. In 8-agent runs it climbs furthest right after
+same family's homogeneous rate. (That baseline is biased low, because
+markers are chosen as words rare in those same homogeneous myths; but round-1
+mixed myths, written before anything is shown, sit close to it, e.g. GPT
+using Sonnet words in populations 0.64% vs 0.50%, against 2.04% by round 10.
+The permutation test does not use this baseline.) In 8-agent runs it climbs furthest right after
 an agent was shown an other-family myth; agents shown a same-family myth rise
 less (they still meet the other family in games and indirectly).
 
@@ -136,11 +148,14 @@ Sonnet–Sonnet games in the same run).
   it.** Every send and return estimate's 95% CI includes zero, except one
   marginal case: same-family games inside 8-agent mixed runs (+0.027 send per
   +0.1 similarity, 95% CI 0.003–0.052, p = 0.03). No family shows it on its
-  own (GPT, Gemini and Sonnet pairs each null), and it is one of 30 tests.
+  own (GPT, Gemini and Sonnet pairs each null), and it is one of 15
+before-the-game tests.
 - The one consistent link runs the other way in homogeneous dyads: after a
   generous game the two players' next myths are more alike (+0.086 send per
   +0.1 similarity, 95% CI 0.031–0.140, p = 0.002). Alignment follows
-  cooperation; it does not lead it.
+  cooperation; it does not lead it. ("After" myths are built slightly
+  differently by task order: in myth→game both players have just read each
+  other's myth; in 8-agent game→myth each read its previous co-player's.)
 - More alike myths go with a slightly *larger* giving gap in 8-agent
   same-family pairs (homogeneous +0.011 per +0.1 similarity, p = 0.04; mixed
   +0.016, p = 0.03), i.e. less evenly matched giving, not more. Without the
