@@ -1,6 +1,6 @@
 # Current research state
 
-Last verified: 2026-09-23.
+Last verified: 2026-09-24.
 
 ## Research question
 
@@ -25,8 +25,9 @@ and [data audit](../research/mixed_future_data_audit.md).
 - **Opus 5.5 check (2026-09-23):** 18 audited runs (replicates 0–2 of the frontier
   matrix, same profile as Opus 5, $31.79). Every cell is within 2 points of Opus 5 on
   the same seeds, with the same task-order ordering; the 2-agent game is more spread
-  out (61/75/73). Switching the frontier Claude model to Opus 5.5 is proposed, not
-  decided (see [D011](decisions/011-frontier-model-rerun.md)).
+  out (61/75/73). **Decided 2026-09-24 (Ivar): Opus 5.5 is now the frontier Claude
+  model**; new frontier cells (including frontier mixed-model runs) use it, and Opus 5
+  is a robustness check (see [D011](decisions/011-frontier-model-rerun.md)).
 - The **frontier-model rerun completed 90/90 validated finals** on 2026-09-18:
   the September no-defector matrix on Claude Opus 5 (adaptive thinking, effort
   high), Gemini 3.1 Pro Preview (thinking high) and GPT-5.6 Sol (effort high),
