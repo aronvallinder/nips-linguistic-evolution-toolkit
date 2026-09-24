@@ -1,3 +1,13 @@
+### 2026-09-24 — Decision: Opus 5.5 replaces Opus 5 as the frontier Claude model
+
+**Time:** ~0.2 h (decision record only).
+
+Ivar confirmed the switch after the 2026-09-23 check (every cell within 2 points of
+Opus 5 on replicates 0–2, same task-order ordering, similar cost). New frontier
+cells, including the proposed frontier mixed-model runs, use Opus 5.5 with effort
+pinned high. The 90 Opus 5 finals stay as a robustness check. Disclose that Opus 5.5
+thinks 3–9× more per call at the same effort. See D011.
+
 ### 2026-09-23 — Result: Opus 5.5 behaves like Opus 5 on the frontier matrix
 
 **Time:** ~2 h (arm setup, 18 runs, comparison).
