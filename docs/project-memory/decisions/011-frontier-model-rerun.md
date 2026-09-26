@@ -1,7 +1,7 @@
 # D011 — Rerun the September matrix on current frontier models with reasoning on
 
-- Recorded / last verified: 2026-09-18 / 2026-09-18
-- Decision status: agreed and executed (Opus 5, Gemini 3.1 Pro Preview, GPT-5.6 Sol at effort high); Sol at effort none skipped after its smoke run; GPT-5.6 Luna rejected as a non-frontier tier.
+- Recorded / last verified: 2026-09-18 / 2026-09-24
+- Decision status: agreed and executed (Opus 5, Gemini 3.1 Pro Preview, GPT-5.6 Sol at effort high); Sol at effort none skipped after its smoke run; GPT-5.6 Luna rejected as a non-frontier tier. Opus 5.5 checked on replicates 0–2 (2026-09-23); **decided 2026-09-24 (Ivar): Opus 5.5 replaces Opus 5 as the frontier Claude model**; Opus 5 stays as a robustness check.
 - Scope: the September no-defector matrix (2 and 8 agents × game / game→myth / myth→game × replicates 0–4, informed negative-only noise) on one flagship per provider. Excludes defector conditions, mixed-model runs, and any reasoning-off arm.
 - Decision authority: Ed's request in the 2026-08-18 team meeting (transcript: results stop being believed once the model is three or four months old); Ivar's authored instructions in the 2026-09-18 Claude session ("run full Opus 5, Gemini and sol High. Skip sol none"; reasoning kept on after the assistant's assessment).
 - Implementation status: sampled completed finals, 90/90 launcher-audited (`data/json/noise_experiments/frontier_rerun_20260918/main_reasoning_on_receipt.json`); config `config/frontier_rerun_20260918.yaml` (generated), launcher `scripts/run_frontier_rerun.py`, branch `run/frontier-rerun-20260918`.
@@ -52,6 +52,21 @@ is a recorded protocol difference, not a pure model swap (see D004).
   cost table overstated 5–7× (recursive usage aggregation), corrected against the
   receipt method; three-agent review of Batch API, caching, model choice; smoke (4
   arms), 18-run pilot, 90-run main stage; Sol-none skipped.
+- 2026-09-23: Ivar asks whether to use Opus 5.5 instead of Opus 5 and requests a test
+  run ("do smoke and pilot for now", then "just do 3 replicates per cell"). An `opus55`
+  arm with the Opus 5 request profile (effort pinned high) was added; 18/18 audited
+  finals, $31.79 (`reps3_opus55_receipt.json`). All six cell means within 2 points of
+  Opus 5 on the same seeds; same task-order ordering; wider spread in the 2-agent game
+  (61/75/73). Opus 5.5 uses 3–8× more thinking tokens per call at the same effort, so
+  the thinking regime differs again. Ivar leaned towards switching ("probably yes");
+  the switch itself is **proposed**, pending his confirmation. Results:
+  `docs/figures/frontier_rerun_20260918/README.md` (Opus 5.5 check).
+- 2026-09-24: Ivar confirms the switch ("yes", in the Claude session, replying to
+  "Should I mark the switch as decided?"). Opus 5.5 is now the frontier Claude model;
+  new frontier cells, including the proposed frontier mixed-model runs, use the
+  `september23_opus55` profile. Opus 5 (90 finals) is kept as a robustness check. The
+  thinking-regime difference (3–8× more thinking tokens at the same effort) is to be
+  disclosed alongside the switch.
 - Does not supersede D004 (September profiles remain the September regime) or D010.
 
 ## Unresolved / next evidence

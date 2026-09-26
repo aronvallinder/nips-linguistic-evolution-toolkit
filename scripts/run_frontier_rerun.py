@@ -1,12 +1,14 @@
 """Frozen frontier-model rerun (2026-09-18): dry-run by default, staged, resumable finals only.
 
 Arms: Claude Opus 5 (adaptive thinking, effort high), Gemini 3.1 Pro Preview (thinking high),
-GPT-5.6 Sol (effort high) and GPT-5.6 Sol (effort none). Each arm repeats the September
+GPT-5.6 Sol (effort high), GPT-5.6 Sol (effort none) and, added 2026-09-23, Claude Opus 5.5
+(same request profile as Opus 5; run with --arms opus55 to compare it against the Opus 5 finals). Each arm repeats the September
 no-defector matrix (2 and 8 agents x game / game_myth / myth_game x 5 replicates).
-Stages: smoke = replicate 0 of the 2-agent game cell, all arms (4 runs); pilot_myth_game =
+Stages: smoke = replicate 0 of the 2-agent game cell, all arms (5 runs); pilot_myth_game =
 replicate 0 of the 2- and 8-agent myth->game cells for the three reasoning-on arms (6 runs);
 pilot = replicate 0 of every cell for those arms (18 runs); main_reasoning_on = all 30 runs of
-those three arms (90 runs, Sol-none skipped by decision of 2026-09-18); main = all 120 runs.
+those three arms (90 runs, Sol-none skipped by decision of 2026-09-18); main = every run of every arm;
+reps3 = replicates 0-2 of every cell for opus55 (18 runs).
 """
 from __future__ import annotations
 import argparse
@@ -36,15 +38,19 @@ SEPTEMBER = ROOT / 'config/experiments_noisy.yaml'
 OUTPUT = 'frontier_rerun_20260918'
 _BASE_MODELS = yaml.safe_load(CONFIG.read_text())['base_models']
 MODEL_SLUG = {arm: _BASE_MODELS[model_key] for arm, (model_key, _) in ARMS.items()}
-REASONING_ON = tuple(arm for arm in ARMS if arm != 'sol_none')
+# The 2026-09-18 stages keep their original three arms; opus55 runs only through reps3.
+REASONING_ON = tuple(arm for arm in ARMS if arm not in ('sol_none', 'opus55'))
 EXPECTED_POLICIES = {arm: PROFILES[profile] for arm, (_, profile) in ARMS.items()}
 RATES = {'anthropic': (5.0, 25.0), 'openai': (4.0, 20.0), 'google': (2.0, 12.0)}  # USD per MTok, verified 2026-09-18
+MODEL_RATES = {'claude-opus-5-5': (4.0, 20.0)}  # overrides RATES by provider model; verified on the Anthropic pricing page 2026-09-23
 # Per-run estimates (USD): measured in the 2026-09-18 pilot (pilot_receipt.json) for the three
 # reasoning-on arms; Sol-none is the September-profile estimate (plan doc section 5).
 EST_PER_RUN = {
     'opus5': {'dyad_game': 0.1, 'dyad_game_myth': 0.83, 'dyad_myth_game': 0.91, 'population_game': 0.64, 'population_game_myth': 3.82, 'population_myth_game': 4.01},
     'gemini31pro': {'dyad_game': 0.11, 'population_game': 0.45, 'dyad_game_myth': 0.93, 'dyad_myth_game': 1.1, 'population_game_myth': 3.04, 'population_myth_game': 3.37},
     'sol_high': {'dyad_game': 0.08, 'population_game': 0.46, 'dyad_myth_game': 0.78, 'dyad_game_myth': 0.83, 'population_myth_game': 3.43, 'population_game_myth': 3.47},
+    # Opus 5.5: the Opus 5 per-run estimate at Opus 5.5's 20% lower token prices (not yet measured).
+    'opus55': {'dyad_game': 0.08, 'dyad_game_myth': 0.66, 'dyad_myth_game': 0.73, 'population_game': 0.51, 'population_game_myth': 3.06, 'population_myth_game': 3.21},
     'sol_none': {'dyad_game': 0.04, 'dyad_game_myth': 0.43, 'dyad_myth_game': 0.45, 'population_game': 0.32, 'population_game_myth': 2.01, 'population_myth_game': 2.05},
 }
 STAGES = {
@@ -52,6 +58,7 @@ STAGES = {
     'pilot_myth_game': lambda shape, arm, rep: rep == 0 and shape in ('dyad_myth_game', 'population_myth_game') and arm in REASONING_ON,
     'pilot': lambda shape, arm, rep: rep == 0 and arm in REASONING_ON,
     'main_reasoning_on': lambda shape, arm, rep: arm in REASONING_ON,
+    'reps3': lambda shape, arm, rep: rep < 3 and arm == 'opus55',  # Opus 5.5 test, 2026-09-23
     'main': lambda shape, arm, rep: True,
 }
 
@@ -97,7 +104,8 @@ def plan():
                 require(not game.punishment_enabled, 'not game.punishment_enabled')
                 jobs.append({'name': name, 'index': i, 'combo': c, 'path': expected_output_path(c, name, i, OUTPUT),
                              'arm': arm, 'shape': shape, 'replicate': c['replicate_id']})
-    require(len(jobs) == 120 and len({str(j['path']) for j in jobs}) == 120, "len(jobs) == 120 and len({str(j['path']) for j in jobs}) == 120")
+    n = 30 * len(ARMS)
+    require(len(jobs) == n and len({str(j['path']) for j in jobs}) == n, f'expected {n} unique jobs')
     # Longer two-task and 8-agent jobs first; interleave arms.
     jobs.sort(key=lambda j: (j['replicate'], 0 if 'myth' in j['shape'] else 1, 0 if 'population' in j['shape'] else 1, list(ARMS).index(j['arm'])))
     return jobs
@@ -112,7 +120,7 @@ def audit(job):
     require(m['llm_request'] == c['request_plan'].as_dict(), "m['llm_request'] == c['request_plan'].as_dict()")
     require(m['llm_request']['policy'] == EXPECTED_POLICIES[arm], "m['llm_request']['policy'] == EXPECTED_POLICIES[arm]")
     require(m['noise_config'] == c['game_params']['noise_config'], "m['noise_config'] == c['game_params']['noise_config']")
-    provider = m['llm_request']['provider']; ir, orr = RATES[provider]
+    provider = m['llm_request']['provider']; ir, orr = MODEL_RATES.get(m['llm_request']['provider_model'], RATES[provider])
     calls = 0; cost = 0.0; inp = 0; out = 0; reas = 0
     for a in d['agents'].values():
         for e in a.get('interaction_history', []):
