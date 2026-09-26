@@ -5,7 +5,7 @@ finals only) for the opus5 and opus55 arms and prints, per cell, Opus 5 over all
 runs, Opus 5 over the replicates Opus 5.5 has, Opus 5.5, per-run means and cost.
 Run from the repo root: python scripts/compare_opus55_opus5.py
 """
-import json, glob, numpy as np
+import hashlib, json, glob, numpy as np
 MAIN = 'data/json/noise_experiments/frontier_rerun_20260918'
 WTROOT = '.'
 def finals(root, arm):
@@ -14,14 +14,16 @@ def finals(root, arm):
         for r in json.load(open(f))['finals']:
             if r['arm'] == arm: out[r['path']] = r
     return out
-def res(root, p):
-    h = json.load(open(f'{root}/{p}'))['conversation_history']
+def res(root, p, sha256):
+    raw = open(f'{root}/{p}', 'rb').read()
+    assert hashlib.sha256(raw).hexdigest() == sha256, f'{p}: final no longer matches its receipt'
+    h = json.loads(raw)['conversation_history']
     assert len(h) == 10, p
     return list(h[-1]['balances'].values())
 cells = {}
 for label, root, arm in [('opus5', '.', 'opus5'), ('opus55', WTROOT, 'opus55')]:
     for p, r in finals(root, arm).items():
-        cells.setdefault(r['shape'], {}).setdefault(label, {})[r['replicate']] = (res(root, p), r['standard_rate_usd'])
+        cells.setdefault(r['shape'], {}).setdefault(label, {})[r['replicate']] = (res(root, p, r['sha256']), r['standard_rate_usd'])
 f = lambda v: f"{np.mean(v):.1f} (±{np.std(v, ddof=1) if len(v) > 1 else 0:.1f})"
 runmeans = lambda reps, keep: [np.mean(reps[r][0]) for r in sorted(reps) if r in keep]
 print(f"{'cell':22} {'Opus 5, 5 runs':16} {'Opus 5, runs 0-2':18} {'Opus 5.5, runs 0-2':20} {'per-run means 5 | 5.5':34} cost 5 / 5.5 (runs 0-2)")

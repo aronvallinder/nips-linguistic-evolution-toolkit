@@ -38,7 +38,8 @@ SEPTEMBER = ROOT / 'config/experiments_noisy.yaml'
 OUTPUT = 'frontier_rerun_20260918'
 _BASE_MODELS = yaml.safe_load(CONFIG.read_text())['base_models']
 MODEL_SLUG = {arm: _BASE_MODELS[model_key] for arm, (model_key, _) in ARMS.items()}
-REASONING_ON = tuple(arm for arm in ARMS if arm != 'sol_none')
+# The 2026-09-18 stages keep their original three arms; opus55 runs only through reps3.
+REASONING_ON = tuple(arm for arm in ARMS if arm not in ('sol_none', 'opus55'))
 EXPECTED_POLICIES = {arm: PROFILES[profile] for arm, (_, profile) in ARMS.items()}
 RATES = {'anthropic': (5.0, 25.0), 'openai': (4.0, 20.0), 'google': (2.0, 12.0)}  # USD per MTok, verified 2026-09-18
 MODEL_RATES = {'claude-opus-5-5': (4.0, 20.0)}  # overrides RATES by provider model; verified on the Anthropic pricing page 2026-09-23

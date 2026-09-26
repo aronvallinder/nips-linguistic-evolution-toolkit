@@ -33,6 +33,7 @@ NO_DEFECTOR_PARAMS = {"noisy2_crossmodel_negative_game_r3", "noisy2_crossmodel_n
                       "noisy8_crossmodel_negative_game_r3", "noisy8_crossmodel_negative_twotask_r3"}
 ARM_OF = {  # provider_model -> (label, column)
     "claude-opus-5": ("Opus 5", 0), "claude-sonnet-4-5-20250929": ("Sonnet 4.5", 0),
+    "claude-opus-5-5": ("Opus 5.5", 0),  # 2026-09-23 check; not in PLOTTED_ARMS (see compare_opus55_opus5.py)
     "gemini-3.1-pro-preview": ("Gemini 3.1 Pro", 1), "gemini-3.7-flash": ("Gemini 3.7 Flash", 1),
     "gpt-5.6-sol": ("Sol", 2), "gpt-5-nano": ("GPT-5 Nano", 2),
 }
