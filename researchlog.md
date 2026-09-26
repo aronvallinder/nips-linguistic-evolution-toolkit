@@ -121,6 +121,29 @@ mixed-dyad and ladder tables per family; outputs in
   panels in its 3×3 layout (Ed, meeting 2026-09-22). Now a 2×3 grid: homogeneous
   row, mixed row, each of the six pairings once.
 
+### 2026-09-18 — Result: why the frontier models end richer — a sending gap driven by prior, escalation and forgiveness, not reasoning
+
+**Time:** ~2.5 hours (data decomposition over the 180 frontier + September finals, literature agent, write-up).
+
+Result: mean final resources equal 25 + 10 × mean send in all 180 runs (returns only
+redistribute within a pair), so the frontier gap is entirely a sending gap. Opus 5
+opens at 3–4 (Sonnet 4.5: 3 in 46/50), raises its send by 0.35 after a profitable round
+(Sonnet −0.06), and sends about 1.5 more than Sonnet at the same partner input (fair
+return seen: 4.46 vs 2.50). Sonnet's visible justifications name a "50% baseline"
+policy and read the noise-lowered numbers as declining trust; with negative-only noise
+(sends look 0.52 lower than they are) a matching model drifts down (dyads 3.0 → 2.3).
+GPT-5.6 Sol opens at 2.5–3 (Nano: 0 in 50/50) and raises its send by 0.44 after an
+apparent loss (Nano −0.58); Sol's send tracks its partner with slope 1.04 and 2/10
+game-only runs still collapse. Gemini: both versions at the ceiling. Reasoning is not
+the driver: Opus used a median 0 thinking tokens per game call (Sonnet 444), and Opus
+answered with bare JSON in 78% of calls while Sonnet wrote prose in 100%. Literature
+(Affonso 2026 arXiv:2604.18596; Li & Shirado EMNLP 2025; CoopEval ICML 2026; verified
+on arXiv) points the same way: provider post-training and model tier predict
+cooperation, reasoning is a headwind except for Claude, fixed partners unlock it.
+Report `docs/research/frontier_gap_investigation_2026-09-18.md`; tables from
+`scripts/analyze_frontier_gap.py` under `docs/figures/frontier_rerun_20260918/gap_decomposition/`.
+Descriptive at n=5 per cell; tier vs generation and thinking-off remain untested.
+
 ### 2026-09-18 — Result: eight-agent contagion ladder complete (90/90)
 
 **Time:** batch 12:38 → 17:05 wall-clock with 20 workers, interrupted once by credit exhaustion at 48/90; analysis ~1 h.
