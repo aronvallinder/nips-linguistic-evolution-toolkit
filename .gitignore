@@ -94,3 +94,6 @@ data/.hf_stage/
 
 # Local analysis outputs (large; regenerate via scripts/analyze_*.py)
 data/analysis/
+
+# Moral-judge response cache (analyses/myth_moral_judge.py); labels are committed as CSV instead
+data/judge_cache/moral/

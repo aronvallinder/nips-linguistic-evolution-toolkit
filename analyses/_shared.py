@@ -25,6 +25,28 @@ def configure_matplotlib() -> None:
     matplotlib.use("Agg")
 
 
+def cached_embeddings(cache: Path, texts: Sequence[str], model_name: str = "all-mpnet-base-v2",
+                      **encode_kwargs) -> np.ndarray:
+    """Sentence embeddings cached in `cache` (.npy), reused only if model and texts match.
+
+    A sidecar `<cache>.sha256` fingerprints the model name and every text in order,
+    so a regenerated corpus with the same row count is re-embedded instead of being
+    paired with stale vectors.
+    """
+    digest = hashlib.sha256(model_name.encode())
+    for text in texts:
+        digest.update(b"\0" + text.encode())
+    fingerprint = digest.hexdigest()
+    stamp = cache.with_suffix(cache.suffix + ".sha256")
+    if cache.exists() and stamp.exists() and stamp.read_text().strip() == fingerprint:
+        return np.load(cache)
+    from sentence_transformers import SentenceTransformer
+    emb = SentenceTransformer(model_name).encode(list(texts), normalize_embeddings=True, **encode_kwargs)
+    np.save(cache, emb)
+    stamp.write_text(fingerprint + "\n")
+    return emb
+
+
 def load_simulation_data(filepath: str) -> Dict:
     """Load a simulation state JSON file."""
     with open(filepath, "r", encoding="utf-8") as f:

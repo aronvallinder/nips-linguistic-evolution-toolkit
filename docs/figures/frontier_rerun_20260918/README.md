@@ -71,6 +71,39 @@ Mean sending per run (endowment 5), round 1 / last three rounds, mean (±sd over
   is not already at the ceiling: Opus 5 (+7 dyad, +6 population over game-only) and Sol
   (+14 dyad, +11 population). Gemini shows nothing because it starts at 75.
 
+## Opus 5.5 check (2026-09-23): replicates 0–2, same protocol as Opus 5
+
+Opus 5.5 (`claude-opus-5-5`) was run on the same matrix with the same request profile
+as Opus 5: adaptive thinking, effort pinned to high (Opus 5.5 would default to medium).
+Replicates 0–2 per cell, 18 launcher-audited finals
+(`reps3_opus55_receipt.json`), $31.79. Opus 5 on the same three replicates cost
+$30.94. Table: final resources per agent, mean (±sd over agents), from
+`scripts/compare_opus55_opus5.py`.
+
+| Cell | Opus 5, 5 runs | Opus 5, runs 0–2 | Opus 5.5, runs 0–2 | Per-run means, Opus 5 \| Opus 5.5 |
+|---|---|---|---|---|
+| 2 agents, game | 67.8 (±3.9) | 69.2 (±2.9) | 69.7 (±7.3) | 69 70 68 \| 61 75 73 |
+| 2 agents, game→myth | 73.5 (±3.7) | 74.0 (±2.4) | 73.0 (±1.8) | 74 74 74 \| 72 73 74 |
+| 2 agents, myth→game | 75.0 (±1.7) | 75.0 (±1.2) | 75.0 (±1.2) | 75 75 75 \| 75 75 75 |
+| 8 agents, game | 68.4 (±2.6) | 68.5 (±2.8) | 70.5 (±2.9) | 69 71 66 \| 69 71 71 |
+| 8 agents, game→myth | 73.0 (±2.4) | 72.8 (±2.4) | 71.7 (±2.1) | 72 73 73 \| 72 72 71 |
+| 8 agents, myth→game | 74.7 (±2.0) | 74.6 (±2.0) | 74.7 (±1.5) | 75 75 74 \| 74 75 75 |
+
+Every cell mean is within 2 points of Opus 5 on the same seeds, and the task-order
+ordering (game < game→myth < myth→game) holds at both sizes. The one visible
+difference is spread in the 2-agent game: Opus 5.5 runs finished at 61, 75 and 73,
+where Opus 5 stayed between 68 and 70. Three runs cannot say whether that is a
+real difference in variability.
+
+Decision (Ivar, 2026-09-24): Opus 5.5 replaces Opus 5 as the frontier Claude model;
+Opus 5 is kept as a robustness check (D011).
+
+Opus 5.5 thinks more at the same effort: 70–300 thinking tokens per call against
+Opus 5's 20–35. Visible output is similar in cells with a myth task (1.1–1.6×) and
+6–7× longer in game-only cells. Its 20% lower token price
+roughly cancels this, except in the short 2-agent game where it costs about twice as
+much. No refusals or truncated calls.
+
 ## Cost and wall clock (standard rates, from per-call usage)
 
 | Stage | Runs | Cost |
