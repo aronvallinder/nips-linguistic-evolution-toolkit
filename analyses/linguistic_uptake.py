@@ -46,7 +46,7 @@ from scipy import sparse, stats
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from analyses._shared import configure_matplotlib  # noqa: E402
+from analyses._shared import cached_embeddings, configure_matplotlib  # noqa: E402
 
 DATA = ROOT / "data/analysis/linguistic_20260923"
 FIGS = ROOT / "docs/figures/linguistic_analysis_20260923"
@@ -72,16 +72,8 @@ def content_words(text: str) -> frozenset[str]:
 
 
 def embeddings(myths: pd.DataFrame) -> np.ndarray:
-    cache = DATA / "embeddings_mpnet.npy"
-    if cache.exists():
-        emb = np.load(cache)
-        if len(emb) == len(myths):
-            return emb
-    from sentence_transformers import SentenceTransformer
-    model = SentenceTransformer("all-mpnet-base-v2")
-    emb = model.encode(myths["text"].tolist(), batch_size=64, show_progress_bar=True, normalize_embeddings=True)
-    np.save(cache, emb)
-    return emb
+    return cached_embeddings(DATA / "embeddings_mpnet.npy", myths["text"].tolist(),
+                             batch_size=64, show_progress_bar=True)
 
 
 def index_of(myths: pd.DataFrame) -> dict[tuple, int]:
