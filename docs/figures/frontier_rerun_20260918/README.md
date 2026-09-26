@@ -99,7 +99,8 @@ Decision (Ivar, 2026-09-24): Opus 5.5 replaces Opus 5 as the frontier Claude mod
 Opus 5 is kept as a robustness check (D011).
 
 Opus 5.5 thinks more at the same effort: 70–300 thinking tokens per call against
-Opus 5's 20–35, and about twice the visible output. Its 20% lower token price
+Opus 5's 20–35. Visible output is similar in cells with a myth task (1.1–1.6×) and
+6–7× longer in game-only cells. Its 20% lower token price
 roughly cancels this, except in the short 2-agent game where it costs about twice as
 much. No refusals or truncated calls.
 

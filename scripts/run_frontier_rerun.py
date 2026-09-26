@@ -4,11 +4,11 @@ Arms: Claude Opus 5 (adaptive thinking, effort high), Gemini 3.1 Pro Preview (th
 GPT-5.6 Sol (effort high), GPT-5.6 Sol (effort none) and, added 2026-09-23, Claude Opus 5.5
 (same request profile as Opus 5; run with --arms opus55 to compare it against the Opus 5 finals). Each arm repeats the September
 no-defector matrix (2 and 8 agents x game / game_myth / myth_game x 5 replicates).
-Stages: smoke = replicate 0 of the 2-agent game cell, all arms (4 runs); pilot_myth_game =
+Stages: smoke = replicate 0 of the 2-agent game cell, all arms (5 runs); pilot_myth_game =
 replicate 0 of the 2- and 8-agent myth->game cells for the three reasoning-on arms (6 runs);
 pilot = replicate 0 of every cell for those arms (18 runs); main_reasoning_on = all 30 runs of
 those three arms (90 runs, Sol-none skipped by decision of 2026-09-18); main = every run of every arm;
-reps3 = replicates 0-2 of every cell (used with --arms opus55).
+reps3 = replicates 0-2 of every cell for opus55 (18 runs).
 """
 from __future__ import annotations
 import argparse
@@ -58,7 +58,7 @@ STAGES = {
     'pilot_myth_game': lambda shape, arm, rep: rep == 0 and shape in ('dyad_myth_game', 'population_myth_game') and arm in REASONING_ON,
     'pilot': lambda shape, arm, rep: rep == 0 and arm in REASONING_ON,
     'main_reasoning_on': lambda shape, arm, rep: arm in REASONING_ON,
-    'reps3': lambda shape, arm, rep: rep < 3,  # replicates 0-2 of every cell (Opus 5.5 test, 2026-09-23)
+    'reps3': lambda shape, arm, rep: rep < 3 and arm == 'opus55',  # Opus 5.5 test, 2026-09-23
     'main': lambda shape, arm, rep: True,
 }
 

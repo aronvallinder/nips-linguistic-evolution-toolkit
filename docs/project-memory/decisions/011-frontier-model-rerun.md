@@ -57,7 +57,7 @@ is a recorded protocol difference, not a pure model swap (see D004).
   arm with the Opus 5 request profile (effort pinned high) was added; 18/18 audited
   finals, $31.79 (`reps3_opus55_receipt.json`). All six cell means within 2 points of
   Opus 5 on the same seeds; same task-order ordering; wider spread in the 2-agent game
-  (61/75/73). Opus 5.5 uses 3–9× more thinking tokens per call at the same effort, so
+  (61/75/73). Opus 5.5 uses 3–8× more thinking tokens per call at the same effort, so
   the thinking regime differs again. Ivar leaned towards switching ("probably yes");
   the switch itself is **proposed**, pending his confirmation. Results:
   `docs/figures/frontier_rerun_20260918/README.md` (Opus 5.5 check).
@@ -65,7 +65,7 @@ is a recorded protocol difference, not a pure model swap (see D004).
   "Should I mark the switch as decided?"). Opus 5.5 is now the frontier Claude model;
   new frontier cells, including the proposed frontier mixed-model runs, use the
   `september23_opus55` profile. Opus 5 (90 finals) is kept as a robustness check. The
-  thinking-regime difference (3–9× more thinking tokens at the same effort) is to be
+  thinking-regime difference (3–8× more thinking tokens at the same effort) is to be
   disclosed alongside the switch.
 - Does not supersede D004 (September profiles remain the September regime) or D010.
 
