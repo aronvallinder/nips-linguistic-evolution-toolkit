@@ -1,3 +1,33 @@
+### 2026-09-24 — Decision: Opus 5.5 replaces Opus 5 as the frontier Claude model
+
+**Time:** ~0.2 h (decision record only).
+
+Ivar confirmed the switch after the 2026-09-23 check (every cell within 2 points of
+Opus 5 on replicates 0–2, same task-order ordering, similar cost). New frontier
+cells, including the proposed frontier mixed-model runs, use Opus 5.5 with effort
+pinned high. The 90 Opus 5 finals stay as a robustness check. Disclose that Opus 5.5
+thinks 3–9× more per call at the same effort. See D011.
+
+### 2026-09-23 — Result: Opus 5.5 behaves like Opus 5 on the frontier matrix
+
+**Time:** ~2 h (arm setup, 18 runs, comparison).
+
+Ivar asked whether Opus 5.5 can replace Opus 5 as the frontier Claude model. We
+reran replicates 0–2 of the frontier matrix (2 and 8 agents × game / game→myth /
+myth→game) on Opus 5.5 with Opus 5's request profile, effort pinned high. 18/18
+audited finals, $31.79 (Opus 5 on the same replicates: $30.94).
+
+#### Result
+- Every cell mean is within 2 points of Opus 5 on the same seeds, and the
+  game < game→myth < myth→game ordering holds at both sizes.
+- The 2-agent game spreads wider: 61, 75, 73 against Opus 5's 68–70.
+- Opus 5.5 thinks 3–9× more per call at the same effort. Its 20% lower price
+  roughly cancels that. The thinking regime differs again (see D011).
+
+Switching the frontier model is proposed, pending Ivar. Table:
+`docs/figures/frontier_rerun_20260918/README.md`; script
+`scripts/compare_opus55_opus5.py`.
+
 ### 2026-09-23 — Correction: scope of the moral-uptake and transmission wording
 
 **Time:** ~0.5 h (review follow-up, no runs).

@@ -48,7 +48,7 @@ from scipy import stats
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from analyses._shared import configure_matplotlib  # noqa: E402
+from analyses._shared import cached_embeddings, configure_matplotlib  # noqa: E402
 from analyses.linguistic_uptake import load_myths, null_candidates  # noqa: E402
 
 DATA = ROOT / "data/analysis/linguistic_20260923"
@@ -121,17 +121,9 @@ def plot_label_shares(myths: pd.DataFrame) -> None:
 # --------------------------------------------------------------------------- B
 
 def summary_embeddings(myths: pd.DataFrame) -> np.ndarray:
-    cache = DATA / "embeddings_moral_summary_mpnet.npy"
     texts = myths["summary"].fillna("").astype(str).tolist()
-    if cache.exists():
-        emb = np.load(cache)
-        if len(emb) == len(texts):
-            return emb
-    from sentence_transformers import SentenceTransformer
-    emb = SentenceTransformer("all-mpnet-base-v2").encode(texts, batch_size=128, normalize_embeddings=True,
-                                                          show_progress_bar=False)
-    np.save(cache, emb)
-    return emb
+    return cached_embeddings(DATA / "embeddings_moral_summary_mpnet.npy", texts,
+                             batch_size=128, show_progress_bar=False)
 
 
 def summary_measures(myths: pd.DataFrame, emb: np.ndarray) -> tuple[pd.DataFrame, pd.DataFrame]:

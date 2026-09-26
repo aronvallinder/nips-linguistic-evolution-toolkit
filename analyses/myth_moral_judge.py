@@ -98,10 +98,14 @@ class Judge:
         h = hashlib.sha256(f"{self.model}|T=0|{SYSTEM}|{user}".encode()).hexdigest()
         return self.cache / h[:2] / f"{h}.json"
 
-    def __call__(self, user: str, max_retries: int = 8) -> dict:
+    def __call__(self, user: str, valid=lambda raw: bool(raw.strip()), max_retries: int = 8) -> dict:
+        """Cached judge call. Only responses that pass `valid` are cached or reused, so an
+        empty or unparseable reply is re-requested on the next run instead of sticking."""
         cp = self.cache_path(user)
         if cp.exists():
-            return {**json.loads(cp.read_text()), "cached": True}
+            cached = json.loads(cp.read_text())
+            if valid(cached.get("raw", "")):
+                return {**cached, "cached": True}
         body = {"usage": {"include": True}}
         if self.reasoning_off:
             body["reasoning"] = {"enabled": False}
@@ -117,8 +121,9 @@ class Judge:
                        "prompt_tokens": usage.get("prompt_tokens"),
                        "completion_tokens": usage.get("completion_tokens"),
                        "cost": usage.get("cost")}
-                cp.parent.mkdir(parents=True, exist_ok=True)
-                cp.write_text(json.dumps(out))
+                if valid(out["raw"]):
+                    cp.parent.mkdir(parents=True, exist_ok=True)
+                    cp.write_text(json.dumps(out))
                 return {**out, "cached": False}
             except Exception as err:  # noqa: BLE001 - rate limits and 5xx: back off and retry
                 if attempt == max_retries - 1:
@@ -131,7 +136,8 @@ def run_task(judge: Judge, task: str, frame: pd.DataFrame, workers: int) -> pd.D
     prompts = [render(task, t) for t in frame["text"]]
     results: list[dict | None] = [None] * len(prompts)
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        futures = {pool.submit(judge, p): i for i, p in enumerate(prompts)}
+        valid = lambda raw: parse(task, raw)[1] == "ok"  # noqa: E731
+        futures = {pool.submit(judge, p, valid): i for i, p in enumerate(prompts)}
         for n, fut in enumerate(as_completed(futures), 1):
             results[futures[fut]] = fut.result()
             if n % 500 == 0:
