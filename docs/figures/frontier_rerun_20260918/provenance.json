@@ -3,7 +3,7 @@
   "n_runs": 180,
   "runs": [
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_000_neutral_rep00.json",
       "sha256": "8148a593c53bcb126d31ce5ad7b82999b897f1bbb6835a936c0b3adb608eec8b",
       "condition": {
         "version": 2,
@@ -152,7 +152,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_001_neutral_rep01.json",
       "sha256": "54fba73bd849b4ed998e89dfcfefd60d6a7951d00537d6a74e9dcbc96387b431",
       "condition": {
         "version": 2,
@@ -301,7 +301,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_002_neutral_rep02.json",
       "sha256": "5b5a26bb7ce30e3e6101b3c7f17f388d49153dd153b178653c582d58fae0867c",
       "condition": {
         "version": 2,
@@ -450,7 +450,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_003_neutral_rep03.json",
       "sha256": "5fabf877ad8163dde73db5cd7b5d224c539570ca5b1bf13b19929274524f381e",
       "condition": {
         "version": 2,
@@ -599,7 +599,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_gemini31pro_n5_004_neutral_rep04.json",
       "sha256": "aa19be159fa8b70adc5533ffe70e1130c0ad3a41c77f6fa80fc0e17b9a99cfbd",
       "condition": {
         "version": 2,
@@ -748,7 +748,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "2ece5dc8a39a737a5bbcd996aca0ad71c2034213a7fa02a0e4f944128a854938",
       "condition": {
         "version": 2,
@@ -898,7 +898,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "fa87a0cd97231591f1c43533a0b788449f2d87d251a7b9b9c37a5e867e2a67c1",
       "condition": {
         "version": 2,
@@ -1048,7 +1048,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "8d46e5f33469b90d0df0d3826978a2ed9a3c3d7555c5d9ad68fd8805ac7a5730",
       "condition": {
         "version": 2,
@@ -1198,7 +1198,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "7ca76fbb2169578a1e288dc277beba7b11d844849c891506a787ce7a1f2e1440",
       "condition": {
         "version": 2,
@@ -1348,7 +1348,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_gemini31pro_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "9da724ea3768cc7181712dcb5260ff4f7503acd8664b55cf8dd925ea38e9b90c",
       "condition": {
         "version": 2,
@@ -1498,7 +1498,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "f9fb344309b5d0f4ad0b4596ceb5879cdc69d1a5f0962cad1682132215197a96",
       "condition": {
         "version": 2,
@@ -1653,7 +1653,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "93f9d61086259c1a575fef0b3daf093f2b1ecfad3f4701fed5e6c56412ecdc24",
       "condition": {
         "version": 2,
@@ -1808,7 +1808,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "f1c3050d67b3caa69721c1c46b1ba5b86ec97ad9b8e00db2d630629b58a71af8",
       "condition": {
         "version": 2,
@@ -1963,7 +1963,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "e58054854a8e1fddc5ebbbb9c191a275fbe42b6e8c0639071294337f605ab3fb",
       "condition": {
         "version": 2,
@@ -2118,7 +2118,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_opus5_n5/claude-opus-5/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_opus5_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "664d42105ee2418d710e7a65c754bbb7f1aa816493c1326ce6c155f0b8798880",
       "condition": {
         "version": 2,
@@ -2273,7 +2273,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "fc57ba77984cca25a4c77754d3bc4ec0f7caa5397b716598050406c948ea5c07",
       "condition": {
         "version": 2,
@@ -2418,7 +2418,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "39833a49b6a6df8122e1b865146c22832ae75424cb72375d58b7cc58aea8bfbb",
       "condition": {
         "version": 2,
@@ -2563,7 +2563,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "cb450cc250db9cd43b29fceb93cc448c2f5d3ae90aaf19b311f62b6a52a3a4a0",
       "condition": {
         "version": 2,
@@ -2708,7 +2708,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "f75e524f829c5685163c6c9da79d3986ac0187cbe2a49ba0366a9591f43565e5",
       "condition": {
         "version": 2,
@@ -2853,7 +2853,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_game_myth_sol_high_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "d1fe5754bfe968f89d932129cd36e9a42f30dec326b9e7ac03d2783035729aaf",
       "condition": {
         "version": 2,
@@ -2998,7 +2998,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_000_neutral_rep00.json",
       "sha256": "d000c4b48755d2f8e0d8ff282739551e0a9ee5a6f31b4d5dce39aaf0e49f04a4",
       "condition": {
         "version": 2,
@@ -3152,7 +3152,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_001_neutral_rep01.json",
       "sha256": "6b20ebe0f9cd6e93355f688f83a7c5f4a747eddf13ab09811851c0f871529b1e",
       "condition": {
         "version": 2,
@@ -3306,7 +3306,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_002_neutral_rep02.json",
       "sha256": "d29e78613e681e6f741022b67884df9f290116295e2b97ebe79b20b1bf637305",
       "condition": {
         "version": 2,
@@ -3460,7 +3460,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_003_neutral_rep03.json",
       "sha256": "6663c0dec0e3ff388f5df8a3fc767dfcc0b7f1159835f2cb94ab539d3b10aa6b",
       "condition": {
         "version": 2,
@@ -3614,7 +3614,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_opus5_n5/claude-opus-5/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_opus5_n5_004_neutral_rep04.json",
       "sha256": "87f04a5ac7184764b7e627056bf2492bc003d26669814b8082f8eca7b3311ee1",
       "condition": {
         "version": 2,
@@ -3768,7 +3768,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_000_neutral_rep00.json",
       "sha256": "08ffa9c47f53a0973c950fa7fe0328c90ef79271e640f88dff4b1d3cc1d25373",
       "condition": {
         "version": 2,
@@ -3912,7 +3912,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_001_neutral_rep01.json",
       "sha256": "7451515553304b2b805ee459998b77aad104e0e545112038a59d7836e7c3aea1",
       "condition": {
         "version": 2,
@@ -4056,7 +4056,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_002_neutral_rep02.json",
       "sha256": "e653b1d59debaeecabd3f54333936e8c82136ac146dc32329a0d40559ac9d91a",
       "condition": {
         "version": 2,
@@ -4200,7 +4200,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_003_neutral_rep03.json",
       "sha256": "62b8a3ccccca81424a1375a869bcb27c4968caa626816c29b09bae7ce6e96d18",
       "condition": {
         "version": 2,
@@ -4344,7 +4344,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_game_sol_high_n5/gpt-5.6-sol/game/noisy2_crossmodel_negative_game_r3/frontier_dyad_game_sol_high_n5_004_neutral_rep04.json",
       "sha256": "b7da5096c1bc8f0736f75fd4db693a304367d0d4af4075db5a7d99f5304f24cd",
       "condition": {
         "version": 2,
@@ -4488,7 +4488,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "a7bf1a6817c7ea6dd124fc08722a3d9a57adb243046be18a1b728eb3b7281656",
       "condition": {
         "version": 2,
@@ -4638,7 +4638,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "ba5b414652b09eaa778bbaef1947964a195103fabd0e6a7a2d93ff197a863b26",
       "condition": {
         "version": 2,
@@ -4788,7 +4788,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "5b2c8d5327211f75084196687be79582f3e1786fdf15ef4e68e27e72c4925994",
       "condition": {
         "version": 2,
@@ -4938,7 +4938,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "07982c309e9d00638900da3b090b15e67f79753a21b8026dadfdd9a10f809664",
       "condition": {
         "version": 2,
@@ -5088,7 +5088,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_gemini31pro_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "b62e6e89d06ddbd29431717da8378572172751bf7089678534a3d971070c3811",
       "condition": {
         "version": 2,
@@ -5238,7 +5238,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "30e75ffa8944e58a63a265c7d992e20fee08559d21a28f786d9c3e74f79675c2",
       "condition": {
         "version": 2,
@@ -5393,7 +5393,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "f98c62e50f511059490186d4e481fdea9a37eafd7153982e573bbf34a029f4d1",
       "condition": {
         "version": 2,
@@ -5548,7 +5548,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "2a3eef39a73d772013aad8a0b054b0aae57e13de72f71f3cd2a89e8fd5e2c2da",
       "condition": {
         "version": 2,
@@ -5703,7 +5703,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "fe39f6f0ad13edc50868711239daadf4408d77851d8bc4c6ad46833d6d553d9d",
       "condition": {
         "version": 2,
@@ -5858,7 +5858,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_opus5_n5/claude-opus-5/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_opus5_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "70614b2ed4628fc885c9d91f1adb64a33afd9d7e7c8a82f9b3002efe4ff5c415",
       "condition": {
         "version": 2,
@@ -6013,7 +6013,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "ccbf14dd3a88a034eff2ec71b0d928a291364ad0591dd33dc69385a1299f9e08",
       "condition": {
         "version": 2,
@@ -6158,7 +6158,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "70db95cc4cd275c23cb68b5c698e394543d261c90f97d8ab0063a9ec7bf7f4a5",
       "condition": {
         "version": 2,
@@ -6303,7 +6303,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "41dd20bc458d56b17d37e915ace339a4b8ea3dd219740049e3d295d7b4cf0747",
       "condition": {
         "version": 2,
@@ -6448,7 +6448,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "c03d689fbdb5779e0f154bf8172395b56048600c461417de5f255617235cd9d8",
       "condition": {
         "version": 2,
@@ -6593,7 +6593,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_dyad_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy2_crossmodel_negative_twotask_r3/frontier_dyad_myth_game_sol_high_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "bee282af9710a535f1a3b4d6bdd9026dbe926e6cb8f6a7ee2981129716130799",
       "condition": {
         "version": 2,
@@ -6738,7 +6738,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_000_neutral_rep00.json",
       "sha256": "f89d2034df0fffa60dea3db926985f6a0d1933571a1836891643615ff8812dde",
       "condition": {
         "version": 2,
@@ -6911,7 +6911,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_001_neutral_rep01.json",
       "sha256": "7cf17d1005832eaf87301e5896951b1e5d04590a1f4e834dbbb9e1ad48ce0b92",
       "condition": {
         "version": 2,
@@ -7084,7 +7084,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_002_neutral_rep02.json",
       "sha256": "855df5df6ae13504601b45e06c9e1bcbdd3af63e41bbabc5c30e62b167728c39",
       "condition": {
         "version": 2,
@@ -7257,7 +7257,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_003_neutral_rep03.json",
       "sha256": "1d3fcebf4c5f3355b3cca77a5be5bc903bb79571442f1f4de2587bcaca264ea5",
       "condition": {
         "version": 2,
@@ -7430,7 +7430,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_gemini31pro_n5/gemini-3.1-pro-preview/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_gemini31pro_n5_004_neutral_rep04.json",
       "sha256": "67c719a887e844545d536e53f9880842c7851106408d6fb56e5d8785178efa3e",
       "condition": {
         "version": 2,
@@ -7603,7 +7603,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "edd9040c1b5231d4d09fa6e39391ebb39dcc2eb32ab5ab3cb976fa060bf30694",
       "condition": {
         "version": 2,
@@ -7777,7 +7777,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "ed301523e654920eee0cadc15ba77b702c33955f9b60d1d84b1bc5fe058c61d7",
       "condition": {
         "version": 2,
@@ -7951,7 +7951,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "587be4344d1fa605d640a9f0a346eae85640d36bc5a9c580941584c9a827a502",
       "condition": {
         "version": 2,
@@ -8125,7 +8125,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "9b83471658829b0e72f78b2b6639199d82456e6634e3a0cce1489fcac9d9407d",
       "condition": {
         "version": 2,
@@ -8299,7 +8299,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_gemini31pro_n5/gemini-3.1-pro-preview/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_gemini31pro_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "172220f69354373443db98d9653311f11afa1f7cb76e92f42e3bc9e4a62c8d99",
       "condition": {
         "version": 2,
@@ -8473,7 +8473,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "ad4baa393ba7e190672324a234f9a6c96b5c8a058260d77ff89f9f1a697e6589",
       "condition": {
         "version": 2,
@@ -8652,7 +8652,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "ae176e4218540a6412252c985140c2a87bc38add997d5f116218babe48eb59a7",
       "condition": {
         "version": 2,
@@ -8831,7 +8831,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "6de582be5ddb618683b43ed69e774e59f8363a7e7eb5a2297d3b1857fe6a1b1c",
       "condition": {
         "version": 2,
@@ -9010,7 +9010,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "cd8a2a41cc33af62f607fe757446dfeb2f37fe6bdc2c3c098eadab57c2871487",
       "condition": {
         "version": 2,
@@ -9189,7 +9189,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_opus5_n5/claude-opus-5/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_opus5_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "2209162f2edf964b2ef5dd1e7fe37371de6e5c0d83b0f54226e0fd9b55d3e4a7",
       "condition": {
         "version": 2,
@@ -9368,7 +9368,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "cc62af92aa2997b9081e4dcd6f669beac465f8a66c24545075c3048ff6afc3e7",
       "condition": {
         "version": 2,
@@ -9537,7 +9537,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "9d1987e466af7628bd10cc6532bfdc692cfcd728129022f03b078d58e7fe5619",
       "condition": {
         "version": 2,
@@ -9706,7 +9706,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "201dd0dccf2d060fc10e8257c96dc0a44e518ad9ff245b6452ca0c2653a90060",
       "condition": {
         "version": 2,
@@ -9875,7 +9875,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "d47089b6340cf2c9e57ef47e92c1bc1b78632a426b794225fe60e5250d59f005",
       "condition": {
         "version": 2,
@@ -10044,7 +10044,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_myth_sol_high_n5/gpt-5.6-sol/game_myth/noisy8_crossmodel_negative_twotask_r3/frontier_population_game_myth_sol_high_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "c61c59481a2da72e75d6bc3d4464de308fe662c6907574fb28316a745a0c29e8",
       "condition": {
         "version": 2,
@@ -10213,7 +10213,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_000_neutral_rep00.json",
       "sha256": "8436bba3c786fa19fe48159389479835fe13e0ebb84007e7dfb7583af0cc46fa",
       "condition": {
         "version": 2,
@@ -10391,7 +10391,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_001_neutral_rep01.json",
       "sha256": "4241f5129a637b22ce65d9282caac5c64c4ab921fd1169702b813d3fadc175b5",
       "condition": {
         "version": 2,
@@ -10569,7 +10569,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_002_neutral_rep02.json",
       "sha256": "54a7fec49eca707adeec563163972630c0bb96166e9e3ef92dca422617d32b47",
       "condition": {
         "version": 2,
@@ -10747,7 +10747,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_003_neutral_rep03.json",
       "sha256": "5302d1029f811263c62e790f6e8771a210907fb2f752c3013c4405a18220d154",
       "condition": {
         "version": 2,
@@ -10925,7 +10925,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_opus5_n5/claude-opus-5/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_opus5_n5_004_neutral_rep04.json",
       "sha256": "ebdd605de58b51b58b178e2d42deff81199b7eaa6409e82c2d88a465a299326c",
       "condition": {
         "version": 2,
@@ -11103,7 +11103,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_000_neutral_rep00.json",
       "sha256": "8d514648c73b550cad5dd9177556eaeea133857530d8b1b0439dd2c615ded6d4",
       "condition": {
         "version": 2,
@@ -11271,7 +11271,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_001_neutral_rep01.json",
       "sha256": "dada67244959aac9d54814c93cc0756342525ecae8d039a814b909661ec7f4b4",
       "condition": {
         "version": 2,
@@ -11439,7 +11439,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_002_neutral_rep02.json",
       "sha256": "dd8e12a63c54dbf88dee9f4d2c6d80f60f5b16619cbefd91f7f190f8b0c74a69",
       "condition": {
         "version": 2,
@@ -11607,7 +11607,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_003_neutral_rep03.json",
       "sha256": "2e6f5999c81b0d9e43d41a4a1be8078d9579ab640ff860245eec6872cd8299b1",
       "condition": {
         "version": 2,
@@ -11775,7 +11775,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_game_sol_high_n5/gpt-5.6-sol/game/noisy8_crossmodel_negative_game_r3/frontier_population_game_sol_high_n5_004_neutral_rep04.json",
       "sha256": "6fe3ebf3ff2c4518d80e979be508a3dbf4bef17cfe34eee5ea162fbdbb26ee85",
       "condition": {
         "version": 2,
@@ -11943,7 +11943,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "06b66fee1b81b1d2c9208fc00fa9f68b2d8ba470e507d99af630d5b750f3ed11",
       "condition": {
         "version": 2,
@@ -12117,7 +12117,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "655cb12716b4cba696174d28532fd938be1a913f6c350dc6d84e96b1545a0d62",
       "condition": {
         "version": 2,
@@ -12291,7 +12291,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "3eacfec6cde59ec12d498e8b88bc8f0e76b73f3ed7180cddece0823bfcd4b251",
       "condition": {
         "version": 2,
@@ -12465,7 +12465,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "37819edeac8794cde0fbff90ee0d5a6f6f986d75f4e74a59b1bbf7df53d94726",
       "condition": {
         "version": 2,
@@ -12639,7 +12639,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_gemini31pro_n5/gemini-3.1-pro-preview/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_gemini31pro_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "93d63a24632fc579ff24f0cc65186846aff0d8667e28d278d8567b4d0b02ffdf",
       "condition": {
         "version": 2,
@@ -12813,7 +12813,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "89b30f72125e72fc2b415f915a10135fb1f5c69d39a29077d4d87166970d1411",
       "condition": {
         "version": 2,
@@ -12992,7 +12992,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "eb0e2ebbc2a17b97ef321c7202a22876e28429a48b7f26f4461de7cbb5d0113a",
       "condition": {
         "version": 2,
@@ -13171,7 +13171,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "efc5e9c9a7abb64ae41172025a05aa96f5726abe31e64778ea0da37462bb0748",
       "condition": {
         "version": 2,
@@ -13350,7 +13350,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "021bfa0a431e3713b314821fa3318271b593b658e96dd3a1c0819d0364a35b6d",
       "condition": {
         "version": 2,
@@ -13529,7 +13529,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_opus5_n5/claude-opus-5/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_opus5_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "5c09541ed1441f916a86580db929d6abad0cf05f756d95d2c71ee470924c180d",
       "condition": {
         "version": 2,
@@ -13708,7 +13708,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "2952f579b40518433a55684895e2041f04ea761ad37fe4313484a8f1d47f629e",
       "condition": {
         "version": 2,
@@ -13877,7 +13877,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "a465e46e5fa8c00bba5dca366b051630db4f7ab75269a3af3c713551dffa92c6",
       "condition": {
         "version": 2,
@@ -14046,7 +14046,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "79ef49b1c39e7eec6bd5297660b1f17d240648195e7ce185242fd0ca55a587bc",
       "condition": {
         "version": 2,
@@ -14215,7 +14215,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "4fe8263d6c03274e1ee166bddae2419aa0dc127f82bcc89575186e3e3ccefc85",
       "condition": {
         "version": 2,
@@ -14384,7 +14384,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/frontier_rerun_20260918/frontier_population_myth_game_sol_high_n5/gpt-5.6-sol/myth_game/noisy8_crossmodel_negative_twotask_r3/frontier_population_myth_game_sol_high_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "020eaa0255e049ddc1541c056759f514e1eb83a72a1a04d0f80d15dd90656146",
       "condition": {
         "version": 2,
@@ -14553,7 +14553,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_000_neutral_rep00.json",
       "sha256": "6432b0a5fa721d0d66f371ac57f8a1322c5455d0de2eee582717447c6b0df8a6",
       "condition": {
         "version": 2,
@@ -14703,7 +14703,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_001_neutral_rep01.json",
       "sha256": "6a001660865c6e084bf54458b99433e1e76ddd25ce840185ee89e49986064428",
       "condition": {
         "version": 2,
@@ -14853,7 +14853,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_002_neutral_rep02.json",
       "sha256": "8364a91646fee23f94e4a8aae5fcf9f2f5a09ef24e282d198499873308b8e910",
       "condition": {
         "version": 2,
@@ -15003,7 +15003,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_003_neutral_rep03.json",
       "sha256": "4eced7a4b4a16def2625748ac62ff59b53c63f775e45382ea01ae7631604e5f2",
       "condition": {
         "version": 2,
@@ -15153,7 +15153,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_claude_n5/claude-sonnet-4.5/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_claude_n5_004_neutral_rep04.json",
       "sha256": "0c32940ab8e546d991fc723728e5c59d04dafabbc2ff9a075f451b585d0dfd07",
       "condition": {
         "version": 2,
@@ -15303,7 +15303,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_000_neutral_rep00.json",
       "sha256": "e15e74f00834732d923322ad834bc3dfe7699995b53a0e69cd27be8a00180fb9",
       "condition": {
         "version": 2,
@@ -15452,7 +15452,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_001_neutral_rep01.json",
       "sha256": "29787d81191346c5326c35aec9adc9d36b43a7bae559c5ca5910d732ac56dd6d",
       "condition": {
         "version": 2,
@@ -15601,7 +15601,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_002_neutral_rep02.json",
       "sha256": "8070fa708d328e4ffdd4678fbfcc0c792d53d6c0624a1771da3fda71f7b94ab9",
       "condition": {
         "version": 2,
@@ -15750,7 +15750,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_003_neutral_rep03.json",
       "sha256": "3e640676885176f58b336dd6fd0ed0c721fcfcdb98a10e521f1f7e69ed4b52df",
       "condition": {
         "version": 2,
@@ -15899,7 +15899,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gemini_n5/gemini-3.7-flash/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gemini_n5_004_neutral_rep04.json",
       "sha256": "9c6fb1d65271035edab6ae8a725d900e57aa920bf589b1f056e0d03d6439ca66",
       "condition": {
         "version": 2,
@@ -16048,7 +16048,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_000_neutral_rep00.json",
       "sha256": "624d71a617872aab42a4872ce8f2d44e44b15d597b185c0562d30876d6424987",
       "condition": {
         "version": 2,
@@ -16192,7 +16192,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_001_neutral_rep01.json",
       "sha256": "a2ace337c71f127eb9ca918763f449be831840219875c31cc6a07a144306c660",
       "condition": {
         "version": 2,
@@ -16336,7 +16336,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_002_neutral_rep02.json",
       "sha256": "2006be641cdbf94ec71382325e43cd164d478e6186b361a3e4b7018684ec82d4",
       "condition": {
         "version": 2,
@@ -16480,7 +16480,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_003_neutral_rep03.json",
       "sha256": "d079d28e0343d7e8d6cbdcf455f83bbfd924189f87b61f9ef0084a91358c0748",
       "condition": {
         "version": 2,
@@ -16624,7 +16624,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_gpt_n5/gpt-5-nano/game/noisy2_crossmodel_negative_game_r3/negative_only_reasoning_rerun_dyad_game_gpt_n5_004_neutral_rep04.json",
       "sha256": "bfae57eec6b41d7400d9b44db335f1c6321518450ada630a8812614a872647d2",
       "condition": {
         "version": 2,
@@ -16768,7 +16768,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "a44d5243e6b03c5282033e25948cc181d723fedf4f73661a2534a3720bd99e99",
       "condition": {
         "version": 2,
@@ -16919,7 +16919,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "fba8918e135ae9bd49e754bdc377313c4b2fda2ace18f0275f6329b4539520b6",
       "condition": {
         "version": 2,
@@ -17070,7 +17070,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "c8de7547a5b6670a9322a6176755cdd342ffc2a9d14f07ac4d7e3c336c140b91",
       "condition": {
         "version": 2,
@@ -17221,7 +17221,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "8a6706affce66e35d3d0686e9420f2785b9691e69621e7f13436378860b700c8",
       "condition": {
         "version": 2,
@@ -17372,7 +17372,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_claude_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "9d843561d0822ac4c71cc677e05678bb4bf9597ae6a50dbd433db56931ca5f98",
       "condition": {
         "version": 2,
@@ -17523,7 +17523,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "f59ba688da235d135a64f4fd33d2bb932d22e5fdecabc38036f8eaa97a143130",
       "condition": {
         "version": 2,
@@ -17673,7 +17673,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "d570f16b13e8b062601d1195c0161892b5d8d6598bfec75116670d8db2f310f8",
       "condition": {
         "version": 2,
@@ -17823,7 +17823,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "3497e4b70fb06f31635a40216a81663015fc7fef230ed66d9b7211bf49ad4a4c",
       "condition": {
         "version": 2,
@@ -17973,7 +17973,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "30074ddb400007f550357aade42a7efef1c16603a05ffb82174c845620b926d2",
       "condition": {
         "version": 2,
@@ -18123,7 +18123,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gemini_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "23ea6d0625849f82100a620c93ed879d6b5da5e4cdd4069e82fae4875541a9fd",
       "condition": {
         "version": 2,
@@ -18273,7 +18273,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "466c5980b695700c9ed8f3cdc4482f7c08131fe464a18a09a76f2383f604e00c",
       "condition": {
         "version": 2,
@@ -18418,7 +18418,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "7a2f8e8c70e5b9f1ff4b59910c3514d6e888ae21c1242d61aa7e88c576f24b24",
       "condition": {
         "version": 2,
@@ -18563,7 +18563,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "c2555341116ae548f605edfb0a7add482719197a084b478a57b081118d23fbb9",
       "condition": {
         "version": 2,
@@ -18708,7 +18708,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "947f5ff1c8c86c146ce9fbd3d69c186b1a2b985bb4bca56c6de2b298466e6d3d",
       "condition": {
         "version": 2,
@@ -18853,7 +18853,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_game_myth_gpt_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "c3b2e418eba102b2e54ddafa487cf47734f39d59927eb0b383f661912d5b996a",
       "condition": {
         "version": 2,
@@ -18998,7 +18998,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "4b92a43771e3716308c77957a885cabe996a8bea0a0aecf65af29205c12885e6",
       "condition": {
         "version": 2,
@@ -19149,7 +19149,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "6f03844abee2cffb69b3c4fe2c67c59f4a2ba27c4eb8043350c5e852dba51f6d",
       "condition": {
         "version": 2,
@@ -19300,7 +19300,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "f908bc6f91a3fc6168886345ca1e0eab42dda4d5cb2afa41be036cdaa3707889",
       "condition": {
         "version": 2,
@@ -19451,7 +19451,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "ed7289df3473a65e7361c0de6bad76b5921dadb24c30760ddc9a9922352728ca",
       "condition": {
         "version": 2,
@@ -19602,7 +19602,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_claude_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "79a692e0d9adefe0b0150d388d306835907db23141b773e84279be333d1d0448",
       "condition": {
         "version": 2,
@@ -19753,7 +19753,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "59a016f1858800bac67ff86d70abd0b700c9d31c8b4de2460203f879276a4deb",
       "condition": {
         "version": 2,
@@ -19903,7 +19903,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "2a7e74d500d008cc63e1d17331e7f3624acb74a55a4a85859907ab07cb8c14b8",
       "condition": {
         "version": 2,
@@ -20053,7 +20053,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "aee3199da2c45d2c3b593309557832faf51fe571d6a293c309ceff4ef5bac19d",
       "condition": {
         "version": 2,
@@ -20203,7 +20203,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "b3258c353a6fcb92b6ecb318c0637800414f6bdec8efef3e18dd2ae9f56e85c7",
       "condition": {
         "version": 2,
@@ -20353,7 +20353,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gemini_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "5cdeb04de3c8483d8b484745fdbddefbf7b6241958231c5c7676ff36f3ce57cb",
       "condition": {
         "version": 2,
@@ -20503,7 +20503,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "7c71020f970560f370808411879cf3c86b83a8f2208d44979355e7866d0fdc82",
       "condition": {
         "version": 2,
@@ -20648,7 +20648,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "084550d637bc274ab3b71e17e3a9a65e7fcc1e23463ef64663bdc4374bf21626",
       "condition": {
         "version": 2,
@@ -20793,7 +20793,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "e76bbf572b96277a69d8e109707378e0b617a48210afea317ddb0c808fdf43e0",
       "condition": {
         "version": 2,
@@ -20938,7 +20938,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "53fa9d23fedbaed9a594f06fde0d35a03844db15ba1810954f17317ab95598e1",
       "condition": {
         "version": 2,
@@ -21083,7 +21083,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy2_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_dyad_myth_game_gpt_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "04a0c04f536941598aeec638444697e65a6b6e514104421fc2b56132f9ac70f4",
       "condition": {
         "version": 2,
@@ -21228,7 +21228,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_000_neutral_rep00.json",
       "sha256": "cafa269ca417190f52a5ba4c814ab1651294772739f03ff552b4fa8da2550b24",
       "condition": {
         "version": 2,
@@ -21402,7 +21402,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_001_neutral_rep01.json",
       "sha256": "81c5652a2ec74286cd161d581eaf837b2744537e35203bc7da3cf1c68702c043",
       "condition": {
         "version": 2,
@@ -21576,7 +21576,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_002_neutral_rep02.json",
       "sha256": "0c4ebde885ff3dada6ff9574da7d42227a9f78a8638a19fdbed49dc31d99f459",
       "condition": {
         "version": 2,
@@ -21750,7 +21750,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_003_neutral_rep03.json",
       "sha256": "f092141de11ecb66f06caec6349c4c75b6a090dae23adb64bb26c2bcec1ba69d",
       "condition": {
         "version": 2,
@@ -21924,7 +21924,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_claude_n5/claude-sonnet-4.5/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_claude_n5_004_neutral_rep04.json",
       "sha256": "d981b6804ed68ba16c368d7f4fc3b6983dcdde84fa3c8db6dac84e8cfbaf8a9f",
       "condition": {
         "version": 2,
@@ -22098,7 +22098,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_000_neutral_rep00.json",
       "sha256": "b17908a1d489825b72937ef643cad2596f235ac4ab873128f35ed227d02eb500",
       "condition": {
         "version": 2,
@@ -22271,7 +22271,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_001_neutral_rep01.json",
       "sha256": "6df53ce7b2f7713e5ee83ca94b9c628af7c20008beefd612cb121a945626af67",
       "condition": {
         "version": 2,
@@ -22444,7 +22444,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_002_neutral_rep02.json",
       "sha256": "9c2192cd6daeb503f398f65c78ceac06ab071571538e3af576bbeec6a735b481",
       "condition": {
         "version": 2,
@@ -22617,7 +22617,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_003_neutral_rep03.json",
       "sha256": "790c77deebfbc98ae773301cb76e9e7f91470f334b433150faaf6d73b1e80008",
       "condition": {
         "version": 2,
@@ -22790,7 +22790,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gemini_n5/gemini-3.7-flash/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gemini_n5_004_neutral_rep04.json",
       "sha256": "cac05bcac42756e67256160c7289c325394bec8f90ead85a0aef72a674e68937",
       "condition": {
         "version": 2,
@@ -22963,7 +22963,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_000_neutral_rep00.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_000_neutral_rep00.json",
       "sha256": "869cafe507ed7f376b56aa8baa058e3c2f21dbbd8de1a42a375fadc1422f84bc",
       "condition": {
         "version": 2,
@@ -23131,7 +23131,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_001_neutral_rep01.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_001_neutral_rep01.json",
       "sha256": "ff27ea1fe6d84826b253c930c2b0190c36e647fa9feaaf85b27b08dfebfa4622",
       "condition": {
         "version": 2,
@@ -23299,7 +23299,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_002_neutral_rep02.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_002_neutral_rep02.json",
       "sha256": "b8d9fe6763e355d845415dcf190ab28bac11990f54de1b6e529e6596547bae03",
       "condition": {
         "version": 2,
@@ -23467,7 +23467,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_003_neutral_rep03.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_003_neutral_rep03.json",
       "sha256": "cbdf4e1cdee8400c165b32d5fbae239f8dedfd890416956d2a8217f99a7bd3b8",
       "condition": {
         "version": 2,
@@ -23635,7 +23635,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_004_neutral_rep04.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_gpt_n5/gpt-5-nano/game/noisy8_crossmodel_negative_game_r3/negative_only_reasoning_rerun_population_game_gpt_n5_004_neutral_rep04.json",
       "sha256": "6d4ee049196a39f78ca050401b6879c8ea6f61c844e67e0f2e91b841029c7e02",
       "condition": {
         "version": 2,
@@ -23803,7 +23803,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "3c331423140e58f1eaae0730a73c872e9e3b0fd52dd6e06f95304ac2d7e23a42",
       "condition": {
         "version": 2,
@@ -23978,7 +23978,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "8c884a793458fd51a48e066947a86e205d4aa347894b8d45ea043e39c305bfc5",
       "condition": {
         "version": 2,
@@ -24153,7 +24153,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "1de9c438d2b86ffe71958329c1ccd5de7d3d9cd3ded7f8fbe83caeeb7456ea3d",
       "condition": {
         "version": 2,
@@ -24328,7 +24328,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "57e7d8259d4c4cb540ed07a1d5ce11a693a6c0e69eb23316a7badb31bd6cb3c0",
       "condition": {
         "version": 2,
@@ -24503,7 +24503,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_claude_n5/claude-sonnet-4.5/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_claude_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "41bace1469ae71253c29ca0821eaff0b43a8b96717ebe22b8f92ee5e6006c544",
       "condition": {
         "version": 2,
@@ -24678,7 +24678,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "05dc0d2d404f915d9eec826a21699409541fd50abc6811d4565d4d6db9070725",
       "condition": {
         "version": 2,
@@ -24852,7 +24852,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "d6df58a38e3b8ade583acee55fd2681c93bd17f1ff40bf2952fce478204717db",
       "condition": {
         "version": 2,
@@ -25026,7 +25026,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "e6822425336c89eb0dc147e0a555651f0044c30ffb802ffb073ab7eaa3ea48cc",
       "condition": {
         "version": 2,
@@ -25200,7 +25200,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "b44d150090e1c30045b445bfdf81c2358d3f6cb382947aa8bb349637eb08b3b5",
       "condition": {
         "version": 2,
@@ -25374,7 +25374,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gemini_n5/gemini-3.7-flash/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gemini_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "dbbbe7245ddb8ff8a779cf3cf4a2cd02ccff698566cbf4fc0ed5c5b893aac64e",
       "condition": {
         "version": 2,
@@ -25548,7 +25548,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "c66f945350e227c05c4e8a656e28735eec20e999a87ff23a5e8f332f9bc38cf2",
       "condition": {
         "version": 2,
@@ -25717,7 +25717,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "8d838fe560e50c6c2adc112d1481201e482da82e3b0cb7dce761132513e8ab41",
       "condition": {
         "version": 2,
@@ -25886,7 +25886,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "40e65b892c98effd503761c833a62462317e8e7dbc58b49c15fcf689cb6d2bb7",
       "condition": {
         "version": 2,
@@ -26055,7 +26055,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "13a0b0ad578f5f158889ea9f7f1664e748c6eac323a182b10d05a0deac7a1236",
       "condition": {
         "version": 2,
@@ -26224,7 +26224,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_game_myth_gpt_n5/gpt-5-nano/game_myth/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_game_myth_gpt_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "e79662c658bfa6c61285b8b8098af2da002ca4e6a93cdf5a261d41bef4ab3a7a",
       "condition": {
         "version": 2,
@@ -26393,7 +26393,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "0b88b8291b276d55ba2956f856b2c08368ed688d6983a3b77e9c77c15656924d",
       "condition": {
         "version": 2,
@@ -26568,7 +26568,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "0f07deff10f2c7b63921a65fc7207729d04579f646ea7e9b09016ddd9ef8190a",
       "condition": {
         "version": 2,
@@ -26743,7 +26743,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "b086b0ba0d72916eeb6f6491f6766f1a89d08aa4e165bee6092c7cc16feb524b",
       "condition": {
         "version": 2,
@@ -26918,7 +26918,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "95c5aecd7743cf6f50e359a7c6588c6afff8d001bde53d6c7828698e00c6c3a6",
       "condition": {
         "version": 2,
@@ -27093,7 +27093,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "2247a4164776c3327244f5796be5bb278c5b18efc86ac66bb9c8c14d0f16802a",
       "condition": {
         "version": 2,
@@ -27268,7 +27268,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "e003490c7dfa0ca07c45f77d53c0c234657334c6e08f68c5eb1a9607f1b8a310",
       "condition": {
         "version": 2,
@@ -27442,7 +27442,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "fcbfb70f8c4e737dd4d23eea6645c424a96b7d0cd1d0d4884990956ba143a9f1",
       "condition": {
         "version": 2,
@@ -27616,7 +27616,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "30a90b3d95ae0be689ed574804e675f98ca447f80acd2f26440a2603d80175fc",
       "condition": {
         "version": 2,
@@ -27790,7 +27790,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "10120c445dff028c608f92b7e769901f460c6991598c82f4e8ea6af111a3d8a1",
       "condition": {
         "version": 2,
@@ -27964,7 +27964,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gemini_n5/gemini-3.7-flash/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gemini_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "5b921d6f3ad135c697a672bf54eee8e6e98103818ebf90750998847be517cf12",
       "condition": {
         "version": 2,
@@ -28138,7 +28138,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
       "sha256": "69ba30fd224656a5c8b40fc6959699361a8e48dcf7131e3be0f04751bf328c05",
       "condition": {
         "version": 2,
@@ -28307,7 +28307,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_001_neutral_rep01_memtest_memory_primary_anything.json",
       "sha256": "8a10e883b1610b1653edc601ae09738b8c00bac0b851bb38114f39bbf464fe5d",
       "condition": {
         "version": 2,
@@ -28476,7 +28476,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_002_neutral_rep02_memtest_memory_primary_anything.json",
       "sha256": "e262ede8d42aa4e15a40eefaad9ef90e5aa2b2c163e82505737e7daaa09eb430",
       "condition": {
         "version": 2,
@@ -28645,7 +28645,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_003_neutral_rep03_memtest_memory_primary_anything.json",
       "sha256": "001dc770334715e4cabd422c64494f56a926e355d8143b1c3d0f29253de87821",
       "condition": {
         "version": 2,
@@ -28814,7 +28814,7 @@
       }
     },
     {
-      "path": "/private/tmp/nlet-frontier-20260918/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
+      "path": "/private/tmp/claude-502/-Users-ivar-Desktop-Research-AI-projects-LLM-evolution-nips-linguistic-evolution-toolkit/984c56c3-3f98-49de-8dce-5cd81e8a9ca0/scratchpad/wt33/data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_gpt_n5/gpt-5-nano/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_gpt_n5_004_neutral_rep04_memtest_memory_primary_anything.json",
       "sha256": "01dce139fe64d6c2725f8b477c666adbcf8657e3ac3739eefdc5e7f7970e9993",
       "condition": {
         "version": 2,
@@ -29040,9 +29040,9 @@
   "outputs": {
     "resources_boxplots.png": "623bb01023518aa28b70dd1dab212cb90b76bba2c9d40a053e99a84a13f8617e",
     "cell_summary.csv": "9b309f416e4ba0186fa2306c0fc1add5da3bd3431ef30b577d2de5ab9b3b7ab2",
-    "resources_boxplots.pdf": "4364bfe15756cbf4c8b92a3ea62b7b5df3d3173b6be9bd0a910ef76c8a342378",
-    "resources_boxplots.svg": "d72b45aa588f24d5cfd490ba2a1748d02ccbb0572058b68a936caf3d523b2470",
-    "README.md": "04e020e10be9f123b1bf7f52b34d5f4d9b5bf7640b1baae9d06d449fee6826b8"
+    "resources_boxplots.pdf": "0e30a7dd67fa9885994cab29b90fd57d03809dca02b608f4e987e9efb27b45c0",
+    "resources_boxplots.svg": "aaa0daae70a2fe9bd1df111674951c0bd19dcf97456ad8338ec9593742f9f390",
+    "README.md": "edcda1aeda5f5c63a76e0c2b3fde8627110a6afd370d6033ed1241bcbed58b23"
   },
   "observed_differences": [
     "implementation.src/experiment_condition.py",
