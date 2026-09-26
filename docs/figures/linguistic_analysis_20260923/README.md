@@ -51,6 +51,87 @@ cross-family exposures in those runs). There, the "shown other family" row
 measures the minority agent picking up majority words, and the 8-agent marker
 test for GPT shown Gemini draws on the 2- and 4-Gemini runs only.
 
+## Design and deviations
+
+No design document existed before the run; the plan below is reconstructed from the 2026-09-22/23 working session.
+
+### Method
+
+**Core comparison (all tests)**
+- Unit: one myth, written by one agent in one round.
+- Shown myth: the myth the agent read before writing, taken from the run's `myth_exposures` record.
+- Unseen myth: a myth by the same family, from the same round, that the agent never read.
+- Unseen myth, 8-agent: another agent's myth in the same run.
+- Unseen myth, dyads: the matching agent's myth in another run of the same condition.
+- Effect: shown minus unseen; shared prompts, model habits and drift cancel out.
+- Statistics: one value per run, mean (±sd over runs), Wilcoxon test over runs.
+
+**1. Language reuse**
+- Word adoption: share of the shown myth's words, new to the agent, that the agent now uses.
+- Meaning: embedding cosine (all-mpnet-base-v2) between the new myth and the shown or unseen myth.
+- Style: a word classifier trained on homogeneous myths scores how much each family reads like its partner.
+
+**Meme test (mixed runs only)**
+- Signature word: in ≥5% of one family's homogeneous myths and ≤1% of the other's, ≥5x rarer.
+- Test: is a signature word adopted more when the shown myth used it than when it did not?
+- Null: replace the shown myth with a random unseen same-family myth, 1,000 times.
+
+**2. Alignment vs cooperation**
+- Input: similarity of the two players' latest myths before a game.
+- Outcomes: amount sent / 5, return proportion, giving gap (|sent/5 − return proportion|).
+- Model: regression with run × pair-family and round fixed effects, errors clustered by run.
+- Direction check: same model with the two players' next myths, written after the game.
+
+**3. Morals and carryover**
+- Labels: Arabella's 3-label rubric and one-sentence moral, verbatim, judged by GLM-5.2.
+- Spread: does the agent's label match the shown myth's label more often than an unseen myth's?
+- Clean spread test: 8-agent myth→game, where the shown myth predates any shared game.
+- Carryover: does the agent's own moral, or the shown myth's moral, predict its next move?
+- Carryover model: agent-within-run and round fixed effects, controlling for its own last move in that role.
+- Placebo: the co-player's own moral, which the agent never saw.
+- Reverse check: does a generous game predict a generous moral in the next myth?
+
+**4. Validation**
+- Second judge: DeepSeek V4 Flash on every myth; agreement and Cohen's κ.
+- Human check: blinded sheet of 90 myths, 30 per label, scored for each judge's precision and recall.
+
+### Planned before running
+
+- Data: all myth-bearing September informed negative-only runs, homogeneous runs as reference.
+- Tests 1–4 above, with the meme test on mixed runs only.
+- Arabella's measures: moral summary, drift, stability, uptake, partner distance, giving gap.
+- Budget under $200 with a cost preflight (actual $8.18).
+
+### Added while building, before any result was seen
+
+- Run list from the validated Figure 7/8 tables, because the run folders also hold defector runs.
+- Signature-word thresholds and 1,000 permutations.
+- The style classifier.
+- Myths under 20 words dropped (one empty GPT response).
+- Reproduction check on Arabella's 200 June myths (93% agreement).
+- Judge settings copied from her code, reasoning off, called directly through OpenRouter.
+- Placebo and reverse check for carryover.
+
+### Planned but not done
+
+- A later-written, never-seen myth as an extra control for the meme test.
+- Coding whether a partner's moral appears in the agent's game reasoning.
+- The human coding pass (sheet and scorer ready; Ivar or Arabella to code).
+
+### Changed after seeing results (2026-09-23 unless dated)
+
+1. Carryover: run fixed effects → agent fixed effects; own-moral effect +0.027 → +0.001.
+2. Placebo: added a control for the co-player's family.
+3. Alignment: added pair-family control; giving-gap result +0.026 (p = 0.0001) → +0.016 (p = 0.03).
+4. Across-run correlations: centred within each cell; pooled ρ = −0.72 vanished.
+5. Moral spread: narrowed to 8-agent myth→game; dyads flagged as confounded by shared games.
+6. Robustness checks: second-judge label trends, per-run style drift, classifier features, per-family alignment; none changed a conclusion.
+7. Review caveats: dropped comparison myths in lone-minority runs, low-biased marker baseline, 1 of 15 tests not 30.
+8. Processing: summary parser widened (33 empty summaries remain); coding key moved out of git.
+9. Cache safety (2026-09-26, 3d45e6e8): caches reused only when inputs match; no reported number changed.
+
+Every change after results narrowed or weakened a claim; none strengthened one.
+
 ## 1. Partners take up each other's language
 
 `language_reuse_shown_vs_unseen.png`, `reuse_summary.csv`,
