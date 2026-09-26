@@ -1,0 +1,1342 @@
+{
+  "total": 35852,
+  "kinds": {
+    "other_json": 18095,
+    "unreadable_json": 4,
+    "final_fullstate_candidate": 16774,
+    "snapshot_not_final": 979
+  },
+  "unique_final_bytes": 6078,
+  "families": {
+    "archive/data/plots": {
+      "other_json": 89,
+      "exact_duplicate_paths": 0
+    },
+    "projects/neurips-2026-llm-ling-evo/manuscript": {
+      "other_json": 3,
+      "exact_duplicate_paths": 1
+    },
+    "projects/neurips-2026-llm-ling-evo/references": {
+      "other_json": 70,
+      "exact_duplicate_paths": 0
+    },
+    "tests/fixtures/gpt55_gate_contract.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "tests/fixtures/safeguards_legacy_baseline.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    ".claude/settings.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    ".claude/settings.local.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "docs/figures/negative_only_crossmodel_reasoning_rerun_20260909_resources": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "docs/figures/negative_only_crossmodel_reasoning_rerun_20260909_resources_boxplots": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "docs/figures/negative_only_crossmodel_reasoning_rerun_20260909": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "docs/figures/gpt55_negative_only_gate_r1_20260901": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "docs/figures/crossmodel_population_size_20260824": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "docs/figures/negative_only_crossmodel_reasoning_rerun_20260909_cooperation_ratios": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "docs/figures/punishment_comprehension_gemini37_20260823": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "docs/figures/gpt55_negative_only_gate_r2_20260901": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "arabella_analyses/data/tables": {
+      "unreadable_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "arabella_analyses/data/runs_json": {
+      "final_fullstate_candidate": 50,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/61": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/92": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/35": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/3d": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/58": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/93": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/05": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/9d": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/9c": {
+      "other_json": 3,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/02": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/a3": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/ad": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/bc": {
+      "other_json": 3,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/e2": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/fc": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/fd": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/f2": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/e4": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/fe": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/c8": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/4e": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/16": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/45": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/87": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/81": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/88": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/9a": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/3a": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/98": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/37": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/08": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/97": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/0f": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/bf": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/d4": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/dd": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/d2": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/aa": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/a8": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/c4": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/ea": {
+      "other_json": 2,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/e8": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/fa": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/15": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/8c": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/76": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/judge_cache/7a": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/analysis/capsule_genealogies_2026_08_19": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/analysis/meme_evolution_2026_08_19": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase3/seed_manifest.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase2/cell_analysis.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase2/baseline_summary.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase2/seed_manifest.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase2/judge_compare.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/shared_runs/uploaders/arabella": {
+      "unreadable_json": 2,
+      "exact_duplicate_paths": 52,
+      "final_fullstate_candidate": 50
+    },
+    "data/shared_runs/uploaders/vallinder": {
+      "other_json": 270,
+      "exact_duplicate_paths": 0,
+      "final_fullstate_candidate": 270
+    },
+    "data/shared_runs/uploaders/ivarfresh": {
+      "final_fullstate_candidate": 1300,
+      "exact_duplicate_paths": 15,
+      "other_json": 1093
+    },
+    "data/.hf_stage/ivarfresh": {
+      "final_fullstate_candidate": 5058,
+      "exact_duplicate_paths": 2945,
+      "other_json": 5166,
+      "snapshot_not_final": 472
+    },
+    "data/json/memtest_memoryprimary_sonnet45_2agent_r10_n5": {
+      "final_fullstate_candidate": 5,
+      "exact_duplicate_paths": 10,
+      "other_json": 5
+    },
+    "data/json/myth_causal_screen_claude": {
+      "final_fullstate_candidate": 15,
+      "exact_duplicate_paths": 30,
+      "other_json": 15
+    },
+    "data/json/gemini31_flashlite_8agent_myth_directive_history3_r10_n5": {
+      "other_json": 6,
+      "exact_duplicate_paths": 13,
+      "final_fullstate_candidate": 5,
+      "snapshot_not_final": 2
+    },
+    "data/json/sonnet45_8agent_myth_directive_history3_r10_n5": {
+      "final_fullstate_candidate": 5,
+      "exact_duplicate_paths": 15,
+      "other_json": 5,
+      "snapshot_not_final": 5
+    },
+    "data/json/phase8_monitored": {
+      "final_fullstate_candidate": 5,
+      "exact_duplicate_paths": 10,
+      "other_json": 5
+    },
+    "data/json/myth_prompt_variants_claude_smoke_remaining": {
+      "final_fullstate_candidate": 2,
+      "exact_duplicate_paths": 4,
+      "other_json": 2
+    },
+    "data/json/gpt5nano_8agent_myth_directive_history3_anon_r10_n5": {
+      "other_json": 5,
+      "exact_duplicate_paths": 10,
+      "final_fullstate_candidate": 5
+    },
+    "data/json/myth_causal_normative_newprompt_claude_r10_n5": {
+      "other_json": 20,
+      "exact_duplicate_paths": 40,
+      "final_fullstate_candidate": 20
+    },
+    "data/json/myth_causal_confirm_claude_fixed_prompt_r10": {
+      "other_json": 30,
+      "exact_duplicate_paths": 60,
+      "final_fullstate_candidate": 20,
+      "snapshot_not_final": 10
+    },
+    "data/json/sonnet45_8agent_game_memprimary_r10_n5": {
+      "snapshot_not_final": 5,
+      "exact_duplicate_paths": 15,
+      "final_fullstate_candidate": 5,
+      "other_json": 5
+    },
+    "data/json/myth_prompt_variants_claude_followup": {
+      "other_json": 15,
+      "exact_duplicate_paths": 30,
+      "final_fullstate_candidate": 15
+    },
+    "data/json/ablation_phase1": {
+      "final_fullstate_candidate": 80,
+      "exact_duplicate_paths": 160,
+      "other_json": 80
+    },
+    "data/json/gemini31_flashlite_8agent_directive_normative_r10_smoke": {
+      "other_json": 3,
+      "exact_duplicate_paths": 6,
+      "final_fullstate_candidate": 3
+    },
+    "data/json/sonnet45_8agent_game_myth_memprimary_r10_n5": {
+      "final_fullstate_candidate": 5,
+      "exact_duplicate_paths": 15,
+      "snapshot_not_final": 5,
+      "other_json": 5
+    },
+    "data/json/memtest_hybrid_sonnet45_2agent_r10_n5": {
+      "final_fullstate_candidate": 5,
+      "exact_duplicate_paths": 10,
+      "other_json": 5
+    },
+    "data/json/myth_causal_confirm_claude_fixed_prompt_r10_directive_retry": {
+      "snapshot_not_final": 10,
+      "exact_duplicate_paths": 30,
+      "other_json": 10,
+      "final_fullstate_candidate": 10
+    },
+    "data/json/baseline": {
+      "final_fullstate_candidate": 263,
+      "exact_duplicate_paths": 324,
+      "other_json": 59,
+      "snapshot_not_final": 2
+    },
+    "data/json/myth_causal_normative_clamped_maxtok4096_claude_r10_n5": {
+      "other_json": 20,
+      "exact_duplicate_paths": 40,
+      "snapshot_not_final": 18,
+      "final_fullstate_candidate": 2
+    },
+    "data/json/memtest_stateless_sonnet45_2agent_r10_n5": {
+      "final_fullstate_candidate": 5,
+      "exact_duplicate_paths": 10,
+      "other_json": 5
+    },
+    "data/json/memtest_memoryprimary_smoke": {
+      "other_json": 1,
+      "exact_duplicate_paths": 2,
+      "final_fullstate_candidate": 1
+    },
+    "data/json/myth_prompt_variants_claude_smoke": {
+      "snapshot_not_final": 5,
+      "exact_duplicate_paths": 13,
+      "other_json": 5,
+      "final_fullstate_candidate": 3
+    },
+    "data/json/sonnet45_8agent_game_directive_r10_n5": {
+      "other_json": 10,
+      "exact_duplicate_paths": 20,
+      "final_fullstate_candidate": 10
+    },
+    "data/json/myth_topics": {
+      "other_json": 17,
+      "exact_duplicate_paths": 35,
+      "final_fullstate_candidate": 15,
+      "snapshot_not_final": 3
+    },
+    "data/json/noise_experiments/phase2_smoke": {
+      "other_json": 1,
+      "exact_duplicate_paths": 2,
+      "final_fullstate_candidate": 1
+    },
+    "data/json/noise_experiments/v1": {
+      "other_json": 239,
+      "exact_duplicate_paths": 479,
+      "final_fullstate_candidate": 228,
+      "snapshot_not_final": 12
+    },
+    "data/json/noise_experiments/v4_direct_provider_targeted_gpt5nano": {
+      "other_json": 25,
+      "exact_duplicate_paths": 50,
+      "final_fullstate_candidate": 24,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_A1_no_noise": {
+      "final_fullstate_candidate": 30,
+      "exact_duplicate_paths": 60,
+      "other_json": 30
+    },
+    "data/json/noise_experiments/fmt_smoke_20260904": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0,
+      "final_fullstate_candidate": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_neutral": {
+      "final_fullstate_candidate": 107,
+      "exact_duplicate_paths": 216,
+      "other_json": 108,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_targeted_k2_gpt5nano": {
+      "final_fullstate_candidate": 50,
+      "exact_duplicate_paths": 101,
+      "other_json": 50,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/phase6_seeded": {
+      "final_fullstate_candidate": 10,
+      "exact_duplicate_paths": 20,
+      "other_json": 10
+    },
+    "data/json/noise_experiments/phase3_baseline": {
+      "final_fullstate_candidate": 5,
+      "exact_duplicate_paths": 10,
+      "other_json": 5
+    },
+    "data/json/noise_experiments/phase2_baseline": {
+      "other_json": 45,
+      "exact_duplicate_paths": 90,
+      "final_fullstate_candidate": 45
+    },
+    "data/json/noise_experiments/washout_20round": {
+      "final_fullstate_candidate": 30,
+      "exact_duplicate_paths": 69,
+      "other_json": 36,
+      "snapshot_not_final": 3
+    },
+    "data/json/noise_experiments/phase4_seeded": {
+      "final_fullstate_candidate": 20,
+      "exact_duplicate_paths": 48,
+      "other_json": 24,
+      "snapshot_not_final": 4
+    },
+    "data/json/noise_experiments/phase4_smoke": {
+      "final_fullstate_candidate": 2,
+      "exact_duplicate_paths": 4,
+      "other_json": 2
+    },
+    "data/json/noise_experiments/myth_causal_negative_informed_claude_pilot": {
+      "final_fullstate_candidate": 9,
+      "exact_duplicate_paths": 18,
+      "other_json": 9
+    },
+    "data/json/noise_experiments/v4_direct_provider_pilot_minimal": {
+      "other_json": 8,
+      "exact_duplicate_paths": 16,
+      "final_fullstate_candidate": 8
+    },
+    "data/json/noise_experiments/myth_causal_negative2_informed_claude_topup": {
+      "final_fullstate_candidate": 21,
+      "exact_duplicate_paths": 42,
+      "other_json": 21
+    },
+    "data/json/noise_experiments/v4_direct_provider_A1_targeted_bootstrap": {
+      "other_json": 60,
+      "exact_duplicate_paths": 120,
+      "final_fullstate_candidate": 60
+    },
+    "data/json/noise_experiments/v4_direct_provider_targeted_neutral_gpt5nano": {
+      "other_json": 25,
+      "exact_duplicate_paths": 50,
+      "final_fullstate_candidate": 25
+    },
+    "data/json/noise_experiments/gemini31_flashlite_8agent_noise_r10_smoke": {
+      "other_json": 3,
+      "exact_duplicate_paths": 7,
+      "final_fullstate_candidate": 3,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_baseline": {
+      "final_fullstate_candidate": 90,
+      "exact_duplicate_paths": 181,
+      "other_json": 90,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_smoke_test": {
+      "other_json": 1,
+      "exact_duplicate_paths": 2,
+      "final_fullstate_candidate": 1
+    },
+    "data/json/noise_experiments/myth_causal_negative2_informed_claude_r10": {
+      "final_fullstate_candidate": 30,
+      "exact_duplicate_paths": 60,
+      "other_json": 30
+    },
+    "data/json/noise_experiments/v4_direct_provider": {
+      "other_json": 1027,
+      "exact_duplicate_paths": 2138,
+      "snapshot_not_final": 275,
+      "final_fullstate_candidate": 836
+    },
+    "data/json/noise_experiments/v2_uniform_distribution_noise": {
+      "final_fullstate_candidate": 387,
+      "exact_duplicate_paths": 779,
+      "other_json": 390,
+      "snapshot_not_final": 2
+    },
+    "data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909": {
+      "final_fullstate_candidate": 270,
+      "exact_duplicate_paths": 0,
+      "other_json": 270,
+      "snapshot_not_final": 31
+    },
+    "data/json/noise_experiments/phase5_smoke": {
+      "other_json": 1,
+      "exact_duplicate_paths": 2,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_A1A3_combined": {
+      "final_fullstate_candidate": 74,
+      "exact_duplicate_paths": 160,
+      "other_json": 80,
+      "snapshot_not_final": 6
+    },
+    "data/json/noise_experiments/phase4_baseline": {
+      "final_fullstate_candidate": 10,
+      "exact_duplicate_paths": 22,
+      "other_json": 11,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/phase2_seeded": {
+      "final_fullstate_candidate": 60,
+      "exact_duplicate_paths": 120,
+      "other_json": 60
+    },
+    "data/json/noise_experiments/v2": {
+      "final_fullstate_candidate": 167,
+      "exact_duplicate_paths": 341,
+      "other_json": 167,
+      "snapshot_not_final": 7
+    },
+    "data/json/noise_experiments/v4_direct_provider_shared_context_pilot": {
+      "final_fullstate_candidate": 18,
+      "exact_duplicate_paths": 36,
+      "other_json": 18
+    },
+    "data/json/noise_experiments/phase7_seeded": {
+      "other_json": 6,
+      "exact_duplicate_paths": 11,
+      "final_fullstate_candidate": 4,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_controls_smoke": {
+      "final_fullstate_candidate": 3,
+      "exact_duplicate_paths": 6,
+      "other_json": 3
+    },
+    "data/json/noise_experiments/v4_direct_provider_prompt_variants": {
+      "other_json": 120,
+      "exact_duplicate_paths": 241,
+      "final_fullstate_candidate": 120,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_A1_adversarial_bootstrap": {
+      "final_fullstate_candidate": 60,
+      "exact_duplicate_paths": 120,
+      "other_json": 60
+    },
+    "data/json/noise_experiments/v4_direct_provider_targeted_k1_gpt5nano": {
+      "other_json": 50,
+      "exact_duplicate_paths": 101,
+      "final_fullstate_candidate": 50,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_controls": {
+      "final_fullstate_candidate": 898,
+      "exact_duplicate_paths": 1801,
+      "other_json": 900,
+      "snapshot_not_final": 3
+    },
+    "data/json/noise_experiments/myth_causal_negative2_informed_claude_pilot": {
+      "other_json": 9,
+      "exact_duplicate_paths": 18,
+      "final_fullstate_candidate": 9
+    },
+    "data/json/noise_experiments/v4_direct_provider_shared_context": {
+      "final_fullstate_candidate": 60,
+      "exact_duplicate_paths": 120,
+      "other_json": 60
+    },
+    "data/json/noise_experiments/phase2_pilot": {
+      "other_json": 3,
+      "exact_duplicate_paths": 6,
+      "final_fullstate_candidate": 3
+    },
+    "data/json/noise_experiments/phase5_seeded": {
+      "final_fullstate_candidate": 11,
+      "exact_duplicate_paths": 37,
+      "other_json": 15,
+      "snapshot_not_final": 11
+    },
+    "data/json/noise_experiments/v4_direct_provider_pilot": {
+      "other_json": 7,
+      "exact_duplicate_paths": 13,
+      "final_fullstate_candidate": 6
+    },
+    "data/json/noise_experiments/neutral_2026_05_27": {
+      "final_fullstate_candidate": 30,
+      "exact_duplicate_paths": 60,
+      "other_json": 30
+    },
+    "data/json/noise_experiments/v4_direct_provider_gpt5_5_probe": {
+      "final_fullstate_candidate": 30,
+      "exact_duplicate_paths": 61,
+      "other_json": 30,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_targeted_bootstrap": {
+      "final_fullstate_candidate": 90,
+      "exact_duplicate_paths": 180,
+      "other_json": 90
+    },
+    "data/json/noise_experiments/neutral_2026_05_28": {
+      "other_json": 15,
+      "exact_duplicate_paths": 32,
+      "final_fullstate_candidate": 15,
+      "snapshot_not_final": 2
+    },
+    "data/json/noise_experiments/myth_causal_negative_claude_pilot": {
+      "final_fullstate_candidate": 9,
+      "exact_duplicate_paths": 18,
+      "other_json": 9
+    },
+    "data/json/noise_experiments/fmt_confound_20260904": {
+      "snapshot_not_final": 4,
+      "exact_duplicate_paths": 0,
+      "final_fullstate_candidate": 10,
+      "other_json": 10
+    },
+    "data/json/noise_experiments/gpt55_rerun_20260909": {
+      "other_json": 15,
+      "exact_duplicate_paths": 0,
+      "final_fullstate_candidate": 12
+    },
+    "data/json/noise_experiments/phase3_seeded": {
+      "final_fullstate_candidate": 13,
+      "exact_duplicate_paths": 28,
+      "other_json": 14,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v3_deterministic_noise": {
+      "other_json": 270,
+      "exact_duplicate_paths": 540,
+      "final_fullstate_candidate": 263,
+      "snapshot_not_final": 7
+    },
+    "data/json/noise_experiments/v4_direct_provider_A3_forced_reasoning": {
+      "final_fullstate_candidate": 111,
+      "exact_duplicate_paths": 240,
+      "other_json": 120,
+      "snapshot_not_final": 9
+    },
+    "data/json/noise_experiments/sonnet45_directive_normative_r10_n5": {
+      "other_json": 15,
+      "exact_duplicate_paths": 31,
+      "final_fullstate_candidate": 15,
+      "snapshot_not_final": 1
+    },
+    "data/json/noise_experiments/v4_direct_provider_A1_partner_myth": {
+      "final_fullstate_candidate": 118,
+      "exact_duplicate_paths": 240,
+      "other_json": 120,
+      "snapshot_not_final": 2
+    },
+    "data/json/myth_causal_confirm_claude_fixed_prompt": {
+      "final_fullstate_candidate": 15,
+      "exact_duplicate_paths": 30,
+      "other_json": 15
+    },
+    "data/json/myth_causal_normative_clamped_gemini31_flashlite_r10_n5": {
+      "final_fullstate_candidate": 20,
+      "exact_duplicate_paths": 40,
+      "other_json": 20
+    },
+    "data/json/sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5": {
+      "final_fullstate_candidate": 5,
+      "exact_duplicate_paths": 10,
+      "other_json": 5
+    },
+    "data/json/myth_causal_normative_clamped_claude_r10_n5": {
+      "other_json": 20,
+      "exact_duplicate_paths": 40,
+      "final_fullstate_candidate": 4,
+      "snapshot_not_final": 16
+    },
+    "data/json/myth_causal_confirm_claude_fixed_prompt_topup": {
+      "final_fullstate_candidate": 15,
+      "exact_duplicate_paths": 30,
+      "other_json": 15
+    },
+    "data/json/myth_prompt_variants_claude_n3": {
+      "other_json": 5,
+      "exact_duplicate_paths": 10,
+      "final_fullstate_candidate": 5
+    },
+    "data/json/myth_causal_neutral_directive_claude_r5": {
+      "final_fullstate_candidate": 15,
+      "exact_duplicate_paths": 30,
+      "other_json": 15
+    },
+    "data/json/myth_causal_neutral_directive_claude_r10_n5": {
+      "other_json": 30,
+      "exact_duplicate_paths": 60,
+      "final_fullstate_candidate": 30
+    },
+    "data/json/sonnet45_8agent_myth_directive_history3_anon_r10_n5": {
+      "final_fullstate_candidate": 5,
+      "exact_duplicate_paths": 10,
+      "other_json": 5
+    },
+    "data/json/phase8_smoke": {
+      "other_json": 1,
+      "exact_duplicate_paths": 2,
+      "final_fullstate_candidate": 1
+    },
+    "data/json/memtest_stateless_smoke": {
+      "other_json": 1,
+      "exact_duplicate_paths": 2,
+      "final_fullstate_candidate": 1
+    },
+    "data/json/memtest_hybrid_smoke": {
+      "final_fullstate_candidate": 1,
+      "exact_duplicate_paths": 2,
+      "other_json": 1
+    },
+    "data/json/sonnet45_8agent_memprimary_smoke": {
+      "other_json": 1,
+      "exact_duplicate_paths": 2,
+      "final_fullstate_candidate": 1
+    },
+    "data/json/sonnet45_8agent_game_memprimary_mem3_r10_n5": {
+      "final_fullstate_candidate": 4,
+      "exact_duplicate_paths": 10,
+      "other_json": 5,
+      "snapshot_not_final": 1
+    },
+    "data/json/prompt_tests": {
+      "snapshot_not_final": 2,
+      "exact_duplicate_paths": 6,
+      "other_json": 2,
+      "final_fullstate_candidate": 2
+    },
+    "data/json/sonnet45_directive_normative_r10_n5": {
+      "other_json": 15,
+      "exact_duplicate_paths": 45,
+      "snapshot_not_final": 15,
+      "final_fullstate_candidate": 15
+    },
+    "data/json/baseline_match_ablation": {
+      "final_fullstate_candidate": 126,
+      "exact_duplicate_paths": 278,
+      "other_json": 135,
+      "snapshot_not_final": 17
+    },
+    "data/json/myth_causal_normative_clean_claude_r10_n5": {
+      "other_json": 20,
+      "exact_duplicate_paths": 40,
+      "final_fullstate_candidate": 20
+    },
+    "data/seeds/ablation_phase1_judge_scores.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/seeds/fillers.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/seeds/ablation_phase1_manifest.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/sample/myth_causal_confirm_claude_fixed_prompt_r10_directive_retry_000_neutral_rep00_myth_game_directive_anything.json": {
+      "final_fullstate_candidate": 1,
+      "exact_duplicate_paths": 1
+    },
+    "data/sample/myth_topics_000_claude-sonnet-4.5_neutral_game.json": {
+      "final_fullstate_candidate": 1,
+      "exact_duplicate_paths": 1
+    },
+    "data/phase9/fable_seeds_candidate.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase7/gowith_seeds_candidate.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase7/gowith_probe_manifest.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase7/decoder_asymmetry_results_gowith.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase7/decoder_behavioral_results_gowith.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase7/decoder_behavioral_results.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase7/decoder_asymmetry_results.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase7/debug_failing_call.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase8/eval_awareness_mining.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/phase8/monitor_analysis_results.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/plots/inspector_reasoning_rerun_20260909": {
+      "other_json": 270,
+      "exact_duplicate_paths": 0
+    },
+    "data/plots/memtest_noise_channels": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/plots/memtest_memory_channels": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/plots/inspector": {
+      "other_json": 90,
+      "exact_duplicate_paths": 0
+    },
+    "data/plots/baseline": {
+      "other_json": 150,
+      "exact_duplicate_paths": 0
+    },
+    "data/plots/myth_topics": {
+      "other_json": 24,
+      "exact_duplicate_paths": 0
+    },
+    "data/plots/inspector_negnoise": {
+      "other_json": 184,
+      "exact_duplicate_paths": 0
+    },
+    "data/plots/linguistic_analysis": {
+      "other_json": 142,
+      "exact_duplicate_paths": 0
+    },
+    "data/share/phase2_filler_paragraphs.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "data/share/defector_smoke_exploratory_2026-08-12": {
+      "other_json": 7,
+      "exact_duplicate_paths": 0,
+      "final_fullstate_candidate": 7
+    },
+    "data/share/coauthor_game_myth_transcripts_2026-06-08_170531": {
+      "final_fullstate_candidate": 50,
+      "exact_duplicate_paths": 50
+    },
+    "data/share/corrected_informed_noise_confirmatory_60runs_2026-08-12": {
+      "final_fullstate_candidate": 60,
+      "exact_duplicate_paths": 0,
+      "other_json": 60
+    },
+    "nlet-hf-data/uploaders/vallinder": {
+      "final_fullstate_candidate": 4546,
+      "exact_duplicate_paths": 8106,
+      "other_json": 4340
+    },
+    "nlet-hf-data/ivarfresh/json": {
+      "final_fullstate_candidate": 30,
+      "exact_duplicate_paths": 60,
+      "other_json": 30
+    },
+    ".inspector-site/reasoning-rerun/runs": {
+      "other_json": 270,
+      "exact_duplicate_paths": 270
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_001_neutral_rep01.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_004_neutral_rep04_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_001_neutral_rep01_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_002_neutral_rep02_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_009_neutral_rep09_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_000_neutral_rep00.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_008_neutral_rep08.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_004_neutral_rep04_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_001_neutral_rep01_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_002_neutral_rep02.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_game_myth__noise8i_washout_game_myth_003_neutral_rep03_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_003_neutral_rep03.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_009_neutral_rep09_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_009_neutral_rep09.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_004_neutral_rep04_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_007_neutral_rep07.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_004_neutral_rep04_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_001_neutral_rep01_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_myth_game__noise8i_washout_myth_game_000_neutral_rep00_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_009_neutral_rep09_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_006_neutral_rep06.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_004_neutral_rep04.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_004_neutral_rep04_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_001_neutral_rep01_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_001_neutral_rep01_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_005_neutral_rep05.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_009_neutral_rep09_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_000_neutral_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_006_neutral_rep06_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_003_neutral_rep03_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_000_neutral_rep00_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_006_neutral_rep06_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_003_neutral_rep03_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_003_neutral_rep03_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_game_myth__noise8i_washout_game_myth_001_neutral_rep01_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_001_neutral_rep01_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_006_neutral_rep06_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_003_neutral_rep03_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_myth_game__noise8i_washout_myth_game_002_neutral_rep02_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_game_myth__noise8i_washout_game_myth_004_neutral_rep04_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_006_neutral_rep06_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_003_neutral_rep03_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_002_neutral_rep02_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_003_neutral_rep03_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_004_neutral_rep04_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_000_neutral_rep00_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_000_neutral_rep00_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_005_neutral_rep05_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_myth_game__noise8i_washout_myth_game_001_neutral_rep01_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_002_neutral_rep02_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_008_neutral_rep08_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_000_neutral_rep00_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_myth_game__noise8i_washout_myth_game_000_neutral_rep00_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_000_neutral_rep00_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_005_neutral_rep05_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_000_neutral_rep00_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_008_neutral_rep08_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_003_neutral_rep03_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_000_neutral_rep00_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_005_neutral_rep05_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_003_neutral_rep03_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_001_neutral_rep01_memtest_memory_primary_anything_2.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_008_neutral_rep08_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_000_neutral_rep00_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_005_neutral_rep05_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_game_myth__noise8i_washout_game_myth_002_neutral_rep02_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_008_neutral_rep08_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_002_neutral_rep02_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_007_neutral_rep07_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_003_neutral_rep03.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_myth_game__noise8i_washout_myth_game_003_neutral_rep03_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_009_neutral_rep09.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_008_neutral_rep08.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_002_neutral_rep02.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_004_neutral_rep04_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_000_neutral_rep00.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_002_neutral_rep02_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_007_neutral_rep07_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_myth_game__noise2i_washout_myth_game_002_neutral_rep02_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_001_neutral_rep01.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_005_neutral_rep05.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game_myth__noise8i_memprimary_v2_game_myth_002_neutral_rep02_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_myth_game__noise2i_memprimary_v2_myth_game_007_neutral_rep07_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_2_agent_game_myth__noise2i_washout_game_myth_001_neutral_rep01_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_004_neutral_rep04.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_myth_game__noise8i_memprimary_v2_myth_game_002_neutral_rep02_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game_myth__noise2i_memprimary_v2_game_myth_007_neutral_rep07_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/washout_20r_8_agent_game_myth__noise8i_washout_game_myth_000_neutral_rep00_memtest_memory_primary_anything.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_8_agent_game__noise8i_memprimary_v2_game_006_neutral_rep06.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/runs/confirmatory_2_agent_game__noise2i_memprimary_v2_game_007_neutral_rep07.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 1
+    },
+    ".inspector-site/negnoise/runs": {
+      "other_json": 184,
+      "exact_duplicate_paths": 184
+    },
+    "reports/api_audit_reassessment_2026_09_08/settings.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "reports/api_audit_reassessment_2026_09_08/source-files.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "reports/api_audit_reassessment_2026_09_08/format.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "reports/reasoning_cost_pilot_2026_09_08/summary.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    },
+    "reports/reasoning_cost_pilot_2026_09_08/manifest.json": {
+      "other_json": 1,
+      "exact_duplicate_paths": 0
+    }
+  }
+}

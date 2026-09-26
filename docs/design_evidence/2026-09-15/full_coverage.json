@@ -1,0 +1,312 @@
+{
+  "slides": 765,
+  "native_text_nonempty": 658,
+  "comments": 87,
+  "replies": 38,
+  "speaker_notes_nonempty": [
+    695
+  ],
+  "unmapped_comment_ids": [
+    "AAAB-QDCe2A"
+  ],
+  "ranges": [
+    {
+      "first": 1,
+      "last": 29,
+      "purpose": "Original dyadic design and first alternatives",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 30,
+      "last": 63,
+      "purpose": "Long runs, no-defect wording, donor game",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 64,
+      "last": 89,
+      "purpose": "Multitask prompt and themed myths",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 90,
+      "last": 200,
+      "purpose": "Topic/task-order summary and per-run gallery",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 201,
+      "last": 224,
+      "purpose": "Cross-model ceilings and non-cooperative strategies",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 225,
+      "last": 393,
+      "purpose": "Old bugged observation-noise galleries",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 394,
+      "last": 405,
+      "purpose": "Statistical summaries and inconsistent-noise discovery",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 406,
+      "last": 612,
+      "purpose": "Reported fixed bootstrap and negative-noise galleries",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 613,
+      "last": 641,
+      "purpose": "Delta correction, deterministic noise, perturbation and prompt controls",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 642,
+      "last": 648,
+      "purpose": "Neutral and normative directive prompts",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 649,
+      "last": 657,
+      "purpose": "Population history, anonymity and linguistic analyses",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 658,
+      "last": 674,
+      "purpose": "Myth transplant, double memory and further controls",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 675,
+      "last": 695,
+      "purpose": "Paper figure planning and successive bug boundaries",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 696,
+      "last": 707,
+      "purpose": "Founding-myth interpretation and August24 decisions",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 708,
+      "last": 740,
+      "purpose": "Negative-noise returns/resources/sends",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    },
+    {
+      "first": 741,
+      "last": 765,
+      "purpose": "Mean/max and all/ordinary-agent presentation",
+      "native_text_review": "all",
+      "chart_reanalysis": false
+    }
+  ],
+  "team_visual_screening": [
+    {
+      "range": [
+        1,
+        300
+      ],
+      "reviewer": "source_chronology",
+      "contact_sheets": 15
+    },
+    {
+      "range": [
+        301,
+        600
+      ],
+      "reviewer": "independent_review",
+      "contact_sheets": 15
+    },
+    {
+      "range": [
+        601,
+        765
+      ],
+      "reviewer": "lead",
+      "contact_sheets": 9
+    }
+  ],
+  "original_image_count": 662,
+  "visual_method": "screened original-image contact sheets for design prose/labels; not chart metric reanalysis",
+  "visual_contacts": [
+    {
+      "name": "slides001-020.jpg",
+      "image_count": 5
+    },
+    {
+      "name": "slides021-040.jpg",
+      "image_count": 14
+    },
+    {
+      "name": "slides041-060.jpg",
+      "image_count": 16
+    },
+    {
+      "name": "slides061-080.jpg",
+      "image_count": 10
+    },
+    {
+      "name": "slides081-100.jpg",
+      "image_count": 13
+    },
+    {
+      "name": "slides101-120.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides121-140.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides141-160.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides161-180.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides181-200.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides201-220.jpg",
+      "image_count": 14
+    },
+    {
+      "name": "slides221-240.jpg",
+      "image_count": 15
+    },
+    {
+      "name": "slides241-260.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides261-280.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides281-300.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides301-320.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides321-340.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides341-360.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides361-380.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides381-400.jpg",
+      "image_count": 19
+    },
+    {
+      "name": "slides401-420.jpg",
+      "image_count": 18
+    },
+    {
+      "name": "slides421-440.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides441-460.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides461-480.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides481-500.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides501-520.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides521-540.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides541-560.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides561-580.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides581-600.jpg",
+      "image_count": 20
+    },
+    {
+      "name": "slides601-620.jpg",
+      "image_count": 18
+    },
+    {
+      "name": "slides621-640.jpg",
+      "image_count": 13
+    },
+    {
+      "name": "slides641-660.jpg",
+      "image_count": 10
+    },
+    {
+      "name": "slides661-680.jpg",
+      "image_count": 14
+    },
+    {
+      "name": "slides681-700.jpg",
+      "image_count": 15
+    },
+    {
+      "name": "slides701-720.jpg",
+      "image_count": 14
+    },
+    {
+      "name": "slides721-740.jpg",
+      "image_count": 16
+    },
+    {
+      "name": "slides741-760.jpg",
+      "image_count": 14
+    },
+    {
+      "name": "slides761-765.jpg",
+      "image_count": 4
+    }
+  ]
+}

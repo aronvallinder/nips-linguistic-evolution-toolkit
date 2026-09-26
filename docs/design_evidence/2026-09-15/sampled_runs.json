@@ -1,0 +1,200 @@
+{
+  "checked_on": "2026-09-15",
+  "scope": "Three local full-state JSON samples; not a batch census, result reanalysis, or proof of proposed 180-run launch. Missing historical fields remain missing. Saved timestamps have no timezone.",
+  "runs": [
+    {
+      "path": "data/json/sonnet45_8agent_myth_directive_history3_anon_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_8agent_myth_directive_history3_anon_r10_n5_000_neutral_rep00_myth_game_directive_anything.json",
+      "sha256": "91f02efdd97b619c0433523d004a76ebbf09dfe0e69d457f995312006daee608",
+      "recorded_metadata": {
+        "model": "anthropic/claude-sonnet-4.5",
+        "temperature": 0.8,
+        "num_turns": 10,
+        "num_agents": 8,
+        "memory_capacity": 3,
+        "history_policy": "self_and_coplayer",
+        "self_history_window": 3,
+        "coplayer_history_window": 3,
+        "show_agent_names": false,
+        "myth_later_prompt_key": "myth_writing_later_rounds_directive"
+      },
+      "missing_metadata_fields": [
+        "chat_memory_mode",
+        "defector_count",
+        "pairing_mode",
+        "prompt_regime",
+        "noise_config",
+        "noise_semantics",
+        "code_commit",
+        "code_dirty",
+        "llm_request"
+      ],
+      "checks": {
+        "full_state_agents_present": true,
+        "rounds": 10,
+        "agents": 8,
+        "dyads_each_round": 4,
+        "sender_counts": {
+          "Agent_8": 5,
+          "Agent_3": 5,
+          "Agent_4": 5,
+          "Agent_5": 5,
+          "Agent_6": 5,
+          "Agent_7": 5,
+          "Agent_2": 5,
+          "Agent_1": 5
+        },
+        "receiver_counts": {
+          "Agent_6": 5,
+          "Agent_2": 5,
+          "Agent_1": 5,
+          "Agent_7": 5,
+          "Agent_4": 5,
+          "Agent_8": 5,
+          "Agent_5": 5,
+          "Agent_3": 5
+        }
+      },
+      "agent1_first_timestamp": "2026-06-08T11:49:22",
+      "agent1_last_timestamp": "2026-06-08T12:13:54"
+    },
+    {
+      "path": "data/json/sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5/claude-sonnet-4.5/myth_game/sonnet45_8agent_myth_directive_history3_anon_memprimary_r10_n5_000_neutral_rep00_myth_game_directive_memprimary_anything.json",
+      "sha256": "46df87eb9dd682a37c1c9c951c291d61dcfe185db4439a931d8698fdaeee819e",
+      "recorded_metadata": {
+        "model": "anthropic/claude-sonnet-4.5",
+        "temperature": 0.8,
+        "num_turns": 10,
+        "num_agents": 8,
+        "memory_capacity": 6,
+        "chat_memory_mode": "memory_primary",
+        "history_policy": "self_and_coplayer",
+        "self_history_window": 0,
+        "coplayer_history_window": 3,
+        "show_agent_names": false,
+        "myth_later_prompt_key": "myth_writing_later_rounds_directive_memory_primary",
+        "defector_count": 0
+      },
+      "missing_metadata_fields": [
+        "pairing_mode",
+        "prompt_regime",
+        "noise_config",
+        "noise_semantics",
+        "code_commit",
+        "code_dirty",
+        "llm_request"
+      ],
+      "checks": {
+        "full_state_agents_present": true,
+        "rounds": 10,
+        "agents": 8,
+        "dyads_each_round": 4,
+        "sender_counts": {
+          "Agent_4": 5,
+          "Agent_6": 5,
+          "Agent_3": 5,
+          "Agent_8": 5,
+          "Agent_1": 5,
+          "Agent_5": 5,
+          "Agent_2": 5,
+          "Agent_7": 5
+        },
+        "receiver_counts": {
+          "Agent_1": 5,
+          "Agent_5": 5,
+          "Agent_2": 5,
+          "Agent_7": 5,
+          "Agent_3": 5,
+          "Agent_8": 5,
+          "Agent_4": 5,
+          "Agent_6": 5
+        }
+      },
+      "agent1_first_timestamp": "2026-07-17T16:04:23",
+      "agent1_last_timestamp": "2026-07-17T16:16:31"
+    },
+    {
+      "path": "data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909/negative_only_reasoning_rerun_population_myth_game_claude_n5/claude-sonnet-4.5/myth_game/noisy8_crossmodel_negative_twotask_r3/negative_only_reasoning_rerun_population_myth_game_claude_n5_000_neutral_rep00_memtest_memory_primary_anything.json",
+      "sha256": "0b88b8291b276d55ba2956f856b2c08368ed688d6983a3b77e9c77c15656924d",
+      "recorded_metadata": {
+        "model": "anthropic/claude-sonnet-4.5",
+        "temperature": "default",
+        "num_turns": 10,
+        "num_agents": 8,
+        "memory_capacity": 6,
+        "chat_memory_mode": "memory_primary",
+        "history_policy": "self_and_coplayer",
+        "self_history_window": 0,
+        "coplayer_history_window": 3,
+        "show_agent_names": false,
+        "myth_later_prompt_key": "myth_writing_later_rounds_directive_memory_primary",
+        "defector_count": 0,
+        "pairing_mode": "balanced",
+        "prompt_regime": "legacy",
+        "noise_config": {
+          "type": "uniform",
+          "range": 1.0,
+          "direction": "negative",
+          "applies_to": "both",
+          "inform_agents": true
+        },
+        "noise_semantics": "communication",
+        "code_commit": "fd6bdb26f2b0aacda88153217f3d52798d9a776e",
+        "code_dirty": false,
+        "llm_request": {
+          "endpoint": "https://api.anthropic.com",
+          "model": "anthropic/claude-sonnet-4.5",
+          "parameters": {
+            "max_tokens": 64000,
+            "thinking": {
+              "budget_tokens": 8192,
+              "type": "enabled"
+            }
+          },
+          "policy": {
+            "max_output_tokens": 64000,
+            "provider": "anthropic",
+            "reasoning": {
+              "thinking": {
+                "budget_tokens": 8192,
+                "type": "enabled"
+              }
+            },
+            "temperature": "default"
+          },
+          "provider": "anthropic",
+          "provider_model": "claude-sonnet-4-5-20250929",
+          "version": 1
+        }
+      },
+      "missing_metadata_fields": [],
+      "checks": {
+        "full_state_agents_present": true,
+        "rounds": 10,
+        "agents": 8,
+        "dyads_each_round": 4,
+        "sender_counts": {
+          "Agent_4": 5,
+          "Agent_6": 5,
+          "Agent_1": 5,
+          "Agent_2": 5,
+          "Agent_3": 5,
+          "Agent_7": 5,
+          "Agent_5": 5,
+          "Agent_8": 5
+        },
+        "receiver_counts": {
+          "Agent_5": 5,
+          "Agent_7": 5,
+          "Agent_8": 5,
+          "Agent_3": 5,
+          "Agent_1": 5,
+          "Agent_4": 5,
+          "Agent_2": 5,
+          "Agent_6": 5
+        }
+      },
+      "agent1_first_timestamp": "2026-09-10T02:15:42",
+      "agent1_last_timestamp": "2026-09-10T02:40:36"
+    }
+  ]
+}

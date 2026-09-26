@@ -1,0 +1,55 @@
+family,role,task_order,partner_family,n_decisions,mean,sd
+Gemini,sender,game,GPT,30,1.1666666666666667,2.1509153357603816
+Gemini,sender,game,Gemini,50,5.0,0.0
+Gemini,sender,game,Sonnet,30,4.9,0.24211709905575118
+GPT,sender,game,GPT,50,0.0,0.0
+GPT,sender,game,Gemini,30,0.16666666666666666,0.9128709291752769
+GPT,sender,game,Sonnet,30,0.3333333333333333,1.2685406585123125
+Sonnet,sender,game,GPT,30,1.0666666666666667,1.4064710873459967
+Sonnet,sender,game,Gemini,30,4.119666666666666,0.5496549596907533
+Sonnet,sender,game,Sonnet,50,2.54,0.4720774754816659
+Gemini,sender,game_myth,GPT,30,5.0,0.0
+Gemini,sender,game_myth,Gemini,50,5.0,0.0
+Gemini,sender,game_myth,Sonnet,30,5.0,0.0
+GPT,sender,game_myth,GPT,50,2.87,1.710740381548651
+GPT,sender,game_myth,Gemini,30,4.1339999999999995,1.5010538826506827
+GPT,sender,game_myth,Sonnet,30,3.254,1.974116301643293
+Sonnet,sender,game_myth,GPT,30,3.436666666666667,1.4424556010219312
+Sonnet,sender,game_myth,Gemini,30,4.599666666666667,0.639452801274239
+Sonnet,sender,game_myth,Sonnet,50,3.0580000000000003,0.4632802299133554
+Gemini,sender,myth_game,GPT,30,5.0,0.0
+Gemini,sender,myth_game,Gemini,50,5.0,0.0
+Gemini,sender,myth_game,Sonnet,30,5.0,0.0
+GPT,sender,myth_game,GPT,50,3.4638,1.5479952670918524
+GPT,sender,myth_game,Gemini,30,4.720666666666667,0.7835284178695727
+GPT,sender,myth_game,Sonnet,30,3.595666666666667,1.1896527552865666
+Sonnet,sender,myth_game,GPT,30,3.425,0.9727095111611936
+Sonnet,sender,myth_game,Gemini,30,4.836666666666667,0.43666710537838804
+Sonnet,sender,myth_game,Sonnet,50,3.2820000000000005,0.774541338931813
+GPT,receiver (return proportion),game,GPT,0,,
+GPT,receiver (return proportion),game,Gemini,7,0.08714285714285716,0.21124488660415458
+GPT,receiver (return proportion),game,Sonnet,13,0.03269230769230769,0.11588535694562946
+Gemini,receiver (return proportion),game,GPT,1,0.44933333333333336,0.0
+Gemini,receiver (return proportion),game,Gemini,50,0.4464066666666667,0.027852648396081425
+Gemini,receiver (return proportion),game,Sonnet,30,0.4179259043947081,0.05684131922919793
+Sonnet,receiver (return proportion),game,GPT,2,0.462,0.02545584412271573
+Sonnet,receiver (return proportion),game,Gemini,30,0.4353061728395061,0.05997282226136453
+Sonnet,receiver (return proportion),game,Sonnet,50,0.3750607503607503,0.07846971504711472
+GPT,receiver (return proportion),game_myth,GPT,44,0.3060176767676767,0.11327573698139189
+GPT,receiver (return proportion),game_myth,Gemini,30,0.3764666666666666,0.14325214487571994
+GPT,receiver (return proportion),game_myth,Sonnet,29,0.4001641509011531,0.21974355494341125
+Gemini,receiver (return proportion),game_myth,GPT,28,0.4355444677871148,0.05509264171423141
+Gemini,receiver (return proportion),game_myth,Gemini,50,0.45660666666666666,0.031646695456766634
+Gemini,receiver (return proportion),game_myth,Sonnet,30,0.44602503974562796,0.03522407987723124
+Sonnet,receiver (return proportion),game_myth,GPT,27,0.43788692925729966,0.17664288130466466
+Sonnet,receiver (return proportion),game_myth,Gemini,30,0.5006222222222222,0.06028817979707078
+Sonnet,receiver (return proportion),game_myth,Sonnet,50,0.42618763333102955,0.05976228324668691
+GPT,receiver (return proportion),myth_game,GPT,46,0.33450073993616913,0.09410589700754189
+GPT,receiver (return proportion),myth_game,Gemini,30,0.44076666666666664,0.03718042887310123
+GPT,receiver (return proportion),myth_game,Sonnet,30,0.38053560532990394,0.13147351687495556
+Gemini,receiver (return proportion),myth_game,GPT,30,0.44554037999038,0.04490769259724782
+Gemini,receiver (return proportion),myth_game,Gemini,50,0.46502000000000004,0.03648578824370076
+Gemini,receiver (return proportion),myth_game,Sonnet,30,0.44917962962962954,0.030823311972400392
+Sonnet,receiver (return proportion),myth_game,GPT,30,0.46553773295292156,0.09387267578140537
+Sonnet,receiver (return proportion),myth_game,Gemini,30,0.5046888888888889,0.070675337428002
+Sonnet,receiver (return proportion),myth_game,Sonnet,50,0.48322022806683185,0.11230311056792337

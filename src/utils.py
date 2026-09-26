@@ -9,7 +9,7 @@ import urllib.request
 
 from dotenv import load_dotenv
 from openai import APIConnectionError, APIError, OpenAI, RateLimitError
-from src.llm_settings import ENDPOINTS, LLMSettingsError
+from src.llm_settings import ENDPOINTS, LLMSettingsError, is_mixed_plan
 
 try:
     import anthropic
@@ -208,6 +208,8 @@ def create_llm_client(model, provider=None, request_plan=None):
     if request_plan is not None:
         if model != request_plan.as_dict()["model"]:
             raise LLMSettingsError("Model differs from the resolved request plan")
+        if is_mixed_plan(request_plan):
+            raise LLMSettingsError("Mixed request plans need one client per agent; split with agent_request_plans")
         factories = {
             "openai": lambda: _create_openai_client(pinned=True),
             "anthropic": lambda: _create_anthropic_client(pinned=True),
@@ -356,6 +358,20 @@ def _gemini_messages(messages):
     if system_parts:
         system_instruction = {"parts": [{"text": "\n\n".join(system_parts)}]}
     return system_instruction, contents
+
+
+def is_exhausted_quota(error):
+    """Billing exhaustion cannot recover through throttling or retries."""
+    text = str(error).lower()
+    return any(code in text for code in (
+        "credit_balance_exhausted", "insufficient_quota", "no credits remaining",
+        # Anthropic's current wording (seen 2026-09-18): "Your credit balance is too low
+        # to access the Anthropic API."
+        "credit balance is too low",
+        # Google's wording (429 RESOURCE_EXHAUSTED, seen 2026-09-18): "Your prepayment
+        # credits are depleted."
+        "prepayment credits are depleted",
+    ))
 
 
 def call_llm(client, model, temperature, messages, max_retries=3, reasoning_effort="medium"):
@@ -548,6 +564,8 @@ def _call_openai_compatible(
             }
 
         except RateLimitError as e:
+            if is_exhausted_quota(e):
+                raise
             wait_time = (2 ** attempt) + random.uniform(0, 1)
             if attempt < max_retries - 1:
                 print(f"⚠️  Rate limit hit. Waiting {wait_time:.2f}s before retry {attempt + 1}/{max_retries}...")

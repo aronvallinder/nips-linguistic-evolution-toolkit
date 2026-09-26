@@ -186,6 +186,14 @@ def plot_overview(cells, out_path):
 
 
 def main():
+    global CAMPAIGN, OUT
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--campaign", type=Path, default=CAMPAIGN, help="campaign root (<set>/<model>/<task_order>/<params>/)")
+    parser.add_argument("--out", type=Path, default=OUT, help="agg_plots output directory")
+    args = parser.parse_args()
+    CAMPAIGN, OUT = args.campaign.resolve(), args.out.resolve()
     if not CAMPAIGN.is_dir():
         raise SystemExit(f"Campaign dir not found: {CAMPAIGN}\nRun ./scripts/sync_data.sh pull (or re-download nlet-hf-data) first.")
     cells = load_runs()

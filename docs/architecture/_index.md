@@ -1,8 +1,10 @@
-# Architecture docs — index
+# Architecture docs — historical compiled index
 
-Living documents describing the system and knowledge as they are *now*
-(overwrite-in-place; provenance via `_(from researchlog YYYY-MM-DD)_` tags).
-Compiled from `researchlog.md` by /compile-architecture; watermark in
+These documents were compiled from `researchlog.md`; some scientific
+interpretations have since been superseded or narrowed. Start with the
+[current project memory](../project-memory/README.md) and its decision records
+before treating a finding here as current. Provenance uses
+`_(from researchlog YYYY-MM-DD)_` tags; the last compilation watermark is in
 `reports/compile/last-compiled.txt`.
 
 - [transplant-pipeline.md](transplant-pipeline.md) — how seeded cells run: Phase 3 regime contract, seed manifest, runner, cheap probes, refusal-probe protocol.

@@ -65,6 +65,19 @@ if [[ -f "$NEG_SRC/inspector.html" ]]; then
   done
 fi
 
+# Reasoning-rerun inspector (same builder, --campaign/--out) publishes under
+# /reasoning-rerun/ on the same Pages site.
+RR_SRC="$PROJECT_ROOT/data/plots/inspector_reasoning_rerun_20260909"
+if [[ -f "$RR_SRC/inspector.html" ]]; then
+  echo "Syncing reasoning-rerun inspector -> reasoning-rerun/ ..."
+  rm -rf "${CLONE_DIR:?}/reasoning-rerun"
+  mkdir -p "$CLONE_DIR/reasoning-rerun"
+  cp "$RR_SRC/inspector.html" "$CLONE_DIR/reasoning-rerun/index.html"
+  for d in runs run_plots agg_plots; do
+    [[ -d "$RR_SRC/$d" ]] && cp -R "$RR_SRC/$d" "$CLONE_DIR/reasoning-rerun/$d"
+  done
+fi
+
 # --- commit & push (no-op if nothing changed) ------------------------------
 cd "$CLONE_DIR"
 git add -A

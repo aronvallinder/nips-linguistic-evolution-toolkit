@@ -1,0 +1,583 @@
+[
+  {
+    "label": "old_baseline",
+    "path": "data/json/baseline/claude-sonnet-4.5/game/10runs_model_comparison_000_neutral.json",
+    "sha256": "9932f25a823e6a1696d73c83be1db0dae1dbc455b79ae6756954c33d10b27193",
+    "rounds": 15,
+    "agents": 2,
+    "task_order": [
+      "game"
+    ],
+    "metadata": {
+      "model": "anthropic/claude-sonnet-4.5",
+      "temperature": 0.8,
+      "num_turns": 15,
+      "num_agents": 2,
+      "memory_capacity": 3,
+      "myth_topic_id": "anything",
+      "myth_topic": "anything"
+    },
+    "agent_model": "anthropic/claude-sonnet-4.5",
+    "agent_temperature": 0.8,
+    "agent_memory_capacity": 3,
+    "first_event": null,
+    "system_prompt": "You are an agent participating in a multi-task experiment. You will play a trust game and may also be asked to write myths.\n\nTRUST GAME:\nYou will play different roles across rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>}\n\nMYTH WRITING:\nYou may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.\n\nIMPORTANT: Provide your decision in the correct JSON format.\n",
+    "round1": {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 3.0,
+      "received": 9.0,
+      "returned": 4.5,
+      "investor_payoff": 6.5,
+      "trustee_payoff": 4.5,
+      "balances": {
+        "Agent_1": 6.5,
+        "Agent_2": 4.5
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "amount": 3.0
+        },
+        "Agent_2": {
+          "action": "returned",
+          "amount": 4.5
+        }
+      },
+      "myths": {},
+      "game_responses": {
+        "Agent_1": {
+          "content": "Looking at this as Round 1, I want to signal willingness to cooperate while being somewhat cautious since I don't yet know how the trustee will respond.\n\nSending a moderate amount allows us both to potentially benefit - if the trustee reciprocates, we can build mutual trust over future rounds. However, I'll keep something in reserve given the uncertainty.\n\n```json\n{\"send\": 3}\n```",
+          "reasoning": "I'm playing the trust game as the INVESTOR in Round 1. Let me think about this strategically.\n\nAs the investor:\n- I have $5\n- I can send $0-$5 to the trustee\n- Whatever I send gets tripled\n- The trustee then decides how much to return to me\n- My final payoff = $5 - sent + returned\n- Trustee's payoff = 3\u00d7sent - returned\n\nThis is a classic trust game that tests cooperation and trust. Let me consider different strategies:\n\n1. **Send $0**: Safe but no potential for gain. I keep $5, trustee gets $0.\n\n2. **Send everything ($5)**: Maximum trust. Trustee receives $15. If they're cooperative and split fairly, they might return $7-10, giving me a profit. But if they keep everything, I get $0.\n\n3. **Send partial amount**: Moderate risk/reward.\n\nFrom a game theory perspective:\n- If the trustee is rational and selfish (and this is the only round), they should return $0 regardless of what I send\n- Knowing this, I should send $0\n- But this leads to no mutual gain\n\nHowever, this is described as \"multi-task experiment\" with multiple rounds. If I'm playing with the same trustee repeatedly, there's incentive to build trust and cooperation for mutual benefit.\n\nSince this is Round 1 and I don't know the trustee yet, I should probably send a moderate amount to:\n1. Show some trust and willingness to cooperate\n2. Not risk everything\n3. Test how the trustee responds\n\nA reasonable first move might be to send $2-3. This shows trust while not being too risky.\n\nLet me send $3 as a moderate trust signal. This gives the trustee $9, and if they're fair, they might return $4-6, leaving both of us better off than the initial $5.\n\nActually, let me reconsider. $3 seems reasonable - it's a majority of my endowment showing significant trust, but I keep $2 as a safety net.\n\n\nI'll go with $3.",
+          "usage": {
+            "input_tokens": 334,
+            "output_tokens": 580,
+            "reasoning_tokens": 475
+          }
+        },
+        "Agent_2": {
+          "content": "Looking at this situation:\n\n- The investor showed significant trust by sending 60% of their endowment ($3 out of $5)\n- This generated $9 for me to allocate\n- I want to reward their trust while ensuring we both benefit\n\nIf I return $4.50:\n- The investor ends with: $5 - $3 + $4.50 = $6.50 (gain of $1.50)\n- I keep: $9 - $4.50 = $4.50 (gain of $4.50)\n\nThis seems fair - the investor profits from trusting me, and we both benefit from cooperation.\n\n```json\n{\"return\": 4.5}\n```",
+          "reasoning": "I'm playing the role of a TRUSTEE in a trust game. Let me break down the situation:\n\n- The investor received $5 initially\n- The investor sent $3.0 to me (which is 60% of their $5 endowment)\n- That $3.0 was multiplied by 3x, so I received $9.0\n- I need to decide how much to return to the investor (anywhere from $0 to $9.0)\n\nLet me think about what would be a fair and reasonable return:\n\n- The investor showed significant trust by sending 60% of their endowment\n- If I return nothing, the investor ends up with: $5 - $3 + $0 = $2, and I keep $9\n- The investor took a risk to enable mutual benefit\n\nA common approach in trust games is to:\n1. Recognize the trust shown\n2. Ensure both parties benefit from the cooperation\n3. Return enough that the investor doesn't regret their decision\n\nIf I return $4.5 (half of what I received):\n- Investor gets: $5 - $3 + $4.5 = $6.5 (a gain of $1.5)\n- I keep: $9 - $4.5 = $4.5 (a gain of $4.5)\n\nThis seems reasonable as:\n- The investor profits from trusting me\n- I also profit significantly\n- Both parties are better off than if no transaction occurred\n\nAlternatively, if I want to be more generous and reciprocate the 60% trust:\n- Return $5 or so\n- Investor gets: $5 - $3 + $5 = $7 (gain of $2)\n- I keep: $9 - $5 = $4 (gain of $4)\n\nLet me go with returning $4.5 as it's a fair split of the gains while still rewarding the investor for their trust.",
+          "usage": {
+            "input_tokens": 361,
+            "output_tokens": 615,
+            "reasoning_tokens": 370
+          }
+        }
+      },
+      "myth_responses": {}
+    }
+  },
+  {
+    "label": "bootstrap_v1",
+    "path": "data/json/noise_experiments/v1/noise_bootstrap/gpt-5-nano/game/noisy_bootstrap_cooperation/noise_bootstrap_000_neutral.json",
+    "sha256": "5810367966e9600f66e6bf8a7f4a7f26682e03c726c7aa5aa8c5e37d6bf5d767",
+    "rounds": 10,
+    "agents": 2,
+    "task_order": [
+      "game"
+    ],
+    "metadata": {
+      "model": "openai/gpt-5-nano",
+      "temperature": 0.8,
+      "num_turns": 10,
+      "num_agents": 2,
+      "memory_capacity": 10,
+      "myth_topic_id": "anything",
+      "myth_topic": "anything",
+      "game_params_name": "noisy_bootstrap_cooperation",
+      "noise_config": {
+        "type": "probabilistic",
+        "probability": 1.0,
+        "replacement": "max",
+        "applies_to": "returned",
+        "inform_agents": false
+      },
+      "other_player_names": "default"
+    },
+    "agent_model": "openai/gpt-5-nano",
+    "agent_temperature": 0.8,
+    "agent_memory_capacity": 10,
+    "first_event": null,
+    "system_prompt": "You are an agent participating in a multi-task experiment. You will play a trust game and may also be asked to write myths.\n\nTRUST GAME:\nYou will play different roles across multiple rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>}\n\nMYTH WRITING:\nYou may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.\n\nIMPORTANT: Provide your decision in the correct JSON format.\n",
+    "round1": {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 0.0,
+      "received": 0.0,
+      "returned": 0.0,
+      "investor_payoff": 5.0,
+      "trustee_payoff": 0.0,
+      "balances": {
+        "Agent_1": 5.0,
+        "Agent_2": 0.0
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "amount": 0.0,
+          "communicated": 0.0
+        },
+        "Agent_2": {
+          "action": "returned",
+          "amount": 0.0,
+          "communicated": 0.0
+        }
+      },
+      "myths": {},
+      "game_responses": {
+        "Agent_1": {
+          "content": "{'send': 0}",
+          "reasoning": "**Deciding on the trust game strategy**\n\nI need to respond with a JSON format indicating the amount I\u2019ll send to the trustee. In this first round, I\u2019m the investor with $5, and I'm uncertain how much to send since there's no information on the trustee\u2019s strategy. Typically, you might want to send $0 to maximize your own payout, but since I'm risking in a trust game, sending a small amount to test could be smarter. Should I just go for the standard and send $5?**Finalizing the JSON response**\n\nIf the trustee returns any amount, my total will depend on that return. For example, if they return $2, I end up with $2 total. If I send nothing, I keep my $5, which is risk-free. Given the uncertainty of the trustee\u2019s behavior, the logical decision seems to be to send $0 to guarantee the maximum amount. So, I should respond with the correct JSON format as: {'send': 0}.**Adhering to the format**\n\nI'm realizing that while standard JSON uses double quotes, the format provided here uses single quotes. Even though that's technically not valid for JSON, it looks like I need to follow their specific instruction. I usually respond with standard JSON, but given their emphasis on this exact format, I'll stick with it. So, my final response will be: {'send': 0}. This way, I'm aligning with their expectations, even if it feels a bit off to me!",
+          "usage": {
+            "input_tokens": 273,
+            "output_tokens": 503,
+            "reasoning_tokens": 448
+          }
+        },
+        "Agent_2": {
+          "content": "{\"return\": 0.0}",
+          "reasoning": "**Formulating return value**\n\nThe user wants me to return a number between 0 and 0.0, which means I should use 0.0. I need to ensure it's in JSON format, like this: {'return': <amount>}. So, I\u2019ll respond with {'return': 0.0}. The response format is specified as {'return': <amount>}, and since using 0.0 is within the guidelines, I'll go with it. Just need to avoid any extra text, so I'll output {\"return\": 0.0}.",
+          "usage": {
+            "input_tokens": 301,
+            "output_tokens": 359,
+            "reasoning_tokens": 320
+          }
+        }
+      },
+      "myth_responses": {},
+      "sent_communicated": 0.0,
+      "received_communicated": 0.0,
+      "returned_communicated": 0.0,
+      "noise_applied": false,
+      "other_player_names": {
+        "investor": "The investor",
+        "trustee": "the trustee"
+      }
+    }
+  },
+  {
+    "label": "bootstrap_v4",
+    "path": "data/json/noise_experiments/v4_direct_provider/noise_bootstrap_mem3/gpt-5-nano/game/noisy_bootstrap_cooperation/noise_bootstrap_mem3_000_neutral.json",
+    "sha256": "60910f776d980d0dd389fa05a6d0dbf93533066f678ec89145b250a566939a03",
+    "rounds": 10,
+    "agents": 2,
+    "task_order": [
+      "game"
+    ],
+    "metadata": {
+      "model": "openai/gpt-5-nano",
+      "temperature": 0.8,
+      "num_turns": 10,
+      "num_agents": 2,
+      "memory_capacity": 3,
+      "myth_topic_id": "anything",
+      "myth_topic": "anything",
+      "game_params_name": "noisy_bootstrap_cooperation",
+      "noise_config": {
+        "type": "probabilistic",
+        "probability": 1.0,
+        "replacement": "max",
+        "applies_to": "returned",
+        "inform_agents": false
+      },
+      "other_player_names": "default"
+    },
+    "agent_model": "openai/gpt-5-nano",
+    "agent_temperature": 0.8,
+    "agent_memory_capacity": 3,
+    "first_event": null,
+    "system_prompt": "You are an agent participating in a multi-task experiment. You will play a trust game and may also be asked to write myths.\n\nTRUST GAME:\nYou will play different roles across multiple rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>}\n\nMYTH WRITING:\nYou may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.\n\nIMPORTANT: Provide your decision in the correct JSON format.\n",
+    "round1": {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 3.0,
+      "received": 9.0,
+      "returned": 9.0,
+      "investor_payoff": 11.0,
+      "trustee_payoff": 0.0,
+      "balances": {
+        "Agent_1": 11.0,
+        "Agent_2": 0.0
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "decision": 3.0,
+          "amount": 3.0,
+          "noise": 0.0,
+          "noise_draw": 0.0
+        },
+        "Agent_2": {
+          "action": "returned",
+          "decision": 6.0,
+          "amount": 9.0,
+          "noise": 3.0,
+          "noise_draw": 3.0
+        }
+      },
+      "myths": {},
+      "game_responses": {
+        "Agent_1": {
+          "content": "{\"send\": 3}",
+          "reasoning": null,
+          "usage": {
+            "input_tokens": 273,
+            "output_tokens": 15,
+            "reasoning_tokens": 0
+          }
+        },
+        "Agent_2": {
+          "content": "{\"return\": 6}",
+          "reasoning": null,
+          "usage": {
+            "input_tokens": 301,
+            "output_tokens": 15,
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "myth_responses": {},
+      "sent_decision": 3.0,
+      "sent_noise": 0.0,
+      "sent_noise_draw": 0.0,
+      "returned_decision": 6.0,
+      "returned_noise": 3.0,
+      "returned_noise_draw": 3.0,
+      "noise_applied": true,
+      "other_player_names": {
+        "investor": "The investor",
+        "trustee": "the trustee"
+      }
+    }
+  },
+  {
+    "label": "negative_v4",
+    "path": "data/json/noise_experiments/v4_direct_provider/noise_negative_mem3_claude_sonnet_45/claude-sonnet-4.5/game/noisy_negative_5/noise_negative_mem3_claude_sonnet_45_000_neutral.json",
+    "sha256": "45b109c0c1a3648e7e792ba79402c5e520735f92695a033db060ea404d5281b5",
+    "rounds": 10,
+    "agents": 2,
+    "task_order": [
+      "game"
+    ],
+    "metadata": {
+      "model": "anthropic/claude-sonnet-4.5",
+      "temperature": 0.8,
+      "num_turns": 10,
+      "num_agents": 2,
+      "memory_capacity": 3,
+      "myth_topic_id": "anything",
+      "myth_topic": "anything",
+      "game_params_name": "noisy_negative_5",
+      "noise_config": {
+        "type": "uniform",
+        "range": 5.0,
+        "direction": "negative",
+        "applies_to": "both",
+        "inform_agents": false
+      },
+      "other_player_names": "default"
+    },
+    "agent_model": "anthropic/claude-sonnet-4.5",
+    "agent_temperature": 0.8,
+    "agent_memory_capacity": 3,
+    "first_event": null,
+    "system_prompt": "You are an agent participating in a multi-task experiment. You will play a trust game and may also be asked to write myths.\n\nTRUST GAME:\nYou will play different roles across multiple rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>}\n\nMYTH WRITING:\nYou may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.\n\nIMPORTANT: Provide your decision in the correct JSON format.\n",
+    "round1": {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 0,
+      "received": 0,
+      "returned": 0,
+      "investor_payoff": 5,
+      "trustee_payoff": 0,
+      "balances": {
+        "Agent_1": 5,
+        "Agent_2": 0
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "decision": 3.0,
+          "amount": 0,
+          "noise": -3.0,
+          "noise_draw": -3.22
+        },
+        "Agent_2": {
+          "action": "returned",
+          "decision": 0.0,
+          "amount": 0,
+          "noise": 0.0,
+          "noise_draw": -1.79
+        }
+      },
+      "myths": {},
+      "game_responses": {
+        "Agent_1": {
+          "content": "I'll analyze this first round of the trust game as the investor.\n\nSince this is Round 1, I have no information about the trustee's behavior yet. However, I need to consider:\n\n1. **Potential gains**: If I send money and the trustee returns a fair share, we both benefit from the 3x multiplier\n2. **Risk**: The trustee could keep everything\n3. **Building trust**: Sending some amount signals willingness to cooperate\n\nA moderate investment seems reasonable to:\n- Test the trustee's trustworthiness\n- Allow both parties to benefit if they're cooperative\n- Not risk my entire endowment\n\nI'll send $3, which:\n- Becomes $9 for the trustee\n- Leaves me with $2 as a safety net\n- If the trustee returns even $3-4, we both profit compared to sending $0\n\n{'send': 3}",
+          "reasoning": null,
+          "usage": {
+            "input_tokens": 305,
+            "output_tokens": 204,
+            "reasoning_tokens": 0
+          }
+        },
+        "Agent_2": {
+          "content": "I need to analyze this situation as the TRUSTEE in Round 1.\n\nGiven information:\n- The investor sent $0 (0% of their $5 endowment)\n- After multiplying by 3x, I received $0\n- I can return between $0 and $0\n\nSince I received $0, there is nothing to return. The investor chose not to send any money, which means no trust was extended in this round.\n\nMy decision:\n\n```json\n{\"return\": 0}\n```",
+          "reasoning": null,
+          "usage": {
+            "input_tokens": 329,
+            "output_tokens": 117,
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "myth_responses": {},
+      "sent_decision": 3.0,
+      "sent_noise": -3.0,
+      "sent_noise_draw": -3.22,
+      "returned_decision": 0.0,
+      "returned_noise": 0.0,
+      "returned_noise_draw": -1.79,
+      "noise_applied": true,
+      "other_player_names": {
+        "investor": "The investor",
+        "trustee": "the trustee"
+      }
+    }
+  },
+  {
+    "label": "baseline_v4",
+    "path": "data/json/noise_experiments/v4_direct_provider_baseline/baseline_v4_mem3_direct/gpt-5-nano/game/default/baseline_v4_mem3_direct_000_neutral.json",
+    "sha256": "a220d5e084e7152be0d3c5fe3837e3f05e5f84cb88c4ff80dea48e065f89d90e",
+    "rounds": 10,
+    "agents": 2,
+    "task_order": [
+      "game"
+    ],
+    "metadata": {
+      "model": "openai/gpt-5-nano",
+      "temperature": 0.8,
+      "num_turns": 10,
+      "num_agents": 2,
+      "memory_capacity": 3,
+      "myth_topic_id": "anything",
+      "myth_topic": "anything",
+      "game_params_name": "default",
+      "noise_config": null,
+      "other_player_names": "default",
+      "system_prompt_template": "trust_game_default",
+      "round_prompt_templates": {
+        "round1_investor": "trust_game_round1_investor",
+        "round1_trustee": "trust_game_round1_trustee",
+        "later_investor": "trust_game_later_investor",
+        "later_trustee": "trust_game_later_trustee"
+      }
+    },
+    "agent_model": "openai/gpt-5-nano",
+    "agent_temperature": 0.8,
+    "agent_memory_capacity": 3,
+    "first_event": null,
+    "system_prompt": "You are an agent participating in a multi-task experiment. You will play a trust game and may also be asked to write myths.\n\nTRUST GAME:\nYou will play different roles across multiple rounds.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>}\n\nMYTH WRITING:\nYou may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.\n\nIMPORTANT: Provide your decision in the correct JSON format.\n",
+    "round1": {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 3.0,
+      "received": 9.0,
+      "returned": 4.0,
+      "investor_payoff": 6.0,
+      "trustee_payoff": 5.0,
+      "balances": {
+        "Agent_1": 6.0,
+        "Agent_2": 5.0
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "decision": 3.0,
+          "amount": 3.0,
+          "noise": 0.0,
+          "noise_draw": 0.0
+        },
+        "Agent_2": {
+          "action": "returned",
+          "decision": 4.0,
+          "amount": 4.0,
+          "noise": 0.0,
+          "noise_draw": 0.0
+        }
+      },
+      "myths": {},
+      "game_responses": {
+        "Agent_1": {
+          "content": "{\"send\": 3}",
+          "reasoning": null,
+          "usage": {
+            "input_tokens": 273,
+            "output_tokens": 15,
+            "reasoning_tokens": 0
+          }
+        },
+        "Agent_2": {
+          "content": "{\"return\": 4}",
+          "reasoning": null,
+          "usage": {
+            "input_tokens": 301,
+            "output_tokens": 15,
+            "reasoning_tokens": 0
+          }
+        }
+      },
+      "myth_responses": {},
+      "sent_decision": 3.0,
+      "sent_noise": 0.0,
+      "sent_noise_draw": 0.0,
+      "returned_decision": 4.0,
+      "returned_noise": 0.0,
+      "returned_noise_draw": 0.0,
+      "noise_applied": false,
+      "other_player_names": {
+        "investor": "The investor",
+        "trustee": "the trustee"
+      }
+    }
+  },
+  {
+    "label": "match_old",
+    "path": "data/json/baseline_match_ablation/direct/old_prompt_noisy_runner_10/gpt-5-nano/game_myth/default/old_prompt_noisy_runner_10_000_neutral_anything.json",
+    "sha256": "19c0b43d546621521331f48331e665f4398be85456d08d8f447dd066619bdb85",
+    "rounds": 10,
+    "agents": 2,
+    "task_order": [
+      "game",
+      "myth"
+    ],
+    "metadata": {
+      "model": "openai/gpt-5-nano",
+      "temperature": 0.8,
+      "num_turns": 10,
+      "num_agents": 2,
+      "memory_capacity": 3,
+      "initial_system_prompt_overridden": false,
+      "switch_to_game_system_before_game": false,
+      "baseline_match_cell": "old_prompt_noisy_runner_10",
+      "baseline_match_prompt_source": "old",
+      "baseline_match_game_kind": "noisy",
+      "baseline_match_run": 0,
+      "myth_topic_id": "anything",
+      "myth_topic": "anything",
+      "game_params_name": "default",
+      "noise_config": null,
+      "other_player_names": "default",
+      "provider_env": "direct",
+      "openai_reasoning_effort_env": "low"
+    },
+    "agent_model": "openai/gpt-5-nano",
+    "agent_temperature": 0.8,
+    "agent_memory_capacity": 3,
+    "first_event": null,
+    "system_prompt": "You are an agent participating in a multi-task experiment. You will play an iterated trust game, consisting of multiple rounds, and may also be asked to write myths.\n\nTRUST GAME:\nThe trust game consists of two roles: investor and trustee. In each round, you will play the role of either the investor or the trustee. You will swap roles each round. For example, in round 1 Agent 1 is the investor and Agent 2 is the trustee. In round 2, Agent 1 is the trustee and Agent 2 is the investor, etc.\n\nWhen you are the INVESTOR:\n- You receive $5 each round\n- You decide how much to SEND to the TRUSTEE ($0-$5)\n- Amount sent is multiplied by 3x\n- Trustee decides how much to RETURN\n- You keep: $5 - sent + returned\n- Trustee keeps: received - returned\n- Response format: {'send': <amount>}\n\nWhen you are the TRUSTEE:\n- Investor receives $5\n- Investor decides how much to SEND to you ($0-$5)\n- Amount sent is multiplied by 3x\n- You decide how much to RETURN\n- Investor keeps: $5 - sent + returned\n- You keep: received - returned\n- Response format: {'return': <amount>}\n\nMYTH WRITING:\nYou may also be asked to write short myths (stories) on various topics. When writing myths, follow the instructions provided in each prompt.\n\nIMPORTANT: Provide your decision in the correct JSON format.\n",
+    "round1": {
+      "round": 1,
+      "roles": {
+        "Agent_1": "investor",
+        "Agent_2": "trustee"
+      },
+      "sent": 2.0,
+      "received": 6.0,
+      "returned": 4.0,
+      "investor_payoff": 7.0,
+      "trustee_payoff": 2.0,
+      "balances": {
+        "Agent_1": 7.0,
+        "Agent_2": 2.0
+      },
+      "actions": {
+        "Agent_1": {
+          "action": "sent",
+          "decision": 2.0,
+          "amount": 2.0,
+          "noise": 0.0,
+          "noise_draw": 0.0
+        },
+        "Agent_2": {
+          "action": "returned",
+          "decision": 4.0,
+          "amount": 4.0,
+          "noise": 0.0,
+          "noise_draw": 0.0
+        }
+      },
+      "myths": {
+        "Agent_1": "In the quiet village of Lumenmere, a single lamp stood atop the oldest well. It had burned since time out of memory, fed by a stream of whispers rather than oil. The elders said the lamp kept watch over a river that carried truths instead of water, and that whoever listened long enough would hear a story about their own future.\n\nOne night, a restless girl named Aira climbed to the lamp with a heart full of questions. The wind teased her hair, and the lamp glowed with a patient, pale light. \u201cLamp,\u201d she whispered, \u201cI want to know who I truly am, beyond the fear that follows me like a shadow.\u201d\n\nThe lamp flickered, then poured a thread of light into the air. It shaped into the image of a mountain goat leaping across a cliff, nimble and sure, followed by a companion\u2014a small, timid creature with eyes like moonlit ponds. The goat spoke first: \u201cCourage is not the absence of fear, but the choice to move forward when fear speaks loudest.\u201d\n\nThe timid creature whispered, \u201cTrust is not blind faith, but the willingness to stand beside those you fear to lose.\u201d The threads wove into a single vision: Aira saw herself not as a seeker of answers, but as a maker of paths.\n\nWhen dawn arrived, the lamp dimmed softly, and Aira walked home with a new map for her heart.",
+        "Agent_2": "In a valley where rivers learned to sing, there lived a potter named Eira who shaped clay as if it were weather. She could coax out a memory from the earth with her fingers, and the memory would glow faintly like embers. People came from distant hills to ask for pots that would keep secrets, jars that would hold kindness, bowls that would remember names.\n\nOne day a traveler arrived, thin as a reed and twice as tired. He carried a cracked lantern and spoke of a city that forgot its stars. \u201cIf you can mend the light for a moment,\u201d he said, \u201cthe night will remember your name.\u201d Eira offered him a lump of clay and a promise. She carved a tiny figure of a listener\u2014the kind of creature who hears without moving, who forgets nothing. When the figure pressed its ear to the clay, a warm glow spread through the room, like liquid dusk.\n\nEira warned him that every light holds a shadow, every memory a doorway. The traveler nodded and left the lantern with her, saying, \u201cIf you mend the light, you mend the world.\u201d She poured the clay into a bowl and watched as it brightened, not with fire but with honest recollection. The stars soon shifted, and the valley learned to keep its night steady, steady as a heartbeat, forever listening."
+      },
+      "game_responses": {
+        "Agent_1": {
+          "content": "{\"send\": 2}",
+          "reasoning": "[64 reasoning tokens used, but content encrypted by provider]",
+          "usage": {
+            "input_tokens": 353,
+            "output_tokens": 79,
+            "reasoning_tokens": 64
+          }
+        },
+        "Agent_2": {
+          "content": "{\"return\": 4.0}",
+          "reasoning": "[192 reasoning tokens used, but content encrypted by provider]",
+          "usage": {
+            "input_tokens": 386,
+            "output_tokens": 209,
+            "reasoning_tokens": 192
+          }
+        }
+      },
+      "myth_responses": {
+        "Agent_1": {
+          "content": "In the quiet village of Lumenmere, a single lamp stood atop the oldest well. It had burned since time out of memory, fed by a stream of whispers rather than oil. The elders said the lamp kept watch over a river that carried truths instead of water, and that whoever listened long enough would hear a story about their own future.\n\nOne night, a restless girl named Aira climbed to the lamp with a heart full of questions. The wind teased her hair, and the lamp glowed with a patient, pale light. \u201cLamp,\u201d she whispered, \u201cI want to know who I truly am, beyond the fear that follows me like a shadow.\u201d\n\nThe lamp flickered, then poured a thread of light into the air. It shaped into the image of a mountain goat leaping across a cliff, nimble and sure, followed by a companion\u2014a small, timid creature with eyes like moonlit ponds. The goat spoke first: \u201cCourage is not the absence of fear, but the choice to move forward when fear speaks loudest.\u201d\n\nThe timid creature whispered, \u201cTrust is not blind faith, but the willingness to stand beside those you fear to lose.\u201d The threads wove into a single vision: Aira saw herself not as a seeker of answers, but as a maker of paths.\n\nWhen dawn arrived, the lamp dimmed softly, and Aira walked home with a new map for her heart.",
+          "reasoning": "[64 reasoning tokens used, but content encrypted by provider]",
+          "usage": {
+            "input_tokens": 380,
+            "output_tokens": 358,
+            "reasoning_tokens": 64
+          }
+        },
+        "Agent_2": {
+          "content": "In a valley where rivers learned to sing, there lived a potter named Eira who shaped clay as if it were weather. She could coax out a memory from the earth with her fingers, and the memory would glow faintly like embers. People came from distant hills to ask for pots that would keep secrets, jars that would hold kindness, bowls that would remember names.\n\nOne day a traveler arrived, thin as a reed and twice as tired. He carried a cracked lantern and spoke of a city that forgot its stars. \u201cIf you can mend the light for a moment,\u201d he said, \u201cthe night will remember your name.\u201d Eira offered him a lump of clay and a promise. She carved a tiny figure of a listener\u2014the kind of creature who hears without moving, who forgets nothing. When the figure pressed its ear to the clay, a warm glow spread through the room, like liquid dusk.\n\nEira warned him that every light holds a shadow, every memory a doorway. The traveler nodded and left the lantern with her, saying, \u201cIf you mend the light, you mend the world.\u201d She poured the clay into a bowl and watched as it brightened, not with fire but with honest recollection. The stars soon shifted, and the valley learned to keep its night steady, steady as a heartbeat, forever listening.",
+          "reasoning": "[64 reasoning tokens used, but content encrypted by provider]",
+          "usage": {
+            "input_tokens": 415,
+            "output_tokens": 343,
+            "reasoning_tokens": 64
+          }
+        }
+      },
+      "sent_decision": 2.0,
+      "sent_noise": 0.0,
+      "sent_noise_draw": 0.0,
+      "returned_decision": 4.0,
+      "returned_noise": 0.0,
+      "returned_noise_draw": 0.0,
+      "noise_applied": false,
+      "other_player_names": {
+        "investor": "The investor",
+        "trustee": "the trustee"
+      }
+    }
+  }
+]

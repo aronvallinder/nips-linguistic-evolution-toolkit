@@ -15,7 +15,11 @@ Published by scripts/refresh_inspector_site.sh under /negnoise/ on the
 GitHub Pages site.
 
 Usage: python3 scripts/build_negnoise_inspector.py
+       python3 scripts/build_negnoise_inspector.py --campaign <dir> --out <dir> --title "<top bar title>"
+Any campaign with the same <set>/<model>/<task_order>/<params>/ layout works
+(e.g. data/json/noise_experiments/negative_only_crossmodel_reasoning_rerun_20260909).
 """
+import argparse
 import glob
 import json
 import os
@@ -36,6 +40,7 @@ CAMPAIGN = (
     / "negative_only_crossmodel_defectors_n5_20260825"
 )
 OUT = PROJECT_ROOT / "data/plots/inspector_negnoise"
+TITLE = "Negative noise + defectors"
 
 MODELS = ["claude-sonnet-4.5", "gemini-3.7-flash", "gpt-5-nano"]
 MODEL_LABELS = {
@@ -192,6 +197,13 @@ def plot_run(rounds, out_path, title, n_agents):
 
 
 def main():
+    global CAMPAIGN, OUT, TITLE
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--campaign", type=Path, default=CAMPAIGN, help="campaign root (<set>/<model>/<task_order>/<params>/)")
+    parser.add_argument("--out", type=Path, default=OUT, help="inspector output directory")
+    parser.add_argument("--title", default=TITLE, help="top-bar title")
+    args = parser.parse_args()
+    CAMPAIGN, OUT, TITLE = args.campaign.resolve(), args.out.resolve(), args.title
     if not CAMPAIGN.is_dir():
         raise SystemExit(f"Campaign dir not found: {CAMPAIGN}\nRe-download nlet-hf-data first.")
     (OUT / "runs").mkdir(parents=True, exist_ok=True)
@@ -277,14 +289,19 @@ def main():
         "groups": groups,
         "plots": agg,
     }
-    html = HTML_TEMPLATE.replace("__DATA__", json.dumps(D))
+    out_rel = os.path.relpath(OUT, PROJECT_ROOT)
+    html = (
+        HTML_TEMPLATE.replace("__DATA__", json.dumps(D))
+        .replace("__TITLE__", TITLE)
+        .replace("__OUTREL__", out_rel)
+    )
     with open(OUT / "inspector.html", "w") as f:
         f.write(html)
     n_runs = sum(len(v) for v in collected.values())
     print(f"Built inspector with {n_runs} runs -> {OUT}")
 
 
-HTML_TEMPLATE = r"""<!doctype html><html><head><meta charset="utf-8"><title>Negative noise + defectors — run inspector</title><style>
+HTML_TEMPLATE = r"""<!doctype html><html><head><meta charset="utf-8"><title>__TITLE__ — run inspector</title><style>
  *{box-sizing:border-box} body{margin:0;font:14px/1.55 -apple-system,Segoe UI,Roboto,sans-serif;color:#1a1a1a}
  #top{background:#3a2a3f;color:#fff;padding:8px 16px;font-size:13px} #top b{color:#ffd28f} #top a{color:#ffd28f}
  #top select{font-size:12.5px;padding:2px 6px;border-radius:5px;border:1px solid #777;margin:0 4px}
@@ -308,7 +325,7 @@ HTML_TEMPLATE = r"""<!doctype html><html><head><meta charset="utf-8"><title>Nega
  .meta{color:#666;font-size:12.5px}.hint{color:#999;font-size:12px}.plt img{max-width:100%;border:1px solid #eee;border-radius:6px;margin:6px 0}
  img.runplot{max-width:100%;border:1px solid #eee;border-radius:6px}
 </style></head><body>
-<div id="top">🔎 Negative noise + defectors inspector &nbsp;·&nbsp; model:
+<div id="top">🔎 __TITLE__ inspector &nbsp;·&nbsp; model:
  <select id="modelsel" onchange="setModel(this.value)"></select>
  &nbsp;·&nbsp; <a href="#" onclick="showPlots();return false">aggregate plots ▸</a>
  &nbsp;·&nbsp; <a href="../">← main inspector</a></div>
@@ -332,7 +349,7 @@ function buildList(){list.innerHTML='';const groups=D.groups[model]||{};
    el.onclick=async()=>{document.querySelectorAll('.run').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');cur=[g,i];
     view.innerHTML='<p class="hint">Loading '+esc(r.id)+' …</p>';
     try{curRun=await fetchRun(r.file);render();}
-    catch(e){view.innerHTML='<p class="hint">Could not load '+esc(r.file)+' ('+esc(e.message)+'). If viewing from disk, serve the folder instead: <code>python -m http.server -d data/plots/inspector_negnoise 8123</code></p>';}};
+    catch(e){view.innerHTML='<p class="hint">Could not load '+esc(r.file)+' ('+esc(e.message)+'). If viewing from disk, serve the folder instead: <code>python -m http.server -d __OUTREL__ 8123</code></p>';}};
    list.appendChild(el);});}}
 function esc(s){const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;}
 function num(x){return x==null?'–':Math.round(x*100)/100;}
