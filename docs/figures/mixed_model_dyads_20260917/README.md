@@ -63,8 +63,9 @@ Return proportion when the family is the receiver (undefined when nothing arrive
 | Gemini ← GPT | 0.45 (n=1) | 0.44 | 0.45 |
 
 Full tables: `cell_summary.csv`, `family_behaviour.csv`, `round_means.csv`;
-per-decision rows in `decisions.csv`. Figures: `resources_boxplots.png` (the figure-2 boxplot grid: resources per agent, one panel per composition), `sends_and_returns.png`,
-`resources.png`.
+per-decision rows in `decisions.csv`. Figures: `resources_boxplots.png` (the figure-2 boxplot grid: resources per agent, six unique pairings drawn once each, homogeneous controls on the top row and mixed pairings on the bottom row; relaid out 2026-09-22 after the earlier 3×3 version repeated the homogeneous panels), `sends_and_returns.png`,
+`resources.png`. Corrected 2026-09-22: the timing statements above were first read from traces pooled by global round, which place different replicates' first and second turns side by side (the first sender alternates); they now refer to each agent's own turns. Each family's own behaviour inside the mixed dyads, against its homogeneous value, is in
+[`../mixed_model_family_split_20260922/`](../mixed_model_family_split_20260922/README.md).
 
 ## Reading
 
@@ -74,7 +75,7 @@ per-decision rows in `decisions.csv`. Figures: `resources_boxplots.png` (the fig
   Sonnet's own policy, sets the level.
 - **GPT's zero-lock survives a cooperative partner in game-only play.** GPT
   sent $0 in 28 of 30 game-only decisions and returned almost nothing of what
-  Sonnet sent (0.03). Sonnet started at $3 and gave up by round 5 to 8. The
+  Sonnet sent (0.03). Sonnet opened with $2 to $4 and stopped sending after its first to fourth own turn (first $0 in global rounds 4 to 9). The
   mixed dyad ended at 64 of 150, barely above the GPT+GPT floor of 50.
 - **Myth writing breaks the lock in the mixed dyad too.** With a myth task,
   Sonnet+GPT reaches 117 to 120, in the same range as GPT+GPT (107 to 119) and
@@ -83,8 +84,9 @@ per-decision rows in `decisions.csv`. Figures: `resources_boxplots.png` (the fig
 - **Sonnet+Gemini is near the ceiling in every task order** (140 to 148), so
   the myth effect there is at most a few dollars. Gemini keeps sending $5.
 - **Gemini is conditional after all (added 2026-09-18).** Against GPT in
-  game-only play Gemini sends $5 in rounds 1 and 2, receives nothing back, and
-  sends $0 from round 3 on (mean $1.17; GPT sent $0 in 29 of 30 decisions and
+  game-only play Gemini sends $5 on its first turn, receives nothing back, and
+  sends $0 from its second turn on in five of six runs (one run sends $5 twice
+  before stopping; mean $1.17; GPT sent $0 in 29 of 30 decisions and
   returned 0.09). The pair ends at 63, the same floor as Sonnet+GPT. Gemini's
   unconditional $5 in the homogeneous runs was therefore sustained by
   reciprocation, not fixed. With a myth task Gemini+GPT reaches 141 to 147, and

@@ -235,12 +235,13 @@ def plot_boxplot_grid(decisions):
 
     configure_matplotlib()
     finals = decisions[decisions["round"] == 10]
+    # Six unique pairings, each drawn once (2026-09-22 meeting): the homogeneous
+    # controls on one row, the three mixed pairings on the other.
     rows = [
-        ("Sonnet 4.5 with GPT-5 Nano", ["Sonnet+GPT", "GPT+GPT", "Sonnet+Sonnet"]),
-        ("Sonnet 4.5 with Gemini 3.7 Flash", ["Sonnet+Gemini", "Gemini+Gemini", "Sonnet+Sonnet"]),
-        ("Gemini 3.7 Flash with GPT-5 Nano", ["Gemini+GPT", "GPT+GPT", "Gemini+Gemini"]),
+        ("Homogeneous dyads\n(September controls)", ["Sonnet+Sonnet", "GPT+GPT", "Gemini+Gemini"]),
+        ("Mixed dyads", ["Sonnet+GPT", "Sonnet+Gemini", "Gemini+GPT"]),
     ]
-    fig, axes = plt.subplots(3, 3, figsize=(13.5, 11.5), sharey=True, squeeze=False)
+    fig, axes = plt.subplots(2, 3, figsize=(13.5, 8.2), sharey=True, squeeze=False)
     for (partner, compositions), axrow in zip(rows, axes):
         for ax, composition in zip(axrow, compositions):
             counts = []
@@ -261,13 +262,13 @@ def plot_boxplot_grid(decisions):
             kind = "mixed" if "+" in composition and composition.split("+")[0] != composition.split("+")[1] else "homogeneous"
             ax.set_title(f"{composition.replace('+', ' + ')}\n{kind} · n = {counts[0]} per box", fontsize=12, fontweight="bold", pad=8)
         axrow[0].set_ylabel(partner, fontsize=12, fontweight="bold", labelpad=14)
-    fig.suptitle("Final cumulative resources\nMixed-model dyads vs homogeneous dyads · Informed negative-only noise · No defectors · Round 10",
+    fig.suptitle("Final cumulative resources\nHomogeneous vs mixed-model dyads · Informed negative-only noise · No defectors · Round 10",
                  fontsize=15, fontweight="bold")
-    fig.text(.5, .012, "Each dot = one run (n = 6 per mixed box, 5 per homogeneous box; September controls)\n"
+    fig.text(.5, .012, "Each dot = one run (n = 5 per homogeneous box, September controls; 6 per mixed box)\n"
              "Box = middle 50% · Line = median · Whiskers = up to 1.5 × IQR",
              ha="center", fontsize=9, color="#444444")
     fig.supylabel("Cumulative resources per agent", fontsize=12, x=.006)
-    fig.tight_layout(rect=(.045, .045, 1, .935), h_pad=2.2, w_pad=2.4)
+    fig.tight_layout(rect=(.045, .05, 1, .96), h_pad=2.2, w_pad=2.4)
     for ext in ("png", "svg", "pdf"):
         fig.savefig(OUTPUT / f"resources_boxplots.{ext}", dpi=200, bbox_inches="tight")
     plt.close(fig)

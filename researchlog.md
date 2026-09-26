@@ -1,3 +1,50 @@
+### 2026-09-22 — Correction: mixed-dyad timing was read from cohort-pooled traces
+
+**Time:** ~1 h (review fix, no runs).
+
+Supersedes the timing wording in the entries below dated 2026-09-22
+("Gemini … $5 twice, then $0") and 2026-09-17/18 ("Sonnet gives up by round
+5–8"). In a dyad each agent sends every other round and the first sender
+alternates across replicates, so a trace by global round places different
+replicates' first and second turns side by side (found by the PR #32 review).
+Re-read by each agent's own turn:
+
+- Gemini vs GPT, game only: $5 on its first turn, nothing back, then $0 in
+  five of six runs; one run sent $5 twice. It stops after one unreciprocated
+  send, not two.
+- Sonnet vs GPT, game only: opens with $2–4 and stops after its first to
+  fourth own turn (first $0 in global rounds 4–9).
+- Means, pair totals and the adaptation result are unchanged. Traces are now
+  plotted by own turn (`dyad_family_turn_traces_*.png`).
+
+### 2026-09-22 — Result: mixed-model scores are adaptation, not an average of fixed styles
+
+**Time:** ~2 h (figure relayout + family-split analysis, no runs).
+
+Arabella asked (meeting 2026-09-22) whether a mixed dyad's score is just the
+average of two fixed per-model styles or whether each model moves toward its
+partner. `analyses/mixed_dyad_family_split.py` re-aggregates the validated
+mixed-dyad and ladder tables per family; outputs in
+`docs/figures/mixed_model_family_split_20260922/`.
+
+#### Result
+- Adaptation, family-specific. Sonnet sends $2.5 alone, $1.1 vs GPT and $4.1
+  vs Gemini (game-only dyads; $4.6–4.8 vs Gemini with a myth task); its return
+  proportion stays 0.38–0.50. GPT sends ~$0 in game-only dyads whatever the
+  partner, but once a myth task unlocks it sends $4.1–4.7 to Gemini vs $2.9–3.5
+  to another GPT and returns ~0.40 vs ~0.32. Gemini sends $5 everywhere except
+  game-only vs GPT ($5 twice, then $0; mean $1.2).
+- Ladder: Sonnet's game-only sending falls $3.0 → $1.8 as GPTs are added but
+  is unchanged with a myth task; GPT's sending rises with every Gemini added;
+  a lone GPT among seven Sonnets sends $3.2 in game-only play (two or four:
+  ~$1.2). Return proportions of Sonnet and Gemini never move; only GPT's does.
+- Descriptive, n = 5–6 per cell.
+
+#### Figure fix
+- The mixed-dyad resource boxplot (Overleaf Fig. 7) repeated the homogeneous
+  panels in its 3×3 layout (Ed, meeting 2026-09-22). Now a 2×3 grid: homogeneous
+  row, mixed row, each of the six pairings once.
+
 ### 2026-09-18 — Result: why the frontier models end richer — a sending gap driven by prior, escalation and forgiveness, not reasoning
 
 **Time:** ~2.5 hours (data decomposition over the 180 frontier + September finals, literature agent, write-up).
