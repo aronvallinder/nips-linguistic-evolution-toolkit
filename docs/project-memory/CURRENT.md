@@ -22,6 +22,17 @@ and [data audit](../research/mixed_future_data_audit.md).
   figure duplicates Sonnet/Gemini and must show six unique pairings. A frontier
   mixed-model rerun is proposed, not launched (see
   [D010](decisions/010-mixed-model-population-sizes.md)).
+- The **linguistic analysis of the September runs completed** on 2026-09-23
+  (156 myth-bearing homogeneous and mixed runs, 8,519 myths; no new runs,
+  $8.18 judge labelling). Agents take up words from the myth they are shown,
+  across model families too (signature-word uptake beats a permutation null in
+  all 10 family × size cells). In populations, moral stances spread only
+  within a family (dyad matches are confounded by shared games). Myth
+  alignment does not predict cooperation, and with agent-within-run fixed
+  effects neither an agent's own moral nor the shown myth's moral predicts its
+  next move; generous games are followed by generous myths. The human
+  validation of the moral labels is not yet done. See
+  [the results README](../figures/linguistic_analysis_20260923/README.md).
 - **Opus 5.5 check (2026-09-23):** 18 audited runs (replicates 0–2 of the frontier
   matrix, same profile as Opus 5, $31.79). Every cell is within 2 points of Opus 5 on
   the same seeds, with the same task-order ordering; the 2-agent game is more spread
