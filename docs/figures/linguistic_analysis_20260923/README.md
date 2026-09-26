@@ -51,6 +51,103 @@ cross-family exposures in those runs). There, the "shown other family" row
 measures the minority agent picking up majority words, and the 8-agent marker
 test for GPT shown Gemini draws on the 2- and 4-Gemini runs only.
 
+## Design and deviations
+
+No design document was written before the analysis ran. The plan existed only
+as a proposal in the working session with Ivar (2026-09-22, extended
+2026-09-23 to cover all of Arabella's measures), and it is reconstructed here
+from that proposal. Everything was built and run on 2026-09-23. Each entry
+below says whether a choice was **planned**, **added while building** (before
+any result was seen), or **changed after seeing results**. Every change after
+results made a claim narrower or weaker; none strengthened one.
+
+### Planned before running (2026-09-22/23)
+
+- **Data:** all myth-bearing September informed negative-only runs,
+  homogeneous 2- and 8-agent runs as the same-model reference for the mixed
+  runs.
+- **Item 1:** for every myth, compare the myth the agent was shown with
+  comparable unseen myths; embedding closeness and word reuse.
+- **Meme test (mixed runs):** words common in one family's homogeneous myths
+  and near-absent in the other's; is the other family more likely to use them
+  after being shown them? Compared against that family's homogeneous rate and
+  a shuffled-parent null (rewired within the run for populations, swapped
+  across runs for dyads).
+- **Item 2:** extend `analyses/convergence_vs_cooperation.py`: do pairs whose
+  myths are more alike cooperate more, holding partner behaviour fixed?
+- **Item 3:** Arabella's 3-label rubric on every myth with GLM-5.2. Carryover:
+  does the moral at round t predict the move at t+1 beyond the move at t, and
+  does the partner's moral predict it beyond the agent's own history?
+- **Arabella's measures (added to the plan 2026-09-23, before running):**
+  one-sentence moral, drift, stability, uptake, partner distance on full
+  embeddings, giving gap, behaviour by label, label shares instead of her
+  3/2/1 average.
+- **Item 4:** a second judge on every myth; a blinded human sample of about 30
+  myths per label.
+- **Budget:** paid step under $200 with a cost preflight; it came to $8.18.
+
+### Added while building, before any result was seen
+
+- Run list taken from the validated Figure 7/8 tables rather than the run
+  folders, after finding defector variants in the same folders.
+- Comparison myth: same family, same round (8-agent: same run; dyads: same
+  condition, other run). Word reuse counts only words the agent had never used.
+- Marker thresholds: at least 5% of one family's homogeneous myths, at most 1%
+  of the other's, at least 5x rarer; 1,000 permutations.
+- Family style classifier (TF-IDF + logistic regression, run-grouped
+  cross-validation). Not in the plan.
+- Myths under 20 words excluded (one empty GPT response).
+- A reproduction check of Arabella's setup on her 200 June myths before the
+  full run (93% agreement).
+- Judge settings copied from her code (temperature 0, her system prompt, JSON
+  output), reasoning off, called straight through OpenRouter; second judge
+  DeepSeek V4 Flash, a family absent from the runs.
+- Carryover model with run and round fixed effects, a placebo (the co-player's
+  unseen moral) and a reverse model (does a game predict the next myth's
+  moral?).
+
+### Planned but not done
+
+- **Future-exposure control for the marker test.** The shuffled-parent null
+  was run; a control using a myth written after the child (so it could not have
+  been seen) was not. The null covers the same threat for the specific-uptake
+  test, but the extra control is still missing.
+- **Coding whether a partner's moral shows up in the agent's game reasoning**
+  (`analyses/reason_field_coding.py`). Not run.
+- **Human coding of the blinded sample.** The sheet and scorer are ready; the
+  coding itself is still to do (Ivar or Arabella).
+
+### Changed after seeing results (all 2026-09-23)
+
+1. **Carryover fixed effects.** The first model compared agents within a run
+   and showed an agent's own `be generous` moral going with more cooperation
+   (+0.027 send). A review pointed out that inside mixed runs the label can
+   stand in for model family. The main model now compares each agent with
+   itself (agent-within-run fixed effects), and the effect is gone (+0.001).
+   Both versions are in `moral_carryover_models.csv` (column `fe`). The placebo
+   gained a control for the co-player's family.
+2. **Alignment model.** A control for which two families were playing (run ×
+   pair-family fixed effects) was added after seeing the 8-agent same-family
+   giving-gap result. It fell from +0.026 (p = 0.0001) to +0.016 (p = 0.03).
+3. **Across-run correlations.** The pooled correlation came out strongly
+   negative (ρ = −0.72); centring each composition × task order was added to
+   check for a family artefact, and the correlation vanished.
+4. **Moral uptake scope.** The first write-up said morals spread within a
+   family; mixed dyads, which are cross-family, showed the largest match. The
+   claim was narrowed to the one comparison free of shared game history
+   (8-agent myth→game), and dyads were flagged as confounded
+   (`moral_uptake_by_task_order.csv`).
+5. **Robustness checks requested in review:** DeepSeek labels for the label
+   trends, per-run values for the lone-GPT style drift, the classifier's top
+   features, and the per-family split of the alignment result. All were run
+   after the first results; none changed a conclusion.
+6. **Caveats from the independent code review:** comparison myths drop out
+   for majority agents shown a lone minority's myth; the marker baseline is
+   biased low; the marginal alignment result is 1 of 15 tests, not 30.
+7. **Processing fixes with no effect on conclusions:** the moral-summary
+   parser was widened after 59 unparsed responses (33 genuinely empty remain),
+   and the coding key was moved out of git to keep the human coder blind.
+
 ## 1. Partners take up each other's language
 
 `language_reuse_shown_vs_unseen.png`, `reuse_summary.csv`,
