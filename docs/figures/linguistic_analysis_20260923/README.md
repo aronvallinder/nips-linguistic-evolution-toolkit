@@ -147,6 +147,11 @@ results made a claim narrower or weaker; none strengthened one.
 7. **Processing fixes with no effect on conclusions:** the moral-summary
    parser was widened after 59 unparsed responses (33 genuinely empty remain),
    and the coding key was moved out of git to keep the human coder blind.
+8. **Cache safety (2026-09-26, commit 3d45e6e8).** Embedding caches are now
+   reused only when a hash of the model and every text matches, and the judge
+   caches only parseable replies, so the 33 empty summaries would be requested
+   again on a rerun. Both close ways a rerun could silently pair stale data;
+   neither changes a number reported here.
 
 ## 1. Partners take up each other's language
 
