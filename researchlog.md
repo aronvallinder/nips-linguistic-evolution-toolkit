@@ -1,3 +1,18 @@
+### 2026-09-29 — Correction: the "morals follow play" link is weak within agents
+
+**Time:** ~1 h (result-by-result review with Ivar, no runs).
+
+The reverse check in the 2026-09-23 entry ("generous games are followed by
+generous myths, +0.16 per unit send") used run fixed effects, which leave the
+family confound we removed from the carryover model. With agent-within-run
+fixed effects it falls to +0.08 for senders (p = 0.006) and is null for
+receivers with GLM labels, and null for both with DeepSeek. Only senders in
+8-agent mixed runs keep it under both judges (+0.12 and +0.10). "Morals do not
+lead play" stands; "morals follow play" is modest evidence. Separately, the
+after-game alignment link from item 2 exists only in game→myth runs, where
+both myths are written straight after the shared game. Both versions are now
+in `moral_reverse_models*.csv` (column `fe`) and the README.
+
 ### 2026-09-24 — Decision: Opus 5.5 replaces Opus 5 as the frontier Claude model
 
 **Time:** ~0.2 h (decision record only).
