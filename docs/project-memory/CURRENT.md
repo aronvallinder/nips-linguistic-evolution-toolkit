@@ -30,7 +30,8 @@ and [data audit](../research/mixed_future_data_audit.md).
   within a family (dyad matches are confounded by shared games). Myth
   alignment does not predict cooperation, and with agent-within-run fixed
   effects neither an agent's own moral nor the shown myth's moral predicts its
-  next move; generous games are followed by generous myths. The human
+  next move. The reverse link (generous sending → generous next myth) holds
+  within agents only for senders in 8-agent mixed runs. The human
   validation of the moral labels is not yet done. See
   [the results README](../figures/linguistic_analysis_20260923/README.md).
 - **Opus 5.5 check (2026-09-23):** 18 audited runs (replicates 0–2 of the frontier

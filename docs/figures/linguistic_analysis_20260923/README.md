@@ -51,6 +51,90 @@ cross-family exposures in those runs). There, the "shown other family" row
 measures the minority agent picking up majority words, and the 8-agent marker
 test for GPT shown Gemini draws on the 2- and 4-Gemini runs only.
 
+## Design and deviations
+
+No design document existed before the run; the plan below is reconstructed from the 2026-09-22/23 working session.
+
+### Method
+
+**Core comparison (all tests)**
+- Unit: one myth, written by one agent in one round.
+- Shown myth: the myth the agent read before writing, taken from the run's `myth_exposures` record.
+- Unseen myth: a myth by the same family, from the same round, that the agent never read.
+- Unseen myth, 8-agent: another agent's myth in the same run.
+- Unseen myth, dyads: the matching agent's myth in another run of the same condition.
+- Effect: shown minus unseen; shared prompts, model habits and drift cancel out.
+- Statistics: one value per run, mean (±sd over runs), Wilcoxon test over runs.
+
+**1. Language reuse**
+- Word adoption: share of the shown myth's words, new to the agent, that the agent now uses.
+- Meaning: embedding cosine (all-mpnet-base-v2) between the new myth and the shown or unseen myth.
+- Style: a word classifier trained on homogeneous myths scores how much each family reads like its partner.
+
+**Meme test (mixed runs only)**
+- Signature word: in ≥5% of one family's homogeneous myths and ≤1% of the other's, ≥5x rarer.
+- Test: is a signature word adopted more when the shown myth used it than when it did not?
+- Null: replace the shown myth with a random unseen same-family myth, 1,000 times.
+
+**2. Alignment vs cooperation**
+- Input: similarity of the two players' latest myths before a game.
+- Outcomes: amount sent / 5, return proportion, giving gap (|sent/5 − return proportion|).
+- Model: regression with run × pair-family and round fixed effects, errors clustered by run.
+- Direction check: same model with the two players' next myths, written after the game.
+
+**3. Morals and carryover**
+- Labels: Arabella's 3-label rubric and one-sentence moral, verbatim, judged by GLM-5.2.
+- Spread: does the agent's label match the shown myth's label more often than an unseen myth's?
+- Clean spread test: 8-agent myth→game, where the shown myth predates any shared game.
+- Carryover: does the agent's own moral, or the shown myth's moral, predict its next move?
+- Carryover model: agent-within-run and round fixed effects, controlling for its own last move in that role.
+- Placebo: the co-player's own moral, which the agent never saw.
+- Reverse check: does a generous game predict a generous moral in the next myth?
+
+**4. Validation**
+- Second judge: DeepSeek V4 Flash on every myth; agreement and Cohen's κ.
+- Human check: blinded sheet of 90 myths, 30 per label, scored for each judge's precision and recall.
+
+### Planned before running
+
+- Data: all myth-bearing September informed negative-only runs, homogeneous runs as reference.
+- Tests 1–4 above, with the meme test on mixed runs only.
+- Arabella's measures: moral summary, drift, stability, uptake, partner distance, giving gap.
+- Budget under $200 with a cost preflight (actual $8.18).
+
+### Added while building, before any result was seen
+
+- Run list from the validated Figure 7/8 tables, because the run folders also hold defector runs.
+- Signature-word thresholds and 1,000 permutations.
+- The style classifier.
+- Myths under 20 words dropped (one empty GPT response).
+- Reproduction check on Arabella's 200 June myths (93% agreement).
+- Judge settings copied from her code, reasoning off, called directly through OpenRouter.
+- Placebo and reverse check for carryover.
+
+### Planned but not done
+
+- A later-written, never-seen myth as an extra control for the meme test.
+- Coding whether a partner's moral appears in the agent's game reasoning.
+- The human coding pass (sheet and scorer ready; Ivar or Arabella to code).
+
+### Changed after seeing results (2026-09-23 unless dated)
+
+1. Carryover: run fixed effects → agent fixed effects; own-moral effect +0.027 → +0.001.
+2. Placebo: added a control for the co-player's family.
+3. Alignment: added pair-family control; giving-gap result +0.026 (p = 0.0001) → +0.016 (p = 0.03).
+4. Across-run correlations: centred within each cell; pooled ρ = −0.72 vanished.
+5. Moral spread: narrowed to 8-agent myth→game; dyads flagged as confounded by shared games.
+6. Robustness checks: second-judge label trends, per-run style drift, classifier features, per-family alignment; none changed a conclusion.
+7. Review caveats: dropped comparison myths in lone-minority runs, low-biased marker baseline, 1 of 15 tests not 30.
+8. Processing: summary parser widened (33 empty summaries remain); coding key moved out of git.
+9. Cache safety (2026-09-26, 3d45e6e8): caches reused only when inputs match; no reported number changed.
+
+10. Reverse check (2026-09-29): agent fixed effects added during the result-by-result review; pooled +0.16 → +0.08 (senders), DeepSeek null.
+11. After-game alignment (2026-09-29): split by task order; the link exists only in game→myth.
+
+Every change after results narrowed or weakened a claim; none strengthened one.
+
 ## 1. Partners take up each other's language
 
 `language_reuse_shown_vs_unseen.png`, `reuse_summary.csv`,
@@ -151,12 +235,16 @@ Sonnet–Sonnet games in the same run).
   +0.1 similarity, 95% CI 0.003–0.052, p = 0.03). No family shows it on its
   own (GPT, Gemini and Sonnet pairs each null), and it is one of 15
 before-the-game tests.
-- The one consistent link runs the other way in homogeneous dyads: after a
-  generous game the two players' next myths are more alike (+0.086 send per
-  +0.1 similarity, 95% CI 0.031–0.140, p = 0.002). Alignment follows
-  cooperation; it does not lead it. ("After" myths are built slightly
-  differently by task order: in myth→game both players have just read each
-  other's myth; in 8-agent game→myth each read its previous co-player's.)
+- The link that does exist runs the other way, and only in game→myth runs,
+  where both "after" myths are written straight after the shared game: a more
+  generous game is followed by more alike myths (+0.113 send per +0.1
+  similarity in homogeneous dyads, p = 0.001; +0.052 in mixed dyads, p = 0.03;
+  +0.065 in 8-agent same-family games, p = 0.0001). In myth→game, where the
+  "after" myths come a round later and after reading each other's myth, it is
+  absent or slightly negative. Pooled over both orders it is +0.086 (p = 0.002)
+  in homogeneous dyads only. Alignment follows cooperation through shared
+  experience: both players describe the game they just played
+  (`alignment_pair_level.csv`, rows by task order).
 - More alike myths go with a slightly *larger* giving gap in 8-agent
   same-family pairs (homogeneous +0.011 per +0.1 similarity, p = 0.04; mixed
   +0.016, p = 0.03), i.e. less evenly matched giving, not more. Without the
@@ -260,18 +348,25 @@ CSV also holds the run fixed-effect version.
   investor sees in its last three games. So labels carry information about the
   state of play, which is why only the within-agent model can speak to
   carryover.
-- **The strong link runs backwards.** A more cooperative game is followed by a
-  `be generous` myth: +0.16 in the probability of a generous label per unit of
-  send fraction and +0.38 per unit of return proportion (both p < 0.001;
-  DeepSeek +0.16 and +0.31). Myths describe the game just played.
+- **The reverse link is weak once each agent is compared with itself.** Does
+  a more cooperative move predict a `be generous` label in the agent's next
+  myth? With run fixed effects: +0.16 per unit of send fraction and +0.38 per
+  unit of return proportion (both p < 0.001), but that version has the same
+  family confound as the carryover model. With agent-within-run fixed
+  effects: senders +0.08 (p = 0.006) and receivers +0.13 (p = 0.23) with GLM
+  labels; +0.05 (p = 0.20) and +0.23 (p = 0.14) with DeepSeek. Only senders
+  in 8-agent mixed runs keep it under both judges (+0.12, p = 0.001; +0.10,
+  p = 0.03); homogeneous runs show nothing (`moral_reverse_models*.csv`,
+  column `fe`).
 - The single odd estimate in the run fixed-effect table (homogeneous-dyad
   receivers shown a `be cautious` myth, −0.13) rests on 19 cautious myths and
   should not be read.
 
 Reading: myths spread words across families and, in populations, their moral
 stance within a family. But a myth's moral does not steer an agent's next
-decision.
-Morals follow play more than they lead it. This fits the August null on norm
+decision. There are signs that it follows play (generous sending shows up in
+the next myth in mixed populations, and game→myth partners write alike after
+generous games, item 2), but that evidence is modest. This fits the August null on norm
 transmission and the earlier counter-current finding. A causal test still
 needs the seeding design (plant a moral, compare with a placebo).
 
