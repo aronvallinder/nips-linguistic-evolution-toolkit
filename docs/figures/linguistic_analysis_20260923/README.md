@@ -130,6 +130,9 @@ No design document existed before the run; the plan below is reconstructed from 
 8. Processing: summary parser widened (33 empty summaries remain); coding key moved out of git.
 9. Cache safety (2026-09-26, 3d45e6e8): caches reused only when inputs match; no reported number changed.
 
+10. Reverse check (2026-09-29): agent fixed effects added during the result-by-result review; pooled +0.16 → +0.08 (senders), DeepSeek null.
+11. After-game alignment (2026-09-29): split by task order; the link exists only in game→myth.
+
 Every change after results narrowed or weakened a claim; none strengthened one.
 
 ## 1. Partners take up each other's language
@@ -345,18 +348,25 @@ CSV also holds the run fixed-effect version.
   investor sees in its last three games. So labels carry information about the
   state of play, which is why only the within-agent model can speak to
   carryover.
-- **The strong link runs backwards.** A more cooperative game is followed by a
-  `be generous` myth: +0.16 in the probability of a generous label per unit of
-  send fraction and +0.38 per unit of return proportion (both p < 0.001;
-  DeepSeek +0.16 and +0.31). Myths describe the game just played.
+- **The reverse link is weak once each agent is compared with itself.** Does
+  a more cooperative move predict a `be generous` label in the agent's next
+  myth? With run fixed effects: +0.16 per unit of send fraction and +0.38 per
+  unit of return proportion (both p < 0.001), but that version has the same
+  family confound as the carryover model. With agent-within-run fixed
+  effects: senders +0.08 (p = 0.006) and receivers +0.13 (p = 0.23) with GLM
+  labels; +0.05 (p = 0.20) and +0.23 (p = 0.14) with DeepSeek. Only senders
+  in 8-agent mixed runs keep it under both judges (+0.12, p = 0.001; +0.10,
+  p = 0.03); homogeneous runs show nothing (`moral_reverse_models*.csv`,
+  column `fe`).
 - The single odd estimate in the run fixed-effect table (homogeneous-dyad
   receivers shown a `be cautious` myth, −0.13) rests on 19 cautious myths and
   should not be read.
 
 Reading: myths spread words across families and, in populations, their moral
 stance within a family. But a myth's moral does not steer an agent's next
-decision.
-Morals follow play more than they lead it. This fits the August null on norm
+decision. There are signs that it follows play (generous sending shows up in
+the next myth in mixed populations, and game→myth partners write alike after
+generous games, item 2), but that evidence is modest. This fits the August null on norm
 transmission and the earlier counter-current finding. A causal test still
 needs the seeding design (plant a moral, compare with a placebo).
 

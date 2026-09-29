@@ -27,7 +27,7 @@ D. Carryover. For each decision, OLS with SE clustered by run:
    Placebo (8-agent investors): the current co-player's own latest label,
    which the investor never saw, controlling for the co-player's family.
    Reverse check: does cooperation in a game predict the label of the myth
-   written right after it?
+   written right after it? Also fitted both ways (run and agent fixed effects).
 
 Outputs: docs/figures/linguistic_analysis_20260923/moral_*.{csv,png}.
 No API calls; --labels picks the judge file (default GLM-5.2; pass the DeepSeek
@@ -321,23 +321,30 @@ def carryover_models(d: pd.DataFrame) -> pd.DataFrame:
 
 
 def reverse_models(d: pd.DataFrame) -> pd.DataFrame:
-    """Does a generous game predict a 'be generous' myth right after it?"""
+    """Does a generous game predict a 'be generous' myth right after it?
+
+    fe = "run" compares agents within a run; inside mixed runs that lets the
+    label stand in for family (Gemini both sends more and writes generous
+    myths). fe = "agent" (main) compares each agent with itself."""
     import statsmodels.formula.api as smf
     rows = []
-    for st, g in list(d.groupby("setting")) + [("all settings", d)]:
-        for role in ("investor", "trustee"):
-            sub = g[(g["role"] == role)][["coop", "label_after", "own_label", "run_id", "round"]].dropna()
-            sub = sub.assign(generous_after=(sub["label_after"] == "be generous").astype(float),
-                             generous_before=(sub["own_label"] == "be generous").astype(float))
-            if sub["run_id"].nunique() < 8:
-                continue
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                fit = smf.ols("generous_after ~ coop + generous_before + C(run_id) + C(round)", data=sub).fit(
-                    cov_type="cluster", cov_kwds={"groups": pd.factorize(sub["run_id"])[0]})
-            ci = fit.conf_int().loc["coop"]
-            rows.append({"setting": st, "role": role, "coef_coop_on_generous_after": fit.params["coop"],
-                         "ci_low": ci[0], "ci_high": ci[1], "p": fit.pvalues["coop"], "n": int(fit.nobs)})
+    d = d.assign(run_agent=d["run_id"] + "|" + d["agent"])
+    for fe, fe_terms in (("run", " + C(run_id) + C(round)"), ("agent", " + C(run_agent) + C(round)")):
+        for st, g in list(d.groupby("setting")) + [("all settings", d)]:
+            for role in ("investor", "trustee"):
+                sub = g[(g["role"] == role)][["coop", "label_after", "own_label", "run_id", "run_agent", "round"]].dropna()
+                sub = sub.assign(generous_after=(sub["label_after"] == "be generous").astype(float),
+                                 generous_before=(sub["own_label"] == "be generous").astype(float))
+                if sub["run_id"].nunique() < 8:
+                    continue
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore")
+                    fit = smf.ols("generous_after ~ coop + generous_before" + fe_terms, data=sub).fit(
+                        cov_type="cluster", cov_kwds={"groups": pd.factorize(sub["run_id"])[0]})
+                ci = fit.conf_int().loc["coop"]
+                rows.append({"fe": fe, "setting": st, "role": role,
+                             "coef_coop_on_generous_after": fit.params["coop"],
+                             "ci_low": ci[0], "ci_high": ci[1], "p": fit.pvalues["coop"], "n": int(fit.nobs)})
     return pd.DataFrame(rows)
 
 
