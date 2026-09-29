@@ -232,12 +232,16 @@ Sonnet–Sonnet games in the same run).
   +0.1 similarity, 95% CI 0.003–0.052, p = 0.03). No family shows it on its
   own (GPT, Gemini and Sonnet pairs each null), and it is one of 15
 before-the-game tests.
-- The one consistent link runs the other way in homogeneous dyads: after a
-  generous game the two players' next myths are more alike (+0.086 send per
-  +0.1 similarity, 95% CI 0.031–0.140, p = 0.002). Alignment follows
-  cooperation; it does not lead it. ("After" myths are built slightly
-  differently by task order: in myth→game both players have just read each
-  other's myth; in 8-agent game→myth each read its previous co-player's.)
+- The link that does exist runs the other way, and only in game→myth runs,
+  where both "after" myths are written straight after the shared game: a more
+  generous game is followed by more alike myths (+0.113 send per +0.1
+  similarity in homogeneous dyads, p = 0.001; +0.052 in mixed dyads, p = 0.03;
+  +0.065 in 8-agent same-family games, p = 0.0001). In myth→game, where the
+  "after" myths come a round later and after reading each other's myth, it is
+  absent or slightly negative. Pooled over both orders it is +0.086 (p = 0.002)
+  in homogeneous dyads only. Alignment follows cooperation through shared
+  experience: both players describe the game they just played
+  (`alignment_pair_level.csv`, rows by task order).
 - More alike myths go with a slightly *larger* giving gap in 8-agent
   same-family pairs (homogeneous +0.011 per +0.1 similarity, p = 0.04; mixed
   +0.016, p = 0.03), i.e. less evenly matched giving, not more. Without the
